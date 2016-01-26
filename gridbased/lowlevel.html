@@ -175,14 +175,16 @@ all modules and functions available.</p>
 <p>Here, you have one function for each quantum chemistry input type converting
 the input to the <tt class="docutils literal"><span class="pre">QCinfo</span></tt> class (cf. <a class="reference internal" href="../refs/cvars.html#central-variables"><em>Central Variables</em></a>). These
 functions are managed by:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">spin</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Besides choosing the filename and the input type, you can specify, if the function
 should read the occupied <em>and</em> the virtual molecular orbitals (<tt class="docutils literal"><span class="pre">all_mo</span></tt>).
 Moreover, <tt class="docutils literal"><span class="pre">read.main_read</span></tt> forwards all additional keyword arguments (<tt class="docutils literal"><span class="pre">**kwargs</span></tt>)
 to the specific reading function, e.g., you can disable the interactive mode
-in <tt class="docutils literal"><span class="pre">read.read_molden</span></tt>.</p>
+in <tt class="docutils literal"><span class="pre">read.read_molden</span></tt>.
+For unrestricted calculations, the <tt class="docutils literal"><span class="pre">spin</span></tt> keyword can specify, if only
+molecular orbitals of alpha or beta spin shall be read.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p>The main computational functions are not restricted to the <tt class="docutils literal"><span class="pre">QCinfo</span></tt> class.

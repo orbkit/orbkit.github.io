@@ -189,6 +189,23 @@ files of quantum chemical software.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="orbkit.qcinfo.QCinfo.select_spin">
+<tt class="descname">select_spin</tt><big>(</big><em>restricted</em>, <em>spin=None</em><big>)</big><a class="headerlink" href="#orbkit.qcinfo.QCinfo.select_spin" title="Permalink to this definition">¶</a></dt>
+<dd><p>For an unrestricted calculation, the name of the MO
+(&#8216;sym&#8217; keyword in <tt class="docutils literal"><span class="pre">qc.mo_spec</span></tt>) is modified, e.g., 3.1_b for MO 3.1 with
+beta spin and 3.1_a for MO 3.1 with alpha spin.
+For restricted calculation, the &#8216;spin&#8217; keyword from <tt class="docutils literal"><span class="pre">qc.mo_spec</span></tt> is 
+removed.</p>
+<p><strong>Parameters:</strong></p>
+<dl class="docutils">
+<dt>restricted <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>If True, removes the &#8216;spin&#8217; keyword from <tt class="docutils literal"><span class="pre">qc.mo_spec</span></tt>.</dd>
+<dt>spin <span class="classifier-delimiter">:</span> <span class="classifier">{None, &#8216;alpha&#8217;, or &#8216;beta&#8217;}, optional</span></dt>
+<dd>If not None, returns exclusively &#8216;alpha&#8217; or &#8216;beta&#8217; molecular orbitals.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="orbkit.qcinfo.QCinfo.sort_mo_sym">
 <tt class="descname">sort_mo_sym</tt><big>(</big><big>)</big><a class="headerlink" href="#orbkit.qcinfo.QCinfo.sort_mo_sym" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sorts mo_spec by symmetry.</p>
@@ -255,7 +272,7 @@ see <a class="reference external" href="http://physics.nist.gov">http://physics.
 
 <dl class="function">
 <dt id="orbkit.options.check_options">
-<tt class="descclassname">orbkit.options.</tt><tt class="descname">check_options</tt><big>(</big><em>error=&lt;function raise_error at 0x4474cf8&gt;</em>, <em>display=&lt;function print_message at 0x4474d70&gt;</em>, <em>interactive=False</em>, <em>info=True</em>, <em>check_io=True</em><big>)</big><a class="headerlink" href="#orbkit.options.check_options" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">orbkit.options.</tt><tt class="descname">check_options</tt><big>(</big><em>error=&lt;function raise_error at 0x2900050&gt;</em>, <em>display=&lt;function print_message at 0x29000c8&gt;</em>, <em>interactive=False</em>, <em>info=True</em>, <em>check_io=True</em><big>)</big><a class="headerlink" href="#orbkit.options.check_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks options for errors.</p>
 <p><strong>Parameters:</strong></p>
 <blockquote>
@@ -284,7 +301,7 @@ existing file.</dd>
 
 <dl class="function">
 <dt id="orbkit.options.check_if_exists">
-<tt class="descclassname">orbkit.options.</tt><tt class="descname">check_if_exists</tt><big>(</big><em>fid</em>, <em>what=''</em>, <em>error=&lt;type 'exceptions.IOError'&gt;</em>, <em>display=&lt;built-in method write of file object at 0x2b5843d481e0&gt;</em>, <em>interactive=False</em><big>)</big><a class="headerlink" href="#orbkit.options.check_if_exists" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">orbkit.options.</tt><tt class="descname">check_if_exists</tt><big>(</big><em>fid</em>, <em>what=''</em>, <em>error=&lt;type 'exceptions.IOError'&gt;</em>, <em>display=&lt;built-in method write of file object at 0x2b5dd7e561e0&gt;</em>, <em>interactive=False</em><big>)</big><a class="headerlink" href="#orbkit.options.check_if_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks the existence of a file.</p>
 <p><strong>Parameters:</strong></p>
 <blockquote>
@@ -316,7 +333,7 @@ existing file.</dd>
 <h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <dl class="data">
 <dt id="orbkit.options.itypes">
-<tt class="descclassname">orbkit.options.</tt><tt class="descname">itypes</tt><em class="property"> = ['molden', 'aomix', 'gamess', 'gaussian.log', 'gaussian.fchk', 'cclib']</em><a class="headerlink" href="#orbkit.options.itypes" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">orbkit.options.</tt><tt class="descname">itypes</tt><em class="property"> = ['molden', 'aomix', 'gamess', 'gaussian.log', 'gaussian.fchk', 'wfn', 'wfx', 'cclib']</em><a class="headerlink" href="#orbkit.options.itypes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies possible input types.</p>
 </dd></dl>
 
@@ -525,6 +542,8 @@ within the Integer List.</div></blockquote>
 <dd>Specifies the filename for the input file.</dd>
 <dt>all_mo <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
 <dd>If True, all molecular orbitals are returned.</dd>
+<dt>spin <span class="classifier-delimiter">:</span> <span class="classifier">{None, &#8216;alpha&#8217;, or &#8216;beta&#8217;}, optional</span></dt>
+<dd>If not None, returns exclusively &#8216;alpha&#8217; or &#8216;beta&#8217; molecular orbitals.</dd>
 <dt>i_md <span class="classifier-delimiter">:</span> <span class="classifier">int, default=-1</span></dt>
 <dd>Selects the <cite>[AOMix Format]</cite> section of the output file.</dd>
 <dt>interactive <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
@@ -682,6 +701,30 @@ coefficients will be converted.</dd>
 </dd></dl>
 
 <dl class="function">
+<dt id="orbkit.read.read_wfx">
+<tt class="descclassname">orbkit.read.</tt><tt class="descname">read_wfx</tt><big>(</big><em>filename</em>, <em>all_mo=False</em>, <em>spin=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#orbkit.read.read_wfx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads all information desired from a wfn file.</p>
+<p><strong>Parameters:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Specifies the filename for the input file.</dd>
+<dt>all_mo <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>If True, all molecular orbitals are returned.</dd>
+<dt>spin <span class="classifier-delimiter">:</span> <span class="classifier">{None, &#8216;alpha&#8217;, or &#8216;beta&#8217;}, optional</span></dt>
+<dd>If not None, returns exclusively &#8216;alpha&#8217; or &#8216;beta&#8217; molecular orbitals.</dd>
+</dl>
+</div></blockquote>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>qc (class QCinfo) with attributes geo_spec, geo_info, ao_spec, mo_spec, etot :</dt>
+<dd>See <a class="reference internal" href="cvars.html#central-variables"><em>Central Variables</em></a> for details.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
 <dt id="orbkit.read.read_with_cclib">
 <tt class="descclassname">orbkit.read.</tt><tt class="descname">read_with_cclib</tt><big>(</big><em>filename</em>, <em>cclib_parser=None</em>, <em>all_mo=False</em>, <em>spin=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#orbkit.read.read_with_cclib" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads all information desired using cclib.</p>
@@ -705,6 +748,12 @@ coefficients will be converted.</dd>
 <dd>See <a class="reference internal" href="cvars.html#central-variables"><em>Central Variables</em></a> for details.</dd>
 </dl>
 </div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="orbkit.read.spin_check">
+<tt class="descclassname">orbkit.read.</tt><tt class="descname">spin_check</tt><big>(</big><em>spin</em>, <em>restricted</em>, <em>has_alpha</em>, <em>has_beta</em><big>)</big><a class="headerlink" href="#orbkit.read.spin_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if <cite>spin</cite> keyword is valid.</p>
 </dd></dl>
 
 </div>
@@ -736,7 +785,7 @@ direction.</dd>
 
 <dl class="function">
 <dt id="orbkit.grid.center_grid">
-<tt class="descclassname">orbkit.grid.</tt><tt class="descname">center_grid</tt><big>(</big><em>ac</em>, <em>display=&lt;built-in method write of file object at 0x2b5843d481e0&gt;</em><big>)</big><a class="headerlink" href="#orbkit.grid.center_grid" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">orbkit.grid.</tt><tt class="descname">center_grid</tt><big>(</big><em>ac</em>, <em>display=&lt;built-in method write of file object at 0x2b5dd7e561e0&gt;</em><big>)</big><a class="headerlink" href="#orbkit.grid.center_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Centers the grid to the point ac and to the origin (0,0,0).</p>
 </dd></dl>
 
@@ -1188,7 +1237,7 @@ International Journal of Quantum Chemistry, Vol. 54, 83-87 (1995).</p>
 
 <dl class="function">
 <dt id="orbkit.core.l_creator">
-<tt class="descclassname">orbkit.core.</tt><tt class="descname">l_creator</tt><big>(</big><em>geo_spec</em>, <em>ao_spec</em>, <em>sel_ao</em>, <em>exp_list=None</em>, <em>coeff_list=None</em>, <em>at_pos=None</em>, <em>is_vector=False</em>, <em>drv=None</em>, <em>x=None</em>, <em>y=None</em>, <em>z=None</em><big>)</big><a class="headerlink" href="#orbkit.core.l_creator" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">orbkit.core.</tt><tt class="descname">l_creator</tt><big>(</big><em>geo_spec</em>, <em>ao_spec</em>, <em>sel_ao</em>, <em>exp_list=None</em>, <em>coeff_list=None</em>, <em>at_pos=None</em>, <em>is_vector=False</em>, <em>drv=None</em>, <em>is_normalized=None</em>, <em>x=None</em>, <em>y=None</em>, <em>z=None</em><big>)</big><a class="headerlink" href="#orbkit.core.l_creator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the contracted atomic orbitals of quantum number l or its
 derivative with respect to a specific variable (e.g. drv = &#8216;x&#8217;)
 for the atomic orbitals: ao_spec[sel_ao].</p>
@@ -1210,6 +1259,9 @@ else the coefficients from ao_spec[sel_ao] will be used.</dd>
 <dt>at_pos <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape=(3,), optional</span></dt>
 <dd>If not None, xyz-coordinates where the atomic orbital is centered,
 else the position geo_spec[ao_spec[sel_ao][&#8216;atom&#8217;]] will be used.</dd>
+<dt>is_normalized <span class="classifier-delimiter">:</span> <span class="classifier">None or bool, optional </span></dt>
+<dd>If True or (None and ao_spec[sel_ao][&#8216;pnum&#8217;] &lt; 0), assumes the AO to be normalized.
+If False or (None and ao_spec[sel_ao][&#8216;pnum&#8217;] &gt;= 0), normalizes the AO.</dd>
 <dt>is_vector <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
 <dd>If True, a vector grid will be applied.</dd>
 <dt>drv <span class="classifier-delimiter">:</span> <span class="classifier">None or string, {None, &#8216;x&#8217;, &#8216;y&#8217;, &#8216;z&#8217;, &#8216;xx&#8217;, &#8216;yy&#8217;, &#8216;zz&#8217;, &#8216;xy&#8217;, &#8216;xz&#8217;, &#8216;yz&#8217;}, optional</span></dt>
@@ -2447,7 +2499,7 @@ with x, y, and z as vectors.</dd>
 
 <dl class="function">
 <dt id="orbkit.extras.gross_atomic_density">
-<tt class="descclassname">orbkit.extras.</tt><tt class="descname">gross_atomic_density</tt><big>(</big><em>atom</em>, <em>qc</em>, <em>bReturnmo=False</em>, <em>ao_list=None</em>, <em>mo_list=None</em>, <em>x=None</em>, <em>y=None</em>, <em>z=None</em>, <em>is_vector=False</em><big>)</big><a class="headerlink" href="#orbkit.extras.gross_atomic_density" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">orbkit.extras.</tt><tt class="descname">gross_atomic_density</tt><big>(</big><em>atom</em>, <em>qc</em>, <em>bReturnmo=False</em>, <em>ao_list=None</em>, <em>mo_list=None</em>, <em>x=None</em>, <em>y=None</em>, <em>z=None</em>, <em>drv=None</em>, <em>is_vector=False</em><big>)</big><a class="headerlink" href="#orbkit.extras.gross_atomic_density" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the gross atomic density with respect to the selected atoms.</p>
 <div class="math">
 <p><img src="../_images/math/7824363b68ea238416de7eda1618ec7c197aca38.png" alt="\rho^a = \sum_i^{N_{\rm MO}} {\rm occ}_i \cdot \varphi_i^a \cdot \varphi_i"/></p>

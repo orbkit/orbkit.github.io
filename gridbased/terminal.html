@@ -161,7 +161,8 @@ during the calculation.</p>
 <li><a class="reference internal" href="#grid-related-options" id="id2">Grid Related Options</a></li>
 <li><a class="reference internal" href="#molecular-orbital-selection" id="id3">Molecular Orbital Selection</a></li>
 <li><a class="reference internal" href="#derivative-calculation" id="id4">Derivative Calculation</a></li>
-<li><a class="reference internal" href="#additional-options" id="id5">Additional Options</a></li>
+<li><a class="reference internal" href="#spin-density" id="id5">Spin-Density</a></li>
+<li><a class="reference internal" href="#additional-options" id="id6">Additional Options</a></li>
 </ul>
 </div>
 <div class="section" id="input-output">
@@ -181,7 +182,8 @@ automatically added by the program. In order to produce different output types
 within one run, multiple calls of the option <tt class="docutils literal"><span class="pre">--otype=OTYPE</span></tt> are possible.</p>
 <p>The available input file types (<tt class="docutils literal"><span class="pre">--itype=ITYPE</span></tt>) are <strong>molden</strong> (default),
 <strong>aomix</strong> (AOMix file), <strong>gamess</strong> (GAMESS-US output file), <strong>gaussian.log</strong>
-(GAUSSIAN output file) and <strong>gaussian.fchk</strong> (GAUSSIAN formatted checkpoint file).</p>
+(GAUSSIAN output file), <strong>gaussian.fchk</strong> (GAUSSIAN formatted checkpoint file),
+<strong>wfn</strong> and <strong>wfx</strong> files.</p>
 <p>You can choose between standard <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> cube files (<tt class="docutils literal"><span class="pre">--otype=cb</span></tt>),
 <a class="reference external" href="http://www.hdfgroup.org/HDF5/">HDF5</a> files (<tt class="docutils literal"><span class="pre">--otype=h5</span></tt>), or <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> Mesh files (<tt class="docutils literal"><span class="pre">--otype=am</span></tt>).
 Additionally, orbkit can directly create ready to use <a class="reference external" href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a> scripts
@@ -302,6 +304,11 @@ in symmetry one, or you choose it by the
 <p class="last">For <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> and <a class="reference external" href="http://www.msg.chem.iastate.edu/gamess/">Gamess-US</a>, the symmetry labels are used,
 e.g., <tt class="docutils literal"><span class="pre">3.A1</span></tt> for the third orbital in symmetry A1.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For unrestricted calculations, the symmetry labels are extended by <tt class="docutils literal"><span class="pre">_a</span></tt>
+for alpha and by <tt class="docutils literal"><span class="pre">_b</span></tt> for beta molecular orbitals, e.g., <tt class="docutils literal"><span class="pre">3.A1_b</span></tt>.</p>
+</div>
 <p>In the latter case, you can additionally use the keywords <tt class="docutils literal"><span class="pre">homo</span></tt> (highest occupied
 molecular orbital) and <tt class="docutils literal"><span class="pre">lumo</span></tt> (lowest unoccupied molecular orbital), and
 you can select a range of orbitals, e.g., <tt class="docutils literal"><span class="pre">--calc_mo=1:homo-1</span></tt>, which evokes the
@@ -386,8 +393,26 @@ can be invoked by</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="spin-density">
+<h2><a class="toc-backref" href="#id5">Spin-Density</a><a class="headerlink" href="#spin-density" title="Permalink to this headline">¶</a></h2>
+<p>For unrestricted calculations, the spin density and related quantities
+(e.g. derivatives) may be calculated by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>orbkit -i INPUT --spin<span class="o">=</span>alpha
+</pre></div>
+</div>
+<p>for alpha spin density and by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>orbkit -i INPUT --spin<span class="o">=</span>beta
+</pre></div>
+</div>
+<p>for beta spin density.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The usage of the <tt class="docutils literal"><span class="pre">--spin=</span></tt> keyword omits the reading
+of the molecular orbitals of the other spin.</p>
+</div>
+</div>
 <div class="section" id="additional-options">
-<h2><a class="toc-backref" href="#id5">Additional Options</a><a class="headerlink" href="#additional-options" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Additional Options</a><a class="headerlink" href="#additional-options" title="Permalink to this headline">¶</a></h2>
 <p>In the following, two additional features are highlighted.
 On the one hand, the atom-projected electron density can be computed by</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>orbkit -i INPUT --atom_projected_density<span class="o">=</span>INDEX
