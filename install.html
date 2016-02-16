@@ -143,6 +143,12 @@
 <span id="installation-instructions"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we present the manual installation of orbkit on a Unix-like
 system.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>If you use Windows or Python 3.x, please refer to the Cython version of orbkit:</p>
+<blockquote class="last">
+<div><a class="reference external" href="https://github.com/orbkit/orbkit/tree/cython">https://github.com/orbkit/orbkit/tree/cython</a></div></blockquote>
+</div>
 <div class="contents local topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents:</p>
 <ul class="simple">
@@ -179,22 +185,22 @@ will use the home directory. If you want to use a different directory simply rep
 <p>Get a copy of orbkit, either with <a class="reference internal" href="#git">git</a> or using a <a class="reference internal" href="#tarball">tarball</a>. It is strongly
 recommended to use <a class="reference internal" href="#git">git</a>, since this version always contains the newest
 bug fixes and features. If git is not available on your system, the newest
-version can additionally be cloned from <a class="reference external" href="http://sourceforge.net/p/orbkit/code">http://sourceforge.net/p/orbkit/code</a>.</p>
+version can additionally be cloned from <a class="reference external" href="https://github.com/orbkit/orbkit">https://github.com/orbkit/orbkit</a>.</p>
 <blockquote>
 <div><ul id="git">
 <li><p class="first">Using <strong>git</strong>:</p>
 <p>Clone the repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone http://git.code.sf.net/p/orbkit/code orbkit
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/orbkit/orbkit.git
 </pre></div>
 </div>
 </li>
 </ul>
 <ul id="tarball">
 <li><p class="first">Using a <strong>tarball</strong>:</p>
-<p>Download the latest orbkit release and extract the file (<tt class="docutils literal"><span class="pre">v0.3.0</span></tt> has to be
-replaced by your version number):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>wget http://sourceforge.net/projects/orbkit/files/latest/download
-<span class="nv">$ </span>tar xzvf orbkit.v0.3.0.tar.gz
+<p>Download the latest orbkit release and extract the file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>wget https://github.com/orbkit/orbkit/archive/master.zip
+<span class="nv">$ </span>unzip orbkit-master.zip
+<span class="nv">$ </span>mv orbkit-master orbkit
 </pre></div>
 </div>
 </li>

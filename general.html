@@ -143,33 +143,33 @@
 <h1>General Aspects<a class="headerlink" href="#general-aspects" title="Permalink to this headline">¶</a></h1>
 <p>This section lists all available input formats from the several quantum chemistry programs and the
 requirements for their proper processing with orbkit.
-Besides, we have implemented an interface to <a class="reference external" href="http://cclib.sourceforge.net/wiki/index.php/Main_Page">cclib</a>.
+Besides, we have implemented an interface to <a class="reference external" href="https://github.com/cclib/cclib">cclib</a>.
 This platform can extract the data from additional computational chemistry packages.
 At the end of this section, all existing quantities, features and output formats of orbkit are introduced.</p>
 <div class="contents local topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#requirements-for-the-input-files" id="id2">Requirements for the Input Files</a><ul>
-<li><a class="reference internal" href="#cartesian-harmonic-gaussian-basis-sets" id="id3">Cartesian Harmonic Gaussian basis sets</a></li>
-<li><a class="reference internal" href="#real-valued-pure-spherical-harmonic-gaussian-basis-sets" id="id4">Real-Valued (Pure) Spherical Harmonic Gaussian basis sets</a></li>
-<li><a class="reference internal" href="#notes-on-the-input-file-formats" id="id5">Notes on the Input File Formats</a></li>
-<li><a class="reference internal" href="#interface-to-cclib-library" id="id6">Interface to cclib Library</a></li>
+<li><a class="reference internal" href="#requirements-for-the-input-files" id="id1">Requirements for the Input Files</a><ul>
+<li><a class="reference internal" href="#cartesian-harmonic-gaussian-basis-sets" id="id2">Cartesian Harmonic Gaussian basis sets</a></li>
+<li><a class="reference internal" href="#real-valued-pure-spherical-harmonic-gaussian-basis-sets" id="id3">Real-Valued (Pure) Spherical Harmonic Gaussian basis sets</a></li>
+<li><a class="reference internal" href="#notes-on-the-input-file-formats" id="id4">Notes on the Input File Formats</a></li>
+<li><a class="reference internal" href="#interface-to-cclib-library" id="id5">Interface to cclib Library</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#capabilities" id="id7">Capabilities</a><ul>
-<li><a class="reference internal" href="#computable-quantities" id="id8">Computable Quantities</a></li>
-<li><a class="reference internal" href="#options-and-features" id="id9">Options and Features</a></li>
-<li><a class="reference internal" href="#output-formats" id="id10">Output Formats</a></li>
+<li><a class="reference internal" href="#capabilities" id="id6">Capabilities</a><ul>
+<li><a class="reference internal" href="#computable-quantities" id="id7">Computable Quantities</a></li>
+<li><a class="reference internal" href="#options-and-features" id="id8">Options and Features</a></li>
+<li><a class="reference internal" href="#output-formats" id="id9">Output Formats</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="requirements-for-the-input-files">
-<h2><a class="toc-backref" href="#id2">Requirements for the Input Files</a><a class="headerlink" href="#requirements-for-the-input-files" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id1">Requirements for the Input Files</a><a class="headerlink" href="#requirements-for-the-input-files" title="Permalink to this headline">¶</a></h2>
 <p>In order to operate without problems, the input files of orbkit have to fulfill
 some requirements.</p>
 <div class="section" id="cartesian-harmonic-gaussian-basis-sets">
-<h3><a class="toc-backref" href="#id3">Cartesian Harmonic Gaussian basis sets</a><a class="headerlink" href="#cartesian-harmonic-gaussian-basis-sets" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id2">Cartesian Harmonic Gaussian basis sets</a><a class="headerlink" href="#cartesian-harmonic-gaussian-basis-sets" title="Permalink to this headline">¶</a></h3>
 <p>Internally, orbkit works with Cartesian Harmonic Gaussian basis sets. Unless
 otherwise stated (cf. <a class="reference internal" href="refs/cvars.html#qc-ao-spec"><em>Central Variables</em></a> for details), it
 assumes the standard Molden basis function order for the exponents
@@ -205,7 +205,7 @@ limitation).</p>
 </div>
 </div>
 <div class="section" id="real-valued-pure-spherical-harmonic-gaussian-basis-sets">
-<h3><a class="toc-backref" href="#id4">Real-Valued (Pure) Spherical Harmonic Gaussian basis sets</a><a class="headerlink" href="#real-valued-pure-spherical-harmonic-gaussian-basis-sets" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id3">Real-Valued (Pure) Spherical Harmonic Gaussian basis sets</a><a class="headerlink" href="#real-valued-pure-spherical-harmonic-gaussian-basis-sets" title="Permalink to this headline">¶</a></h3>
 <p>orbkit supports Spherical Harmonic Gaussian basis sets currently for
 Gaussian .log files (up to g atomic orbitals). After computing the Cartesian Gaussian basis set,
 it converts the atomic orbitals to a Spherical Harmonic Gaussian basis.
@@ -215,7 +215,7 @@ The conversion procedure is adapted from</p>
 <strong>54</strong>, 83 (1995).</div></blockquote>
 </div>
 <div class="section" id="notes-on-the-input-file-formats">
-<h3><a class="toc-backref" href="#id5">Notes on the Input File Formats</a><a class="headerlink" href="#notes-on-the-input-file-formats" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">Notes on the Input File Formats</a><a class="headerlink" href="#notes-on-the-input-file-formats" title="Permalink to this headline">¶</a></h3>
 <p>Subsequently, you can find a brief overview of all available input file formats
 and some advices for the input file preparation.</p>
 <p><strong>Molden File Format:</strong></p>
@@ -310,15 +310,15 @@ section is present in the .log file, orbkit provides an interactive selection.</
 </div></blockquote>
 </div>
 <div class="section" id="interface-to-cclib-library">
-<h3><a class="toc-backref" href="#id6">Interface to cclib Library</a><a class="headerlink" href="#interface-to-cclib-library" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference external" href="http://cclib.sourceforge.net/wiki/index.php/Main_Page">cclib</a> library is an open source Python package which allows for the parsing and interpreting data of quantum chemistry packages.
+<h3><a class="toc-backref" href="#id5">Interface to cclib Library</a><a class="headerlink" href="#interface-to-cclib-library" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="https://github.com/cclib/cclib">cclib</a> library is an open source Python package which allows for the parsing and interpreting data of quantum chemistry packages.
 It is well checked for multiple versions of different programs.
-The interface for <a class="reference external" href="http://cclib.sourceforge.net/wiki/index.php/Main_Page">cclib</a> that we have implemented converts data extracted with cclib into the data structure of orbkit.
+The interface for <a class="reference external" href="https://github.com/cclib/cclib">cclib</a> that we have implemented converts data extracted with cclib into the data structure of orbkit.
 A tutorial for the usage of this interface is given in <a class="reference internal" href="adtutorials/cclib.html"><em>Tutorial for Input Processing with cclib</em></a>.</p>
 </div>
 </div>
 <div class="section" id="capabilities">
-<h2><a class="toc-backref" href="#id7">Capabilities</a><a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Capabilities</a><a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
 <p>orbkit is designed with a modular structure. This allows to use it not only
 as a standalone version but also to combine its individual  modules or functions
 in user-written Python programs. Each module consists of different functions
@@ -334,7 +334,7 @@ All grid-based quantities and most of the options can be applied in each of thes
 The non grid-based quantities are solely available via the low-level interface.
 The complete list of all quantities, options, and output formats can be seen below.</p>
 <div class="section" id="computable-quantities">
-<h3><a class="toc-backref" href="#id8">Computable Quantities</a><a class="headerlink" href="#computable-quantities" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Computable Quantities</a><a class="headerlink" href="#computable-quantities" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="32%" />
@@ -397,7 +397,7 @@ The complete list of all quantities, options, and output formats can be seen bel
 </table>
 </div>
 <div class="section" id="options-and-features">
-<h3><a class="toc-backref" href="#id9">Options and Features</a><a class="headerlink" href="#options-and-features" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Options and Features</a><a class="headerlink" href="#options-and-features" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="32%" />
@@ -485,7 +485,7 @@ The complete list of all quantities, options, and output formats can be seen bel
 </table>
 </div>
 <div class="section" id="output-formats">
-<h3><a class="toc-backref" href="#id10">Output Formats</a><a class="headerlink" href="#output-formats" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Output Formats</a><a class="headerlink" href="#output-formats" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="32%" />
