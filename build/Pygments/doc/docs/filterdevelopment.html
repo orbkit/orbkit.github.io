@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Write your own filter &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Write your own filter</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/Pygments/doc/docs/filterdevelopment.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="write-your-own-filter">
+<h1>Write your own filter<a class="headerlink" href="#write-your-own-filter" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.7.</span></p>
+</div>
+<p>Writing own filters is very easy. All you have to do is to subclass
+the <cite>Filter</cite> class and override the <cite>filter</cite> method. Additionally a
+filter is instantiated with some keyword arguments you can use to
+adjust the behavior of your filter.</p>
+<div class="section" id="subclassing-filters">
+<h2>Subclassing Filters<a class="headerlink" href="#subclassing-filters" title="Permalink to this headline">¶</a></h2>
+<p>As an example, we write a filter that converts all <cite>Name.Function</cite> tokens
+to normal <cite>Name</cite> tokens to make the output less colorful.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pygments.util</span> <span class="kn">import</span> <span class="n">get_bool_opt</span>
+<span class="kn">from</span> <span class="nn">pygments.token</span> <span class="kn">import</span> <span class="n">Name</span>
+<span class="kn">from</span> <span class="nn">pygments.filter</span> <span class="kn">import</span> <span class="n">Filter</span>
+
+<span class="k">class</span> <span class="nc">UncolorFilter</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="n">Filter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_too</span> <span class="o">=</span> <span class="n">get_bool_opt</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s1">&#39;classtoo&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lexer</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ttype</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ttype</span> <span class="ow">is</span> <span class="n">Name</span><span class="o">.</span><span class="n">Function</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_too</span> <span class="ow">and</span>
+                                          <span class="n">ttype</span> <span class="ow">is</span> <span class="n">Name</span><span class="o">.</span><span class="n">Class</span><span class="p">):</span>
+                <span class="n">ttype</span> <span class="o">=</span> <span class="n">Name</span>
+            <span class="k">yield</span> <span class="n">ttype</span><span class="p">,</span> <span class="n">value</span>
+</pre></div>
+</div>
+<p>Some notes on the <cite>lexer</cite> argument: that can be quite confusing since it doesn&#8217;t
+need to be a lexer instance. If a filter was added by using the <cite>add_filter()</cite>
+function of lexers, that lexer is registered for the filter. In that case
+<cite>lexer</cite> will refer to the lexer that has registered the filter. It <em>can</em> be used
+to access options passed to a lexer. Because it could be <cite>None</cite> you always have
+to check for that case if you access it.</p>
+</div>
+<div class="section" id="using-a-decorator">
+<h2>Using a decorator<a class="headerlink" href="#using-a-decorator" title="Permalink to this headline">¶</a></h2>
+<p>You can also use the <cite>simplefilter</cite> decorator from the <cite>pygments.filter</cite> module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pygments.util</span> <span class="kn">import</span> <span class="n">get_bool_opt</span>
+<span class="kn">from</span> <span class="nn">pygments.token</span> <span class="kn">import</span> <span class="n">Name</span>
+<span class="kn">from</span> <span class="nn">pygments.filter</span> <span class="kn">import</span> <span class="n">simplefilter</span>
+
+
+<span class="nd">@simplefilter</span>
+<span class="k">def</span> <span class="nf">uncolor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lexer</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+    <span class="n">class_too</span> <span class="o">=</span> <span class="n">get_bool_opt</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s1">&#39;classtoo&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ttype</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ttype</span> <span class="ow">is</span> <span class="n">Name</span><span class="o">.</span><span class="n">Function</span> <span class="ow">or</span> <span class="p">(</span><span class="n">class_too</span> <span class="ow">and</span>
+                                      <span class="n">ttype</span> <span class="ow">is</span> <span class="n">Name</span><span class="o">.</span><span class="n">Class</span><span class="p">):</span>
+            <span class="n">ttype</span> <span class="o">=</span> <span class="n">Name</span>
+        <span class="k">yield</span> <span class="n">ttype</span><span class="p">,</span> <span class="n">value</span>
+</pre></div>
+</div>
+<p>The decorator automatically subclasses an internal filter class and uses the
+decorated function as a method for filtering.  (That&#8217;s why there is a <cite>self</cite>
+argument that you probably won&#8217;t end up using in the method.)</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

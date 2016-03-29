@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Use Pygments in Java &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Use Pygments in Java</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/Pygments/doc/docs/java.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="use-pygments-in-java">
+<h1>Use Pygments in Java<a class="headerlink" href="#use-pygments-in-java" title="Permalink to this headline">¶</a></h1>
+<p>Thanks to <a class="reference external" href="http://www.jython.org">Jython</a> it is possible to use Pygments in
+Java.</p>
+<p>This page is a simple tutorial to get an idea of how this works. You can
+then look at the <a class="reference external" href="http://www.jython.org/docs/">Jython documentation</a> for more
+advanced uses.</p>
+<p>Since version 1.5, Pygments is deployed on <a class="reference external" href="http://repo1.maven.org/maven2/org/pygments/pygments/">Maven Central</a> as a JAR, as is Jython
+which makes it a lot easier to create a Java project.</p>
+<p>Here is an example of a <a class="reference external" href="http://www.maven.org">Maven</a> <code class="docutils literal"><span class="pre">pom.xml</span></code> file for a
+project running Pygments:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span>
+         <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0</span>
+<span class="s">                             http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>example<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>example<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.python<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>jython-standalone<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.5.3<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.pygments<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>pygments<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.5<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+<p>The following Java example:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">PythonInterpreter</span> <span class="n">interpreter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PythonInterpreter</span><span class="o">();</span>
+
+<span class="c1">// Set a variable with the content you want to work with</span>
+<span class="n">interpreter</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;code&quot;</span><span class="o">,</span> <span class="n">code</span><span class="o">);</span>
+
+<span class="c1">// Simple use Pygments as you would in Python</span>
+<span class="n">interpreter</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="s">&quot;from pygments import highlight\n&quot;</span>
+    <span class="o">+</span> <span class="s">&quot;from pygments.lexers import PythonLexer\n&quot;</span>
+    <span class="o">+</span> <span class="s">&quot;from pygments.formatters import HtmlFormatter\n&quot;</span>
+    <span class="o">+</span> <span class="s">&quot;\nresult = highlight(code, PythonLexer(), HtmlFormatter())&quot;</span><span class="o">);</span>
+
+<span class="c1">// Get the result that has been set in a variable</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">interpreter</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;result&quot;</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+</pre></div>
+</div>
+<p>will print something like:</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;highlight&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;k&quot;</span><span class="p">&gt;</span>print<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;s&quot;</span><span class="p">&gt;</span><span class="ni">&amp;quot;</span>Hello World<span class="ni">&amp;quot;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

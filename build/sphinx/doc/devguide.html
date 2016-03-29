@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sphinx Developer’s Guide &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Sphinx Developer&#8217;s Guide</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/build/sphinx/doc/devguide.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sphinx-developer-s-guide">
+<h1>Sphinx Developer&#8217;s Guide<a class="headerlink" href="#sphinx-developer-s-guide" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Abstract</p>
+<p>This document describes the development process of Sphinx, a documentation
+system used by developers to document systems used by other developers to
+develop other systems that may also be documented using Sphinx.</p>
+</div>
+<p>The Sphinx source code is managed using Git and is hosted on Github.</p>
+<blockquote>
+<div>git clone git://github.com/sphinx-doc/sphinx</div></blockquote>
+<p class="rubric">Community</p>
+<dl class="docutils">
+<dt>sphinx-users &lt;<a class="reference external" href="mailto:sphinx-users&#37;&#52;&#48;googlegroups&#46;com">sphinx-users<span>&#64;</span>googlegroups<span>&#46;</span>com</a>&gt;</dt>
+<dd>Mailing list for user support.</dd>
+<dt>sphinx-dev &lt;<a class="reference external" href="mailto:sphinx-dev&#37;&#52;&#48;googlegroups&#46;com">sphinx-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a>&gt;</dt>
+<dd>Mailing list for development related discussions.</dd>
+<dt>#sphinx-doc on irc.freenode.net</dt>
+<dd>IRC channel for development questions and user support.</dd>
+</dl>
+<div class="section" id="bug-reports-and-feature-requests">
+<h2>Bug Reports and Feature Requests<a class="headerlink" href="#bug-reports-and-feature-requests" title="Permalink to this headline">¶</a></h2>
+<p>If you have encountered a problem with Sphinx or have an idea for a new
+feature, please submit it to the <a class="reference external" href="https://github.com/sphinx-doc/sphinx/issues">issue tracker</a> on Github or discuss it
+on the sphinx-dev mailing list.</p>
+<p>For bug reports, please include the output produced during the build process
+and also the log file Sphinx creates after it encounters an un-handled
+exception.  The location of this file should be shown towards the end of the
+error message.</p>
+<p>Including or providing a link to the source files involved may help us fix the
+issue.  If possible, try to create a minimal project that produces the error
+and post that instead.</p>
+</div>
+<div class="section" id="contributing-to-sphinx">
+<h2>Contributing to Sphinx<a class="headerlink" href="#contributing-to-sphinx" title="Permalink to this headline">¶</a></h2>
+<p>The recommended way for new contributors to submit code to Sphinx is to fork
+the repository on Github and then submit a pull request after
+committing the changes.  The pull request will then need to be approved by one
+of the core developers before it is merged into the main repository.</p>
+<ol class="arabic simple">
+<li>Check for open issues or open a fresh issue to start a discussion around a
+feature idea or a bug.</li>
+<li>If you feel uncomfortable or uncertain about an issue or your changes, feel
+free to email <a class="reference external" href="mailto:sphinx-dev&#37;&#52;&#48;googlegroups&#46;com">sphinx-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a>.</li>
+<li>Fork <a class="reference external" href="https://github.com/sphinx-doc/sphinx">the repository</a> on Github to start making your changes to the
+<strong>master</strong> branch for next major version, or <strong>stable</strong> branch for next
+minor version.</li>
+<li>Write a test which shows that the bug was fixed or that the feature works
+as expected.</li>
+<li>Send a pull request and bug the maintainer until it gets merged and
+published. Make sure to add yourself to <a class="reference external" href="https://github.com/sphinx-doc/sphinx/blob/master/AUTHORS">AUTHORS</a> and the change to
+<a class="reference external" href="https://github.com/sphinx-doc/sphinx/blob/master/CHANGES">CHANGES</a>.</li>
+</ol>
+<div class="section" id="getting-started">
+<h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
+<p>These are the basic steps needed to start developing on Sphinx.</p>
+<ol class="arabic">
+<li><p class="first">Create an account on Github.</p>
+</li>
+<li><p class="first">Fork the main Sphinx repository (<a class="reference external" href="https://github.com/sphinx-doc/sphinx">sphinx-doc/sphinx</a>) using the Github interface.</p>
+</li>
+<li><p class="first">Clone the forked repository to your machine.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">sphinx</span>
+<span class="n">cd</span> <span class="n">sphinx</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Checkout the appropriate branch.</p>
+<p>For changes that should be included in the next minor release (namely bug
+fixes), use the <code class="docutils literal"><span class="pre">stable</span></code> branch.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">stable</span>
+</pre></div>
+</div>
+<p>For new features or other substantial changes that should wait until the
+next major release, use the <code class="docutils literal"><span class="pre">master</span></code> branch.</p>
+</li>
+<li><p class="first">Optional: setup a virtual environment.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="o">~/</span><span class="n">sphinxenv</span>
+<span class="o">.</span> <span class="o">~/</span><span class="n">sphinxenv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a new working branch.  Choose any name you like.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">feature</span><span class="o">-</span><span class="n">xyz</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Hack, hack, hack.</p>
+<p>For tips on working with the code, see the <a class="reference internal" href="#coding-guide">Coding Guide</a>.</p>
+</li>
+<li><p class="first">Test, test, test.  Possible steps:</p>
+<ul>
+<li><p class="first">Run the unit tests:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nose</span> <span class="n">mock</span>
+<span class="n">make</span> <span class="n">test</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Build the documentation and check the output for different builders:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">doc</span>
+<span class="n">make</span> <span class="n">clean</span> <span class="n">html</span> <span class="n">latexpdf</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Run the unit tests under different Python environments using
+<strong class="program">tox</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">tox</span>
+<span class="n">tox</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add a new unit test in the <code class="docutils literal"><span class="pre">tests</span></code> directory if you can.</p>
+</li>
+<li><p class="first">For bug fixes, first add a test that fails without your changes and passes
+after they are applied.</p>
+</li>
+<li><p class="first">Tests that need a sphinx-build run should be integrated in one of the
+existing test modules if possible.  New tests that to <code class="docutils literal"><span class="pre">&#64;with_app</span></code> and
+then <code class="docutils literal"><span class="pre">build_all</span></code> for a few assertions are not good since <em>the test suite
+should not take more than a minute to run</em>.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Please add a bullet point to <code class="file docutils literal"><span class="pre">CHANGES</span></code> if the fix or feature is not
+trivial (small doc updates, typo fixes).  Then commit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;#42: Add useful new feature that does this.&#39;</span>
+</pre></div>
+</div>
+<p>Github recognizes certain phrases that can be used to automatically
+update the issue tracker.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;Closes #42: Fix invalid markup in docstring of Foo.bar.&#39;</span>
+</pre></div>
+</div>
+<p>would close issue #42.</p>
+</li>
+<li><p class="first">Push changes in the branch to your forked repository on Github.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">feature</span><span class="o">-</span><span class="n">xyz</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Submit a pull request from your branch to the respective branch (<code class="docutils literal"><span class="pre">master</span></code>
+or <code class="docutils literal"><span class="pre">stable</span></code>) on <code class="docutils literal"><span class="pre">sphinx-doc/sphinx</span></code> using the Github interface.</p>
+</li>
+<li><p class="first">Wait for a core developer to review your changes.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="core-developers">
+<h3>Core Developers<a class="headerlink" href="#core-developers" title="Permalink to this headline">¶</a></h3>
+<p>The core developers of Sphinx have write access to the main repository.  They
+can commit changes, accept/reject pull requests, and manage items on the issue
+tracker.</p>
+<p>You do not need to be a core developer or have write access to be involved in
+the development of Sphinx.  You can submit patches or create pull requests
+from forked repositories and have a core developer add the changes for you.</p>
+<p>The following are some general guidelines for core developers:</p>
+<ul class="simple">
+<li>Questionable or extensive changes should be submitted as a pull request
+instead of being committed directly to the main repository.  The pull
+request should be reviewed by another core developer before it is merged.</li>
+<li>Trivial changes can be committed directly but be sure to keep the repository
+in a good working state and that all tests pass before pushing your changes.</li>
+<li>When committing code written by someone else, please attribute the original
+author in the commit message and any relevant <code class="file docutils literal"><span class="pre">CHANGES</span></code> entry.</li>
+</ul>
+</div>
+<div class="section" id="locale-updates">
+<h3>Locale updates<a class="headerlink" href="#locale-updates" title="Permalink to this headline">¶</a></h3>
+<p>The parts of messages in Sphinx that go into builds are translated into several
+locales.  The translations are kept as gettext <code class="docutils literal"><span class="pre">.po</span></code> files translated from the
+master template <code class="docutils literal"><span class="pre">sphinx/locale/sphinx.pot</span></code>.</p>
+<p>Sphinx uses <a class="reference external" href="http://babel.edgewall.org">Babel</a> to extract messages and
+maintain the catalog files.  It is integrated in <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
+<ul class="simple">
+<li>Use <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">extract_messages</span></code> to update the <code class="docutils literal"><span class="pre">.pot</span></code> template.</li>
+<li>Use <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">update_catalog</span></code> to update all existing language
+catalogs in <code class="docutils literal"><span class="pre">sphinx/locale/*/LC_MESSAGES</span></code> with the current messages in the
+template file.</li>
+<li>Use <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">compile_catalog</span></code> to compile the <code class="docutils literal"><span class="pre">.po</span></code> files to binary
+<code class="docutils literal"><span class="pre">.mo</span></code> files and <code class="docutils literal"><span class="pre">.js</span></code> files.</li>
+</ul>
+<p>When an updated <code class="docutils literal"><span class="pre">.po</span></code> file is submitted, run compile_catalog to commit both
+the source and the compiled catalogs.</p>
+<p>When a new locale is submitted, add a new directory with the ISO 639-1 language
+identifier and put <code class="docutils literal"><span class="pre">sphinx.po</span></code> in there.  Don&#8217;t forget to update the possible
+values for <a href="#id1"><span class="problematic" id="id2">:confval:`language`</span></a> in <code class="docutils literal"><span class="pre">doc/config.rst</span></code>.</p>
+<p>The Sphinx core messages can also be translated on <a class="reference external" href="https://www.transifex.com/">Transifex</a>.  There exists a client tool named <code class="docutils literal"><span class="pre">tx</span></code> in the
+Python package &#8220;transifex_client&#8221;, which can be used to pull translations in
+<code class="docutils literal"><span class="pre">.po</span></code> format from Transifex.  To do this, go to <code class="docutils literal"><span class="pre">sphinx/locale</span></code> and then run
+<code class="docutils literal"><span class="pre">tx</span> <span class="pre">pull</span> <span class="pre">-f</span> <span class="pre">-l</span> <span class="pre">LANG</span></code> where LANG is an existing language identifier.  It is
+good practice to run <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">update_catalog</span></code> afterwards to make sure
+the <code class="docutils literal"><span class="pre">.po</span></code> file has the canonical Babel formatting.</p>
+</div>
+</div>
+<div class="section" id="coding-guide">
+<h2>Coding Guide<a class="headerlink" href="#coding-guide" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Try to use the same code style as used in the rest of the project.  See the
+<a class="reference external" href="http://flask.pocoo.org/docs/styleguide/">Pocoo Styleguide</a> for more information.</li>
+<li>For non-trivial changes, please update the <code class="file docutils literal"><span class="pre">CHANGES</span></code> file.  If your
+changes alter existing behavior, please document this.</li>
+<li>New features should be documented.  Include examples and use cases where
+appropriate.  If possible, include a sample that is displayed in the
+generated output.</li>
+<li>When adding a new configuration variable, be sure to document it and update
+<code class="file docutils literal"><span class="pre">sphinx/quickstart.py</span></code> if it&#8217;s important enough.</li>
+<li>Use the included <strong class="program">utils/check_sources.py</strong> script to check for
+common formatting issues (trailing whitespace, lengthy lines, etc).</li>
+<li>Add appropriate unit tests.</li>
+</ul>
+<div class="section" id="debugging-tips">
+<h3>Debugging Tips<a class="headerlink" href="#debugging-tips" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Delete the build cache before building documents if you make changes in the
+code by running the command <code class="docutils literal"><span class="pre">make</span> <span class="pre">clean</span></code> or using the
+<a class="reference internal" href="invocation.html#cmdoption-sphinx-build-E"><code class="xref std std-option docutils literal"><span class="pre">sphinx-build</span> <span class="pre">-E</span></code></a> option.</p>
+</li>
+<li><p class="first">Use the <a class="reference internal" href="invocation.html#cmdoption-sphinx-build-P"><code class="xref std std-option docutils literal"><span class="pre">sphinx-build</span> <span class="pre">-P</span></code></a> option to run Pdb on exceptions.</p>
+</li>
+<li><p class="first">Use <code class="docutils literal"><span class="pre">node.pformat()</span></code> and <code class="docutils literal"><span class="pre">node.asdom().toxml()</span></code> to generate a printable
+representation of the document structure.</p>
+</li>
+<li><p class="first">Set the configuration variable <a href="#id4"><span class="problematic" id="id5">:confval:`keep_warnings`</span></a> to <code class="docutils literal"><span class="pre">True</span></code> so
+warnings will be displayed in the generated output.</p>
+</li>
+<li><p class="first">Set the configuration variable <a href="#id6"><span class="problematic" id="id7">:confval:`nitpicky`</span></a> to <code class="docutils literal"><span class="pre">True</span></code> so that Sphinx
+will complain about references without a known target.</p>
+</li>
+<li><p class="first">Set the debugging options in the <a class="reference external" href="http://docutils.sourceforge.net/docs/user/config.html">Docutils configuration file</a>.</p>
+</li>
+<li><p class="first">JavaScript stemming algorithms in <cite>sphinx/search/*.py</cite> (except <cite>en.py</cite>) are
+generated by this
+<a class="reference external" href="https://github.com/shibukawa/snowball">modified snowballcode generator</a>.
+Generated <a class="reference external" href="http://jsx.github.io/">JSX</a> files are
+in <a class="reference external" href="https://github.com/shibukawa/snowball-stemmer.jsx">this repository</a>.
+You can get the resulting JavaScript files using the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ npm install
+$ node_modules/.bin/grunt build <span class="c1"># -&gt; dest/*.global.js</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developing extensions for Sphinx &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Developing extensions for Sphinx</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/sphinx/doc/extdev/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developing-extensions-for-sphinx">
+<span id="dev-extensions"></span><h1>Developing extensions for Sphinx<a class="headerlink" href="#developing-extensions-for-sphinx" title="Permalink to this headline">¶</a></h1>
+<p>Since many projects will need special features in their documentation, Sphinx is
+designed to be extensible on several levels.</p>
+<p>This is what you can do in an extension: First, you can add new
+<a class="reference internal" href="../glossary.html#term-builder"><span class="xref std std-term">builder</span></a>s to support new output formats or actions on the parsed
+documents.  Then, it is possible to register custom reStructuredText roles and
+directives, extending the markup.  And finally, there are so-called &#8220;hook
+points&#8221; at strategic places throughout the build process, where an extension can
+register a hook and run specialized code.</p>
+<p>An extension is simply a Python module.  When an extension is loaded, Sphinx
+imports this module and executes its <code class="docutils literal"><span class="pre">setup()</span></code> function, which in turn
+notifies Sphinx of everything the extension offers &#8211; see the extension tutorial
+for examples.</p>
+<p>The configuration file itself can be treated as an extension if it contains a
+<code class="docutils literal"><span class="pre">setup()</span></code> function.  All other extensions to load must be listed in the
+<a href="#id1"><span class="problematic" id="id2">:confval:`extensions`</span></a> configuration value.</p>
+<div class="section" id="extension-metadata">
+<h2>Extension metadata<a class="headerlink" href="#extension-metadata" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">setup()</span></code> function can return a dictionary.  This is treated by Sphinx
+as metadata of the extension.  Metadata keys currently recognized are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">'version'</span></code>: a string that identifies the extension version.  It is used for
+extension version requirement checking (see <a href="#id3"><span class="problematic" id="id4">:confval:`needs_extensions`</span></a>) and
+informational purposes.  If not given, <code class="docutils literal"><span class="pre">&quot;unknown</span> <span class="pre">version&quot;</span></code> is substituted.</li>
+<li><code class="docutils literal"><span class="pre">'parallel_read_safe'</span></code>: a boolean that specifies if parallel reading of
+source files can be used when the extension is loaded.  It defaults to
+<code class="docutils literal"><span class="pre">False</span></code>, i.e. you have to explicitly specify your extension to be
+parallel-read-safe after checking that it is.</li>
+<li><code class="docutils literal"><span class="pre">'parallel_write_safe'</span></code>: a boolean that specifies if parallel writing of
+output files can be used when the extension is loaded.  Since extensions
+usually don&#8217;t negatively influence the process, this defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="apis-used-for-writing-extensions">
+<h2>APIs used for writing extensions<a class="headerlink" href="#apis-used-for-writing-extensions" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Writing a simple extension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#important-objects">Important objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#build-phases">Build Phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#extension-design">Extension Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-setup-function">The Setup Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-node-classes">The Node Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-directive-classes">The Directive Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-event-handlers">The Event Handlers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appapi.html">Application API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#extension-setup">Extension setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#emitting-events">Emitting events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#producing-messages-logging">Producing messages / logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#sphinx-core-events">Sphinx core events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#checking-the-sphinx-version">Checking the Sphinx version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#module-sphinx.config">The Config object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#the-template-bridge">The template bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appapi.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="envapi.html">Build environment API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builderapi.html">Builder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markupapi.html">Docutils markup API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="markupapi.html#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="markupapi.html#directives">Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="markupapi.html#viewlists">ViewLists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="markupapi.html#parsing-directive-content-as-rest">Parsing directive content as ReST</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domainapi.html">Domain API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parserapi.html">Parser API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">Doctree node classes added by Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#nodes-for-domain-specific-object-descriptions">Nodes for domain-specific object descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#new-admonition-like-constructs">New admonition-like constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#other-paragraph-level-nodes">Other paragraph-level nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#new-inline-nodes">New inline nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#special-nodes">Special nodes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

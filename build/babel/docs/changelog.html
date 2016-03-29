@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Babel Changelog &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Babel Changelog</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/build/babel/docs/changelog.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="babel-changelog">
+<h1>Babel Changelog<a class="headerlink" href="#babel-changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-2-3">
+<h2>Version 2.3<a class="headerlink" href="#version-2-3" title="Permalink to this headline">¶</a></h2>
+<p>(Feature release, release data to be decided)</p>
+</div>
+<div class="section" id="version-2-2">
+<h2>Version 2.2<a class="headerlink" href="#version-2-2" title="Permalink to this headline">¶</a></h2>
+<p>(Feature release, released on January 2nd 2016)</p>
+<p>### Bugfixes</p>
+<ul class="simple">
+<li>General: Add __hash__ to Locale. (#303) (2aa8074)</li>
+<li>General: Allow files with BOM if they&#8217;re UTF-8 (#189) (da87edd)</li>
+<li>General: localedata directory is now locale-data (#109) (2d1882e)</li>
+<li>General: odict: Fix pop method (0a9e97e)</li>
+<li>General: Removed uses of datetime.date class from <a href="#id1"><span class="problematic" id="id2">*</span></a>.dat files (#174) (94f6830)</li>
+<li>Messages: Fix plural selection for chinese (531f666)</li>
+<li>Messages: Fix typo and add semicolon in plural_forms (5784501)</li>
+<li>Messages: Flatten NullTranslations.files into a list (ad11101)</li>
+<li>Times: FixedOffsetTimezone: fix display of negative offsets (d816803)</li>
+</ul>
+<p>### Features</p>
+<ul class="simple">
+<li>CLDR: Update to CLDR 28 (#292) (9f7f4d0)</li>
+<li>General: Add __copy__ and __deepcopy__ to LazyProxy. (a1cc3f1)</li>
+<li>General: Add official support for Python 3.4 and 3.5</li>
+<li>General: Improve odict performance by making key search O(1) (6822b7f)</li>
+<li>Locale: Add an ordinal_form property to Locale (#270) (b3f3430)</li>
+<li>Locale: Add support for list formatting (37ce4fa, be6e23d)</li>
+<li>Locale: Check inheritance exceptions first (3ef0d6d)</li>
+<li>Messages: Allow file locations without line numbers (#279) (79bc781)</li>
+<li>Messages: Allow passing a callable to <cite>extract()</cite> (#289) (3f58516)</li>
+<li>Messages: Support &#8216;Language&#8217; header field of PO files (#76) (3ce842b)</li>
+<li>Messages: Update catalog headers from templates (e0e7ef1)</li>
+<li>Numbers: Properly load and expose currency format types (#201) (df676ab)</li>
+<li>Numbers: Use cdecimal by default when available (b6169be)</li>
+<li>Numbers: Use the CLDR&#8217;s suggested number of decimals for format_currency (#139) (201ed50)</li>
+<li>Times: Add format_timedelta(format=&#8217;narrow&#8217;) support (edc5eb5)</li>
+</ul>
+</div>
+<div class="section" id="version-2-1">
+<h2>Version 2.1<a class="headerlink" href="#version-2-1" title="Permalink to this headline">¶</a></h2>
+<p>(Bugfix/minor feature release, released on September 25th 2015)</p>
+<ul class="simple">
+<li>Parse and honour the locale inheritance exceptions
+(<a class="reference external" href="https://github.com/python-babel/babel/issues/97">https://github.com/python-babel/babel/issues/97</a>)</li>
+<li>Fix Locale.parse using <code class="docutils literal"><span class="pre">global.dat</span></code> incompatible types
+(<a class="reference external" href="https://github.com/python-babel/babel/issues/174">https://github.com/python-babel/babel/issues/174</a>)</li>
+<li>Fix display of negative offsets in <code class="docutils literal"><span class="pre">FixedOffsetTimezone</span></code>
+(<a class="reference external" href="https://github.com/python-babel/babel/issues/214">https://github.com/python-babel/babel/issues/214</a>)</li>
+<li>Improved odict performance which is used during localization file
+build, should improve compilation time for large projects</li>
+<li>Add support for &#8220;narrow&#8221; format for <code class="docutils literal"><span class="pre">format_timedelta</span></code></li>
+<li>Add universal wheel support</li>
+<li>Support &#8216;Language&#8217; header field in .PO files
+(fixes <a class="reference external" href="https://github.com/python-babel/babel/issues/76">https://github.com/python-babel/babel/issues/76</a>)</li>
+<li>Test suite enhancements (coverage, broken tests fixed, etc)</li>
+<li>Documentation updated</li>
+</ul>
+</div>
+<div class="section" id="version-2-0">
+<h2>Version 2.0<a class="headerlink" href="#version-2-0" title="Permalink to this headline">¶</a></h2>
+<p>(Released on July 27th 2015, codename Second Coming)</p>
+<ul class="simple">
+<li>Added support for looking up currencies that belong to a territory
+through the <a class="reference internal" href="api/numbers.html#babel.numbers.get_territory_currencies" title="babel.numbers.get_territory_currencies"><code class="xref py py-func docutils literal"><span class="pre">babel.numbers.get_territory_currencies()</span></code></a>
+function.</li>
+<li>Improved Python 3 support.</li>
+<li>Fixed some broken tests for timezone behavior.</li>
+<li>Improved various smaller things for dealing with dates.</li>
+</ul>
+</div>
+<div class="section" id="version-1-4">
+<h2>Version 1.4<a class="headerlink" href="#version-1-4" title="Permalink to this headline">¶</a></h2>
+<p>(bugfix release, release date to be decided)</p>
+<ul class="simple">
+<li>Fixed a bug that caused deprecated territory codes not being
+converted properly by the subtag resolving.  This for instance
+showed up when trying to use <code class="docutils literal"><span class="pre">und_UK</span></code> as a language code
+which now properly resolves to <code class="docutils literal"><span class="pre">en_GB</span></code>.</li>
+<li>Fixed a bug that made it impossible to import the CLDR data
+from scratch on windows systems.</li>
+</ul>
+</div>
+<div class="section" id="version-1-3">
+<h2>Version 1.3<a class="headerlink" href="#version-1-3" title="Permalink to this headline">¶</a></h2>
+<p>(bugfix release, released on July 29th 2013)</p>
+<ul class="simple">
+<li>Fixed a bug in likely-subtag resolving for some common locales.
+This primarily makes <code class="docutils literal"><span class="pre">zh_CN</span></code> work again which was broken
+due to how it was defined in the likely subtags combined with
+our broken resolving.  This fixes <a href="#id3"><span class="problematic" id="id4">:gh:`37`</span></a>.</li>
+<li>Fixed a bug that caused pybabel to break when writing to stdout
+on Python 3.</li>
+<li>Removed a stray print that was causing issues when writing to
+stdout for message catalogs.</li>
+</ul>
+</div>
+<div class="section" id="version-1-2">
+<h2>Version 1.2<a class="headerlink" href="#version-1-2" title="Permalink to this headline">¶</a></h2>
+<p>(bugfix release, released on July 27th 2013)</p>
+<ul class="simple">
+<li>Included all tests in the tarball.  Previously the include
+skipped past recursive folders.</li>
+<li>Changed how tests are invoked and added separate standalone
+test command.  This simplifies testing of the package for
+linux distributors.</li>
+</ul>
+</div>
+<div class="section" id="version-1-1">
+<h2>Version 1.1<a class="headerlink" href="#version-1-1" title="Permalink to this headline">¶</a></h2>
+<p>(bugfix release, released on July 27th 2013)</p>
+<ul class="simple">
+<li>added dummy version requirements for pytz so that it installs
+on pip 1.4.</li>
+<li>Included tests in the tarball.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0">
+<h2>Version 1.0<a class="headerlink" href="#version-1-0" title="Permalink to this headline">¶</a></h2>
+<p>(Released on July 26th 2013, codename Revival)</p>
+<ul class="simple">
+<li>support python 2.6, 2.7, 3.3+ and pypy - drop all other versions</li>
+<li>use tox for testing on different pythons</li>
+<li>Added support for the locale plural rules defined by the CLDR.</li>
+<li>Added <cite>format_timedelta</cite> function to support localized formatting of
+relative times with strings such as &#8220;2 days&#8221; or &#8220;1 month&#8221; (<a href="#id5"><span class="problematic" id="id6">:trac:`126`</span></a>).</li>
+<li>Fixed negative offset handling of Catalog._set_mime_headers (<a href="#id7"><span class="problematic" id="id8">:trac:`165`</span></a>).</li>
+<li>Fixed the case where messages containing square brackets would break with
+an unpack error.</li>
+<li>updated to CLDR 23</li>
+<li>Make the CLDR import script work with Python 2.7.</li>
+<li>Fix various typos.</li>
+<li>Sort output of list-locales.</li>
+<li>Make the POT-Creation-Date of the catalog being updated equal to
+POT-Creation-Date of the template used to update (<a href="#id9"><span class="problematic" id="id10">:trac:`148`</span></a>).</li>
+<li>Use a more explicit error message if no option or argument (command) is
+passed to pybabel (<a href="#id11"><span class="problematic" id="id12">:trac:`81`</span></a>).</li>
+<li>Keep the PO-Revision-Date if it is not the default value (<a href="#id13"><span class="problematic" id="id14">:trac:`148`</span></a>).</li>
+<li>Make &#8211;no-wrap work by reworking &#8211;width&#8217;s default and mimic xgettext&#8217;s
+behaviour of always wrapping comments (<a href="#id15"><span class="problematic" id="id16">:trac:`145`</span></a>).</li>
+<li>Add &#8211;project and &#8211;version options for commandline (<a href="#id17"><span class="problematic" id="id18">:trac:`173`</span></a>).</li>
+<li>Add a __ne__() method to the Local class.</li>
+<li>Explicitly sort instead of using sorted() and don&#8217;t assume ordering
+(Jython compatibility).</li>
+<li>Removed ValueError raising for string formatting message checkers if the
+string does not contain any string formattings (<a href="#id19"><span class="problematic" id="id20">:trac:`150`</span></a>).</li>
+<li>Fix Serbian plural forms (<a href="#id21"><span class="problematic" id="id22">:trac:`213`</span></a>).</li>
+<li>Small speed improvement in format_date() (<a href="#id23"><span class="problematic" id="id24">:trac:`216`</span></a>).</li>
+<li>Fix so frontend.CommandLineInterface.run does not accumulate logging
+handlers (<a href="#id25"><span class="problematic" id="id26">:trac:`227`</span></a>, reported with initial patch by dfraser)</li>
+<li>Fix exception if environment contains an invalid locale setting
+(<a href="#id27"><span class="problematic" id="id28">:trac:`200`</span></a>)</li>
+<li>use cPickle instead of pickle for better performance (<a href="#id29"><span class="problematic" id="id30">:trac:`225`</span></a>)</li>
+<li>Only use bankers round algorithm as a tie breaker if there are two nearest
+numbers, round as usual if there is only one nearest number (<a href="#id31"><span class="problematic" id="id32">:trac:`267`</span></a>,
+patch by Martin)</li>
+<li>Allow disabling cache behaviour in LazyProxy (<a href="#id33"><span class="problematic" id="id34">:trac:`208`</span></a>, initial patch
+from Pedro Algarvio)</li>
+<li>Support for context-aware methods during message extraction (<a href="#id35"><span class="problematic" id="id36">:trac:`229`</span></a>,
+patch from David Rios)</li>
+<li>&#8220;init&#8221; and &#8220;update&#8221; commands support &#8220;&#8211;no-wrap&#8221; option (<a href="#id37"><span class="problematic" id="id38">:trac:`289`</span></a>)</li>
+<li>fix formatting of fraction in format_decimal() if the input value is a float
+with more than 7 significant digits (<a href="#id39"><span class="problematic" id="id40">:trac:`183`</span></a>)</li>
+<li>fix format_date() with datetime parameter (<a href="#id41"><span class="problematic" id="id42">:trac:`282`</span></a>, patch from Xavier
+Morel)</li>
+<li>fix format_decimal() with small Decimal values (<a href="#id43"><span class="problematic" id="id44">:trac:`214`</span></a>, patch from
+George Lund)</li>
+<li>fix handling of messages containing &#8216;\n&#8217; (<a href="#id45"><span class="problematic" id="id46">:trac:`198`</span></a>)</li>
+<li>handle irregular multi-line msgstr (no &#8220;&#8221; as first line) gracefully
+(<a href="#id47"><span class="problematic" id="id48">:trac:`171`</span></a>)</li>
+<li>parse_decimal() now returns Decimals not floats, API change (<a href="#id49"><span class="problematic" id="id50">:trac:`178`</span></a>)</li>
+<li>no warnings when running setup.py without installed setuptools (<a href="#id51"><span class="problematic" id="id52">:trac:`262`</span></a>)</li>
+<li>modified Locale.__eq__ method so Locales are only equal if all of their
+attributes (language, territory, script, variant) are equal</li>
+<li>resort to hard-coded message extractors/checkers if pkg_resources is
+installed but no egg-info was found (<a href="#id53"><span class="problematic" id="id54">:trac:`230`</span></a>)</li>
+<li>format_time() and format_datetime() now accept also floats (<a href="#id55"><span class="problematic" id="id56">:trac:`242`</span></a>)</li>
+<li>add babel.support.NullTranslations class similar to gettext.NullTranslations
+but with all of Babel&#8217;s new gettext methods (<a href="#id57"><span class="problematic" id="id58">:trac:`277`</span></a>)</li>
+<li>&#8220;init&#8221; and &#8220;update&#8221; commands support &#8220;&#8211;width&#8221; option (<a href="#id59"><span class="problematic" id="id60">:trac:`284`</span></a>)</li>
+<li>fix &#8216;input_dirs&#8217; option for setuptools integration (<a href="#id61"><span class="problematic" id="id62">:trac:`232`</span></a>, initial
+patch by Ãtienne Bersac)</li>
+<li>ensure .mo file header contains the same information as the source .po file
+(<a href="#id63"><span class="problematic" id="id64">:trac:`199`</span></a>)</li>
+<li>added support for get_language_name() on the locale objects.</li>
+<li>added support for get_territory_name() on the locale objects.</li>
+<li>added support for get_script_name() on the locale objects.</li>
+<li>added pluralization support for currency names and added a &#8216;Â¤Â¤Â¤&#8217;
+pattern for currencies that includes the full name.</li>
+<li>depend on pytz now and wrap it nicer.  This gives us improved support
+for things like timezone transitions and an overall nicer API.</li>
+<li>Added support for explicit charset to PO file reading.</li>
+<li>Added experimental Python 3 support.</li>
+<li>Added better support for returning timezone names.</li>
+<li>Don&#8217;t throw away a Catalog&#8217;s obsolete messages when updating it.</li>
+<li>Added basic likelySubtag resolving when doing locale parsing and no
+match can be found.</li>
+</ul>
+</div>
+<div class="section" id="version-0-9-6">
+<h2>Version 0.9.6<a class="headerlink" href="#version-0-9-6" title="Permalink to this headline">¶</a></h2>
+<p>(released on March 17th 2011)</p>
+<ul class="simple">
+<li>Backport r493-494: documentation typo fixes.</li>
+<li>Make the CLDR import script work with Python 2.7.</li>
+<li>Fix various typos.</li>
+<li>Fixed Python 2.3 compatibility (<a href="#id65"><span class="problematic" id="id66">:trac:`146`</span></a>, <a href="#id67"><span class="problematic" id="id68">:trac:`233`</span></a>).</li>
+<li>Sort output of list-locales.</li>
+<li>Make the POT-Creation-Date of the catalog being updated equal to
+POT-Creation-Date of the template used to update (<a href="#id69"><span class="problematic" id="id70">:trac:`148`</span></a>).</li>
+<li>Use a more explicit error message if no option or argument (command) is
+passed to pybabel (<a href="#id71"><span class="problematic" id="id72">:trac:`81`</span></a>).</li>
+<li>Keep the PO-Revision-Date if it is not the default value (<a href="#id73"><span class="problematic" id="id74">:trac:`148`</span></a>).</li>
+<li>Make &#8211;no-wrap work by reworking &#8211;width&#8217;s default and mimic xgettext&#8217;s
+behaviour of always wrapping comments (<a href="#id75"><span class="problematic" id="id76">:trac:`145`</span></a>).</li>
+<li>Fixed negative offset handling of Catalog._set_mime_headers (<a href="#id77"><span class="problematic" id="id78">:trac:`165`</span></a>).</li>
+<li>Add &#8211;project and &#8211;version options for commandline (<a href="#id79"><span class="problematic" id="id80">:trac:`173`</span></a>).</li>
+<li>Add a __ne__() method to the Local class.</li>
+<li>Explicitly sort instead of using sorted() and don&#8217;t assume ordering
+(Python 2.3 and Jython compatibility).</li>
+<li>Removed ValueError raising for string formatting message checkers if the
+string does not contain any string formattings (<a href="#id81"><span class="problematic" id="id82">:trac:`150`</span></a>).</li>
+<li>Fix Serbian plural forms (<a href="#id83"><span class="problematic" id="id84">:trac:`213`</span></a>).</li>
+<li>Small speed improvement in format_date() (<a href="#id85"><span class="problematic" id="id86">:trac:`216`</span></a>).</li>
+<li>Fix number formatting for locales where CLDR specifies alt or draft
+items (<a href="#id87"><span class="problematic" id="id88">:trac:`217`</span></a>)</li>
+<li>Fix bad check in format_time (<a href="#id89"><span class="problematic" id="id90">:trac:`257`</span></a>, reported with patch and tests by
+jomae)</li>
+<li>Fix so frontend.CommandLineInterface.run does not accumulate logging
+handlers (<a href="#id91"><span class="problematic" id="id92">:trac:`227`</span></a>, reported with initial patch by dfraser)</li>
+<li>Fix exception if environment contains an invalid locale setting
+(<a href="#id93"><span class="problematic" id="id94">:trac:`200`</span></a>)</li>
+</ul>
+</div>
+<div class="section" id="version-0-9-5">
+<h2>Version 0.9.5<a class="headerlink" href="#version-0-9-5" title="Permalink to this headline">¶</a></h2>
+<p>(relased on April 6th 2010)</p>
+<ul class="simple">
+<li>Fixed the case where messages containing square brackets would break with
+an unpack error.</li>
+<li>Backport of r467: Fuzzy matching regarding plurals should <em>NOT</em> be checked
+against len(message.id)  because this is always 2, instead, it&#8217;s should be
+checked against catalog.num_plurals (<a href="#id95"><span class="problematic" id="id96">:trac:`212`</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-0-9-4">
+<h2>Version 0.9.4<a class="headerlink" href="#version-0-9-4" title="Permalink to this headline">¶</a></h2>
+<p>(released on August 25th 2008)</p>
+<ul class="simple">
+<li>Currency symbol definitions that is defined with choice patterns in the
+CLDR data are no longer imported, so the symbol code will be used instead.</li>
+<li>Fixed quarter support in date formatting.</li>
+<li>Fixed a serious memory leak that was introduces by the support for CLDR
+aliases in 0.9.3 (<a href="#id97"><span class="problematic" id="id98">:trac:`128`</span></a>).</li>
+<li>Locale modifiers such as &#8220;&#64;euro&#8221; are now stripped from locale identifiers
+when parsing (<a href="#id99"><span class="problematic" id="id100">:trac:`136`</span></a>).</li>
+<li>The system locales &#8220;C&#8221; and &#8220;POSIX&#8221; are now treated as aliases for
+&#8220;en_US_POSIX&#8221;, for which the CLDR provides the appropriate data. Thanks to
+Manlio Perillo for the suggestion.</li>
+<li>Fixed JavaScript extraction for regular expression literals (<a href="#id101"><span class="problematic" id="id102">:trac:`138`</span></a>)
+and concatenated strings.</li>
+<li>The <cite>Translation</cite> class in <cite>babel.support</cite> can now manage catalogs with
+different message domains, and exposes the family of <cite>d*gettext</cite> functions
+(<a href="#id103"><span class="problematic" id="id104">:trac:`137`</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-0-9-3">
+<h2>Version 0.9.3<a class="headerlink" href="#version-0-9-3" title="Permalink to this headline">¶</a></h2>
+<p>(released on July 9th 2008)</p>
+<ul class="simple">
+<li>Fixed invalid message extraction methods causing an UnboundLocalError.</li>
+<li>Extraction method specification can now use a dot instead of the colon to
+separate module and function name (<a href="#id105"><span class="problematic" id="id106">:trac:`105`</span></a>).</li>
+<li>Fixed message catalog compilation for locales with more than two plural
+forms (<a href="#id107"><span class="problematic" id="id108">:trac:`95`</span></a>).</li>
+<li>Fixed compilation of message catalogs for locales with more than two plural
+forms where the translations were empty (<a href="#id109"><span class="problematic" id="id110">:trac:`97`</span></a>).</li>
+<li>The stripping of the comment tags in comments is optional now and
+is done for each line in a comment.</li>
+<li>Added a JavaScript message extractor.</li>
+<li>Updated to CLDR 1.6.</li>
+<li>Fixed timezone calculations when formatting datetime and time values.</li>
+<li>Added a <cite>get_plural</cite> function into the plurals module that returns the
+correct plural forms for a locale as tuple.</li>
+<li>Added support for alias definitions in the CLDR data files, meaning that
+the chance for items missing in certain locales should be greatly reduced
+(<a href="#id111"><span class="problematic" id="id112">:trac:`68`</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-0-9-2">
+<h2>Version 0.9.2<a class="headerlink" href="#version-0-9-2" title="Permalink to this headline">¶</a></h2>
+<p>(released on February 4th 2008)</p>
+<ul class="simple">
+<li>Fixed catalogs&#8217; charset values not being recognized (<a href="#id113"><span class="problematic" id="id114">:trac:`66`</span></a>).</li>
+<li>Numerous improvements to the default plural forms.</li>
+<li>Fixed fuzzy matching when updating message catalogs (<a href="#id115"><span class="problematic" id="id116">:trac:`82`</span></a>).</li>
+<li>Fixed bug in catalog updating, that in some cases pulled in translations
+from different catalogs based on the same template.</li>
+<li>Location lines in PO files do no longer get wrapped at hyphens in file
+names (<a href="#id117"><span class="problematic" id="id118">:trac:`79`</span></a>).</li>
+<li>Fixed division by zero error in catalog compilation on empty catalogs
+(<a href="#id119"><span class="problematic" id="id120">:trac:`60`</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-0-9-1">
+<h2>Version 0.9.1<a class="headerlink" href="#version-0-9-1" title="Permalink to this headline">¶</a></h2>
+<p>(released on September 7th 2007)</p>
+<ul class="simple">
+<li>Fixed catalog updating when a message is merged that was previously simple
+but now has a plural form, for example by moving from <cite>gettext</cite> to
+<cite>ngettext</cite>, or vice versa.</li>
+<li>Fixed time formatting for 12 am and 12 pm.</li>
+<li>Fixed output encoding of the <cite>pybabel &#8211;list-locales</cite> command.</li>
+<li>MO files are now written in binary mode on windows (<a href="#id121"><span class="problematic" id="id122">:trac:`61`</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-0-9">
+<h2>Version 0.9<a class="headerlink" href="#version-0-9" title="Permalink to this headline">¶</a></h2>
+<p>(released on August 20th 2007)</p>
+<ul class="simple">
+<li>The <cite>new_catalog</cite> distutils command has been renamed to <cite>init_catalog</cite> for
+consistency with the command-line frontend.</li>
+<li>Added compilation of message catalogs to MO files (<a href="#id123"><span class="problematic" id="id124">:trac:`21`</span></a>).</li>
+<li>Added updating of message catalogs from POT files (<a href="#id125"><span class="problematic" id="id126">:trac:`22`</span></a>).</li>
+<li>Support for significant digits in number formatting.</li>
+<li>Apply proper &#8220;banker&#8217;s rounding&#8221; in number formatting in a cross-platform
+manner.</li>
+<li>The number formatting functions now also work with numbers represented by
+Python <cite>Decimal</cite> objects (<a href="#id127"><span class="problematic" id="id128">:trac:`53`</span></a>).</li>
+<li>Added extensible infrastructure for validating translation catalogs.</li>
+<li>Fixed the extractor not filtering out messages that didn&#8217;t validate against
+the keyword&#8217;s specification (<a href="#id129"><span class="problematic" id="id130">:trac:`39`</span></a>).</li>
+<li>Fixed the extractor raising an exception when encountering an empty string
+msgid. It now emits a warning to stderr.</li>
+<li>Numerous Python message extractor fixes: it now handles nested function
+calls within a gettext function call correctly, uses the correct line number
+for multi-line function calls, and other small fixes (tickets <a href="#id131"><span class="problematic" id="id132">:trac:`38`</span></a> and
+<a href="#id133"><span class="problematic" id="id134">:trac:`39`</span></a>).</li>
+<li>Improved support for detecting Python string formatting fields in message
+strings (<a href="#id135"><span class="problematic" id="id136">:trac:`57`</span></a>).</li>
+<li>CLDR upgraded to the 1.5 release.</li>
+<li>Improved timezone formatting.</li>
+<li>Implemented scientific number formatting.</li>
+<li>Added mechanism to lookup locales by alias, for cases where browsers insist
+on including only the language code in the <cite>Accept-Language</cite> header, and
+sometimes even the incorrect language code.</li>
+</ul>
+</div>
+<div class="section" id="version-0-8-1">
+<h2>Version 0.8.1<a class="headerlink" href="#version-0-8-1" title="Permalink to this headline">¶</a></h2>
+<p>(released on July 2nd 2007)</p>
+<ul class="simple">
+<li><cite>default_locale()</cite> would fail when the value of the <cite>LANGUAGE</cite> environment
+variable contained multiple language codes separated by colon, as is
+explicitly allowed by the GNU gettext tools. As the <cite>default_locale()</cite>
+function is called at the module level in some modules, this bug would
+completely break importing these modules on systems where <cite>LANGUAGE</cite> is set
+that way.</li>
+<li>The character set specified in PO template files is now respected when
+creating new catalog files based on that template. This allows the use of
+characters outside the ASCII range in POT files (<a href="#id137"><span class="problematic" id="id138">:trac:`17`</span></a>).</li>
+<li>The default ordering of messages in generated POT files, which is based on
+the order those messages are found when walking the source tree, is no
+longer subject to differences between platforms; directory and file names
+are now always sorted alphabetically.</li>
+<li>The Python message extractor now respects the special encoding comment to be
+able to handle files containing non-ASCII characters (<a href="#id139"><span class="problematic" id="id140">:trac:`23`</span></a>).</li>
+<li>Added <code class="docutils literal"><span class="pre">N_</span></code> (gettext noop) to the extractor&#8217;s default keywords.</li>
+<li>Made locale string parsing more robust, and also take the script part into
+account (<a href="#id141"><span class="problematic" id="id142">:trac:`27`</span></a>).</li>
+<li>Added a function to list all locales for which locale data is available.</li>
+<li>Added a command-line option to the <cite>pybabel</cite> command which prints out all
+available locales (<a href="#id143"><span class="problematic" id="id144">:trac:`24`</span></a>).</li>
+<li>The name of the command-line script has been changed from just <cite>babel</cite> to
+<cite>pybabel</cite> to avoid a conflict with the OpenBabel project (<a href="#id145"><span class="problematic" id="id146">:trac:`34`</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-0-8">
+<h2>Version 0.8<a class="headerlink" href="#version-0-8" title="Permalink to this headline">¶</a></h2>
+<p>(released on June 20th 2007)</p>
+<ul class="simple">
+<li>First public release</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

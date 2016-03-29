@@ -7,7 +7,6 @@ Besides, we have implemented an interface to cclib_.
 This platform can extract the data from additional computational chemistry packages.
 At the end of this section, all existing quantities, features and output formats of orbkit are introduced.
 
-
 .. contents:: Table of Contents:
   :local:
   :depth: 2
@@ -254,4 +253,3 @@ Output Formats
 +------------------------------------+------------------------+--------------------------+-------------------------+
 
 .. _cclib: https://github.com/cclib/cclib
-   

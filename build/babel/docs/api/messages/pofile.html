@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PO File Support &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>PO File Support</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/build/babel/docs/api/messages/pofile.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-babel.messages.pofile">
+<span id="po-file-support"></span><h1>PO File Support<a class="headerlink" href="#module-babel.messages.pofile" title="Permalink to this headline">¶</a></h1>
+<p>The PO file support can read and write PO and POT files.  It reads them
+into <a class="reference internal" href="catalog.html#babel.messages.catalog.Catalog" title="babel.messages.catalog.Catalog"><code class="xref py py-class docutils literal"><span class="pre">Catalog</span></code></a> objects and also writes
+catalogs out.</p>
+<dl class="function">
+<dt id="babel.messages.pofile.read_po">
+<code class="descclassname">babel.messages.pofile.</code><code class="descname">read_po</code><span class="sig-paren">(</span><em>fileobj</em>, <em>locale=None</em>, <em>domain=None</em>, <em>ignore_obsolete=False</em>, <em>charset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.messages.pofile.read_po" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read messages from a <code class="docutils literal"><span class="pre">gettext</span></code> PO (portable object) file from the given
+file-like object and return a <cite>Catalog</cite>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">babel._compat</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="s1">#: main.py:1</span>
+<span class="gp">... </span><span class="s1">#, fuzzy, python-format</span>
+<span class="gp">... </span><span class="s1">msgid &quot;foo </span><span class="si">%(name)s</span><span class="s1">&quot;</span>
+<span class="gp">... </span><span class="s1">msgstr &quot;quux </span><span class="si">%(name)s</span><span class="s1">&quot;</span>
+<span class="gp">...</span><span class="s1"></span>
+<span class="gp">... </span><span class="s1"># A user comment</span>
+<span class="gp">... </span><span class="s1">#. An auto comment</span>
+<span class="gp">... </span><span class="s1">#: main.py:3</span>
+<span class="gp">... </span><span class="s1">msgid &quot;bar&quot;</span>
+<span class="gp">... </span><span class="s1">msgid_plural &quot;baz&quot;</span>
+<span class="gp">... </span><span class="s1">msgstr[0] &quot;bar&quot;</span>
+<span class="gp">... </span><span class="s1">msgstr[1] &quot;baaz&quot;</span>
+<span class="gp">... </span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span> <span class="o">=</span> <span class="n">read_po</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">revision_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">((</span><span class="n">message</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">string</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">locations</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">flags</span><span class="p">))))</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">user_comments</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">auto_comments</span><span class="p">))</span>
+<span class="go">(u&#39;foo %(name)s&#39;, u&#39;quux %(name)s&#39;)</span>
+<span class="go">  ([(u&#39;main.py&#39;, 1)], [u&#39;fuzzy&#39;, u&#39;python-format&#39;])</span>
+<span class="go">  ([], [])</span>
+<span class="go">((u&#39;bar&#39;, u&#39;baz&#39;), (u&#39;bar&#39;, u&#39;baaz&#39;))</span>
+<span class="go">  ([(u&#39;main.py&#39;, 3)], [])</span>
+<span class="go">  ([u&#39;A user comment&#39;], [u&#39;An auto comment&#39;])</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.0: </span>Added support for explicit charset argument.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fileobj</strong> &#8211; the file-like object to read the PO file from</li>
+<li><strong>locale</strong> &#8211; the locale identifier or <cite>Locale</cite> object, or <cite>None</cite>
+if the catalog is not bound to a locale (which basically
+means it&#8217;s a template)</li>
+<li><strong>domain</strong> &#8211; the message domain</li>
+<li><strong>ignore_obsolete</strong> &#8211; whether to ignore obsolete messages in the input</li>
+<li><strong>charset</strong> &#8211; the character set of the catalog.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.messages.pofile.write_po">
+<code class="descclassname">babel.messages.pofile.</code><code class="descname">write_po</code><span class="sig-paren">(</span><em>fileobj</em>, <em>catalog</em>, <em>width=76</em>, <em>no_location=False</em>, <em>omit_header=False</em>, <em>sort_output=False</em>, <em>sort_by_file=False</em>, <em>ignore_obsolete=False</em>, <em>include_previous=False</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.messages.pofile.write_po" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a <code class="docutils literal"><span class="pre">gettext</span></code> PO (portable object) template file for a given
+message catalog to the provided file-like object.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">u&#39;foo </span><span class="si">%(name)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">locations</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;main.py&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+<span class="gp">... </span>            <span class="n">flags</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;fuzzy&#39;</span><span class="p">,))</span>
+<span class="go">&lt;Message...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="s1">u&#39;bar&#39;</span><span class="p">,</span> <span class="s1">u&#39;baz&#39;</span><span class="p">),</span> <span class="n">locations</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;main.py&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="go">&lt;Message...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">babel._compat</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">write_po</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">omit_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">))</span>
+<span class="go">#: main.py:1</span>
+<span class="go">#, fuzzy, python-format</span>
+<span class="go">msgid &quot;foo %(name)s&quot;</span>
+<span class="go">msgstr &quot;&quot;</span>
+
+<span class="go">#: main.py:3</span>
+<span class="go">msgid &quot;bar&quot;</span>
+<span class="go">msgid_plural &quot;baz&quot;</span>
+<span class="go">msgstr[0] &quot;&quot;</span>
+<span class="go">msgstr[1] &quot;&quot;</span>
+
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fileobj</strong> &#8211; the file-like object to write to</li>
+<li><strong>catalog</strong> &#8211; the <cite>Catalog</cite> instance</li>
+<li><strong>width</strong> &#8211; the maximum line width for the generated output; use <cite>None</cite>,
+0, or a negative number to completely disable line wrapping</li>
+<li><strong>no_location</strong> &#8211; do not emit a location comment for every message</li>
+<li><strong>omit_header</strong> &#8211; do not include the <code class="docutils literal"><span class="pre">msgid</span> <span class="pre">&quot;&quot;</span></code> entry at the top of the
+output</li>
+<li><strong>sort_output</strong> &#8211; whether to sort the messages in the output by msgid</li>
+<li><strong>sort_by_file</strong> &#8211; whether to sort the messages in the output by their
+locations</li>
+<li><strong>ignore_obsolete</strong> &#8211; whether to ignore obsolete messages and not include
+them in the output; by default they are included as
+comments</li>
+<li><strong>include_previous</strong> &#8211; include the old msgid as a comment when
+updating the catalog</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Numbers and Currencies &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Numbers and Currencies</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/babel/docs/api/numbers.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-babel.numbers">
+<span id="numbers-and-currencies"></span><h1>Numbers and Currencies<a class="headerlink" href="#module-babel.numbers" title="Permalink to this headline">¶</a></h1>
+<p>The number module provides functionality to format numbers for different
+locales.  This includes arbitrary numbers as well as currency.</p>
+<div class="section" id="number-formatting">
+<h2>Number Formatting<a class="headerlink" href="#number-formatting" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.numbers.format_number">
+<code class="descclassname">babel.numbers.</code><code class="descname">format_number</code><span class="sig-paren">(</span><em>number</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.format_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the given number formatted for a specific locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_number</span><span class="p">(</span><span class="mi">1099</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1,099&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_number</span><span class="p">(</span><span class="mi">1099</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1.099&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; the number to format</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.format_decimal">
+<code class="descclassname">babel.numbers.</code><code class="descname">format_decimal</code><span class="sig-paren">(</span><em>number</em>, <em>format=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.format_decimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the given decimal number formatted for a specific locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_decimal</span><span class="p">(</span><span class="mf">1.2345</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1.234&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_decimal</span><span class="p">(</span><span class="mf">1.2346</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1.235&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_decimal</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2346</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;-1.235&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_decimal</span><span class="p">(</span><span class="mf">1.2345</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;sv_SE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1,234&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_decimal</span><span class="p">(</span><span class="mf">1.2345</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1,234&#39;</span>
+</pre></div>
+</div>
+<p>The appropriate thousands grouping and the decimal separator are used for
+each locale:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_decimal</span><span class="p">(</span><span class="mf">12345.5</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;12,345.5&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; the number to format</li>
+<li><strong>format</strong> &#8211; </li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.format_currency">
+<code class="descclassname">babel.numbers.</code><code class="descname">format_currency</code><span class="sig-paren">(</span><em>number</em>, <em>currency</em>, <em>format=None</em>, <em>locale='de_DE'</em>, <em>currency_digits=True</em>, <em>format_type='standard'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.format_currency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return formatted currency value.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;$1,099.98&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;es_CO&#39;</span><span class="p">)</span>
+<span class="go">u&#39;US$\xa01.099,98&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1.099,98\xa0\u20ac&#39;</span>
+</pre></div>
+</div>
+<p>The format can also be specified explicitly.  The currency is
+placed with the &#8216;¤&#8217; sign.  As the sign gets repeated the format
+expands (¤ being the symbol, ¤¤ is the currency abbreviation and
+¤¤¤ is the full name of the currency):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">,</span> <span class="s1">u&#39;¤¤ #,##0.00&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;EUR 1,099.98&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">,</span> <span class="s1">u&#39;#,##0.00 ¤¤¤&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1,099.98 euros&#39;</span>
+</pre></div>
+</div>
+<p>Currencies usually have a specific number of decimal digits. This function
+favours that information over the given format:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;JPY&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;\xa51,100&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;COP&#39;</span><span class="p">,</span> <span class="s1">u&#39;#,##0.00&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;es_ES&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1.100&#39;</span>
+</pre></div>
+</div>
+<p>However, the number of decimal digits can be overriden from the currency
+information, by setting the last parameter to <code class="docutils literal"><span class="pre">False</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;JPY&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="n">currency_digits</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">u&#39;\xa51,099.98&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;COP&#39;</span><span class="p">,</span> <span class="s1">u&#39;#,##0.00&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;es_ES&#39;</span><span class="p">,</span> <span class="n">currency_digits</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">u&#39;1.099,98&#39;</span>
+</pre></div>
+</div>
+<p>If a format is not specified the type of currency format to use
+from the locale can be specified:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="mf">1099.98</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="n">format_type</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<span class="go">u&#39;\u20ac1,099.98&#39;</span>
+</pre></div>
+</div>
+<p>When the given currency format type is not available, an exception is
+raised:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_currency</span><span class="p">(</span><span class="s1">&#39;1099.98&#39;</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="n">format_type</span><span class="o">=</span><span class="s1">&#39;unknown&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">UnknownCurrencyFormatError</span>: <span class="n">&quot;&#39;unknown&#39; is not a known currency format type&quot;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; the number to format</li>
+<li><strong>currency</strong> &#8211; the currency code</li>
+<li><strong>format</strong> &#8211; the format string to use</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+<li><strong>currency_digits</strong> &#8211; use the currency&#8217;s number of decimal digits</li>
+<li><strong>format_type</strong> &#8211; the currency format type to use</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.format_percent">
+<code class="descclassname">babel.numbers.</code><code class="descname">format_percent</code><span class="sig-paren">(</span><em>number</em>, <em>format=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.format_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return formatted percent value for a specific locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_percent</span><span class="p">(</span><span class="mf">0.34</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;34%&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_percent</span><span class="p">(</span><span class="mf">25.1234</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;2,512%&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_percent</span><span class="p">(</span><span class="mf">25.1234</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;sv_SE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;2\xa0512\xa0%&#39;</span>
+</pre></div>
+</div>
+<p>The format pattern can also be specified explicitly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_percent</span><span class="p">(</span><span class="mf">25.1234</span><span class="p">,</span> <span class="s1">u&#39;#,##0</span><span class="se">\u2030</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;25,123\u2030&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; the percent number to format</li>
+<li><strong>format</strong> &#8211; </li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.format_scientific">
+<code class="descclassname">babel.numbers.</code><code class="descname">format_scientific</code><span class="sig-paren">(</span><em>number</em>, <em>format=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.format_scientific" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return value formatted in scientific notation for a specific locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_scientific</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1E4&#39;</span>
+</pre></div>
+</div>
+<p>The format pattern can also be specified explicitly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_scientific</span><span class="p">(</span><span class="mi">1234567</span><span class="p">,</span> <span class="s1">u&#39;##0E00&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1.23E06&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; the number to format</li>
+<li><strong>format</strong> &#8211; </li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="number-parsing">
+<h2>Number Parsing<a class="headerlink" href="#number-parsing" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.numbers.parse_number">
+<code class="descclassname">babel.numbers.</code><code class="descname">parse_number</code><span class="sig-paren">(</span><em>string</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.parse_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse localized number string into an integer.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_number</span><span class="p">(</span><span class="s1">&#39;1,099&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">1099</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_number</span><span class="p">(</span><span class="s1">&#39;1.099&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">1099</span>
+</pre></div>
+</div>
+<p>When the given string cannot be parsed, an exception is raised:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_number</span><span class="p">(</span><span class="s1">&#39;1.099,98&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">NumberFormatError</span>: <span class="n">&#39;1.099,98&#39; is not a valid number</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> &#8211; the string to parse</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the parsed number</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>NumberFormatError</strong> &#8211; if the string can not be converted to a number</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.parse_decimal">
+<code class="descclassname">babel.numbers.</code><code class="descname">parse_decimal</code><span class="sig-paren">(</span><em>string</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.parse_decimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse localized decimal string into a decimal.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_decimal</span><span class="p">(</span><span class="s1">&#39;1,099.98&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">Decimal(&#39;1099.98&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_decimal</span><span class="p">(</span><span class="s1">&#39;1.099,98&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">)</span>
+<span class="go">Decimal(&#39;1099.98&#39;)</span>
+</pre></div>
+</div>
+<p>When the given string cannot be parsed, an exception is raised:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_decimal</span><span class="p">(</span><span class="s1">&#39;2,109,998&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">NumberFormatError</span>: <span class="n">&#39;2,109,998&#39; is not a valid decimal number</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> &#8211; the string to parse</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>NumberFormatError</strong> &#8211; if the string can not be converted to a
+decimal number</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="babel.numbers.NumberFormatError">
+<em class="property">exception </em><code class="descclassname">babel.numbers.</code><code class="descname">NumberFormatError</code><a class="headerlink" href="#babel.numbers.NumberFormatError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when a string cannot be parsed into a number.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="data-access">
+<h2>Data Access<a class="headerlink" href="#data-access" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.numbers.get_currency_name">
+<code class="descclassname">babel.numbers.</code><code class="descname">get_currency_name</code><span class="sig-paren">(</span><em>currency</em>, <em>count=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.get_currency_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name used by the locale for the specified currency.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_currency_name</span><span class="p">(</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;US Dollar&#39;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.4.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>currency</strong> &#8211; the currency code</li>
+<li><strong>count</strong> &#8211; the optional count.  If provided the currency name
+will be pluralized to that number if possible.</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.get_currency_symbol">
+<code class="descclassname">babel.numbers.</code><code class="descname">get_currency_symbol</code><span class="sig-paren">(</span><em>currency</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.get_currency_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the symbol used by the locale for the specified currency.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_currency_symbol</span><span class="p">(</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;$&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>currency</strong> &#8211; the currency code</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.get_decimal_symbol">
+<code class="descclassname">babel.numbers.</code><code class="descname">get_decimal_symbol</code><span class="sig-paren">(</span><em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.get_decimal_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the symbol used by the locale to separate decimal fractions.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_decimal_symbol</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;.&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.get_plus_sign_symbol">
+<code class="descclassname">babel.numbers.</code><code class="descname">get_plus_sign_symbol</code><span class="sig-paren">(</span><em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.get_plus_sign_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the plus sign symbol used by the current locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_plus_sign_symbol</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;+&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.get_minus_sign_symbol">
+<code class="descclassname">babel.numbers.</code><code class="descname">get_minus_sign_symbol</code><span class="sig-paren">(</span><em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.get_minus_sign_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the plus sign symbol used by the current locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_minus_sign_symbol</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;-&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> &#8211; the <cite>Locale</cite> object or locale identifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.numbers.get_territory_currencies">
+<code class="descclassname">babel.numbers.</code><code class="descname">get_territory_currencies</code><span class="sig-paren">(</span><em>territory</em>, <em>start_date=None</em>, <em>end_date=None</em>, <em>tender=True</em>, <em>non_tender=False</em>, <em>include_details=False</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.numbers.get_territory_currencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of currencies for the given territory that are valid for
+the given date range.  In addition to that the currency database
+distinguishes between tender and non-tender currencies.  By default only
+tender currencies are returned.</p>
+<p>The return value is a list of all currencies roughly ordered by the time
+of when the currency became active.  The longer the currency is being in
+use the more to the left of the list it will be.</p>
+<p>The start date defaults to today.  If no end date is given it will be the
+same as the start date.  Otherwise a range can be defined.  For instance
+this can be used to find the currencies in use in Austria between 1995 and
+2011:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_territory_currencies</span><span class="p">(</span><span class="s1">&#39;AT&#39;</span><span class="p">,</span> <span class="n">date</span><span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">[&#39;ATS&#39;, &#39;EUR&#39;]</span>
+</pre></div>
+</div>
+<p>Likewise it&#8217;s also possible to find all the currencies in use on a
+single date:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_territory_currencies</span><span class="p">(</span><span class="s1">&#39;AT&#39;</span><span class="p">,</span> <span class="n">date</span><span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">[&#39;ATS&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_territory_currencies</span><span class="p">(</span><span class="s1">&#39;AT&#39;</span><span class="p">,</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">[&#39;EUR&#39;]</span>
+</pre></div>
+</div>
+<p>By default the return value only includes tender currencies.  This
+however can be changed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_territory_currencies</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">)</span>
+<span class="go">[&#39;USD&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_territory_currencies</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="n">tender</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">non_tender</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">start_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">[&#39;USN&#39;, &#39;USS&#39;]</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>territory</strong> &#8211; the name of the territory to find the currency fo</li>
+<li><strong>start_date</strong> &#8211; the start date.  If not given today is assumed.</li>
+<li><strong>end_date</strong> &#8211; the end date.  If not given the start date is assumed.</li>
+<li><strong>tender</strong> &#8211; controls whether tender currencies should be included.</li>
+<li><strong>non_tender</strong> &#8211; controls whether non-tender currencies should be
+included.</li>
+<li><strong>include_details</strong> &#8211; if set to <cite>True</cite>, instead of returning currency
+codes the return value will be dictionaries
+with detail information.  In that case each
+dictionary will have the keys <code class="docutils literal"><span class="pre">'currency'</span></code>,
+<code class="docutils literal"><span class="pre">'from'</span></code>, <code class="docutils literal"><span class="pre">'to'</span></code>, and <code class="docutils literal"><span class="pre">'tender'</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

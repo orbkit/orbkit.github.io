@@ -1,0 +1,241 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/build/babel/docs/intro.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>The functionality Babel provides for internationalization (I18n) and
+localization (L10N) can be separated into two different aspects:</p>
+<blockquote>
+<div><ul class="simple">
+<li>tools to build and work with <code class="docutils literal"><span class="pre">gettext</span></code> message catalogs, and</li>
+<li>a Python interface to the CLDR (Common Locale Data Repository), providing
+access to various locale display names, localized number and date
+formatting, etc.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="message-catalogs">
+<h2>Message Catalogs<a class="headerlink" href="#message-catalogs" title="Permalink to this headline">¶</a></h2>
+<p>While the Python standard library includes a <code class="xref py py-mod docutils literal"><span class="pre">gettext</span></code> module that
+enables applications to use message catalogs, it requires developers to
+build these catalogs using GNU tools such as <code class="docutils literal"><span class="pre">xgettext</span></code>, <code class="docutils literal"><span class="pre">msgmerge</span></code>,
+and <code class="docutils literal"><span class="pre">msgfmt</span></code>.  And while <code class="docutils literal"><span class="pre">xgettext</span></code> does have support for extracting
+messages from Python files, it does not know how to deal with other kinds
+of files commonly found in Python web-applications, such as templates, nor
+does it provide an easy extensibility mechanism to add such support.</p>
+<p>Babel addresses this by providing a framework where various extraction
+methods can be plugged in to a larger message extraction framework, and
+also removes the dependency on the GNU <code class="docutils literal"><span class="pre">gettext</span></code> tools for common tasks,
+as these aren&#8217;t necessarily available on all platforms. See
+<a class="reference internal" href="messages.html#messages"><span class="std std-ref">Working with Message Catalogs</span></a> for details on this aspect of Babel.</p>
+</div>
+<div class="section" id="locale-data">
+<h2>Locale Data<a class="headerlink" href="#locale-data" title="Permalink to this headline">¶</a></h2>
+<p>Furthermore, while the Python standard library does include support for
+basic localization with respect to the formatting of numbers and dates
+(the <code class="xref py py-mod docutils literal"><span class="pre">locale</span></code> module, among others), this support is based on the
+assumption that there will be only one specific locale used per process
+(at least simultaneously.) Also, it doesn&#8217;t provide access to other kinds
+of locale data, such as the localized names of countries, languages, or
+time-zones, which are frequently needed in web-based applications.</p>
+<p>For these requirements, Babel includes data extracted from the <a class="reference external" href="http://unicode.org/cldr/">Common
+Locale Data Repository (CLDR)</a>, and provides a
+number of convenient methods for accessing and using this data. See
+<a class="reference internal" href="locale.html#locale-data"><span class="std std-ref">Locale Data</span></a>, <a class="reference internal" href="dates.html#date-and-time"><span class="std std-ref">Date and Time</span></a>, and <a class="reference internal" href="numbers.html#numbers"><span class="std std-ref">Number Formatting</span></a> for more
+information on this aspect of Babel.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

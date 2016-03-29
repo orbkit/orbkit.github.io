@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Snowball stemming library collection for Python &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Snowball stemming library collection for Python</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/build/snowballstemmer/README.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="snowball-stemming-library-collection-for-python">
+<h1>Snowball stemming library collection for Python<a class="headerlink" href="#snowball-stemming-library-collection-for-python" title="Permalink to this headline">¶</a></h1>
+<p>This document pertains to the Python version of the stemmer library distribution,
+available for download from:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="https://github.com/shibukawa/snowball/">https://github.com/shibukawa/snowball/</a></p>
+<p>This repository includes Python source code generator</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/shibukawa/snowball_python/">https://github.com/shibukawa/snowball_python/</a></p>
+<p>This repository includes generated Python source codes</p>
+</li>
+</ul>
+<p>Original program is maintained at following place:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://snowball.tartarus.org/">http://snowball.tartarus.org/</a></li>
+</ul>
+<p>Original Snowball product created by Dr Martin Porter and Richard Boulton (Java porting).
+Original Snowball and my products are released under BSD license.</p>
+<div class="section" id="how-to-use-library">
+<h2>How to use library<a class="headerlink" href="#how-to-use-library" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">snowballstemmer</span></code> module has two functions.</p>
+<p>The <code class="docutils literal"><span class="pre">snowballstemmer.algorithms</span></code> function returns a list of avilable algorithm name&#8217; string.</p>
+<p>The <code class="docutils literal"><span class="pre">snowballstemmer.stemmer</span></code> function accepts algorithm name and returns <code class="docutils literal"><span class="pre">Stemmer</span></code> objects.</p>
+<p><code class="docutils literal"><span class="pre">Stemmer</span></code> objects have <code class="docutils literal"><span class="pre">Stemmer.stemWord(word)</span></code> method and <code class="docutils literal"><span class="pre">Stemmer.stemWords(word[])</span></code> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">snowballstemmer</span>
+
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">snowballstemmer</span><span class="o">.</span><span class="n">stemmer</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">);</span>
+<span class="k">print</span><span class="p">(</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stemWords</span><span class="p">(</span><span class="s2">&quot;We are the world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()));</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">Stemmer</span></code> objects have <code class="docutils literal"><span class="pre">Stemmer.maxCacheSize</span></code> property. They cache result within the value. Default is <code class="docutils literal"><span class="pre">10000</span></code>.</p>
+</div>
+<div class="section" id="accerarates-stemming">
+<h2>Accerarates Stemming<a class="headerlink" href="#accerarates-stemming" title="Permalink to this headline">¶</a></h2>
+<p>if <strong>PyStemmer</strong> is installed, <code class="docutils literal"><span class="pre">snowballstemmer.stemmer</span></code> returns <code class="docutils literal"><span class="pre">PyStemmer</span></code>&#8216;s <code class="docutils literal"><span class="pre">Stemmer</span></code> objects. This <code class="docutils literal"><span class="pre">Stemmer</span></code> object has same methods (<code class="docutils literal"><span class="pre">Stemmer.stemWord()</span></code>, <code class="docutils literal"><span class="pre">Stemmer.stemWords()</span></code>).</p>
+<p><strong>PyStemmer</strong> is a Snowball&#8217;s <code class="docutils literal"><span class="pre">libstemmer_c</span></code> wrapper module and it returns 100% compatible result with <strong>snowballstemmer</strong>.</p>
+<p><strong>PyStemmer</strong> has faster speed because it uses C-lang module, and <strong>snowballstemmer</strong> has higher usability because it is pure Python module.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://pypi.python.org/pypi/PyStemmer/">PyStemmer</a></li>
+</ul>
+<div class="section" id="benchmark">
+<h3>Benchmark<a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h3>
+<p>Test Case: Snowball stemmer check data (16 algorithms, total 582560 words, cache hit 0%)
+Computer: MacBook Pro 3rd Gen Corei7 2.3GHz</p>
+<ul class="simple">
+<li>Python 2.7 + <strong>snowballstemmer</strong> : 2m 30s</li>
+<li>PyPy 1.9 + <strong>snowballstemmer</strong> : 45s</li>
+<li>Python 2.7 + <strong>PyStemmer</strong> : 5s</li>
+</ul>
+<p>This test case is much harder than usual usecases!</p>
+</div>
+</div>
+<div class="section" id="the-testapp-example">
+<h2>The TestApp example<a class="headerlink" href="#the-testapp-example" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">testapp.py</span></code> example program allows you to run any of the stemmers
+on a sample vocabulary.</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">testapp</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">algorithm</span><span class="o">&gt;</span> <span class="s2">&quot;sentences ... &quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python testapp.py English <span class="s2">&quot;sentences... &quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="thanks">
+<h2>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Original Snowball authors</li>
+<li>Emil StenstrÃ¶m</li>
+</ul>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>It is a BSD licensed library.</p>
+<hr class="docutils" />
+<p>Copyright (c) 2013, Yoshiki Shibukawa</p>
+<p>All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided
+that the following conditions are met:</p>
+<ul class="simple">
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and
+the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &#8220;AS IS&#8221; AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

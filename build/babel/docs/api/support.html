@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>General Support Functionality &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>General Support Functionality</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/babel/docs/api/support.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-babel.support">
+<span id="general-support-functionality"></span><h1>General Support Functionality<a class="headerlink" href="#module-babel.support" title="Permalink to this headline">¶</a></h1>
+<p>Babel ships a few general helpers that are not being used by Babel itself
+but are useful in combination with functionality provided by it.</p>
+<div class="section" id="convenience-helpers">
+<h2>Convenience Helpers<a class="headerlink" href="#convenience-helpers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="babel.support.Format">
+<em class="property">class </em><code class="descclassname">babel.support.</code><code class="descname">Format</code><span class="sig-paren">(</span><em>locale</em>, <em>tzinfo=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class providing the various date and number formatting functions
+bound to a specific locale and time-zone.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">babel.util</span> <span class="k">import</span> <span class="n">UTC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="n">UTC</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">u&#39;Apr 1, 2007&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">decimal</span><span class="p">(</span><span class="mf">1.2345</span><span class="p">)</span>
+<span class="go">u&#39;1.234&#39;</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="babel.support.Format.currency">
+<code class="descname">currency</code><span class="sig-paren">(</span><em>number</em>, <em>currency</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.currency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a number in the given currency formatted for the locale.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.date">
+<code class="descname">date</code><span class="sig-paren">(</span><em>date=None</em>, <em>format='medium'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a date formatted according to the given pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">u&#39;Apr 1, 2007&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.datetime">
+<code class="descname">datetime</code><span class="sig-paren">(</span><em>datetime=None</em>, <em>format='medium'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a date and time formatted according to the given pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytz</span> <span class="k">import</span> <span class="n">timezone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="go">u&#39;Apr 1, 2007, 11:30:00 AM&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.decimal">
+<code class="descname">decimal</code><span class="sig-paren">(</span><em>number</em>, <em>format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.decimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a decimal number formatted for the locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">decimal</span><span class="p">(</span><span class="mf">1.2345</span><span class="p">)</span>
+<span class="go">u&#39;1.234&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.number">
+<code class="descname">number</code><span class="sig-paren">(</span><em>number</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an integer number formatted for the locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">number</span><span class="p">(</span><span class="mi">1099</span><span class="p">)</span>
+<span class="go">u&#39;1,099&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.percent">
+<code class="descname">percent</code><span class="sig-paren">(</span><em>number</em>, <em>format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.percent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a number formatted as percentage for the locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">percent</span><span class="p">(</span><span class="mf">0.34</span><span class="p">)</span>
+<span class="go">u&#39;34%&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.scientific">
+<code class="descname">scientific</code><span class="sig-paren">(</span><em>number</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.scientific" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a number formatted using scientific notation for the locale.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.time">
+<code class="descname">time</code><span class="sig-paren">(</span><em>time=None</em>, <em>format='medium'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time formatted according to the given pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytz</span> <span class="k">import</span> <span class="n">timezone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="go">u&#39;11:30:00 AM&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Format.timedelta">
+<code class="descname">timedelta</code><span class="sig-paren">(</span><em>delta</em>, <em>granularity='second'</em>, <em>threshold=0.85</em>, <em>format='medium'</em>, <em>add_direction=False</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Format.timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time delta according to the rules of the given locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span> <span class="o">=</span> <span class="n">Format</span><span class="p">(</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fmt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+<span class="go">u&#39;3 months&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="babel.support.LazyProxy">
+<em class="property">class </em><code class="descclassname">babel.support.</code><code class="descname">LazyProxy</code><span class="sig-paren">(</span><em>func</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.LazyProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for proxy objects that delegate to a specified function to evaluate
+the actual object.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;world&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s1">&#39;Hello, </span><span class="si">%s</span><span class="s1">!&#39;</span> <span class="o">%</span> <span class="n">name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lazy_greeting</span> <span class="o">=</span> <span class="n">LazyProxy</span><span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Joe&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lazy_greeting</span><span class="p">)</span>
+<span class="go">Hello, Joe!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">u&#39;  &#39;</span> <span class="o">+</span> <span class="n">lazy_greeting</span>
+<span class="go">u&#39;  Hello, Joe!&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">u&#39;(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">lazy_greeting</span>
+<span class="go">u&#39;(Hello, Joe!)&#39;</span>
+</pre></div>
+</div>
+<p>This can be used, for example, to implement lazy translation functions that
+delay the actual translation until the string is actually used. The
+rationale for such behavior is that the locale of the user may not always
+be available. In web applications, you only know the locale when processing
+a request.</p>
+<p>The proxy implementation attempts to be as complete as possible, so that
+the lazy objects should mostly work as expected, for example for sorting:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">greetings</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">LazyProxy</span><span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">LazyProxy</span><span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="s1">&#39;Joe&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">LazyProxy</span><span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="s1">&#39;universe&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">greetings</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">greeting</span> <span class="ow">in</span> <span class="n">greetings</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
+<span class="go">Hello, Joe!</span>
+<span class="go">Hello, universe!</span>
+<span class="go">Hello, world!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="gettext-support">
+<h2>Gettext Support<a class="headerlink" href="#gettext-support" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="babel.support.Translations">
+<em class="property">class </em><code class="descclassname">babel.support.</code><code class="descname">Translations</code><span class="sig-paren">(</span><em>fp=None</em>, <em>domain=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>An extended translation catalog class.</p>
+<dl class="method">
+<dt id="babel.support.Translations.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>translations</em>, <em>merge=True</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Translations.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the given translations to the catalog.</p>
+<p>If the domain of the translations is different than that of the
+current catalog, they are added as a catalog that is only accessible
+by the various <code class="docutils literal"><span class="pre">d*gettext</span></code> functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>translations</strong> &#8211; the <cite>Translations</cite> instance with the messages to
+add</li>
+<li><strong>merge</strong> &#8211; whether translations for message domains that have
+already been added should be merged with the existing
+translations</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="babel.support.Translations.load">
+<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>dirname=None</em>, <em>locales=None</em>, <em>domain=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Translations.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load translations from the given directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dirname</strong> &#8211; the directory containing the <code class="docutils literal"><span class="pre">MO</span></code> files</li>
+<li><strong>locales</strong> &#8211; the list of locales in order of preference (items in
+this list can be either <cite>Locale</cite> objects or locale
+strings)</li>
+<li><strong>domain</strong> &#8211; the message domain (default: &#8216;messages&#8217;)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="babel.support.Translations.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>translations</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.support.Translations.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge the given translations into the catalog.</p>
+<p>Message translations in the specified catalog override any messages
+with the same identifier in the existing catalog.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>translations</strong> &#8211; the <cite>Translations</cite> instance with the messages to
+merge</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

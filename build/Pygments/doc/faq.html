@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pygments FAQ &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Pygments FAQ</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/build/Pygments/doc/faq.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pygments-faq">
+<h1>Pygments FAQ<a class="headerlink" href="#pygments-faq" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-pygments">
+<h2>What is Pygments?<a class="headerlink" href="#what-is-pygments" title="Permalink to this headline">¶</a></h2>
+<p>Pygments is a syntax highlighting engine written in Python. That means, it will
+take source code (or other markup) in a supported language and output a
+processed version (in different formats) containing syntax highlighting markup.</p>
+<p>Its features include:</p>
+<ul class="simple">
+<li>a wide range of common <a class="reference internal" href="languages.html"><span class="doc">languages and markup formats</span></a> is supported</li>
+<li>new languages and formats are added easily</li>
+<li>a number of output formats is available, including:<ul>
+<li>HTML</li>
+<li>ANSI sequences (console output)</li>
+<li>LaTeX</li>
+<li>RTF</li>
+</ul>
+</li>
+<li>it is usable as a command-line tool and as a library</li>
+<li>parsing and formatting is fast</li>
+</ul>
+<p>Pygments is licensed under the BSD license.</p>
+</div>
+<div class="section" id="where-does-the-name-pygments-come-from">
+<h2>Where does the name Pygments come from?<a class="headerlink" href="#where-does-the-name-pygments-come-from" title="Permalink to this headline">¶</a></h2>
+<p><em>Py</em> of course stands for Python, while <em>pigments</em> are used for coloring paint,
+and in this case, source code!</p>
+</div>
+<div class="section" id="what-are-the-system-requirements">
+<h2>What are the system requirements?<a class="headerlink" href="#what-are-the-system-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Pygments only needs a standard Python install, version 2.6 or higher or version
+3.3 or higher for Python 3. No additional libraries are needed.</p>
+</div>
+<div class="section" id="how-can-i-use-pygments">
+<h2>How can I use Pygments?<a class="headerlink" href="#how-can-i-use-pygments" title="Permalink to this headline">¶</a></h2>
+<p>Pygments is usable as a command-line tool as well as a library.</p>
+<p>From the command-line, usage looks like this (assuming the pygmentize script is
+properly installed):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pygmentize</span> <span class="o">-</span><span class="n">f</span> <span class="n">html</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>This will print a HTML-highlighted version of /path/to/file.py to standard output.</p>
+<p>For a complete help, please run <code class="docutils literal"><span class="pre">pygmentize</span> <span class="pre">-h</span></code>.</p>
+<p>Usage as a library is thoroughly demonstrated in the Documentation section.</p>
+</div>
+<div class="section" id="how-do-i-make-a-new-style">
+<h2>How do I make a new style?<a class="headerlink" href="#how-do-i-make-a-new-style" title="Permalink to this headline">¶</a></h2>
+<p>Please see the <a class="reference internal" href="docs/styles.html"><span class="doc">documentation on styles</span></a>.</p>
+</div>
+<div class="section" id="how-can-i-report-a-bug-or-suggest-a-feature">
+<h2>How can I report a bug or suggest a feature?<a class="headerlink" href="#how-can-i-report-a-bug-or-suggest-a-feature" title="Permalink to this headline">¶</a></h2>
+<p>Please report bugs and feature wishes in the tracker at Bitbucket.</p>
+<p>You can also e-mail the author or use IRC, see the contact details.</p>
+</div>
+<div class="section" id="i-want-this-support-for-this-language">
+<h2>I want this support for this language!<a class="headerlink" href="#i-want-this-support-for-this-language" title="Permalink to this headline">¶</a></h2>
+<p>Instead of waiting for others to include language support, why not write it
+yourself? All you have to know is <a class="reference internal" href="docs/lexerdevelopment.html"><span class="doc">outlined in the docs</span></a>.</p>
+</div>
+<div class="section" id="can-i-use-pygments-for-programming-language-processing">
+<h2>Can I use Pygments for programming language processing?<a class="headerlink" href="#can-i-use-pygments-for-programming-language-processing" title="Permalink to this headline">¶</a></h2>
+<p>The Pygments lexing machinery is quite powerful can be used to build lexers for
+basically all languages. However, parsing them is not possible, though some
+lexers go some steps in this direction in order to e.g. highlight function names
+differently.</p>
+<p>Also, error reporting is not the scope of Pygments. It focuses on correctly
+highlighting syntactically valid documents, not finding and compensating errors.</p>
+</div>
+<div class="section" id="who-uses-pygments">
+<h2>Who uses Pygments?<a class="headerlink" href="#who-uses-pygments" title="Permalink to this headline">¶</a></h2>
+<p>This is an (incomplete) list of projects and sites known to use the Pygments highlighter.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://en.wikipedia.org">Wikipedia</a></li>
+<li><a class="reference external" href="http://bitbucket.org/">BitBucket</a>, a Mercurial and Git hosting site</li>
+<li><a class="reference external" href="http://sphinx.pocoo.org/">The Sphinx documentation builder</a>, for embedded source examples</li>
+<li><a class="reference external" href="http://code.google.com/p/rst2pdf/">rst2pdf</a>, a reStructuredText to PDF converter</li>
+<li><a class="reference external" href="http://codecov.io/">Codecov</a>, a code coverage CI service</li>
+<li><a class="reference external" href="http://trac.edgewall.org/">Trac</a>, the universal project management tool</li>
+<li><a class="reference external" href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, a text-based documentation generator</li>
+<li><a class="reference external" href="http://code.activestate.com/">ActiveState Code</a>, the Python Cookbook successor</li>
+<li><a class="reference external" href="http://viewvc.org/">ViewVC</a>, a web-based version control repository browser</li>
+<li><a class="reference external" href="http://repo.or.cz/w/bzrfruit.git">BzrFruit</a>, a Bazaar branch viewer</li>
+<li><a class="reference external" href="http://bazaar-vcs.org/QBzr">QBzr</a>, a cross-platform Qt-based GUI front end for Bazaar</li>
+<li><a class="reference external" href="http://www.review-board.org/">Review Board</a>, a collaborative code reviewing tool</li>
+<li><a class="reference external" href="http://code.google.com/p/diamanda/">Diamanda</a>, a Django powered wiki system with support for Pygments</li>
+<li><a class="reference external" href="http://progopedia.ru/">Progopedia</a> (<a class="reference external" href="http://progopedia.com/">English</a>),
+an encyclopedia of programming languages</li>
+<li><a class="reference external" href="http://r1chardj0n3s.googlepages.com/bruce">Bruce</a>, a reStructuredText presentation tool</li>
+<li><a class="reference external" href="http://pida.co.uk/">PIDA</a>, a universal IDE written in Python</li>
+<li><a class="reference external" href="http://www.noiseforfree.com/bpython/">BPython</a>, a curses-based intelligent Python shell</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/pudb">PuDB</a>, a console Python debugger</li>
+<li><a class="reference external" href="http://www.xwiki.org/">XWiki</a>, a wiki-based development framework in Java, using Jython</li>
+<li><a class="reference external" href="http://ananelson.com/software/roux/">roux</a>, a script for running R scripts
+and creating beautiful output including graphs</li>
+<li><a class="reference external" href="http://hurl.it/">hurl</a>, a web service for making HTTP requests</li>
+<li><a class="reference external" href="http://colinbarnette.net/projects/wxHTMLPygmentizer">wxHTMLPygmentizer</a> is
+a GUI utility, used to make code-colorization easier</li>
+<li><a class="reference external" href="http://code.google.com/p/postmarkup/">Postmarkup</a>, a BBCode to XHTML generator</li>
+<li><a class="reference external" href="http://blog.mirotin.net/?page_id=49">WpPygments</a>, and <a class="reference external" href="https://github.com/capynet/WPygments">WPygments</a>, highlighter plugins for WordPress</li>
+<li><a class="reference external" href="http://siafoo.net">Siafoo</a>, a tool for sharing and storing useful code and programming experience</li>
+<li><a class="reference external" href="http://www.dsource.org/">D source</a>, a community for the D programming language</li>
+<li><a class="reference external" href="http://dpaste.com/">dpaste.com</a>, another Django pastebin</li>
+<li><a class="reference external" href="http://www.djangosnippets.org/">Django snippets</a>, a pastebin for Django code</li>
+<li><a class="reference external" href="http://www.fayaa.com/code/">Fayaa</a>, a Chinese pastebin</li>
+<li><a class="reference external" href="http://incollo.com">Incollo.com</a>, a free collaborative debugging tool</li>
+<li><a class="reference external" href="http://p.boxnet.eu/">PasteBox</a>, a pastebin focused on privacy</li>
+<li><a class="reference external" href="http://www.hilite.me/">hilite.me</a>, a site to highlight code snippets</li>
+<li><a class="reference external" href="http://patx.me/paste">patx.me</a>, a pastebin</li>
+<li><a class="reference external" href="https://github.com/richsmith/fluidic">Fluidic</a>, an experiment in
+integrating shells with a GUI</li>
+<li><a class="reference external" href="https://github.com/tmm1/pygments.rb">pygments.rb</a>, a pygments wrapper for Ruby</li>
+<li><a class="reference external" href="https://github.com/bfontaine/clygments">Clygments</a>, a pygments wrapper for
+Clojure</li>
+<li><a class="reference external" href="https://github.com/capynet/PHPygments">PHPygments</a>, a pygments wrapper for PHP</li>
+</ul>
+<p>If you have a project or web site using Pygments, drop me a line, and I&#8217;ll add a
+link here.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

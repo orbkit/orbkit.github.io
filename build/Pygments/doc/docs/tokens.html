@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Builtin Tokens &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Builtin Tokens</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/Pygments/doc/docs/tokens.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pygments.token">
+<span id="builtin-tokens"></span><h1>Builtin Tokens<a class="headerlink" href="#module-pygments.token" title="Permalink to this headline">¶</a></h1>
+<p>In the <a class="reference internal" href="#module-pygments.token" title="pygments.token"><code class="xref py py-mod docutils literal"><span class="pre">pygments.token</span></code></a> module, there is a special object called <cite>Token</cite>
+that is used to create token types.</p>
+<p>You can create a new token type by accessing an attribute of <cite>Token</cite>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygments.token</span> <span class="kn">import</span> <span class="n">Token</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Token</span><span class="o">.</span><span class="n">String</span>
+<span class="go">Token.String</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Token</span><span class="o">.</span><span class="n">String</span> <span class="ow">is</span> <span class="n">Token</span><span class="o">.</span><span class="n">String</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Note that tokens are singletons so you can use the <code class="docutils literal"><span class="pre">is</span></code> operator for comparing
+token types.</p>
+<p>As of Pygments 0.7 you can also use the <code class="docutils literal"><span class="pre">in</span></code> operator to perform set tests:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygments.token</span> <span class="kn">import</span> <span class="n">Comment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Comment</span><span class="o">.</span><span class="n">Single</span> <span class="ow">in</span> <span class="n">Comment</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Comment</span> <span class="ow">in</span> <span class="n">Comment</span><span class="o">.</span><span class="n">Multi</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>This can be useful in <a class="reference internal" href="filters.html"><span class="doc">filters</span></a> and if you write lexers on your
+own without using the base lexers.</p>
+<p>You can also split a token type into a hierarchy, and get the parent of it:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">String</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="go">[Token, Token.Literal, Token.Literal.String]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">String</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">Token.Literal</span>
+</pre></div>
+</div>
+<p>In principle, you can create an unlimited number of token types but nobody can
+guarantee that a style would define style rules for a token type. Because of
+that, Pygments proposes some global token types defined in the
+<cite>pygments.token.STANDARD_TYPES</cite> dict.</p>
+<p>For some tokens aliases are already defined:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygments.token</span> <span class="kn">import</span> <span class="n">String</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">String</span>
+<span class="go">Token.Literal.String</span>
+</pre></div>
+</div>
+<p>Inside the <a class="reference internal" href="#module-pygments.token" title="pygments.token"><code class="xref py py-mod docutils literal"><span class="pre">pygments.token</span></code></a> module the following aliases are defined:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="36%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><cite>Text</cite></td>
+<td><cite>Token.Text</cite></td>
+<td>for any type of text data</td>
+</tr>
+<tr class="row-even"><td><cite>Whitespace</cite></td>
+<td><cite>Token.Text.Whitespace</cite></td>
+<td>for specially highlighted whitespace</td>
+</tr>
+<tr class="row-odd"><td><cite>Error</cite></td>
+<td><cite>Token.Error</cite></td>
+<td>represents lexer errors</td>
+</tr>
+<tr class="row-even"><td><cite>Other</cite></td>
+<td><cite>Token.Other</cite></td>
+<td>special token for data not
+matched by a parser (e.g. HTML
+markup in PHP code)</td>
+</tr>
+<tr class="row-odd"><td><cite>Keyword</cite></td>
+<td><cite>Token.Keyword</cite></td>
+<td>any kind of keywords</td>
+</tr>
+<tr class="row-even"><td><cite>Name</cite></td>
+<td><cite>Token.Name</cite></td>
+<td>variable/function names</td>
+</tr>
+<tr class="row-odd"><td><cite>Literal</cite></td>
+<td><cite>Token.Literal</cite></td>
+<td>Any literals</td>
+</tr>
+<tr class="row-even"><td><cite>String</cite></td>
+<td><cite>Token.Literal.String</cite></td>
+<td>string literals</td>
+</tr>
+<tr class="row-odd"><td><cite>Number</cite></td>
+<td><cite>Token.Literal.Number</cite></td>
+<td>number literals</td>
+</tr>
+<tr class="row-even"><td><cite>Operator</cite></td>
+<td><cite>Token.Operator</cite></td>
+<td>operators (<code class="docutils literal"><span class="pre">+</span></code>, <code class="docutils literal"><span class="pre">not</span></code>...)</td>
+</tr>
+<tr class="row-odd"><td><cite>Punctuation</cite></td>
+<td><cite>Token.Punctuation</cite></td>
+<td>punctuation (<code class="docutils literal"><span class="pre">[</span></code>, <code class="docutils literal"><span class="pre">(</span></code>...)</td>
+</tr>
+<tr class="row-even"><td><cite>Comment</cite></td>
+<td><cite>Token.Comment</cite></td>
+<td>any kind of comments</td>
+</tr>
+<tr class="row-odd"><td><cite>Generic</cite></td>
+<td><cite>Token.Generic</cite></td>
+<td>generic tokens (have a look at
+the explanation below)</td>
+</tr>
+</tbody>
+</table>
+<p>The <cite>Whitespace</cite> token type is new in Pygments 0.8. It is used only by the
+<cite>VisibleWhitespaceFilter</cite> currently.</p>
+<p>Normally you just create token types using the already defined aliases. For each
+of those token aliases, a number of subtypes exists (excluding the special tokens
+<cite>Token.Text</cite>, <cite>Token.Error</cite> and <cite>Token.Other</cite>)</p>
+<p>The <cite>is_token_subtype()</cite> function in the <cite>pygments.token</cite> module can be used to
+test if a token type is a subtype of another (such as <cite>Name.Tag</cite> and <cite>Name</cite>).
+(This is the same as <code class="docutils literal"><span class="pre">Name.Tag</span> <span class="pre">in</span> <span class="pre">Name</span></code>. The overloaded <cite>in</cite> operator was newly
+introduced in Pygments 0.7, the function still exists for backwards
+compatibility.)</p>
+<p>With Pygments 0.7, it&#8217;s also possible to convert strings to token types (for example
+if you want to supply a token from the command line):</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygments.token</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">string_to_tokentype</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">string_to_tokentype</span><span class="p">(</span><span class="s2">&quot;String&quot;</span><span class="p">)</span>
+<span class="go">Token.Literal.String</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">string_to_tokentype</span><span class="p">(</span><span class="s2">&quot;Token.Literal.String&quot;</span><span class="p">)</span>
+<span class="go">Token.Literal.String</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">string_to_tokentype</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+<span class="go">Token.Literal.String</span>
+</pre></div>
+</div>
+<div class="section" id="keyword-tokens">
+<h2>Keyword Tokens<a class="headerlink" href="#keyword-tokens" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><cite>Keyword</cite></dt>
+<dd>For any kind of keyword (especially if it doesn&#8217;t match any of the
+subtypes of course).</dd>
+<dt><cite>Keyword.Constant</cite></dt>
+<dd>For keywords that are constants (e.g. <code class="docutils literal"><span class="pre">None</span></code> in future Python versions).</dd>
+<dt><cite>Keyword.Declaration</cite></dt>
+<dd>For keywords used for variable declaration (e.g. <code class="docutils literal"><span class="pre">var</span></code> in some programming
+languages like JavaScript).</dd>
+<dt><cite>Keyword.Namespace</cite></dt>
+<dd>For keywords used for namespace declarations (e.g. <code class="docutils literal"><span class="pre">import</span></code> in Python and
+Java and <code class="docutils literal"><span class="pre">package</span></code> in Java).</dd>
+<dt><cite>Keyword.Pseudo</cite></dt>
+<dd>For keywords that aren&#8217;t really keywords (e.g. <code class="docutils literal"><span class="pre">None</span></code> in old Python
+versions).</dd>
+<dt><cite>Keyword.Reserved</cite></dt>
+<dd>For reserved keywords.</dd>
+<dt><cite>Keyword.Type</cite></dt>
+<dd>For builtin types that can&#8217;t be used as identifiers (e.g. <code class="docutils literal"><span class="pre">int</span></code>,
+<code class="docutils literal"><span class="pre">char</span></code> etc. in C).</dd>
+</dl>
+</div>
+<div class="section" id="name-tokens">
+<h2>Name Tokens<a class="headerlink" href="#name-tokens" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><cite>Name</cite></dt>
+<dd>For any name (variable names, function names, classes).</dd>
+<dt><cite>Name.Attribute</cite></dt>
+<dd>For all attributes (e.g. in HTML tags).</dd>
+<dt><cite>Name.Builtin</cite></dt>
+<dd>Builtin names; names that are available in the global namespace.</dd>
+<dt><cite>Name.Builtin.Pseudo</cite></dt>
+<dd>Builtin names that are implicit (e.g. <code class="docutils literal"><span class="pre">self</span></code> in Ruby, <code class="docutils literal"><span class="pre">this</span></code> in Java).</dd>
+<dt><cite>Name.Class</cite></dt>
+<dd>Class names. Because no lexer can know if a name is a class or a function
+or something else this token is meant for class declarations.</dd>
+<dt><cite>Name.Constant</cite></dt>
+<dd>Token type for constants. In some languages you can recognise a token by the
+way it&#8217;s defined (the value after a <code class="docutils literal"><span class="pre">const</span></code> keyword for example). In
+other languages constants are uppercase by definition (Ruby).</dd>
+<dt><cite>Name.Decorator</cite></dt>
+<dd>Token type for decorators. Decorators are syntactic elements in the Python
+language. Similar syntax elements exist in C# and Java.</dd>
+<dt><cite>Name.Entity</cite></dt>
+<dd>Token type for special entities. (e.g. <code class="docutils literal"><span class="pre">&amp;nbsp;</span></code> in HTML).</dd>
+<dt><cite>Name.Exception</cite></dt>
+<dd>Token type for exception names (e.g. <code class="docutils literal"><span class="pre">RuntimeError</span></code> in Python). Some languages
+define exceptions in the function signature (Java). You can highlight
+the name of that exception using this token then.</dd>
+<dt><cite>Name.Function</cite></dt>
+<dd>Token type for function names.</dd>
+<dt><cite>Name.Label</cite></dt>
+<dd>Token type for label names (e.g. in languages that support <code class="docutils literal"><span class="pre">goto</span></code>).</dd>
+<dt><cite>Name.Namespace</cite></dt>
+<dd>Token type for namespaces. (e.g. import paths in Java/Python), names following
+the <code class="docutils literal"><span class="pre">module</span></code>/<code class="docutils literal"><span class="pre">namespace</span></code> keyword in other languages.</dd>
+<dt><cite>Name.Other</cite></dt>
+<dd>Other names. Normally unused.</dd>
+<dt><cite>Name.Tag</cite></dt>
+<dd>Tag names (in HTML/XML markup or configuration files).</dd>
+<dt><cite>Name.Variable</cite></dt>
+<dd>Token type for variables. Some languages have prefixes for variable names
+(PHP, Ruby, Perl). You can highlight them using this token.</dd>
+<dt><cite>Name.Variable.Class</cite></dt>
+<dd>same as <cite>Name.Variable</cite> but for class variables (also static variables).</dd>
+<dt><cite>Name.Variable.Global</cite></dt>
+<dd>same as <cite>Name.Variable</cite> but for global variables (used in Ruby, for
+example).</dd>
+<dt><cite>Name.Variable.Instance</cite></dt>
+<dd>same as <cite>Name.Variable</cite> but for instance variables.</dd>
+</dl>
+</div>
+<div class="section" id="literals">
+<h2>Literals<a class="headerlink" href="#literals" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><cite>Literal</cite></dt>
+<dd>For any literal (if not further defined).</dd>
+<dt><cite>Literal.Date</cite></dt>
+<dd>for date literals (e.g. <code class="docutils literal"><span class="pre">42d</span></code> in Boo).</dd>
+<dt><cite>String</cite></dt>
+<dd>For any string literal.</dd>
+<dt><cite>String.Backtick</cite></dt>
+<dd>Token type for strings enclosed in backticks.</dd>
+<dt><cite>String.Char</cite></dt>
+<dd>Token type for single characters (e.g. Java, C).</dd>
+<dt><cite>String.Doc</cite></dt>
+<dd>Token type for documentation strings (for example Python).</dd>
+<dt><cite>String.Double</cite></dt>
+<dd>Double quoted strings.</dd>
+<dt><cite>String.Escape</cite></dt>
+<dd>Token type for escape sequences in strings.</dd>
+<dt><cite>String.Heredoc</cite></dt>
+<dd>Token type for &#8220;heredoc&#8221; strings (e.g. in Ruby or Perl).</dd>
+<dt><cite>String.Interpol</cite></dt>
+<dd>Token type for interpolated parts in strings (e.g. <code class="docutils literal"><span class="pre">#{foo}</span></code> in Ruby).</dd>
+<dt><cite>String.Other</cite></dt>
+<dd>Token type for any other strings (for example <code class="docutils literal"><span class="pre">%q{foo}</span></code> string constructs
+in Ruby).</dd>
+<dt><cite>String.Regex</cite></dt>
+<dd>Token type for regular expression literals (e.g. <code class="docutils literal"><span class="pre">/foo/</span></code> in JavaScript).</dd>
+<dt><cite>String.Single</cite></dt>
+<dd>Token type for single quoted strings.</dd>
+<dt><cite>String.Symbol</cite></dt>
+<dd>Token type for symbols (e.g. <code class="docutils literal"><span class="pre">:foo</span></code> in LISP or Ruby).</dd>
+<dt><cite>Number</cite></dt>
+<dd>Token type for any number literal.</dd>
+<dt><cite>Number.Bin</cite></dt>
+<dd>Token type for binary literals (e.g. <code class="docutils literal"><span class="pre">0b101010</span></code>).</dd>
+<dt><cite>Number.Float</cite></dt>
+<dd>Token type for float literals (e.g. <code class="docutils literal"><span class="pre">42.0</span></code>).</dd>
+<dt><cite>Number.Hex</cite></dt>
+<dd>Token type for hexadecimal number literals (e.g. <code class="docutils literal"><span class="pre">0xdeadbeef</span></code>).</dd>
+<dt><cite>Number.Integer</cite></dt>
+<dd>Token type for integer literals (e.g. <code class="docutils literal"><span class="pre">42</span></code>).</dd>
+<dt><cite>Number.Integer.Long</cite></dt>
+<dd>Token type for long integer literals (e.g. <code class="docutils literal"><span class="pre">42L</span></code> in Python).</dd>
+<dt><cite>Number.Oct</cite></dt>
+<dd>Token type for octal literals.</dd>
+</dl>
+</div>
+<div class="section" id="operators">
+<h2>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><cite>Operator</cite></dt>
+<dd>For any punctuation operator (e.g. <code class="docutils literal"><span class="pre">+</span></code>, <code class="docutils literal"><span class="pre">-</span></code>).</dd>
+<dt><cite>Operator.Word</cite></dt>
+<dd>For any operator that is a word (e.g. <code class="docutils literal"><span class="pre">not</span></code>).</dd>
+</dl>
+</div>
+<div class="section" id="punctuation">
+<h2>Punctuation<a class="headerlink" href="#punctuation" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.7.</span></p>
+</div>
+<dl class="docutils">
+<dt><cite>Punctuation</cite></dt>
+<dd>For any punctuation which is not an operator (e.g. <code class="docutils literal"><span class="pre">[</span></code>, <code class="docutils literal"><span class="pre">(</span></code>...)</dd>
+</dl>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><cite>Comment</cite></dt>
+<dd>Token type for any comment.</dd>
+<dt><cite>Comment.Hashbang</cite></dt>
+<dd><dl class="first last docutils">
+<dt>Token type for hashbang comments (i.e. first lines of files that start with</dt>
+<dd><code class="docutils literal"><span class="pre">#!</span></code>).</dd>
+</dl>
+</dd>
+<dt><cite>Comment.Multiline</cite></dt>
+<dd>Token type for multiline comments.</dd>
+<dt><cite>Comment.Preproc</cite></dt>
+<dd>Token type for preprocessor comments (also <code class="docutils literal"><span class="pre">&lt;?php</span></code>/<code class="docutils literal"><span class="pre">&lt;%</span></code> constructs).</dd>
+<dt><cite>Comment.Single</cite></dt>
+<dd>Token type for comments that end at the end of a line (e.g. <code class="docutils literal"><span class="pre">#</span> <span class="pre">foo</span></code>).</dd>
+<dt><cite>Comment.Special</cite></dt>
+<dd>Special data in comments. For example code tags, author and license
+information, etc.</dd>
+</dl>
+</div>
+<div class="section" id="generic-tokens">
+<h2>Generic Tokens<a class="headerlink" href="#generic-tokens" title="Permalink to this headline">¶</a></h2>
+<p>Generic tokens are for special lexers like the <cite>DiffLexer</cite> that doesn&#8217;t really
+highlight a programming language but a patch file.</p>
+<dl class="docutils">
+<dt><cite>Generic</cite></dt>
+<dd>A generic, unstyled token. Normally you don&#8217;t use this token type.</dd>
+<dt><cite>Generic.Deleted</cite></dt>
+<dd>Marks the token value as deleted.</dd>
+<dt><cite>Generic.Emph</cite></dt>
+<dd>Marks the token value as emphasized.</dd>
+<dt><cite>Generic.Error</cite></dt>
+<dd>Marks the token value as an error message.</dd>
+<dt><cite>Generic.Heading</cite></dt>
+<dd>Marks the token value as headline.</dd>
+<dt><cite>Generic.Inserted</cite></dt>
+<dd>Marks the token value as inserted.</dd>
+<dt><cite>Generic.Output</cite></dt>
+<dd>Marks the token value as program output (e.g. for python cli lexer).</dd>
+<dt><cite>Generic.Prompt</cite></dt>
+<dd>Marks the token value as command prompt (e.g. bash lexer).</dd>
+<dt><cite>Generic.Strong</cite></dt>
+<dd>Marks the token value as bold (e.g. for rst lexer).</dd>
+<dt><cite>Generic.Subheading</cite></dt>
+<dd>Marks the token value as subheadline.</dd>
+<dt><cite>Generic.Traceback</cite></dt>
+<dd>Marks the token value as a part of an error traceback.</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

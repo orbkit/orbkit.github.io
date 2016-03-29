@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Builder API &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Builder API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/sphinx/doc/extdev/builderapi.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="builder-api">
+<span id="writing-builders"></span><h1>Builder API<a class="headerlink" href="#builder-api" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sphinx.builders.Builder">
+<em class="property">class </em><code class="descclassname">sphinx.builders.</code><code class="descname">Builder</code><a class="headerlink" href="#sphinx.builders.Builder" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the base class for all builders.</p>
+<p>These methods are predefined and will be called from the application:</p>
+<dl class="method">
+<dt id="sphinx.builders.Builder.get_relative_uri">
+<code class="descname">get_relative_uri</code><span class="sig-paren">(</span><em>from_</em>, <em>to</em>, <em>typ=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.get_relative_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a relative URI between two source filenames.</p>
+<p>May raise environment.NoUri if there&#8217;s no way to return a sensible URI.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.build_all">
+<code class="descname">build_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.build_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build all source files.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.build_specific">
+<code class="descname">build_specific</code><span class="sig-paren">(</span><em>filenames</em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.build_specific" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only rebuild as much as needed for changes in the <em>filenames</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.build_update">
+<code class="descname">build_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.build_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only rebuild what was changed or added since last build.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>docnames</em>, <em>summary=None</em>, <em>method='update'</em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main build method.</p>
+<p>First updates the environment, and then calls <code class="xref py py-meth docutils literal"><span class="pre">write()</span></code>.</p>
+</dd></dl>
+
+<p>These methods can be overridden in concrete builder classes:</p>
+<dl class="method">
+<dt id="sphinx.builders.Builder.init">
+<code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load necessary templates and perform initialization.  The default
+implementation does nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.get_outdated_docs">
+<code class="descname">get_outdated_docs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.get_outdated_docs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterable of output files that are outdated, or a string
+describing what an update build will build.</p>
+<p>If the builder does not output individual files corresponding to
+source files, return a string here.  If it does, return an iterable
+of those files that need to be written.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.get_target_uri">
+<code class="descname">get_target_uri</code><span class="sig-paren">(</span><em>docname</em>, <em>typ=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.get_target_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the target URI for a document name.</p>
+<p><em>typ</em> can be used to qualify the link characteristic for individual
+builders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.prepare_writing">
+<code class="descname">prepare_writing</code><span class="sig-paren">(</span><em>docnames</em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.prepare_writing" title="Permalink to this definition">¶</a></dt>
+<dd><p>A place where you can add logic before <a class="reference internal" href="#sphinx.builders.Builder.write_doc" title="sphinx.builders.Builder.write_doc"><code class="xref py py-meth docutils literal"><span class="pre">write_doc()</span></code></a> is run</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.write_doc">
+<code class="descname">write_doc</code><span class="sig-paren">(</span><em>docname</em>, <em>doctree</em><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.write_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Where you actually write something to the filesystem.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sphinx.builders.Builder.finish">
+<code class="descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sphinx.builders.Builder.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish the building process.</p>
+<p>The default implementation does nothing.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

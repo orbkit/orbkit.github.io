@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using Pygments with MoinMoin &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Using Pygments with MoinMoin</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/Pygments/doc/docs/moinmoin.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-pygments-with-moinmoin">
+<h1>Using Pygments with MoinMoin<a class="headerlink" href="#using-pygments-with-moinmoin" title="Permalink to this headline">¶</a></h1>
+<p>From Pygments 0.7, the source distribution ships a <a class="reference external" href="http://moinmoin.wikiwikiweb.de/">Moin</a> parser plugin that
+can be used to get Pygments highlighting in Moin wiki pages.</p>
+<p>To use it, copy the file <cite>external/moin-parser.py</cite> from the Pygments
+distribution to the <cite>data/plugin/parser</cite> subdirectory of your Moin instance.
+Edit the options at the top of the file (currently <code class="docutils literal"><span class="pre">ATTACHMENTS</span></code> and
+<code class="docutils literal"><span class="pre">INLINESTYLES</span></code>) and rename the file to the name that the parser directive
+should have. For example, if you name the file <code class="docutils literal"><span class="pre">code.py</span></code>, you can get a
+highlighted Python code sample with this Wiki markup:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{{{</span>
+<span class="c1">#!code python</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="p">}}}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal"><span class="pre">python</span></code> is the Pygments name of the lexer to use.</p>
+<p>Additionally, if you set the <code class="docutils literal"><span class="pre">ATTACHMENTS</span></code> option to True, Pygments will also
+be called for all attachments for whose filenames there is no other parser
+registered.</p>
+<p>You are responsible for including CSS rules that will map the Pygments CSS
+classes to colors. You can output a stylesheet file with <cite>pygmentize</cite>, put it
+into the <cite>htdocs</cite> directory of your Moin instance and then include it in the
+<cite>stylesheets</cite> configuration option in the Moin config, e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stylesheets</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;screen&#39;</span><span class="p">,</span> <span class="s1">&#39;/htdocs/pygments.css&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>If you do not want to do that and are willing to accept larger HTML output, you
+can set the <code class="docutils literal"><span class="pre">INLINESTYLES</span></code> option to True.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

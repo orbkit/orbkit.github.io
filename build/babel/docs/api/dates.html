@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Date and Time &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Date and Time</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/babel/docs/api/dates.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-babel.dates">
+<span id="date-and-time"></span><h1>Date and Time<a class="headerlink" href="#module-babel.dates" title="Permalink to this headline">¶</a></h1>
+<p>The date and time functionality provided by Babel lets you format standard
+Python <cite>datetime</cite>, <cite>date</cite> and <cite>time</cite> objects and and work with timezones.</p>
+<div class="section" id="date-and-time-formatting">
+<h2>Date and Time Formatting<a class="headerlink" href="#date-and-time-formatting" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.dates.format_datetime">
+<code class="descclassname">babel.dates.</code><code class="descname">format_datetime</code><span class="sig-paren">(</span><em>datetime=None</em>, <em>format='medium'</em>, <em>tzinfo=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.format_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a date formatted according to the given pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Apr 1, 2007, 3:30:00 PM&#39;</span>
+</pre></div>
+</div>
+<p>For any pattern requiring the display of the time-zone, the third-party
+<code class="docutils literal"><span class="pre">pytz</span></code> package is needed to explicitly specify the time-zone:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;fr_FR&#39;</span><span class="p">)</span>
+<span class="go">u&#39;dimanche 1 avril 2007 \xe0 17:30:00 heure d\u2019\xe9t\xe9 d\u2019Europe centrale&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="s2">&quot;yyyy.MM.dd G &#39;at&#39; HH:mm:ss zzz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">tzinfo</span><span class="o">=</span><span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">),</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;2007.04.01 AD at 11:30:00 EDT&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>datetime</strong> &#8211; the <cite>datetime</cite> object; if <cite>None</cite>, the current date and
+time is used</li>
+<li><strong>format</strong> &#8211; one of &#8220;full&#8221;, &#8220;long&#8221;, &#8220;medium&#8221;, or &#8220;short&#8221;, or a custom
+date/time pattern</li>
+<li><strong>tzinfo</strong> &#8211; the timezone to apply to the time for display</li>
+<li><strong>locale</strong> &#8211; a <cite>Locale</cite> object or a locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.format_date">
+<code class="descclassname">babel.dates.</code><code class="descname">format_date</code><span class="sig-paren">(</span><em>date=None</em>, <em>format='medium'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.format_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a date formatted according to the given pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_date</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Apr 1, 2007&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_date</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Sonntag, 1. April 2007&#39;</span>
+</pre></div>
+</div>
+<p>If you don&#8217;t want to use the locale default formats, you can specify a
+custom date pattern:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_date</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;EEE, MMM d, &#39;&#39;yy&quot;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&quot;Sun, Apr 1, &#39;07&quot;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>date</strong> &#8211; the <code class="docutils literal"><span class="pre">date</span></code> or <code class="docutils literal"><span class="pre">datetime</span></code> object; if <cite>None</cite>, the current
+date is used</li>
+<li><strong>format</strong> &#8211; one of &#8220;full&#8221;, &#8220;long&#8221;, &#8220;medium&#8221;, or &#8220;short&#8221;, or a custom
+date/time pattern</li>
+<li><strong>locale</strong> &#8211; a <cite>Locale</cite> object or a locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.format_time">
+<code class="descclassname">babel.dates.</code><code class="descname">format_time</code><span class="sig-paren">(</span><em>time=None</em>, <em>format='medium'</em>, <em>tzinfo=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.format_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time formatted according to the given pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;3:30:00 PM&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;15:30&#39;</span>
+</pre></div>
+</div>
+<p>If you don&#8217;t want to use the locale default formats, you can specify a
+custom time pattern:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;hh &#39;o&#39;&#39;clock&#39; a&quot;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&quot;03 o&#39;clock PM&quot;</span>
+</pre></div>
+</div>
+<p>For any pattern requiring the display of the time-zone a
+timezone has to be specified explicitly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tzinfo</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tzinfo</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzinfo</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;fr_FR&#39;</span><span class="p">)</span>
+<span class="go">u&#39;15:30:00 heure d\u2019\xe9t\xe9 d\u2019Europe centrale&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;hh &#39;o&#39;&#39;clock&#39; a, zzzz&quot;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&quot;09 o&#39;clock AM, Eastern Daylight Time&quot;</span>
+</pre></div>
+</div>
+<p>As that example shows, when this function gets passed a
+<code class="docutils literal"><span class="pre">datetime.datetime</span></code> value, the actual time in the formatted string is
+adjusted to the timezone specified by the <cite>tzinfo</cite> parameter. If the
+<code class="docutils literal"><span class="pre">datetime</span></code> is &#8220;naive&#8221; (i.e. it has no associated timezone information),
+it is assumed to be in UTC.</p>
+<p>These timezone calculations are <strong>not</strong> performed if the value is of type
+<code class="docutils literal"><span class="pre">datetime.time</span></code>, as without date information there&#8217;s no way to determine
+what a given time would translate to in a different timezone without
+information about whether daylight savings time is in effect or not. This
+means that time values are left as-is, and the value of the <cite>tzinfo</cite>
+parameter is only used to display the timezone name if needed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;fr_FR&#39;</span><span class="p">)</span>
+<span class="go">u&#39;15:30:00 heure normale d\u2019Europe centrale&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_time</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;3:30:00 PM Eastern Standard Time&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>time</strong> &#8211; the <code class="docutils literal"><span class="pre">time</span></code> or <code class="docutils literal"><span class="pre">datetime</span></code> object; if <cite>None</cite>, the current
+time in UTC is used</li>
+<li><strong>format</strong> &#8211; one of &#8220;full&#8221;, &#8220;long&#8221;, &#8220;medium&#8221;, or &#8220;short&#8221;, or a custom
+date/time pattern</li>
+<li><strong>tzinfo</strong> &#8211; the time-zone to apply to the time for display</li>
+<li><strong>locale</strong> &#8211; a <cite>Locale</cite> object or a locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.format_timedelta">
+<code class="descclassname">babel.dates.</code><code class="descname">format_timedelta</code><span class="sig-paren">(</span><em>delta</em>, <em>granularity='second'</em>, <em>threshold=0.85</em>, <em>add_direction=False</em>, <em>format='long'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.format_timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time delta according to the rules of the given locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;3 months&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;es&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1 segundo&#39;</span>
+</pre></div>
+</div>
+<p>The granularity parameter can be provided to alter the lowest unit
+presented, which defaults to a second.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1 day&#39;</span>
+</pre></div>
+</div>
+<p>The threshold parameter can be used to determine at which value the
+presentation switches to the next higher unit. A higher threshold factor
+means the presentation will switch later. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">23</span><span class="p">),</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1 day&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">23</span><span class="p">),</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;23 hours&#39;</span>
+</pre></div>
+</div>
+<p>In addition directional information can be provided that informs
+the user if the date is in the past or in the future:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">add_direction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;in 1 hour&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="n">add_direction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;1 hour ago&#39;</span>
+</pre></div>
+</div>
+<p>The format parameter controls how compact or wide the presentation is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;3 hr&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;narrow&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;3h&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delta</strong> &#8211; a <code class="docutils literal"><span class="pre">timedelta</span></code> object representing the time difference to
+format, or the delta in seconds as an <cite>int</cite> value</li>
+<li><strong>granularity</strong> &#8211; determines the smallest unit that should be displayed,
+the value can be one of &#8220;year&#8221;, &#8220;month&#8221;, &#8220;week&#8221;, &#8220;day&#8221;,
+&#8220;hour&#8221;, &#8220;minute&#8221; or &#8220;second&#8221;</li>
+<li><strong>threshold</strong> &#8211; factor that determines at which point the presentation
+switches to the next higher unit</li>
+<li><strong>add_direction</strong> &#8211; if this flag is set to <cite>True</cite> the return value will
+include directional information.  For instance a
+positive timedelta will include the information about
+it being in the future, a negative will be information
+about the value being in the past.</li>
+<li><strong>format</strong> &#8211; the format, can be &#8220;narrow&#8221;, &#8220;short&#8221; or &#8220;long&#8221;. (
+&#8220;medium&#8221; is deprecated, currently converted to &#8220;long&#8221; to
+maintain compatibility)</li>
+<li><strong>locale</strong> &#8211; a <cite>Locale</cite> object or a locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="timezone-functionality">
+<h2>Timezone Functionality<a class="headerlink" href="#timezone-functionality" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.dates.get_timezone">
+<code class="descclassname">babel.dates.</code><code class="descname">get_timezone</code><span class="sig-paren">(</span><em>zone=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_timezone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Looks up a timezone by name and returns it.  The timezone object
+returned comes from <code class="docutils literal"><span class="pre">pytz</span></code> and corresponds to the <cite>tzinfo</cite> interface and
+can be used with all of the functions of Babel that operate with dates.</p>
+<p>If a timezone is not known a <code class="xref py py-exc docutils literal"><span class="pre">LookupError</span></code> is raised.  If <cite>zone</cite>
+is <code class="docutils literal"><span class="pre">None</span></code> a local zone object is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>zone</strong> &#8211; the name of the timezone to look up.  If a timezone object
+itself is passed in, mit&#8217;s returned unchanged.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_timezone_gmt">
+<code class="descclassname">babel.dates.</code><code class="descname">get_timezone_gmt</code><span class="sig-paren">(</span><em>datetime=None</em>, <em>width='long'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_timezone_gmt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the timezone associated with the given <cite>datetime</cite> object formatted
+as string indicating the offset from GMT.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_gmt</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;GMT+00:00&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2007</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_gmt</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;GMT-07:00&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_gmt</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">u&#39;-0700&#39;</span>
+</pre></div>
+</div>
+<p>The long format depends on the locale, for example in France the acronym
+UTC string is used instead of GMT:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_gmt</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;fr_FR&#39;</span><span class="p">)</span>
+<span class="go">u&#39;UTC-07:00&#39;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>datetime</strong> &#8211; the <code class="docutils literal"><span class="pre">datetime</span></code> object; if <cite>None</cite>, the current date and
+time in UTC is used</li>
+<li><strong>width</strong> &#8211; either &#8220;long&#8221; or &#8220;short&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_timezone_location">
+<code class="descclassname">babel.dates.</code><code class="descname">get_timezone_location</code><span class="sig-paren">(</span><em>dt_or_tzinfo=None</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_timezone_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a representation of the given timezone using &#8220;location format&#8221;.</p>
+<p>The result depends on both the local display name of the country and the
+city associated with the time zone:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;America/St_Johns&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_timezone_location</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">))</span>
+<span class="go">Kanada (St. John’s) Zeit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;America/Mexico_City&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_location</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Mexiko (Mexiko-Stadt) Zeit&#39;</span>
+</pre></div>
+</div>
+<p>If the timezone is associated with a country that uses only a single
+timezone, just the localized country name is returned:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Berlin&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Mitteleurop\xe4ische Zeit&#39;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dt_or_tzinfo</strong> &#8211; the <code class="docutils literal"><span class="pre">datetime</span></code> or <code class="docutils literal"><span class="pre">tzinfo</span></code> object that determines
+the timezone; if <cite>None</cite>, the current date and time in
+UTC is assumed</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the localized timezone name using location format</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_timezone_name">
+<code class="descclassname">babel.dates.</code><code class="descname">get_timezone_name</code><span class="sig-paren">(</span><em>dt_or_tzinfo=None</em>, <em>width='long'</em>, <em>uncommon=False</em>, <em>locale='de_DE'</em>, <em>zone_variant=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_timezone_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the localized display name for the given timezone. The timezone
+may be specified using a <code class="docutils literal"><span class="pre">datetime</span></code> or <cite>tzinfo</cite> object.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Pacific Standard Time&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;PST&#39;</span>
+</pre></div>
+</div>
+<p>If this function gets passed only a <cite>tzinfo</cite> object and no concrete
+<cite>datetime</cite>,  the returned display name is indenpendent of daylight savings
+time. This can be used for example for selecting timezones, or to set the
+time of events that recur across DST changes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Pacific Time&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;PT&#39;</span>
+</pre></div>
+</div>
+<p>If no localized display name for the timezone is available, and the timezone
+is associated with a country that uses only a single timezone, the name of
+that country is returned, formatted according to the locale:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Berlin&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Mitteleurop\xe4ische Zeit&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;pt_BR&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Hor\xe1rio da Europa Central&#39;</span>
+</pre></div>
+</div>
+<p>On the other hand, if the country uses multiple timezones, the city is also
+included in the representation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="n">get_timezone</span><span class="p">(</span><span class="s1">&#39;America/St_Johns&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_timezone_name</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Neufundland-Zeit&#39;</span>
+</pre></div>
+</div>
+<p>Note that short format is currently not supported for all timezones and
+all locales.  This is partially because not every timezone has a short
+code in every locale.  In that case it currently falls back to the long
+format.</p>
+<p>For more information see <a class="reference external" href="http://www.unicode.org/reports/tr35/#Time_Zone_Fallback">LDML Appendix J: Time Zone Display Names</a></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.0: </span>Added <cite>zone_variant</cite> support.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dt_or_tzinfo</strong> &#8211; the <code class="docutils literal"><span class="pre">datetime</span></code> or <code class="docutils literal"><span class="pre">tzinfo</span></code> object that determines
+the timezone; if a <code class="docutils literal"><span class="pre">tzinfo</span></code> object is used, the
+resulting display name will be generic, i.e.
+independent of daylight savings time; if <cite>None</cite>, the
+current date in UTC is assumed</li>
+<li><strong>width</strong> &#8211; either &#8220;long&#8221; or &#8220;short&#8221;</li>
+<li><strong>uncommon</strong> &#8211; deprecated and ignored</li>
+<li><strong>zone_variant</strong> &#8211; defines the zone variation to return.  By default the
+variation is defined from the datetime object
+passed in.  If no datetime object is passed in, the
+<code class="docutils literal"><span class="pre">'generic'</span></code> variation is assumed.  The following
+values are valid: <code class="docutils literal"><span class="pre">'generic'</span></code>, <code class="docutils literal"><span class="pre">'daylight'</span></code> and
+<code class="docutils literal"><span class="pre">'standard'</span></code>.</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_next_timezone_transition">
+<code class="descclassname">babel.dates.</code><code class="descname">get_next_timezone_transition</code><span class="sig-paren">(</span><em>zone=None</em>, <em>dt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_next_timezone_transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a timezone it will return a <code class="xref py py-class docutils literal"><span class="pre">TimezoneTransition</span></code> object
+that holds the information about the next timezone transition that&#8217;s going
+to happen.  For instance this can be used to detect when the next DST
+change is going to happen and how it looks like.</p>
+<p>The transition is calculated relative to the given datetime object.  The
+next transition that follows the date is used.  If a transition cannot
+be found the return value will be <cite>None</cite>.</p>
+<p>Transition information can only be provided for timezones returned by
+the <a class="reference internal" href="#babel.dates.get_timezone" title="babel.dates.get_timezone"><code class="xref py py-func docutils literal"><span class="pre">get_timezone()</span></code></a> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>zone</strong> &#8211; the timezone for which the transition should be looked up.
+If not provided the local timezone is used.</li>
+<li><strong>dt</strong> &#8211; the date after which the next transition should be found.
+If not given the current time is assumed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="babel.dates.UTC">
+<code class="descclassname">babel.dates.</code><code class="descname">UTC</code><a class="headerlink" href="#babel.dates.UTC" title="Permalink to this definition">¶</a></dt>
+<dd><p>A timezone object for UTC.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="babel.dates.LOCALTZ">
+<code class="descclassname">babel.dates.</code><code class="descname">LOCALTZ</code><a class="headerlink" href="#babel.dates.LOCALTZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>A timezone object for the computer&#8217;s local timezone.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="data-access">
+<h2>Data Access<a class="headerlink" href="#data-access" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.dates.get_period_names">
+<code class="descclassname">babel.dates.</code><code class="descname">get_period_names</code><span class="sig-paren">(</span><em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_period_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the names for day periods (AM/PM) used by the locale.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_period_names</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)[</span><span class="s1">&#39;am&#39;</span><span class="p">]</span>
+<span class="go">u&#39;AM&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_day_names">
+<code class="descclassname">babel.dates.</code><code class="descname">get_day_names</code><span class="sig-paren">(</span><em>width='wide'</em>, <em>context='format'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_day_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the day names used by the locale for the specified format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_day_names</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;Tuesday&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_day_names</span><span class="p">(</span><span class="s1">&#39;abbreviated&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;es&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;mar.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_day_names</span><span class="p">(</span><span class="s1">&#39;narrow&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;stand-alone&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;D&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>width</strong> &#8211; the width to use, one of &#8220;wide&#8221;, &#8220;abbreviated&#8221;, or &#8220;narrow&#8221;</li>
+<li><strong>context</strong> &#8211; the context, either &#8220;format&#8221; or &#8220;stand-alone&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_month_names">
+<code class="descclassname">babel.dates.</code><code class="descname">get_month_names</code><span class="sig-paren">(</span><em>width='wide'</em>, <em>context='format'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_month_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the month names used by the locale for the specified format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_month_names</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;January&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_month_names</span><span class="p">(</span><span class="s1">&#39;abbreviated&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;es&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;ene.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_month_names</span><span class="p">(</span><span class="s1">&#39;narrow&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;stand-alone&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;J&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>width</strong> &#8211; the width to use, one of &#8220;wide&#8221;, &#8220;abbreviated&#8221;, or &#8220;narrow&#8221;</li>
+<li><strong>context</strong> &#8211; the context, either &#8220;format&#8221; or &#8220;stand-alone&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_quarter_names">
+<code class="descclassname">babel.dates.</code><code class="descname">get_quarter_names</code><span class="sig-paren">(</span><em>width='wide'</em>, <em>context='format'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_quarter_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the quarter names used by the locale for the specified format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_quarter_names</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;1st quarter&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_quarter_names</span><span class="p">(</span><span class="s1">&#39;abbreviated&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;Q1&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>width</strong> &#8211; the width to use, one of &#8220;wide&#8221;, &#8220;abbreviated&#8221;, or &#8220;narrow&#8221;</li>
+<li><strong>context</strong> &#8211; the context, either &#8220;format&#8221; or &#8220;stand-alone&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_era_names">
+<code class="descclassname">babel.dates.</code><code class="descname">get_era_names</code><span class="sig-paren">(</span><em>width='wide'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_era_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the era names used by the locale for the specified format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_era_names</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;Anno Domini&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_era_names</span><span class="p">(</span><span class="s1">&#39;abbreviated&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">u&#39;n. Chr.&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>width</strong> &#8211; the width to use, either &#8220;wide&#8221;, &#8220;abbreviated&#8221;, or &#8220;narrow&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_date_format">
+<code class="descclassname">babel.dates.</code><code class="descname">get_date_format</code><span class="sig-paren">(</span><em>format='medium'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the date formatting patterns used by the locale for the specified
+format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_date_format</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">&lt;DateTimePattern u&#39;MMM d, y&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_date_format</span><span class="p">(</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">&lt;DateTimePattern u&#39;EEEE, d. MMMM y&#39;&gt;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>format</strong> &#8211; the format to use, one of &#8220;full&#8221;, &#8220;long&#8221;, &#8220;medium&#8221;, or
+&#8220;short&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_datetime_format">
+<code class="descclassname">babel.dates.</code><code class="descname">get_datetime_format</code><span class="sig-paren">(</span><em>format='medium'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_datetime_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the datetime formatting patterns used by the locale for the
+specified format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_datetime_format</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">u&#39;{1}, {0}&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>format</strong> &#8211; the format to use, one of &#8220;full&#8221;, &#8220;long&#8221;, &#8220;medium&#8221;, or
+&#8220;short&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.get_time_format">
+<code class="descclassname">babel.dates.</code><code class="descname">get_time_format</code><span class="sig-paren">(</span><em>format='medium'</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.get_time_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the time formatting patterns used by the locale for the specified
+format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_time_format</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">&lt;DateTimePattern u&#39;h:mm:ss a&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_time_format</span><span class="p">(</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">&lt;DateTimePattern u&#39;HH:mm:ss zzzz&#39;&gt;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>format</strong> &#8211; the format to use, one of &#8220;full&#8221;, &#8220;long&#8221;, &#8220;medium&#8221;, or
+&#8220;short&#8221;</li>
+<li><strong>locale</strong> &#8211; the <cite>Locale</cite> object, or a locale string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="basic-parsing">
+<h2>Basic Parsing<a class="headerlink" href="#basic-parsing" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="babel.dates.parse_date">
+<code class="descclassname">babel.dates.</code><code class="descname">parse_date</code><span class="sig-paren">(</span><em>string</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.parse_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a date from a string.</p>
+<p>This function uses the date format for the locale as a hint to determine
+the order in which the date fields appear in the string.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_date</span><span class="p">(</span><span class="s1">&#39;4/1/04&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">datetime.date(2004, 4, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_date</span><span class="p">(</span><span class="s1">&#39;01.04.2004&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;de_DE&#39;</span><span class="p">)</span>
+<span class="go">datetime.date(2004, 4, 1)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>string</strong> &#8211; the string containing the date</li>
+<li><strong>locale</strong> &#8211; a <cite>Locale</cite> object or a locale identifier</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.parse_time">
+<code class="descclassname">babel.dates.</code><code class="descname">parse_time</code><span class="sig-paren">(</span><em>string</em>, <em>locale='de_DE'</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.parse_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a time from a string.</p>
+<p>This function uses the time format for the locale as a hint to determine
+the order in which the time fields appear in the string.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_time</span><span class="p">(</span><span class="s1">&#39;15:30:00&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="go">datetime.time(15, 30)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> &#8211; the string containing the time</li>
+<li><strong>locale</strong> &#8211; a <cite>Locale</cite> object or a locale identifier</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the parsed time</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><cite>time</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.dates.parse_pattern">
+<code class="descclassname">babel.dates.</code><code class="descname">parse_pattern</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.dates.parse_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse date, time, and datetime format patterns.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_pattern</span><span class="p">(</span><span class="s2">&quot;MMMMd&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span>
+<span class="go">u&#39;%(MMMM)s%(d)s&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_pattern</span><span class="p">(</span><span class="s2">&quot;MMM d, yyyy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span>
+<span class="go">u&#39;%(MMM)s %(d)s, %(yyyy)s&#39;</span>
+</pre></div>
+</div>
+<p>Pattern can contain literal strings in single quotes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_pattern</span><span class="p">(</span><span class="s2">&quot;H:mm&#39; Uhr &#39;z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span>
+<span class="go">u&#39;%(H)s:%(mm)s Uhr %(z)s&#39;</span>
+</pre></div>
+</div>
+<p>An actual single quote can be used by using two adjacent single quote
+characters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_pattern</span><span class="p">(</span><span class="s2">&quot;hh&#39; o&#39;&#39;clock&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span>
+<span class="go">u&quot;%(hh)s o&#39;clock&quot;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pattern</strong> &#8211; the formatting pattern to parse</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

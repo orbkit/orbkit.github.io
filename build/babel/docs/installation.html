@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/build/babel/docs/installation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Babel is distributed as a standard Python package fully set up with all
+the dependencies it needs.  It primarily depends on the excellent <a class="reference external" href="http://pytz.sourceforge.net/">pytz</a>
+library for timezone handling.  To install it you can use <code class="docutils literal"><span class="pre">easy_install</span></code>
+or <code class="docutils literal"><span class="pre">pip</span></code>.</p>
+<div class="section" id="virtualenv">
+<span id="id2"></span><h2>virtualenv<a class="headerlink" href="#virtualenv" title="Permalink to this headline">¶</a></h2>
+<p>Virtualenv is probably what you want to use during development, and if you
+have shell access to your production machines, you&#8217;ll probably want to use
+it there, too.</p>
+<p>If you are on Mac OS X or Linux, chances are that one of the following two
+commands will work for you:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo easy_install virtualenv
+</pre></div>
+</div>
+<p>If you are on Windows and don&#8217;t have the <cite>easy_install</cite> command, you must
+install it first.  Check the <a class="reference internal" href="#windows-easy-install"><span class="std std-ref">pip and distribute on Windows</span></a> section for more
+information about how to do that.  Once you have it installed, run the same
+commands as above, but without the <cite>sudo</cite> prefix.</p>
+<p>Once you have virtualenv installed, just fire up a shell and create
+your own environment.  I usually create a project folder and a <cite>venv</cite>
+folder within:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mkdir myproject
+$ cd myproject
+$ virtualenv venv
+New python executable in venv/bin/python
+Installing distribute............done.
+</pre></div>
+</div>
+<p>Now, whenever you want to work on a project, you only have to activate the
+corresponding environment.  On OS X and Linux, do the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ . venv/bin/activate
+</pre></div>
+</div>
+<p>If you are a Windows user, the following command is for you:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ venv\scripts\activate
+</pre></div>
+</div>
+<p>Either way, you should now be using your virtualenv (notice how the prompt of
+your shell has changed to show the active environment).</p>
+<p>Now you can just enter the following command to get Babel installed in your
+virtualenv:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install Babel
+</pre></div>
+</div>
+<p>A few seconds later and you are good to go.</p>
+</div>
+<div class="section" id="system-wide-installation">
+<h2>System-Wide Installation<a class="headerlink" href="#system-wide-installation" title="Permalink to this headline">¶</a></h2>
+<p>This is possible as well, though I do not recommend it.  Just run <cite>pip</cite>
+with root privileges:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo pip install Babel
+</pre></div>
+</div>
+<p>If <cite>pip</cite> is not available on your system you can use <cite>easy_install</cite>.</p>
+<p>(On Windows systems, run it in a command-prompt window with administrator
+privileges, and leave out <cite>sudo</cite>.)</p>
+</div>
+<div class="section" id="living-on-the-edge">
+<h2>Living on the Edge<a class="headerlink" href="#living-on-the-edge" title="Permalink to this headline">¶</a></h2>
+<p>If you want to work with the latest version of Babel, you will need to
+use a git checkout.</p>
+<p>Get the git checkout in a new virtualenv and run in development mode:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone http://github.com/python-babel/babel.git
+Initialized empty Git repository in ~/dev/babel/.git/
+$ cd babel
+$ virtualenv venv
+New python executable in venv/bin/python
+Installing distribute............done.
+$ . venv/bin/activate
+$ python setup.py import_cldr
+$ pip install --editable .
+...
+Finished processing dependencies for Babel
+</pre></div>
+</div>
+<p>Make sure to not forget about the <code class="docutils literal"><span class="pre">import_cldr</span></code> step because otherwise
+you will be missing the locale data.  This custom command will download
+the most appropriate CLDR release from the official website and convert it
+for Babel.</p>
+<p>This will pull also in the dependencies and activate the git head as the
+current version inside the virtualenv.  Then all you have to do is run
+<code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span></code> to update to the latest version.  If the CLDR data
+changes you will have to re-run <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">import_cldr</span></code>.</p>
+</div>
+<div class="section" id="pip-and-distribute-on-windows">
+<span id="windows-easy-install"></span><h2><cite>pip</cite> and <cite>distribute</cite> on Windows<a class="headerlink" href="#pip-and-distribute-on-windows" title="Permalink to this headline">¶</a></h2>
+<p>On Windows, installation of <cite>easy_install</cite> is a little bit trickier, but
+still quite easy.  The easiest way to do it is to download the
+<a class="reference external" href="http://python-distribute.org/distribute_setup.py">distribute_setup.py</a> file and run it.  The easiest way to run the file
+is to open your downloads folder and double-click on the file.</p>
+<p>Next, add the <cite>easy_install</cite> command and other Python scripts to the
+command search path, by adding your Python installation&#8217;s Scripts folder
+to the <cite>PATH</cite> environment variable.  To do that, right-click on the
+&#8220;Computer&#8221; icon on the Desktop or in the Start menu, and choose &#8220;Properties&#8221;.
+Then click on &#8220;Advanced System settings&#8221; (in Windows XP, click on the
+&#8220;Advanced&#8221; tab instead).  Then click on the &#8220;Environment variables&#8221; button.
+Finally, double-click on the &#8220;Path&#8221; variable in the &#8220;System variables&#8221; section,
+and add the path of your Python interpreter&#8217;s Scripts folder. Be sure to
+delimit it from existing values with a semicolon.  Assuming you are using
+Python 2.7 on the default path, add the following value:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">;</span><span class="n">C</span><span class="p">:</span>\<span class="n">Python27</span>\<span class="n">Scripts</span>
+</pre></div>
+</div>
+<p>And you are done!  To check that it worked, open the Command Prompt and execute
+<code class="docutils literal"><span class="pre">easy_install</span></code>.  If you have User Account Control enabled on Windows Vista or
+Windows 7, it should prompt you for administrator privileges.</p>
+<p>Now that you have <code class="docutils literal"><span class="pre">easy_install</span></code>, you can use it to install <code class="docutils literal"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">easy_install</span> <span class="n">pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

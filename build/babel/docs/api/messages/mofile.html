@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MO File Support &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>MO File Support</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/build/babel/docs/api/messages/mofile.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-babel.messages.mofile">
+<span id="mo-file-support"></span><h1>MO File Support<a class="headerlink" href="#module-babel.messages.mofile" title="Permalink to this headline">¶</a></h1>
+<p>The MO file support can read and write MO files.  It reads them into
+<a class="reference internal" href="catalog.html#babel.messages.catalog.Catalog" title="babel.messages.catalog.Catalog"><code class="xref py py-class docutils literal"><span class="pre">Catalog</span></code></a> objects and also writes catalogs
+out.</p>
+<dl class="function">
+<dt id="babel.messages.mofile.read_mo">
+<code class="descclassname">babel.messages.mofile.</code><code class="descname">read_mo</code><span class="sig-paren">(</span><em>fileobj</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.messages.mofile.read_mo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a binary MO file from the given file-like object and return a
+corresponding <cite>Catalog</cite> object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fileobj</strong> &#8211; the file-like object to read the MO file from</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body">The implementation of this function is heavily based on the
+<code class="docutils literal"><span class="pre">GNUTranslations._parse</span></code> method of the <code class="docutils literal"><span class="pre">gettext</span></code> module in the
+standard library.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="babel.messages.mofile.write_mo">
+<code class="descclassname">babel.messages.mofile.</code><code class="descname">write_mo</code><span class="sig-paren">(</span><em>fileobj</em>, <em>catalog</em>, <em>use_fuzzy=False</em><span class="sig-paren">)</span><a class="headerlink" href="#babel.messages.mofile.write_mo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a catalog to the specified file-like object using the GNU MO file
+format.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">babel.messages</span> <span class="k">import</span> <span class="n">Catalog</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gettext</span> <span class="k">import</span> <span class="n">GNUTranslations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">babel._compat</span> <span class="k">import</span> <span class="n">BytesIO</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;Voh&#39;</span><span class="p">)</span>
+<span class="go">&lt;Message ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="s1">u&#39;bar&#39;</span><span class="p">,</span> <span class="s1">u&#39;baz&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">u&#39;Bahr&#39;</span><span class="p">,</span> <span class="s1">u&#39;Batz&#39;</span><span class="p">))</span>
+<span class="go">&lt;Message ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;fuz&#39;</span><span class="p">,</span> <span class="s1">&#39;Futz&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fuzzy&#39;</span><span class="p">])</span>
+<span class="go">&lt;Message ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;Fizz&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="go">&lt;Message ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="s1">&#39;Fuzz&#39;</span><span class="p">,</span> <span class="s1">&#39;Fuzzes&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+<span class="go">&lt;Message ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">write_mo</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span> <span class="o">=</span> <span class="n">GNUTranslations</span><span class="p">(</span><span class="n">fp</span><span class="o">=</span><span class="n">buf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">translations</span><span class="o">.</span><span class="n">ugettext</span> <span class="o">=</span> <span class="n">translations</span><span class="o">.</span><span class="n">gettext</span>
+<span class="gp">... </span>    <span class="n">translations</span><span class="o">.</span><span class="n">ungettext</span> <span class="o">=</span> <span class="n">translations</span><span class="o">.</span><span class="n">ngettext</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ugettext</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Voh&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ungettext</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">u&#39;Bahr&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ungettext</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">u&#39;Batz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ugettext</span><span class="p">(</span><span class="s1">&#39;fuz&#39;</span><span class="p">)</span>
+<span class="go">u&#39;fuz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ugettext</span><span class="p">(</span><span class="s1">&#39;Fizz&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Fizz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ugettext</span><span class="p">(</span><span class="s1">&#39;Fuzz&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Fuzz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span><span class="o">.</span><span class="n">ugettext</span><span class="p">(</span><span class="s1">&#39;Fuzzes&#39;</span><span class="p">)</span>
+<span class="go">u&#39;Fuzzes&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fileobj</strong> &#8211; the file-like object to write to</li>
+<li><strong>catalog</strong> &#8211; the <cite>Catalog</cite> instance</li>
+<li><strong>use_fuzzy</strong> &#8211; whether translations marked as &#8220;fuzzy&#8221; should be included
+in the output</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

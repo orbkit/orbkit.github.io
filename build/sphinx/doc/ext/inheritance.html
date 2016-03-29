@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sphinx.ext.inheritance_diagram – Include inheritance diagrams &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+    <li><code class="docutils literal"><span class="pre">sphinx.ext.inheritance_diagram</span></code> &#8211; Include inheritance diagrams</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/build/sphinx/doc/ext/inheritance.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sphinx.ext.inheritance_diagram">
+<span id="sphinx-ext-inheritance-diagram-include-inheritance-diagrams"></span><h1><a class="reference internal" href="#module-sphinx.ext.inheritance_diagram" title="sphinx.ext.inheritance_diagram: Support for displaying inheritance diagrams via graphviz."><code class="xref py py-mod docutils literal"><span class="pre">sphinx.ext.inheritance_diagram</span></code></a> &#8211; Include inheritance diagrams<a class="headerlink" href="#module-sphinx.ext.inheritance_diagram" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.6.</span></p>
+</div>
+<p>This extension allows you to include inheritance diagrams, rendered via the
+<a class="reference internal" href="graphviz.html#module-sphinx.ext.graphviz" title="sphinx.ext.graphviz: Support for Graphviz graphs."><code class="xref py py-mod docutils literal"><span class="pre">Graphviz</span> <span class="pre">extension</span></code></a>.</p>
+<p>It adds this directive:</p>
+<dl class="directive">
+<dt id="directive-inheritance-diagram">
+<code class="descname">.. inheritance-diagram::</code><a class="headerlink" href="#directive-inheritance-diagram" title="Permalink to this definition">¶</a></dt>
+<dd><p>This directive has one or more arguments, each giving a module or class
+name.  Class names can be unqualified; in that case they are taken to exist
+in the currently described module (see <a class="reference internal" href="../domains.html#directive-py:module" title="py:module directive"><code class="xref rst rst-dir docutils literal"><span class="pre">py:module</span></code></a>).</p>
+<p>For each given class, and each class in each given module, the base classes
+are determined.  Then, from all classes and their base classes, a graph is
+generated which is then rendered via the graphviz extension to a directed
+graph.</p>
+<p>This directive supports an option called <code class="docutils literal"><span class="pre">parts</span></code> that, if given, must be an
+integer, advising the directive to remove that many parts of module names
+from the displayed names.  (For example, if all your class names start with
+<code class="docutils literal"><span class="pre">lib.</span></code>, you can give <code class="docutils literal"><span class="pre">:parts:</span> <span class="pre">1</span></code> to remove that prefix from the displayed
+node names.)</p>
+<p>It also supports a <code class="docutils literal"><span class="pre">private-bases</span></code> flag option; if given, private base
+classes (those whose name starts with <code class="docutils literal"><span class="pre">_</span></code>) will be included.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.1: </span>Added <code class="docutils literal"><span class="pre">private-bases</span></code> option; previously, all bases were always
+included.</p>
+</div>
+</dd></dl>
+
+<p>New config values are:</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

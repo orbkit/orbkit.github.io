@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sphinx Extensions &mdash; orbkit 0.2.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="orbkit 0.2.2 documentation" href="../../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> orbkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">orbkit</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Sphinx Extensions</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/build/sphinx/doc/extensions.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sphinx-extensions">
+<span id="extensions"></span><h1>Sphinx Extensions<a class="headerlink" href="#sphinx-extensions" title="Permalink to this headline">¶</a></h1>
+<p>Since many projects will need special features in their documentation, Sphinx
+allows to add &#8220;extensions&#8221; to the build process, each of which can modify almost
+any aspect of document processing.</p>
+<p>This chapter describes the extensions bundled with Sphinx.  For the API
+documentation on writing your own extension, see <a class="reference internal" href="extdev/index.html#dev-extensions"><span class="std std-ref">Developing extensions for Sphinx</span></a>.</p>
+<div class="section" id="builtin-sphinx-extensions">
+<h2>Builtin Sphinx extensions<a class="headerlink" href="#builtin-sphinx-extensions" title="Permalink to this headline">¶</a></h2>
+<p>These extensions are built in and can be activated by respective entries in the
+<a href="#id1"><span class="problematic" id="id2">:confval:`extensions`</span></a> configuration value:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ext/autodoc.html"><code class="docutils literal"><span class="pre">sphinx.ext.autodoc</span></code> &#8211; Include documentation from docstrings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext/autodoc.html#docstring-preprocessing">Docstring preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/autodoc.html#skipping-members">Skipping members</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ext/autosectionlabel.html"><code class="docutils literal"><span class="pre">sphinx.ext.autosectionlabel</span></code> &#8211; Allow reference sections using its title</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/autosummary.html"><code class="docutils literal"><span class="pre">sphinx.ext.autosummary</span></code> &#8211; Generate autodoc summaries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext/autosummary.html#sphinx-autogen-generate-autodoc-stub-pages"><strong class="program">sphinx-autogen</strong> &#8211; generate autodoc stub pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/autosummary.html#generating-stub-pages-automatically">Generating stub pages automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/autosummary.html#customizing-templates">Customizing templates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ext/coverage.html"><code class="docutils literal"><span class="pre">sphinx.ext.coverage</span></code> &#8211; Collect doc coverage stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/doctest.html"><code class="docutils literal"><span class="pre">sphinx.ext.doctest</span></code> &#8211; Test snippets in the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/extlinks.html"><code class="docutils literal"><span class="pre">sphinx.ext.extlinks</span></code> &#8211; Markup to shorten external links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/githubpages.html"><code class="docutils literal"><span class="pre">sphinx.ext.githubpages</span></code> &#8211; Publish HTML docs in GitHub Pages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/graphviz.html"><code class="docutils literal"><span class="pre">sphinx.ext.graphviz</span></code> &#8211; Add Graphviz graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/ifconfig.html"><code class="docutils literal"><span class="pre">sphinx.ext.ifconfig</span></code> &#8211; Include content based on configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/inheritance.html"><code class="docutils literal"><span class="pre">sphinx.ext.inheritance_diagram</span></code> &#8211; Include inheritance diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/intersphinx.html"><code class="docutils literal"><span class="pre">sphinx.ext.intersphinx</span></code> &#8211; Link to other projects&#8217; documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/linkcode.html"><code class="docutils literal"><span class="pre">sphinx.ext.linkcode</span></code> &#8211; Add external links to source code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/math.html">Math support in Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext/math.html#module-sphinx.ext.imgmath"><code class="docutils literal"><span class="pre">sphinx.ext.imgmath</span></code> &#8211; Render math as images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/math.html#module-sphinx.ext.mathjax"><code class="docutils literal"><span class="pre">sphinx.ext.mathjax</span></code> &#8211; Render math via JavaScript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/math.html#module-sphinx.ext.jsmath"><code class="docutils literal"><span class="pre">sphinx.ext.jsmath</span></code> &#8211; Render math via JavaScript</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ext/napoleon.html"><code class="docutils literal"><span class="pre">sphinx.ext.napoleon</span></code> &#8211; Support for NumPy and Google style docstrings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext/napoleon.html#napoleon-marching-toward-legible-docstrings">Napoleon - <em>Marching toward legible docstrings</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext/napoleon.html#getting-started">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext/napoleon.html#id1">Docstrings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext/napoleon.html#docstring-sections">Docstring Sections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext/napoleon.html#google-vs-numpy">Google vs NumPy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext/napoleon.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ext/todo.html"><code class="docutils literal"><span class="pre">sphinx.ext.todo</span></code> &#8211; Support for todo items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext/viewcode.html"><code class="docutils literal"><span class="pre">sphinx.ext.viewcode</span></code> &#8211; Add links to highlighted source code</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="third-party-extensions">
+<h2>Third-party extensions<a class="headerlink" href="#third-party-extensions" title="Permalink to this headline">¶</a></h2>
+<p>You can find several extensions contributed by users in the <a class="reference external" href="https://bitbucket.org/birkenfeld/sphinx-contrib">Sphinx Contrib</a>
+repository.  It is open for anyone who wants to maintain an extension
+publicly; just send a short message asking for write permissions.</p>
+<p>There are also several extensions hosted elsewhere.  The <a class="reference external" href="http://sphinxext-survey.readthedocs.org/en/latest/">Sphinx extension
+survey</a> contains a
+comprehensive list.</p>
+<p>If you write an extension that you think others will find useful or you think
+should be included as a part of Sphinx, please write to the project mailing
+list (<a class="reference external" href="https://groups.google.com/forum/#!forum/sphinx-dev">join here</a>).</p>
+<div class="section" id="where-to-put-your-own-extensions">
+<h3>Where to put your own extensions?<a class="headerlink" href="#where-to-put-your-own-extensions" title="Permalink to this headline">¶</a></h3>
+<p>Extensions local to a project should be put within the project&#8217;s directory
+structure.  Set Python&#8217;s module search path, <code class="docutils literal"><span class="pre">sys.path</span></code>, accordingly so that
+Sphinx can find them.
+E.g., if your extension <code class="docutils literal"><span class="pre">foo.py</span></code> lies in the <code class="docutils literal"><span class="pre">exts</span></code> subdirectory of the
+project root, put into <code class="file docutils literal"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;exts&#39;</span><span class="p">))</span>
+
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can also install extensions anywhere else on <code class="docutils literal"><span class="pre">sys.path</span></code>, e.g. in the
+<code class="docutils literal"><span class="pre">site-packages</span></code> directory.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
