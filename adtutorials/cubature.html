@@ -168,7 +168,7 @@ molecular orbitals of the water molecule in a user-defined volume.</p>
 </tr>
 </tbody>
 </table>
-<p>For simplicity, we use the molden file <code class="docutils literal"><span class="pre">h2o.md</span></code> as an example.
+<p>For simplicity, we use the molden file <code class="docutils literal"><span class="pre">h2o.molden</span></code> as an example.
 This file can be found in <code class="docutils literal"><span class="pre">$ORBKITPATH/examples</span></code>. Moreover, we assume that
 you have followed the <a class="reference internal" href="../install.html#installation-instructions"><span class="std std-ref">Installation</span></a> and that you have
 installed the Python interface to <a class="reference external" href="https://github.com/saullocastro/cubature">cubature</a>.</p>
@@ -197,7 +197,7 @@ installed the Python interface to <a class="reference external" href="https://gi
 </div>
 <p>Then, we have to read the input file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Open molden file and read parameters</span>
-<span class="n">qc</span> <span class="o">=</span> <span class="n">orbkit</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.md&#39;</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">orbkit</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.molden&#39;</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

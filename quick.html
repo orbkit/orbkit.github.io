@@ -170,7 +170,7 @@ The execution is demonstrated within the Terminal and within a Python shell.</p>
 </li>
 </ul>
 </div>
-<p>For simplicity, we use the molden file <code class="docutils literal"><span class="pre">h2o.md</span></code> as an example.
+<p>For simplicity, we use the molden file <code class="docutils literal"><span class="pre">h2o.molden</span></code> as an example.
 This file can be found in <code class="docutils literal"><span class="pre">$ORBKITPATH/examples</span></code>. Moreover, we assume that
 you have followed the instructions in <a class="reference internal" href="install.html#installation-instructions"><span class="std std-ref">Installation</span></a>.</p>
 <div class="section" id="within-the-terminal">
@@ -189,7 +189,7 @@ $ mkdir vis
 </div>
 <p>Now, let us run orbkit for a grid adapted to the molecular geometry
 (see <a class="reference internal" href="gridbased/terminal.html#grid"><span class="std std-ref">Grid Related Options</span></a> for details):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i h2o.md -o vis/h2o --otype<span class="o">=</span>vmd --adjust_grid<span class="o">=</span><span class="m">5</span> 0.5 --calc_mo<span class="o">=</span>homo-1:lumo+2
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i h2o.molden -o vis/h2o --otype<span class="o">=</span>vmd --adjust_grid<span class="o">=</span><span class="m">5</span> 0.5 --calc_mo<span class="o">=</span>homo-1:lumo+2
 </pre></div>
 </div>
 <p>orbkit creates four cube files and a VMD script file <code class="docutils literal"><span class="pre">vis/h2o_MO.vmd</span></code>.
@@ -213,11 +213,11 @@ i.e., <code class="docutils literal"><span class="pre">--calc_mo=START:STOP[:STE
 <p>To get a rough overview over the shape of the quantities computed, you can use a
 simple interface to <a class="reference external" href="http://docs.enthought.com/mayavi/mayavi/auto/examples.html">Mayavi</a>. Although, no output file is created with that option,
 you can combine it with other output options, e.g., <code class="docutils literal"><span class="pre">--otype=vmd</span></code>.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i h2o.md --otype<span class="o">=</span>mayavi --adjust_grid<span class="o">=</span><span class="m">5</span> 0.5 --calc_mo<span class="o">=</span>homo-1:lumo+2
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i h2o.molden --otype<span class="o">=</span>mayavi --adjust_grid<span class="o">=</span><span class="m">5</span> 0.5 --calc_mo<span class="o">=</span>homo-1:lumo+2
 </pre></div>
 </div>
 <p>When the computations are finished, the data will be depicted in an interactive window:</p>
-<a class="reference internal image-reference" href="_images/mayavi_window.png"><img alt="Interactive Mayavi Window" class="align-center" src="_images/mayavi_window.png" style="width: 193.5px; height: 347.5px;" /></a>
+<a class="reference internal image-reference" href="_images/mayavi_window.png"><img alt="Interactive Mayavi Window" class="align-center" src="_images/mayavi_window.png" style="width: 448.0px; height: 428.5px;" /></a>
 </div>
 </div>
 <div class="section" id="within-a-python-shell">
@@ -233,7 +233,7 @@ on a grid adjusted to the molecular geometry, and for the depiction, we will cre
 </pre></div>
 </div>
 <p>Set the options</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">options</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;h2o.md&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">options</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;h2o.molden&#39;</span>
 <span class="o">&gt;&gt;</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span> <span class="o">=</span> <span class="s1">&#39;vis/h2o&#39;</span>
 <span class="o">&gt;&gt;</span> <span class="n">options</span><span class="o">.</span><span class="n">otype</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;vmd&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">]</span>
 <span class="o">&gt;&gt;</span> <span class="n">options</span><span class="o">.</span><span class="n">adjust_grid</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.1</span><span class="p">]</span>
@@ -253,7 +253,7 @@ First, import the required python modules:</p>
 </pre></div>
 </div>
 <p>Read the input file,</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.md&#39;</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.molden&#39;</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>initialize the grid,</p>
