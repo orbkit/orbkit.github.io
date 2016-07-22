@@ -353,7 +353,7 @@ existing file.</dd>
 <h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <dl class="data">
 <dt id="orbkit.options.itypes">
-<code class="descclassname">orbkit.options.</code><code class="descname">itypes</code><em class="property"> = ['molden', 'aomix', 'gamess', 'gaussian.log', 'gaussian.fchk', 'wfn', 'wfx', 'cclib']</em><a class="headerlink" href="#orbkit.options.itypes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.options.</code><code class="descname">itypes</code><em class="property"> = ['molden', 'aomix', 'gamess', 'gaussian.log', 'gaussian.fchk', 'wfn', 'wfx', 'cclib', 'orbkit.dump']</em><a class="headerlink" href="#orbkit.options.itypes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies possible input types.</p>
 </dd></dl>
 
@@ -1284,7 +1284,7 @@ e.g., l_deg(ao=&#8217;xxy&#8217;)</dd>
 
 <dl class="function">
 <dt id="orbkit.core.rho_compute">
-<code class="descclassname">orbkit.core.</code><code class="descname">rho_compute</code><span class="sig-paren">(</span><em>qc</em>, <em>calc_mo=False</em>, <em>drv=None</em>, <em>laplacian=False</em>, <em>numproc=1</em>, <em>slice_length=10000.0</em>, <em>vector=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.core.rho_compute" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.core.</code><code class="descname">rho_compute</code><span class="sig-paren">(</span><em>qc</em>, <em>calc_mo=False</em>, <em>drv=None</em>, <em>laplacian=False</em>, <em>numproc=1</em>, <em>slice_length=10000.0</em>, <em>vector=None</em>, <em>save_hdf5=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.core.rho_compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the density, the molecular orbitals, or the derivatives thereof.</p>
 <p>orbkit divides 3-dimensional regular grids into 2-dimensional slices and 
 1-dimensional vector grids into 1-dimensional slices of equal length. By default,
