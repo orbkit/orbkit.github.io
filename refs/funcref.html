@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Function Reference &mdash; orbkit  documentation</title>
+  <title>Function Reference &mdash; ORBKIT  documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
 
   
-    <link rel="top" title="orbkit  documentation" href="../index.html"/>
-        <link rel="up" title="Orbkit References" href="index.html"/>
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
+        <link rel="up" title="ORBKIT References" href="index.html"/>
         <link rel="next" title="Licence Note" href="../licence.html"/>
         <link rel="prev" title="Central Variables" href="cvars.html"/> 
 
@@ -53,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> orbkit
+            <a href="../index.html" class="icon icon-home"> ORBKIT
           
 
           
@@ -85,13 +85,14 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Orbkit References</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ORBKIT References</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="options.html">Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cvars.html">Central Variables</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Function Reference</a><ul>
@@ -129,7 +130,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">orbkit</a>
+        <a href="../index.html">ORBKIT</a>
       </nav>
 
 
@@ -146,7 +147,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Orbkit References</a> &raquo;</li>
+          <li><a href="index.html">ORBKIT References</a> &raquo;</li>
       
     <li>Function Reference</li>
       <li class="wy-breadcrumbs-aside">
@@ -165,7 +166,7 @@
   <div class="section" id="function-reference">
 <span id="id1"></span><h1>Function Reference<a class="headerlink" href="#function-reference" title="Permalink to this headline">¶</a></h1>
 <p>The following section contains a detailed description of all modules present
-in orbkit.</p>
+in ORBKIT.</p>
 <div class="section" id="module-orbkit.qcinfo">
 <span id="orbkit-qcinfo"></span><h2>orbkit.qcinfo<a class="headerlink" href="#module-orbkit.qcinfo" title="Permalink to this headline">¶</a></h2>
 <p>Module for processing the data read from the output files of quantum chemical 
@@ -185,9 +186,53 @@ files of quantum chemical software for CI calculations.</p>
 files of quantum chemical software.</p>
 <p>See <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a> in the manual for details.</p>
 <dl class="method">
+<dt id="orbkit.qcinfo.QCinfo.atoms">
+<code class="descname">atoms</code><span class="sig-paren">(</span><em>bbox=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.qcinfo.QCinfo.atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an ASE atoms object.
+(cf. <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/atoms.html">https://wiki.fysik.dtu.dk/ase/ase/atoms.html</a> )</p>
+<p><strong>Parameters:</strong></p>
+<dl class="docutils">
+<dt>bbox</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">list of floats (bbox=[xmin,xmax,ymin,ymax,zmin,zmax]), optional</span><dd>If not None, sets the unit cell to the grid boundaries and moves the 
+molecule in its center.</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<dl class="docutils">
+<dt>atoms</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">Atoms object </span><dd>See <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/atoms.html">https://wiki.fysik.dtu.dk/ase/ase/atoms.html</a> for details</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ASE has to be in the PYTHONPATH</p>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="orbkit.qcinfo.QCinfo.format_geo">
 <code class="descname">format_geo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.qcinfo.QCinfo.format_geo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts geo_info and geo_spec to a universal format.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="orbkit.qcinfo.QCinfo.get_ase_atoms">
+<code class="descname">get_ase_atoms</code><span class="sig-paren">(</span><em>bbox=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.qcinfo.QCinfo.get_ase_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an ASE atoms object.
+(cf. <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/atoms.html">https://wiki.fysik.dtu.dk/ase/ase/atoms.html</a> )</p>
+<p><strong>Parameters:</strong></p>
+<dl class="docutils">
+<dt>bbox</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">list of floats (bbox=[xmin,xmax,ymin,ymax,zmin,zmax]), optional</span><dd>If not None, sets the unit cell to the grid boundaries and moves the 
+molecule in its center.</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<dl class="docutils">
+<dt>atoms</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">Atoms object </span><dd>See <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/atoms.html">https://wiki.fysik.dtu.dk/ase/ase/atoms.html</a> for details</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ASE has to be in the PYTHONPATH</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -235,6 +280,25 @@ removed.</p>
 <dt id="orbkit.qcinfo.QCinfo.todict">
 <code class="descname">todict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.qcinfo.QCinfo.todict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts all essential variables into a dictionary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="orbkit.qcinfo.QCinfo.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>select=slice(None</em>, <em>None</em>, <em>None)</em>, <em>bbox=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.qcinfo.QCinfo.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens ase-gui with the atoms of the QCinfo class.
+(cf. <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/visualize/visualize.html">https://wiki.fysik.dtu.dk/ase/ase/visualize/visualize.html</a> )</p>
+<p><strong>Parameters:</strong></p>
+<dl class="docutils">
+<dt>select</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">slice or (array of int), default: all atoms</span><dd>Specifies the atoms to be shown.</dd>
+<dt>bbox</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">list of floats (bbox=[xmin,xmax,ymin,ymax,zmin,zmax]), optional</span><dd>If not None, sets the unit cell to the grid boundaries and moves the 
+molecule in its center.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ASE has to be in the PYTHONPATH</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -365,7 +429,7 @@ existing file.</dd>
 
 <dl class="data">
 <dt id="orbkit.options.drv_options">
-<code class="descclassname">orbkit.options.</code><code class="descname">drv_options</code><em class="property"> = ['x', 'y', 'z', 'xx', 'yy', 'zz', 'x2', 'y2', 'z2', 'xy', 'yx', 'xz', 'zx', 'yz', 'zy']</em><a class="headerlink" href="#orbkit.options.drv_options" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.options.</code><code class="descname">drv_options</code><em class="property"> = ['None', 'x', 'y', 'z', 'xx', 'yy', 'zz', 'x2', 'y2', 'z2', 'xy', 'yx', 'xz', 'zx', 'yz', 'zy']</em><a class="headerlink" href="#orbkit.options.drv_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies possible derivative variables.</p>
 </dd></dl>
 
@@ -397,7 +461,7 @@ the given QCinfo class is used for all computational tasks.
 <dl class="docutils">
 <dt>data</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">type and shape depend on the options.</span><dd>Contains orbkit&#8217;s output. 
-See <a class="reference internal" href="../gridbased/highlevel.html#high-level-interface"><span class="std std-ref">orbkit&#8217;s High-Level Interface</span></a> in the manual for details.</dd>
+See <a class="reference internal" href="../gridbased/highlevel.html#high-level-interface"><span class="std std-ref">ORBKIT&#8217;s High-Level Interface</span></a> in the manual for details.</dd>
 </dl>
 </dd></dl>
 
@@ -902,6 +966,62 @@ specified by the global lists:</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="orbkit.grid.init">
+<code class="descclassname">orbkit.grid.</code><code class="descname">init</code><span class="sig-paren">(</span><em>is_vector=False</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.grid.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the regular x-, y-, z-grid 
+specified by the global lists:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">min_:</th><td class="field-body">List of minimum grid values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">max_:</th><td class="field-body">List of maximum grid values</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">N_:</th><td class="field-body">List of number of grid points</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Parameters:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>is_vector</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span><dd>If True, converts the regular grid to a vector grid.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="orbkit.grid.init_grid">
+<code class="descclassname">orbkit.grid.</code><code class="descname">init_grid</code><span class="sig-paren">(</span><em>is_vector=False</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.grid.init_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the regular x-, y-, z-grid 
+specified by the global lists:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">min_:</th><td class="field-body">List of minimum grid values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">max_:</th><td class="field-body">List of maximum grid values</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">N_:</th><td class="field-body">List of number of grid points</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Parameters:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>is_vector</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span><dd>If True, converts the regular grid to a vector grid.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
 <dt id="orbkit.grid.inversion">
 <code class="descclassname">orbkit.grid.</code><code class="descname">inversion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.grid.inversion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transfer matrix representation for inversion</p>
@@ -1221,7 +1341,7 @@ International Journal of Quantum Chemistry, Vol. 54, 83-87 (1995).</p>
 
 <dl class="function">
 <dt id="orbkit.core.get_lxlylz">
-<code class="descclassname">orbkit.core.</code><code class="descname">get_lxlylz</code><span class="sig-paren">(</span><em>ao_spec</em>, <em>get_assign=False</em>, <em>bincount=False</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.core.get_lxlylz" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.core.</code><code class="descname">get_lxlylz</code><span class="sig-paren">(</span><em>ao_spec</em>, <em>get_assign=False</em>, <em>bincount=False</em>, <em>get_label=False</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.core.get_lxlylz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts the exponents lx, ly, lz for the Cartesian Gaussians.</p>
 <p><strong>Parameters:</strong></p>
 <dl class="docutils">
@@ -1667,7 +1787,7 @@ all atomic orbitals.</p>
 
 <dl class="function">
 <dt id="orbkit.analytical_integrals.get_ao_overlap">
-<code class="descclassname">orbkit.analytical_integrals.</code><code class="descname">get_ao_overlap</code><span class="sig-paren">(</span><em>coord_a</em>, <em>coord_b</em>, <em>ao_spec</em>, <em>lxlylz_b=None</em>, <em>drv=None</em>, <em>ao_spherical=None</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.analytical_integrals.get_ao_overlap" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.analytical_integrals.</code><code class="descname">get_ao_overlap</code><span class="sig-paren">(</span><em>coord_a</em>, <em>coord_b</em>, <em>ao_spec</em>, <em>ao_spherical=None</em>, <em>lxlylz_b=None</em>, <em>drv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.analytical_integrals.get_ao_overlap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the overlap matrix of a basis set, where <cite>Bra</cite> basis set
 corresponds to the geometry <code class="docutils literal"><span class="pre">coord_a</span></code> and <cite>Ket</cite> basis set corresponds 
 to the geometry <code class="docutils literal"><span class="pre">coord_b</span></code>.</p>
@@ -1686,12 +1806,12 @@ See <a class="reference internal" href="cvars.html#central-variables"><span clas
 See <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a> in the manual for details.</dd>
 <dt>ao_spec</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier"></span><dd>See <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a> in the manual for details.</dd>
-<dt>lxlylz_b</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, dtype=numpy.int64, shape = (NAO,3), optional</span><dd>Contains the expontents lx, ly, lz for the primitive Cartesian Gaussians of
-the <cite>Ket</cite> basis set.</dd>
 <dt>ao_spherical</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">optional</span><dd>Specifies if the input is given in a spherical harmonic Gaussian basis set.
 See <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a> in the manual for details.</dd>
+<dt>lxlylz_b</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, dtype=numpy.int64, shape = (NAO,3), optional</span><dd>Contains the expontents lx, ly, lz for the primitive Cartesian Gaussians of
+the <cite>Ket</cite> basis set.</dd>
 </dl>
 <p><strong>Returns:</strong></p>
 <dl class="docutils">
@@ -1703,7 +1823,7 @@ See <a class="reference internal" href="cvars.html#central-variables"><span clas
 <dl class="function">
 <dt id="orbkit.analytical_integrals.get_atom2mo">
 <code class="descclassname">orbkit.analytical_integrals.</code><code class="descname">get_atom2mo</code><span class="sig-paren">(</span><em>qc</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.analytical_integrals.get_atom2mo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assigns atoms to molecular orbital coefficients.</p>
+<dd><p>Assigns atom indices to molecular orbital coefficients.</p>
 <p><strong>Parameters:</strong></p>
 <dl class="docutils">
 <dt>qc.ao_spec :</dt>
@@ -1712,7 +1832,7 @@ See <a class="reference internal" href="cvars.html#central-variables"><span clas
 <p><strong>Returns:</strong></p>
 <dl class="docutils">
 <dt>atom2mo</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NAO)</span><dd>Contains indices of atoms assigned to the molecular orbital coefficients.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NAO,)</span><dd>Contains indices of atoms assigned to the molecular orbital coefficients.</dd>
 </dl>
 </dd></dl>
 
@@ -1736,20 +1856,27 @@ See <a class="reference internal" href="cvars.html#central-variables"><span clas
 
 <dl class="function">
 <dt id="orbkit.analytical_integrals.get_lc">
-<code class="descclassname">orbkit.analytical_integrals.</code><code class="descname">get_lc</code><span class="sig-paren">(</span><em>indices</em>, <em>atom2mo</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.analytical_integrals.get_lc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the input variable to an <code class="docutils literal"><span class="pre">mo_coeff</span></code> numpy.ndarray.</p>
+<code class="descclassname">orbkit.analytical_integrals.</code><code class="descname">get_lc</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom2mo</em>, <em>strict=False</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.analytical_integrals.get_lc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns indices of molecular orbital coefficients corresponding 
+to the selected atoms.</p>
 <p><strong>Parameters:</strong></p>
 <dl class="docutils">
-<dt>mo</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">list, numpy.ndarray, or mo_spec (cf. <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>)</span><dd>Contains the molecular orbital coefficients of all orbitals.</dd>
-<dt>name</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span><dd>Contains a string describing the input variable.</dd>
+<dt>atoms</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or list of int</span><dd>Contains the indices of the selected atoms.</dd>
+<dt>atom2mo</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NAO,)</span><dd>Contains indices of atoms assigned to the molecular orbital coefficients.
+&gt;&gt; atom2mo = get_atom2mo(qc)</dd>
 </dl>
 <p><strong>Returns:</strong></p>
 <dl class="docutils">
-<dt>mo</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NMO,NAO)</span><dd>Contains the molecular orbital coefficients of all orbitals.</dd>
+<dt>lc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NAO_atom,)</span><dd>Contains the NAO_atom indices molecular orbital coefficients corresponding 
+to the selected atoms.</dd>
 </dl>
+<p><strong>Example:</strong></p>
+<blockquote>
+<div>&gt;&gt; atom2mo = get_atom2mo(qc)
+&gt;&gt; get_lc([0,3],atom2mo)</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -1784,6 +1911,32 @@ See <a class="reference internal" href="cvars.html#central-variables"><span clas
  <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>)</span><dd>Contains the molecular orbital coefficients of all <cite>Ket</cite> orbitals.</dd>
 <dt>ao_overlap_matrix</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NAO,NAO)</span><dd>Contains the overlap matrix of the basis set.</dd>
+<dt>numproc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Specifies number of subprocesses for multiprocessing.</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<dl class="docutils">
+<dt>mo_overlap_matrix</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NMO,NMO)</span><dd>Contains the overlap matrix between the two sets of input molecular orbitals.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="orbkit.analytical_integrals.get_moom_atoms">
+<code class="descclassname">orbkit.analytical_integrals.</code><code class="descname">get_moom_atoms</code><span class="sig-paren">(</span><em>atoms</em>, <em>qc</em>, <em>mo_a</em>, <em>mo_b</em>, <em>ao_overlap_matrix</em>, <em>numproc=1</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.analytical_integrals.get_moom_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the molecular orbital overlap matrix for selected atoms.</p>
+<p><strong>Parameters:</strong></p>
+<dl class="docutils">
+<dt>atoms</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or list of int</span><dd>Contains the indices of the selected atoms.</dd>
+<dt>mo_a</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>)</span><dd>Contains the molecular orbital coefficients of all <cite>Bra</cite> orbitals.</dd>
+<dt>mo_b</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. <a class="reference internal" href="cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>)</span><dd>Contains the molecular orbital coefficients of all <cite>Ket</cite> orbitals.</dd>
+<dt>ao_overlap_matrix</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape = (NAO,NAO)</span><dd>Contains the overlap matrix of the basis set.</dd>
+<dt>numproc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Specifies number of subprocesses for multiprocessing.</dd>
 </dl>
 <p><strong>Returns:</strong></p>
 <dl class="docutils">
@@ -2211,12 +2364,12 @@ respectively.</dd>
 
 <dl class="function">
 <dt id="orbkit.output.amira_creator">
-<code class="descclassname">orbkit.output.</code><code class="descname">amira_creator</code><span class="sig-paren">(</span><em>rho</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.output.amira_creator" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.output.</code><code class="descname">amira_creator</code><span class="sig-paren">(</span><em>data</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.output.amira_creator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a ZIBAmira mesh file. (plain text)</p>
 <p><strong>Parameters:</strong></p>
 <dl class="docutils">
-<dt>rho</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape=N</span><dd>Contains the output data.</dd>
+<dt>data</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray, shape=N or (3,)+N</span><dd>Contains the output data.</dd>
 <dt>filename</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Contains the base name of the output file.</dd>
 </dl>
@@ -2249,7 +2402,7 @@ adjusted to the density for the easy depiction of the density.</p>
 </div>
 <div class="section" id="module-orbkit.extras">
 <span id="orbkit-extras"></span><h2>orbkit.extras<a class="headerlink" href="#module-orbkit.extras" title="Permalink to this headline">¶</a></h2>
-<p>Module for all additional features of orbkit.</p>
+<p>Module for all additional features of ORBKIT.</p>
 <dl class="function">
 <dt id="orbkit.extras.atom2index">
 <code class="descclassname">orbkit.extras.</code><code class="descname">atom2index</code><span class="sig-paren">(</span><em>atom</em>, <em>geo_info=None</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.extras.atom2index" title="Permalink to this definition">¶</a></dt>
@@ -2575,7 +2728,7 @@ for all atoms.</dd>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
 
     </p>
   </div>

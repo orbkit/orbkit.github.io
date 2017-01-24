@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Analytical Integrals with orbkit &mdash; orbkit  documentation</title>
+  <title>Analytical Integrals with ORBKIT &mdash; ORBKIT  documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="orbkit  documentation" href="../index.html"/>
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
         <link rel="up" title="Non Grid-Based Calculation" href="index.html"/>
         <link rel="next" title="Advanced Tutorials" href="../adtutorials/index.html"/>
         <link rel="prev" title="Non Grid-Based Calculation" href="index.html"/> 
@@ -53,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> orbkit
+            <a href="../index.html" class="icon icon-home"> ORBKIT
           
 
           
@@ -85,12 +85,12 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Non Grid-Based Calculation</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Analytical Integrals with orbkit</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Analytical Integrals with ORBKIT</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#computational-functions">Computational Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#computing-the-dipole-moment-analytically">Computing the Dipole Moment Analytically</a></li>
 </ul>
@@ -98,7 +98,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -114,7 +115,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">orbkit</a>
+        <a href="../index.html">ORBKIT</a>
       </nav>
 
 
@@ -133,7 +134,7 @@
       
           <li><a href="index.html">Non Grid-Based Calculation</a> &raquo;</li>
       
-    <li>Analytical Integrals with orbkit</li>
+    <li>Analytical Integrals with ORBKIT</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -148,8 +149,8 @@
            <div itemprop="articleBody">
             
   <div class="section" id="analytical-integrals-with-orbkit">
-<span id="analytical-integrals"></span><h1>Analytical Integrals with orbkit<a class="headerlink" href="#analytical-integrals-with-orbkit" title="Permalink to this headline">¶</a></h1>
-<p>orbkit is able to perform analytical integrals between atomic and molecular
+<span id="analytical-integrals"></span><h1>Analytical Integrals with ORBKIT<a class="headerlink" href="#analytical-integrals-with-orbkit" title="Permalink to this headline">¶</a></h1>
+<p>ORBKIT is able to perform analytical integrals between atomic and molecular
 orbitals. This feature enables the user to compute different quantities,
 like partial charges or dipole moments, analytically.</p>
 <div class="admonition hint">
@@ -180,7 +181,7 @@ module <code class="docutils literal"><span class="pre">orbkit.analytical_integr
 <p>where <code class="docutils literal"><span class="pre">coord_a</span></code> and <code class="docutils literal"><span class="pre">coord_b</span></code> are the coordinates (<a class="reference internal" href="../refs/cvars.html#qc-geo-spec"><span class="std std-ref">geo_spec</span></a>)
 of the atomic orbital set <strong>a</strong> and <strong>b</strong>, respectively.
 The variables <a class="reference internal" href="../refs/cvars.html#qc-geo-spec"><span class="std std-ref">geo_spec</span></a>, <a class="reference internal" href="../refs/cvars.html#qc-ao-spec"><span class="std std-ref">ao_spec</span></a> and
-<a class="reference internal" href="../refs/cvars.html#qc-ao-spherical"><span class="std std-ref">ao_spherical</span></a> are members of orbkit&#8217;s <a class="reference internal" href="../refs/cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>.</p>
+<a class="reference internal" href="../refs/cvars.html#qc-ao-spherical"><span class="std std-ref">ao_spherical</span></a> are members of ORBKIT&#8217;s <a class="reference internal" href="../refs/cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>.</p>
 <p>In order to apply operators to the atomic orbitals, it might be necessary to
 change the exponents <img class="math" src="../_images/math/47d02301355d11b768108fa7b0a1df310a89959d.png" alt="(l_x,l_y,l_z)"/> of the Ket atomic orbitals. This can
 be done by setting the variable <code class="docutils literal"><span class="pre">lxlylz_b</span></code>, containing the exponents
@@ -302,7 +303,7 @@ this would look like:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
 
     </p>
   </div>

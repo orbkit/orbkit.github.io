@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
+        <link rel="up" title="detCI@ORBKIT" href="index.html"/>
+        <link rel="next" title="ORBKIT References" href="../refs/index.html"/>
+        <link rel="prev" title="detCI@ORBKIT" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                cython v0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">detCI&#64;ORBKIT</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-read-the-qc-output">How to Read the QC Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-prepare-all-subsequent-calculations">How to Prepare All Subsequent Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-compare-ci-states">How to Compare CI States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electron-density">Electron Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electronic-flux-density-and-its-divergence">Electronic Flux Density and Its Divergence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electronic-dipole-moment">Electronic Dipole Moment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">detCI&#64;ORBKIT</a> &raquo;</li>
+      
+    <li>Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/detci/detci.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This chapter explains in general how to use detCI&#64;ORBKIT to process multi-determinantal wave functions
+to compute expectation values of different one-electron operators of two Configuration Interaction (CI) wavefunctions
+<img class="math" src="../_images/math/0386bb690e6dae4cf9cab791659d7de7711e841b.png" alt="\left|\Phi_a\right\rangle"/> and <img class="math" src="../_images/math/36bad9e9419c6b1d37e0e947145875dcead428b1.png" alt="\left|\Phi_b\right\rangle"/>:</p>
+<div class="math">
+<p><img src="../_images/math/c0c457c5f7dd819392e4532dbb292112d282668c.png" alt="\left\langle \Phi_a \middle| \hat{F} \middle| \Phi_b \right\rangle
+= \sum_{p,q} C_p^{a}C_q^{b} \left\langle \phi_p \middle| \hat{F} \middle| \phi_q\right\rangle"/></p>
+</div><p>where <img class="math" src="../_images/math/15773dbfb0e90529ab76ed3382144a5c490f8b9d.png" alt="\left|\phi_p\right\rangle"/> are the Slater determinants and <img class="math" src="../_images/math/12e9de55f21c9eea5e4cf636ca0f2e22c5f9aa0e.png" alt="C_p^{a}"/> are the respective CI coefficients.
+The Slater determinats itself are built up from the molecular orbitals <img class="math" src="../_images/math/0bfdad6d0d6a7949ce9edce72fbf3352aad613c7.png" alt="\left|\varphi_m\right\rangle"/>.</p>
+<p>For specific examples, please refer to the ORBKIT <a class="reference external" href="https://github.com/orbkit/orbkit/tree/cython/examples/detci">examples folder</a>.
+Here, you can find two tutorials: one for a complex superposition states of <img class="math" src="../_images/math/3928287c224a68b0c02af84218abb6f271832ded.png" alt="{\rm H}_3^+"/> and
+one for a superposition state of <img class="math" src="../_images/math/579a9a33fdfd8b2b35131bf464072935f24198da.png" alt="{\rm LiH}"/>.
+They describe how to reproduce the results shown in</p>
+<blockquote>
+<div>Vincent Pohl, Gunter Hermann, and Jean Christophe Tremblay,
+&#8220;An Open-Source Framework of Analyzing <em>N</em>-electron Dynamics: I. Multi-Determinantal Wave Functions&#8221;,
+<a class="reference external" href="http://arxiv.org/abs/XXX.XXXXX">arXiv:XXX.XXXXX</a> (2017).</div></blockquote>
+<p>detCI&#64;ORBKIT currently supports the following output file formats:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="15%" />
+<col width="21%" />
+<col width="11%" />
+<col width="42%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>QC Program</strong></td>
+<td><strong>Level of Theory</strong></td>
+<td><strong>Ground State QC-Data</strong></td>
+<td><strong>CI-Data</strong></td>
+<td><strong>Example File</strong></td>
+</tr>
+<tr class="row-even"><td>PSI4</td>
+<td>All CI calculations</td>
+<td><a class="reference internal" href="../general.html#molden-file"><span class="std std-ref">Molden File Format</span></a></td>
+<td>Output file</td>
+<td><a class="reference download internal" href="../_downloads/psi4_fci.in" download=""><code class="xref download docutils literal"><span class="pre">psi4_fci.in</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>GAMESS-US</td>
+<td>CIS</td>
+<td><a class="reference internal" href="../general.html#gamess-us-output-file"><span class="std std-ref">GAMESS-US Output File</span></a></td>
+<td>Output file</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Turbomole</td>
+<td>TD-DFT</td>
+<td><a class="reference internal" href="../general.html#aomix-file"><span class="std std-ref">AOMix File Format</span></a></td>
+<td>&#8220;sing_a&#8221; file</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>MOLPRO</td>
+<td>MCSCF</td>
+<td><a class="reference internal" href="../general.html#molden-file"><span class="std std-ref">Molden File Format</span></a></td>
+<td>Output file</td>
+<td><a class="reference download internal" href="../_downloads/molpro_casscf.inp" download=""><code class="xref download docutils literal"><span class="pre">molpro_casscf.inp</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The underlying ORBKIT modules are called using <a class="reference internal" href="../gridbased/lowlevel.html#low-level-interface"><span class="std std-ref">ORBKIT&#8217;s Low-Level Interface</span></a>.</p>
+</div>
+</div>
+<div class="section" id="how-to-read-the-qc-output">
+<h1>How to Read the QC Output<a class="headerlink" href="#how-to-read-the-qc-output" title="Permalink to this headline">¶</a></h1>
+<p>After importing the <code class="docutils literal"><span class="pre">orbkit.read</span></code> module and the detCI&#64;ORBKIT module, i.e.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">detci</span>
+</pre></div>
+</div>
+<p>we can read the ground state quantum chemistry data, i.e.,
+the molecular geometry and the atomic and molecular orbital data:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="n">fid_molden</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span><span class="n">all_mo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, the quantum chemistry output is parsed into an instance of the <code class="docutils literal"><span class="pre">QCinfo</span></code> class
+(cf. <a class="reference internal" href="../refs/cvars.html#central-variables"><span class="std std-ref">Central Variables</span></a>). Please note that we have to read the occupied
+<em>and</em> the virtual molecular orbitals (<code class="docutils literal"><span class="pre">all_mo=True</span></code>).</p>
+<p>In a similar manner, we can read the Configuration Interaction (CI) output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="p">,</span><span class="n">ci</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">ci_read</span><span class="o">.</span><span class="n">main_ci_read</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">fid_psi4</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;psi4_detci&#39;</span><span class="p">,</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal"><span class="pre">threshold</span></code> specifies a read threshold for the CI coefficients,
+which can considerably reduce the computional time.
+The output variable is a list of instances of the <code class="docutils literal"><span class="pre">CIinfo</span></code> class, which contains</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">ci[a].info</span></code>: A dictionary with several information on the electronic state such as the state energy, name, multiplicity, etc.</li>
+<li><code class="docutils literal"><span class="pre">ci[a].coeffs</span></code>: An array with CI coefficients</li>
+<li><code class="docutils literal"><span class="pre">ci[a].occ</span></code>: An array with the corresponding occupation patterns</li>
+</ul>
+</div></blockquote>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">The function <code class="docutils literal"><span class="pre">main_ci_read</span></code> changes its first argument (the <code class="docutils literal"><span class="pre">QCinfo</span></code> instance).
+Within this class the molecular orbitals are reordered according to their symmetry.
+This is required for all subsequent calculations.</p>
+</div>
+</div>
+<div class="section" id="how-to-prepare-all-subsequent-calculations">
+<h1>How to Prepare All Subsequent Calculations<a class="headerlink" href="#how-to-prepare-all-subsequent-calculations" title="Permalink to this headline">¶</a></h1>
+<p>The starting point for all grid-based detCI&#64;ORBKIT calculations
+is the computation of the molecular orbitals <img class="math" src="../_images/math/ea82a0902c72f9ed2727b81bcda7a6a88ebec6ac.png" alt="\varphi_m({\bf r})"/> and the derivatives thereof
+(<img class="math" src="../_images/math/90c37ffa9500205afb504cc16106ac3e63ccd4f8.png" alt="\vec{\nabla}\varphi_m({\bf r})"/> and <img class="math" src="../_images/math/dbb79ad47c7d06451c89b4a5b7610f49888ea48b.png" alt="\vec{\nabla}^2\varphi_m({\bf r})"/>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">grid</span><span class="p">,</span><span class="n">core</span>
+<span class="c1"># Set up the grid</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">adjust_to_geo</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">grid_init</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">get_grid</span><span class="p">())</span>
+
+<span class="c1"># Compute the molecular orbitals and their derviatives</span>
+<span class="n">molist</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">rho_compute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span>
+                          <span class="n">calc_mo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">slice_length</span><span class="o">=</span><span class="mi">1</span><span class="n">e4</span><span class="p">,</span>           <span class="c1"># Length of grid slice</span>
+                          <span class="n">drv</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span>                  <span class="c1"># No derivative</span>
+                              <span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">,</span>            <span class="c1"># First derviatives</span>
+                              <span class="s1">&#39;xx&#39;</span><span class="p">,</span><span class="s1">&#39;yy&#39;</span><span class="p">,</span><span class="s1">&#39;zz&#39;</span><span class="p">],</span>        <span class="c1"># Second derivatives</span>
+                          <span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>                  <span class="c1"># Number of subprocesses</span>
+<span class="n">molistdrv</span> <span class="o">=</span> <span class="n">molist</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>                               <span class="c1"># \vec{\nabla} of MOs</span>
+<span class="n">molistdrv2</span> <span class="o">=</span> <span class="n">molist</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>                              <span class="c1"># \vec{\nabla}^2 of MOs</span>
+<span class="n">molist</span> <span class="o">=</span> <span class="n">molist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                    <span class="c1"># MOs</span>
+</pre></div>
+</div>
+<p>Non grid-based calculations, i.e., the electron number, dipole moments in length and velocity gauge,
+require several expectation values, i.e., <img class="math" src="../_images/math/6cc5a963183553fff4db1f93785d4b7c8ee9c087.png" alt="\langle\varphi_m|\varphi_n\rangle"/>,
+<img class="math" src="../_images/math/52c6e4f3bba54b516dbb294f48a0750544515b55.png" alt="\langle\varphi_m|{\bf r}|\varphi_n\rangle"/>, and <img class="math" src="../_images/math/d3355fed92806268da5899132a06f4a359bfa810.png" alt="\langle\varphi_m|\vec{\nabla}|\varphi_n\rangle"/></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit.analytical_integrals</span> <span class="k">import</span> <span class="n">get_ao_overlap</span><span class="p">,</span><span class="n">get_mo_overlap_matrix</span>
+<span class="kn">from</span> <span class="nn">orbkit.analytical_integrals</span> <span class="k">import</span> <span class="n">get_ao_dipole_matrix</span>
+<span class="n">aoom</span> <span class="o">=</span> <span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">,</span>
+                      <span class="n">ao_spherical</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span><span class="p">,</span>
+                      <span class="n">drv</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span>                      <span class="c1"># No derivative</span>
+                          <span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>               <span class="c1"># First derviatives</span>
+<span class="n">dm_aoom</span> <span class="o">=</span> <span class="n">get_ao_dipole_matrix</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>
+
+<span class="n">moom</span> <span class="o">=</span> <span class="n">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">aoom</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>               <span class="c1"># &lt;m|n&gt;</span>
+<span class="n">omr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,)</span> <span class="o">+</span> <span class="n">moom</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>                  <span class="c1"># &lt;m|r|n&gt;</span>
+<span class="n">omv</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,)</span> <span class="o">+</span> <span class="n">moom</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>                  <span class="c1"># &lt;m|\vec{\nabla}|n&gt;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+  <span class="n">omr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">dm_aoom</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+  <span class="n">omv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">aoom</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-compare-ci-states">
+<h1>How to Compare CI States<a class="headerlink" href="#how-to-compare-ci-states" title="Permalink to this headline">¶</a></h1>
+<p>Consider two electronic states <img class="math" src="../_images/math/456d6e45bffcad65fedebb6de8505c4138f100a7.png" alt="|\Phi_a\rangle"/> and
+<img class="math" src="../_images/math/ee27c40537bdd41c2375489788a1f558f0224dec.png" alt="|\Phi_b\rangle"/>.
+According to the Slater-Condon rules, an expectation value of a one-electron operator</p>
+<div class="math">
+<p><img src="../_images/math/c0c457c5f7dd819392e4532dbb292112d282668c.png" alt="\left\langle \Phi_a \middle| \hat{F} \middle| \Phi_b \right\rangle
+= \sum_{p,q} C_p^{a}C_q^{b} \left\langle \phi_p \middle| \hat{F} \middle| \phi_q\right\rangle"/></p>
+</div><p>where <img class="math" src="../_images/math/15773dbfb0e90529ab76ed3382144a5c490f8b9d.png" alt="\left|\phi_p\right\rangle"/> are the Slater determinants and <img class="math" src="../_images/math/12e9de55f21c9eea5e4cf636ca0f2e22c5f9aa0e.png" alt="C_p^{a}"/> are the respective CI coefficients,
+is defined by the following contributions</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Two identical Slater determinats (<code class="docutils literal"><span class="pre">zero</span></code>):</li>
+</ol>
+<blockquote>
+<div><div class="math">
+<p><img src="../_images/math/18955a44ad63401e7ba67643b85d0d2a07d571e0.png" alt="\left\langle \phi_p \middle| \hat{F} \middle| \phi_p\right\rangle
+= \sum_m \left\langle \varphi_m \middle| \hat{F} \middle| \varphi_m\right\rangle"/></p>
+</div></div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Two Slater determinants differing by a single orbital <img class="math" src="../_images/math/36607013679a18f1998683351ff59016174546e9.png" alt="m\rightarrow n"/> (<code class="docutils literal"><span class="pre">sing</span></code>)</li>
+</ol>
+<blockquote>
+<div><div class="math">
+<p><img src="../_images/math/f95ef3ad13c82fb5fe8cf71362d217004e1bc92c.png" alt="\left\langle \phi_p \middle| \hat{F} \middle| \phi_q\right\rangle
+= \left\langle \varphi_m \middle| \hat{F} \middle| \varphi_n\right\rangle"/></p>
+</div></div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Two Slater determinants differing by two or more orbitals</li>
+</ol>
+<blockquote>
+<div><div class="math">
+<p><img src="../_images/math/aa5d7aa6ca4d099c0510ad2d4463529370bfff49.png" alt="\left\langle \phi_p \middle| \hat{F} \middle| \phi_q\right\rangle  = 0"/></p>
+</div></div></blockquote>
+</div></blockquote>
+<p>Beforehand, these determinants have to brought into maximum coincidence.</p>
+<p>All these non-zero contributions can be identified by calling:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">zero</span><span class="p">,</span><span class="n">sing</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">occ_check</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">ci</span><span class="p">[</span><span class="n">a</span><span class="p">],</span><span class="n">ci</span><span class="p">[</span><span class="n">b</span><span class="p">],</span><span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="electron-density">
+<span id="detci-electron-density"></span><h1>Electron Density<a class="headerlink" href="#electron-density" title="Permalink to this headline">¶</a></h1>
+<p>The electron (transition) density is defined by</p>
+<div class="math">
+<p><img src="../_images/math/70d6f68067810a624051ad34875d274a9beccf8b.png" alt="\rho_{ab}({\bf r}) &amp;= \left\langle \Phi_a \middle| \hat{\rho}({\bf r}) \middle| \Phi_b \right\rangle  \\
+                 &amp;= \Phi_a({\bf r})\Phi_b({\bf r})"/></p>
+</div><p>It can be computed with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rho_ab</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">ci_core</span><span class="o">.</span><span class="n">rho</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span><span class="n">sing</span><span class="p">,</span><span class="n">molist</span><span class="p">,</span><span class="n">slice_length</span><span class="o">=</span><span class="mi">1</span><span class="n">e4</span><span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The integral over <img class="math" src="../_images/math/d162782eaa2cfa03b76e3aa82b6eb41751e85dbd.png" alt="{\bf r}"/>, which may be evaluated analytically by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">elnum</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">ci_core</span><span class="o">.</span><span class="n">enum</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span><span class="n">sing</span><span class="p">,</span><span class="n">moom</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>yields the number of electrons for identical states and zero otherwise.</p>
+</div>
+<div class="section" id="electronic-flux-density-and-its-divergence">
+<span id="detci-electronic-flux-density"></span><h1>Electronic Flux Density and Its Divergence<a class="headerlink" href="#electronic-flux-density-and-its-divergence" title="Permalink to this headline">¶</a></h1>
+<p>The electronic flux density (or Current Density) is defined as</p>
+<div class="math">
+<p><img src="../_images/math/613b7fb87b7204a43eae9d22963a70e13d4ac9ef.png" alt="j_{ab}({\bf r}) &amp;= \left\langle \Phi_a \middle| \hat{j}({\bf r}) \middle| \Phi_b \right\rangle  \\
+                &amp;= -\frac{i \hbar}{2m_e} \left(\Phi_a({\bf r})\vec{\nabla}\Phi_b({\bf r})-\Phi_b({\bf r})\vec{\nabla}\Phi_a({\bf r})\right)"/></p>
+</div><p>where <img class="math" src="../_images/math/d662002745519052eb95ada9454ab7d0260e6690.png" alt="\vec{\nabla}"/> symbolizes the spatial derviatives with respect to the electronic coordinates.
+For the real-valued electronic eigenstates this quantity is purely imaginary.
+Thus, detCI&#64;ORBKIT exclusively computes the non-vanishing imaginary part of
+the electronic flux density <img class="math" src="../_images/math/5c37988c3d1321d538396d729716e43919d840fc.png" alt="\mbox{Im}\left[j_{ab}\right]({\bf r})"/>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">j_ab</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">ci_core</span><span class="o">.</span><span class="n">jab</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span><span class="n">sing</span><span class="p">,</span><span class="n">molist</span><span class="p">,</span><span class="n">molistdrv</span><span class="p">,</span><span class="n">slice_length</span><span class="o">=</span><span class="mi">1</span><span class="n">e4</span><span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Please note that the electronic flux density vanishes for identical states.
+The divergence of the electronic flux density <img class="math" src="../_images/math/82ea2b8a6fbf58c07e903cd69f2aba303c6d5d2e.png" alt="\vec{\nabla}\cdot j_{ab}"/>, which can be computed simply by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nabla_j_ab</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">ci_core</span><span class="o">.</span><span class="n">jab</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span><span class="n">sing</span><span class="p">,</span><span class="n">molist</span><span class="p">,</span><span class="n">molistdrv</span><span class="p">,</span><span class="n">slice_length</span><span class="o">=</span><span class="mi">1</span><span class="n">e4</span><span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is directly related to the time-derivative of the electron density via the
+electonic continuity equation</p>
+<div class="math">
+<p><img src="../_images/math/89404012e5837d56c2c7388f19401c8a2640eda7.png" alt="\frac{\partial \rho_{ab}({\bf r})}{\partial t} = - \vec{\nabla} \cdot j_{ab}({\bf r})"/></p>
+</div><p>This relation may be reformulated to a convergence test:</p>
+<div class="math">
+<p><img src="../_images/math/331327542075cd431c6610fc1feab5c1e265c50d.png" alt="- \vec{\nabla} \cdot \mbox{Im}\left[j_{ab}\right]({\bf r}) = -\frac{(E_b-E_a)}{\hbar} \rho_{ab}"/></p>
+</div><p>Please note that the missing cusp relation for Gaussian basis sets leads to a  poor convergence around the nuclei,
+as shown in <a class="reference external" href="http://arxiv.org/abs/XXX.XXXXX">arXiv:XXX.XXXXX</a>.</p>
+</div>
+<div class="section" id="electronic-dipole-moment">
+<span id="detci-electronic-dipole-moment"></span><h1>Electronic Dipole Moment<a class="headerlink" href="#electronic-dipole-moment" title="Permalink to this headline">¶</a></h1>
+<p>The electronic dipole moment can be defined in length gauge</p>
+<div class="math">
+<p><img src="../_images/math/4c2597945cd646e0a687a4a2b77df2498dd1d279.png" alt="\left\langle\mu_r\right\rangle_{ab} &amp;= \left\langle \Phi_a \middle| \hat{\mu_r}({\bf r}) \middle| \Phi_b \right\rangle  \\
+                &amp;= -e\int {\rm d}{\bf r} \left({\bf r}\rho_a({\bf r})\right)"/></p>
+</div><p>and in velocity gauge</p>
+<div class="math">
+<p><img src="../_images/math/1051ae71a311670e775025b2e2b80e38a017c6ab.png" alt="\left\langle\mu_v\right\rangle_{ab} &amp;= \left\langle \Phi_a \middle| \hat{\mu_v}({\bf r}) \middle| \Phi_b \right\rangle  \\
+                &amp;= -e \int {\rm d}{\bf r}\ j_{ab}({\bf r})"/></p>
+</div><p>Both quantities can be directly related to each other</p>
+<div class="math">
+<p><img src="../_images/math/8418e1d17984f115a6865cd64f0c5c6a0fd89641.png" alt="\left\langle(\mu_v)_r\right\rangle_{ab} &amp;= \frac{i\hbar}{(E_b-E_a)}
+                    \left\langle \Phi_a \middle| \hat{\mu_v}({\bf r}) \middle| \Phi_b \right\rangle \\
+                &amp;= -\frac{e\hbar}{(E_b-E_a)}  \int {\rm d}{\bf r}\ \mbox{Im}\left[j_{ab}\right]({\bf r})"/></p>
+</div><p>and may be used as another convergence test to directly evaluate the quality of the electronic flux density.</p>
+<p>All three quantities can be calculated via:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mu_ab</span> <span class="o">=</span> <span class="n">detci</span><span class="o">.</span><span class="n">ci_core</span><span class="o">.</span><span class="n">mu</span><span class="p">(</span><span class="n">ci</span><span class="p">[</span><span class="n">a</span><span class="p">],</span><span class="n">ci</span><span class="p">[</span><span class="n">b</span><span class="p">],</span><span class="n">qc</span><span class="p">,</span><span class="n">zero</span><span class="p">,</span><span class="n">sing</span><span class="p">,</span><span class="n">omr</span><span class="p">,</span><span class="n">omv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal"><span class="pre">mu_ab[0]</span></code> is <img class="math" src="../_images/math/da73a3181dfb1f2df833b75e1a7be05eaa2359a2.png" alt="\left\langle\mu_r\right\rangle_{ab}"/>, <code class="docutils literal"><span class="pre">mu_ab[1]</span></code> corresponds to <img class="math" src="../_images/math/e285fd1581da713ec503e8d9e9aca214098fecad.png" alt="\left\langle\mu_v\right\rangle_{ab}"/>, and
+<code class="docutils literal"><span class="pre">mu_ab[2]</span></code> is <img class="math" src="../_images/math/fd37813c6795422920f82fb75998a54794da0c29.png" alt="\left\langle(\mu_v)_r\right\rangle_{ab}"/>.
+For identical states, the latter is not defined., and besides,
+the permanent dipole moment of the molecule, i.e., including the nuclear contributions, is computed in that case.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../refs/index.html" class="btn btn-neutral float-right" title="ORBKIT References" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="detCI@ORBKIT" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

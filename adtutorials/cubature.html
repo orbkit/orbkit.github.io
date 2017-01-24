@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorial for the Integration with Cubature &mdash; orbkit  documentation</title>
+  <title>Tutorial for the Integration with Cubature &mdash; ORBKIT  documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="orbkit  documentation" href="../index.html"/>
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
         <link rel="up" title="Advanced Tutorials" href="index.html"/>
         <link rel="next" title="Tutorial for Processing Multiple Input Files" href="multiple_files.html"/>
         <link rel="prev" title="Tutorial for Atomic Population and Charge Analysis" href="atomic_populations.html"/> 
@@ -53,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> orbkit
+            <a href="../index.html" class="icon icon-home"> ORBKIT
           
 
           
@@ -85,7 +85,7 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
@@ -102,7 +102,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cclib.html">Tutorial for Input Processing with cclib</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -118,7 +119,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">orbkit</a>
+        <a href="../index.html">ORBKIT</a>
       </nav>
 
 
@@ -153,7 +154,7 @@
             
   <div class="section" id="tutorial-for-the-integration-with-cubature">
 <h1>Tutorial for the Integration with Cubature<a class="headerlink" href="#tutorial-for-the-integration-with-cubature" title="Permalink to this headline">¶</a></h1>
-<p>This is an advanced tutorial which shows how to use orbkit together with the
+<p>This is an advanced tutorial which shows how to use ORBKIT together with the
 Python interface to Cubature to determine the norm of the occupied
 molecular orbitals of the water molecule in a user-defined volume.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -169,17 +170,17 @@ molecular orbitals of the water molecule in a user-defined volume.</p>
 </tbody>
 </table>
 <p>For simplicity, we use the molden file <code class="docutils literal"><span class="pre">h2o.molden</span></code> as an example.
-This file can be found in <code class="docutils literal"><span class="pre">$ORBKITPATH/examples</span></code>. Moreover, we assume that
-you have followed the <a class="reference internal" href="../install.html#installation-instructions"><span class="std std-ref">Installation</span></a> and that you have
+This file can be found in <code class="docutils literal"><span class="pre">$ORBKITPATH/examples/basic_examples</span></code>. Moreover, we assume that
+you have followed the <a class="reference internal" href="../install.html#installation-instructions"><span class="std std-ref">Installation Instructions</span></a> and that you have
 installed the Python interface to <a class="reference external" href="https://github.com/saullocastro/cubature">cubature</a>.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p class="last">This tutorial explains a part of the example file
-<code class="docutils literal"><span class="pre">$ORBKITPATH/examples/interface_to_cubature.py</span></code>.</p>
+<code class="docutils literal"><span class="pre">$ORBKITPATH/examples/basic_examples/interface_to_cubature.py</span></code>.</p>
 </div>
 <div class="section" id="initialization-of-the-program">
 <h2>Initialization of the Program<a class="headerlink" href="#initialization-of-the-program" title="Permalink to this headline">¶</a></h2>
-<p>First, we have to import some modules and set some of orbkits options:</p>
+<p>First, we have to import some modules and set some of ORBKITs options:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">cubature</span> <span class="k">import</span> <span class="n">cubature</span>
 <span class="kn">import</span> <span class="nn">orbkit</span>
@@ -204,10 +205,10 @@ installed the Python interface to <a class="reference external" href="https://gi
 <div class="section" id="setting-up-a-function-for-cubature">
 <h2>Setting up a Function for Cubature<a class="headerlink" href="#setting-up-a-function-for-cubature" title="Permalink to this headline">¶</a></h2>
 <p>Cubature requires a function with a special structure. It provides a 1d array
-for the grid which we have bring into orbkit&#8217;s shape. Then, we have to call
-orbkit&#8217;s main computational function <code class="docutils literal"><span class="pre">orbkit.rho_compute</span></code> with the respective
+for the grid which we have bring into ORBKIT&#8217;s shape. Then, we have to call
+ORBKIT&#8217;s main computational function <code class="docutils literal"><span class="pre">orbkit.rho_compute</span></code> with the respective
 options, i.e., we compute the norm of all occupied molecular orbitals in this
-example. Finally, we have to reshape orbkit&#8217;s output:</p>
+example. Finally, we have to reshape ORBKIT&#8217;s output:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Calls orbkit.</span>
 
@@ -256,7 +257,7 @@ relative error of 1e-3 without considering the absolute error of the integral:</
 <span class="n">abserr</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1">#: Absolute error: |error| &lt; abserr (If zero, it will be ignored.)</span>
 <span class="n">relerr</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span> <span class="c1">#: Relative error: |error| &lt; relerr*|integral| (If zero, it will be ignored.)</span>
 
-<span class="c1"># Call the cubature routine together with orbkit.</span>
+<span class="c1"># Call the cubature routine together with ORBKIT.</span>
 <span class="n">integral_mo</span><span class="p">,</span><span class="n">error_mo</span> <span class="o">=</span> <span class="n">cubature</span><span class="p">(</span><span class="n">ndim</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span>
                                 <span class="n">args</span><span class="o">=</span><span class="p">[],</span>
                                 <span class="n">adaptive</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">abserr</span><span class="o">=</span><span class="n">abserr</span><span class="p">,</span> <span class="n">relerr</span><span class="o">=</span><span class="n">relerr</span><span class="p">,</span>
@@ -291,7 +292,7 @@ relative error of 1e-3 without considering the absolute error of the integral:</
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
 
     </p>
   </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>orbkit’s Low-Level Interface &mdash; orbkit  documentation</title>
+  <title>ORBKIT’s Low-Level Interface &mdash; ORBKIT  documentation</title>
   
 
   
@@ -32,10 +32,10 @@
   
 
   
-    <link rel="top" title="orbkit  documentation" href="../index.html"/>
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
         <link rel="up" title="Grid-Based Calculation" href="index.html"/>
         <link rel="next" title="Non Grid-Based Calculation" href="../nongridbased/index.html"/>
-        <link rel="prev" title="orbkit’s High-Level Interface" href="highlevel.html"/> 
+        <link rel="prev" title="ORBKIT’s High-Level Interface" href="highlevel.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -53,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> orbkit
+            <a href="../index.html" class="icon icon-home"> ORBKIT
           
 
           
@@ -85,13 +85,13 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Grid-Based Calculation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="terminal.html">Usage via the Terminal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="highlevel.html">orbkit&#8217;s High-Level Interface</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">orbkit&#8217;s Low-Level Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="highlevel.html">ORBKIT&#8217;s High-Level Interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ORBKIT&#8217;s Low-Level Interface</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reading-qc-input">Reading QC Input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#initializing-the-grid">Initializing the Grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#operations-on-the-grid">Operations on the Grid</a></li>
@@ -103,7 +103,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -119,7 +120,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">orbkit</a>
+        <a href="../index.html">ORBKIT</a>
       </nav>
 
 
@@ -138,7 +139,7 @@
       
           <li><a href="index.html">Grid-Based Calculation</a> &raquo;</li>
       
-    <li>orbkit&#8217;s Low-Level Interface</li>
+    <li>ORBKIT&#8217;s Low-Level Interface</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -153,14 +154,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="orbkit-s-low-level-interface">
-<span id="low-level-interface"></span><h1>orbkit&#8217;s Low-Level Interface<a class="headerlink" href="#orbkit-s-low-level-interface" title="Permalink to this headline">¶</a></h1>
+<span id="low-level-interface"></span><h1>ORBKIT&#8217;s Low-Level Interface<a class="headerlink" href="#orbkit-s-low-level-interface" title="Permalink to this headline">¶</a></h1>
 <p>This section is addressed to more advanced users, who want to use the
-modules of orbkit in their own programs.</p>
+modules of ORBKIT in their own programs.</p>
 <p>Please refer to the <a class="reference internal" href="../refs/funcref.html#function-reference"><span class="std std-ref">Function Reference</span></a> to get information about
 all modules and functions available.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
-<p>Complete examples of using orbkit&#8217;s modules can be found in
+<p>Complete examples of using ORBKIT&#8217;s modules can be found in
 <code class="docutils literal"><span class="pre">orbkit/examples</span></code>, e.g.,
 <code class="file docutils literal"><span class="pre">use_as_module.py</span></code> and <code class="file docutils literal"><span class="pre">calculate_derivatives.py</span></code>)</p>
 <p class="last">The tutorials <a class="reference internal" href="../adtutorials/cubature.html"><span class="doc">Tutorial for the Integration with Cubature</span></a> and
@@ -208,7 +209,7 @@ the essential members by:</p>
 </div>
 <div class="section" id="initializing-the-grid">
 <h2><a class="toc-backref" href="#id2">Initializing the Grid</a><a class="headerlink" href="#initializing-the-grid" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">orbkit.grid</span></code> module organizes all grid related features of orbkit,
+<p>The <code class="docutils literal"><span class="pre">orbkit.grid</span></code> module organizes all grid related features of ORBKIT,
 of which some will be discussed in this section.</p>
 <p>If you want to initialize a standard regular (vector) grid you have to
 set the grid parameters which are global values within this module:</p>
@@ -254,7 +255,7 @@ the molecular geometry is calling:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">adjust_to_geo</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, orbkit creates grid parameters (<code class="docutils literal"><span class="pre">grid.min_</span></code>, <code class="docutils literal"><span class="pre">grid.max_</span></code>, <code class="docutils literal"><span class="pre">grid.N_</span></code>)
+<p>Here, ORBKIT creates grid parameters (<code class="docutils literal"><span class="pre">grid.min_</span></code>, <code class="docutils literal"><span class="pre">grid.max_</span></code>, <code class="docutils literal"><span class="pre">grid.N_</span></code>)
 with a grid spacing of 0.1 a<sub>0</sub> and the size of the molecule plus
 5 a<sub>0</sub> in each direction. After calling this function you have to
 <strong>initialize the grid</strong> using <code class="docutils literal"><span class="pre">grid.grid_init()</span></code>.</p>
@@ -277,14 +278,14 @@ manually:</p>
 </div>
 <div class="admonition attention">
 <p class="first admonition-title">Attention</p>
-<p class="last">The last line is <strong>mandatory</strong>, i.e., we have to tell orbkit, that there is no
+<p class="last">The last line is <strong>mandatory</strong>, i.e., we have to tell ORBKIT, that there is no
 need to initialize the grid.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p class="last">For your convenience, you may also set the variable <code class="docutils literal"><span class="pre">grid.is_vector</span> <span class="pre">=</span> <span class="pre">True</span></code>,
 if you have initialized a <strong>vector grid</strong> manually. You can use this
-standard variable as input parameter in other orbkit functions.</p>
+standard variable as input parameter in other ORBKIT functions.</p>
 </div>
 </div>
 <div class="section" id="operations-on-the-grid">
@@ -338,7 +339,7 @@ grid points per subprocess.</p>
 with respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/>, the second derivative with respect to <img class="math" src="../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/>, and the mixed
 derivative <img class="math" src="../_images/math/fa6e138b022ee026f2511136dc7ae1aa592471be.png" alt="xy"/>.</p>
 <p>If the number of processes (<code class="docutils literal"><span class="pre">numproc</span></code>) is smaller or equal one, no subprocesses will be
-started, i.e., orbkit uses only a single CPU. If you even want to omit the
+started, i.e., ORBKIT uses only a single CPU. If you even want to omit the
 slicing of the grid, you can use:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">rho_compute_no_slice</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">calc_mo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">drv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">laplacian</span><span class="o">=</span><span class="kc">False</span>
                                  <span class="n">return_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -377,7 +378,7 @@ Here, <code class="docutils literal"><span class="pre">slice_length</span></code
 </div>
 <div class="section" id="output-functions">
 <h2><a class="toc-backref" href="#id5">Output Functions</a><a class="headerlink" href="#output-functions" title="Permalink to this headline">¶</a></h2>
-<p>The output functionalities of orbkit are handled by the module <code class="docutils literal"><span class="pre">orbkit.output</span></code>.</p>
+<p>The output functionalities of ORBKIT are handled by the module <code class="docutils literal"><span class="pre">orbkit.output</span></code>.</p>
 <p>In this module, there are functions for every output type. These functions
 are managed by:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">outputname</span><span class="o">=</span><span class="s1">&#39;new&#39;</span><span class="p">,</span><span class="n">otype</span><span class="o">=</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span>
@@ -397,7 +398,7 @@ are managed by:</p>
         <a href="../nongridbased/index.html" class="btn btn-neutral float-right" title="Non Grid-Based Calculation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="highlevel.html" class="btn btn-neutral" title="orbkit’s High-Level Interface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="highlevel.html" class="btn btn-neutral" title="ORBKIT’s High-Level Interface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -406,7 +407,7 @@ are managed by:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
 
     </p>
   </div>

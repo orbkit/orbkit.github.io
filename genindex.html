@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; orbkit  documentation</title>
+  <title>Index &mdash; ORBKIT  documentation</title>
   
 
   
@@ -33,7 +33,7 @@
   
 
   
-    <link rel="top" title="orbkit  documentation" href="index.html"/> 
+    <link rel="top" title="ORBKIT  documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> orbkit
+            <a href="index.html" class="icon icon-home"> ORBKIT
           
 
           
@@ -83,13 +83,14 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gridbased/index.html">Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nongridbased/index.html">Non Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adtutorials/index.html">Advanced Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -105,7 +106,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">orbkit</a>
+        <a href="index.html">ORBKIT</a>
       </nav>
 
 
@@ -191,6 +192,10 @@
 
       
   <dt><a href="refs/funcref.html#orbkit.extras.atom2index">atom2index() (in module orbkit.extras)</a>
+  </dt>
+
+      
+  <dt><a href="refs/funcref.html#orbkit.qcinfo.QCinfo.atoms">atoms() (orbkit.qcinfo.QCinfo method)</a>
   </dt>
 
   </dl></td>
@@ -340,6 +345,10 @@
   </dt>
 
       
+  <dt><a href="refs/funcref.html#orbkit.qcinfo.QCinfo.get_ase_atoms">get_ase_atoms() (orbkit.qcinfo.QCinfo method)</a>
+  </dt>
+
+      
   <dt><a href="refs/funcref.html#orbkit.analytical_integrals.get_atom2mo">get_atom2mo() (in module orbkit.analytical_integrals)</a>
   </dt>
 
@@ -391,6 +400,10 @@
 
       
   <dt><a href="refs/funcref.html#orbkit.analytical_integrals.get_mo_overlap_matrix">get_mo_overlap_matrix() (in module orbkit.analytical_integrals)</a>
+  </dt>
+
+      
+  <dt><a href="refs/funcref.html#orbkit.analytical_integrals.get_moom_atoms">get_moom_atoms() (in module orbkit.analytical_integrals)</a>
   </dt>
 
       
@@ -460,11 +473,21 @@
   </dt>
 
       
-  <dt><a href="refs/funcref.html#orbkit.main.init">init() (in module orbkit.main)</a>
+  <dt><a href="refs/funcref.html#orbkit.grid.init">init() (in module orbkit.grid)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="refs/funcref.html#orbkit.main.init">(in module orbkit.main)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="refs/funcref.html#orbkit.display.init_display">init_display() (in module orbkit.display)</a>
   </dt>
 
       
-  <dt><a href="refs/funcref.html#orbkit.display.init_display">init_display() (in module orbkit.display)</a>
+  <dt><a href="refs/funcref.html#orbkit.grid.init_grid">init_grid() (in module orbkit.grid)</a>
   </dt>
 
       
@@ -479,12 +502,12 @@
   <dt><a href="refs/funcref.html#orbkit.grid.inversion">inversion() (in module orbkit.grid)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="refs/funcref.html#orbkit.grid.is_initialized">is_initialized (in module orbkit.grid)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="refs/funcref.html#orbkit.display.is_initiated">is_initiated (in module orbkit.display)</a>
   </dt>
@@ -923,10 +946,14 @@
   <dt><a href="refs/options.html#orbkit.options.vector">vector (in module orbkit.options)</a>
   </dt>
 
+      
+  <dt><a href="refs/funcref.html#orbkit.grid.vector2grid">vector2grid() (in module orbkit.grid)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="refs/funcref.html#orbkit.grid.vector2grid">vector2grid() (in module orbkit.grid)</a>
+  <dt><a href="refs/funcref.html#orbkit.qcinfo.QCinfo.view">view() (orbkit.qcinfo.QCinfo method)</a>
   </dt>
 
   </dl></td>
@@ -979,7 +1006,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
 
     </p>
   </div>

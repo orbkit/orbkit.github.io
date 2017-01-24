@@ -1,0 +1,37 @@
+.. _`detCI\@ORBKIT`:
+
+detCI\@ORBKIT
+=============
+
+detCI\@ORBKIT is an extension of ORBKIT for post-processing **multi-determinant**
+wave function data from the data of quantum chemical calculations.
+Our general procedure, allows to apply one-electron operators to the multi-electron 
+explicitly time-dependent molecular wave function.
+The main scope of this procedure is to analyze and visualize correlated electron dynamics
+by interpreting several fundamental one-electron quantities, such as the :ref:`Electron Density`,
+the transient :ref:`Electronic Flux Density`, and the :ref:`Electronic Dipole Moment`.
+
+For the theoretical background, details on the implementation, and the robustness of these quantities, see 
+
+  Vincent Pohl, Gunter Hermann, and Jean Christophe Tremblay,
+  "An Open-Source Framework of Analyzing *N*-electron Dynamics: I. Multi-Determinantal Wave Functions", 
+  `arXiv:XXX.XXXXX`__ (2017).
+
+__ http://arxiv.org/abs/XXX.XXXXX
+
+Please cite this publication, if you use detCI\@ORBKIT in your work. 
+
+We provide well documented expample files for both model systems described in this publication in the examples folder.
+The procedure to obtain all quanities is described in the following chapters.
+
+**Table of Contents:**
+
+.. toctree::
+   :maxdepth: 4
+
+   detci
+
+.. note::
+  
+  This section is under construction. If you have any questions,
+  do not hesitate to contact us.

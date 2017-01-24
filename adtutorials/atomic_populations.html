@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorial for Atomic Population and Charge Analysis &mdash; orbkit  documentation</title>
+  <title>Tutorial for Atomic Population and Charge Analysis &mdash; ORBKIT  documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="orbkit  documentation" href="../index.html"/>
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
         <link rel="up" title="Advanced Tutorials" href="index.html"/>
         <link rel="next" title="Tutorial for the Integration with Cubature" href="cubature.html"/>
         <link rel="prev" title="Advanced Tutorials" href="index.html"/> 
@@ -53,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> orbkit
+            <a href="../index.html" class="icon icon-home"> ORBKIT
           
 
           
@@ -85,7 +85,7 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
@@ -101,7 +101,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cclib.html">Tutorial for Input Processing with cclib</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">Orbkit References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -117,7 +118,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">orbkit</a>
+        <a href="../index.html">ORBKIT</a>
       </nav>
 
 
@@ -153,11 +154,11 @@
   <div class="section" id="tutorial-for-atomic-population-and-charge-analysis">
 <h1>Tutorial for Atomic Population and Charge Analysis<a class="headerlink" href="#tutorial-for-atomic-population-and-charge-analysis" title="Permalink to this headline">¶</a></h1>
 <p>This short tutorial shows, how to perform a Mulliken and Löwdin population
-analysis with orbkit analytically, and how to write the output to an <code class="docutils literal"><span class="pre">xyz</span></code> or
+analysis with ORBKIT analytically, and how to write the output to an <code class="docutils literal"><span class="pre">xyz</span></code> or
 a <code class="docutils literal"><span class="pre">PDB</span></code> file.</p>
 <div class="section" id="computation-of-the-atomic-populations-and-charges">
 <h2>Computation of the Atomic Populations and Charges<a class="headerlink" href="#computation-of-the-atomic-populations-and-charges" title="Permalink to this headline">¶</a></h2>
-<p>First, we have to import some modules and set some of orbkits options:</p>
+<p>First, we have to import some modules and set some of ORBKITs options:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">atomic_populations</span>
 </pre></div>
 </div>
@@ -197,7 +198,7 @@ population analysis and has following members:</p>
 </div>
 <div class="section" id="creation-of-an-output-file">
 <h2>Creation of an Output File<a class="headerlink" href="#creation-of-an-output-file" title="Permalink to this headline">¶</a></h2>
-<p>orbkit provides two possible output file formats for the population analysis:
+<p>ORBKIT provides two possible output file formats for the population analysis:
 the <code class="docutils literal"><span class="pre">PDB</span></code> and the <code class="docutils literal"><span class="pre">xyz</span></code> file format:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit.output</span> <span class="k">import</span> <span class="n">pdb_creator</span><span class="p">,</span><span class="n">xyz_creator</span>
 <span class="c1"># Write a PDB file</span>
@@ -246,7 +247,7 @@ processed for visualization by several programs.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
 
     </p>
   </div>
