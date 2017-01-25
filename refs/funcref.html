@@ -1425,8 +1425,7 @@ See <a class="reference internal" href="cvars.html#central-variables"><span clas
  <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span><dd>If True, the computation of  the molecular orbitals requested is only
 carried out.</dd>
 <dt>slice_length</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span><dd>If not None, performs the computations on a vector grid, i.e., 
-with x, y, and z as vectors.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span><dd>Specifies the number of points per subprocess.</dd>
 <dt>drv</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">string or list of strings {None,&#8217;x&#8217;,&#8217;y&#8217;, &#8216;z&#8217;, &#8216;xx&#8217;, &#8216;xy&#8217;, ...}, optional</span><dd>If not None, computes the analytical derivative of the requested 
 quantities with respect to DRV.</dd>
@@ -2459,7 +2458,7 @@ otype is None.</dd>
 
 <dl class="function">
 <dt id="orbkit.extras.calc_mo">
-<code class="descclassname">orbkit.extras.</code><code class="descname">calc_mo</code><span class="sig-paren">(</span><em>qc</em>, <em>fid_mo_list</em>, <em>drv=None</em>, <em>otype=None</em>, <em>ofid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.extras.calc_mo" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.extras.</code><code class="descname">calc_mo</code><span class="sig-paren">(</span><em>qc</em>, <em>fid_mo_list</em>, <em>drv=None</em>, <em>otype=None</em>, <em>ofid=None</em>, <em>numproc=None</em>, <em>slice_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.extras.calc_mo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates and saves the selected molecular orbitals or the derivatives thereof.</p>
 <p><strong>Parameters:</strong></p>
 <blockquote>
@@ -2470,14 +2469,20 @@ otype is None.</dd>
  <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Specifies the filename of the molecular orbitals list or list of molecular
 orbital labels (cf. <a class="reference internal" href="#orbkit.read.mo_select" title="orbkit.read.mo_select"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.read.mo_select</span></code></a> for details). 
 If fid_mo_list is &#8216;all_mo&#8217;, creates a list containing all molecular orbitals.</dd>
+<dt>drv</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int or string, {None, &#8216;x&#8217;, &#8216;y&#8217;, &#8216;z&#8217;, 0, 1, 2}, optional</span><dd>If not None, a derivative calculation of the atomic orbitals 
+is requested.</dd>
 <dt>otype</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str or list of str, optional</span><dd>Specifies output file type. See <code class="xref py py-data docutils literal"><span class="pre">otypes</span></code> for details.</dd>
 <dt>ofid</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span><dd>Specifies output file name. If None, the filename will be based on
 <a class="reference internal" href="options.html#orbkit.options.outputname" title="orbkit.options.outputname"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.options.outputname</span></code></a>.</dd>
-<dt>drv</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int or string, {None, &#8216;x&#8217;, &#8216;y&#8217;, &#8216;z&#8217;, 0, 1, 2}, optional</span><dd>If not None, a derivative calculation of the atomic orbitals 
-is requested.</dd>
+<dt>numproc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span><dd>Specifies number of subprocesses for multiprocessing. 
+If None, uses the value from <code class="xref py py-mod docutils literal"><span class="pre">options.numproc</span></code>.</dd>
+<dt>slice_length</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span><dd>Specifies the number of points per subprocess.
+If None, uses the value from <code class="xref py py-mod docutils literal"><span class="pre">options.slice_length</span></code>.</dd>
 </dl>
 </div></blockquote>
 <dl class="docutils">
@@ -2560,7 +2565,7 @@ for all atoms.</dd>
 
 <dl class="function">
 <dt id="orbkit.extras.mo_set">
-<code class="descclassname">orbkit.extras.</code><code class="descname">mo_set</code><span class="sig-paren">(</span><em>qc</em>, <em>fid_mo_list</em>, <em>drv=None</em>, <em>laplacian=False</em>, <em>otype=None</em>, <em>ofid=None</em>, <em>return_all=True</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.extras.mo_set" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.extras.</code><code class="descname">mo_set</code><span class="sig-paren">(</span><em>qc</em>, <em>fid_mo_list</em>, <em>drv=None</em>, <em>laplacian=None</em>, <em>otype=None</em>, <em>ofid=None</em>, <em>return_all=True</em>, <em>numproc=None</em>, <em>slice_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#orbkit.extras.mo_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates and saves the density or the derivative thereof 
 using selected molecular orbitals.</p>
 <p><strong>Parameters:</strong></p>
@@ -2581,6 +2586,12 @@ orbital labels (cf. <a class="reference internal" href="#orbkit.read.mo_select" 
 is requested.</dd>
 <dt>return_all</dt>
  <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>If False, no data will be returned.</dd>
+<dt>numproc</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span><dd>Specifies number of subprocesses for multiprocessing. 
+If None, uses the value from <code class="xref py py-mod docutils literal"><span class="pre">options.numproc</span></code>.</dd>
+<dt>slice_length</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span><dd>Specifies the number of points per subprocess.
+If None, uses the value from <code class="xref py py-mod docutils literal"><span class="pre">options.slice_length</span></code>.</dd>
 </dl>
 </div></blockquote>
 <dl class="docutils">
