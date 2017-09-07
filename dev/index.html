@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ORBKIT &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="#"/>
+        <link rel="next" title="Installation Instructions" href="install.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>ORBKIT</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="_images/orbkit.png"><img alt="ORBKIT Logo" class="align-right" src="_images/orbkit.png" style="width: 200px; height: 200px;" /></a>
+<div class="section" id="orbkit">
+<h1>ORBKIT<a class="headerlink" href="#orbkit" title="Permalink to this headline">¶</a></h1>
+<p>ORBKIT is a parallel Python program package for post-processing
+wave function data from output files of quantum chemical programs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ORBKIT:</th><td class="field-body">Copyright (C) 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Website:</th><td class="field-body"><a class="reference external" href="https://github.com/orbkit/orbkit">https://github.com/orbkit/orbkit</a></td>
+</tr>
+</tbody>
+</table>
+<p>The computational capabilities of ORBKIT range from grid-based quantities, e.g., molecular orbitals or
+electron density, to non grid-based quantities for instance Mulliken population charges or
+analytical overlap integrals between molecular orbitals.
+There are several options and features to control the respective calculations like grid types and parameters.
+The required data can be extracted from <a class="reference external" href="https://www.molpro.net/">MOLPRO</a> (Molden File Format),
+<a class="reference external" href="http://www.turbomole.com/">TURBOMOLE</a> (AOMix file format), <a class="reference external" href="http://www.msg.chem.iastate.edu/gamess/">GAMESS-US</a>, PROAIMS/AIMPAC (wfn/wfx file format), and <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> (.log File and Formatted Checkpoint File)
+output files. Futhermore, an interface to cclib, a parser for quantum chemical logfiles, is provided.
+A complete list of all input and output formats as well as quantities and features of ORBKIT is given in
+<a class="reference internal" href="general.html"><span class="doc">General Aspects</span></a>.</p>
+<p>This documentation should serve as an overview of how to operate ORBKIT as a standalone program
+and how to use it in your own Python programs. The latter is facilitated by its modular design.
+For a quick introduction to ORBKIT, see the <a class="reference internal" href="quick.html"><span class="doc">Quick Start Guide</span></a> or stick to the example files in
+the ORBKIT program packet.
+Tutorials for the calculation of grid-based and non grid-based quantities are given in section
+<a class="reference internal" href="gridbased/index.html"><span class="doc">Grid-Based Calculation</span></a> and <a class="reference internal" href="nongridbased/index.html"><span class="doc">Non Grid-Based Calculation</span></a>.
+Supplementary, a detailed description of the existing options, main variables, and functions
+is given in <a class="reference internal" href="refs/index.html"><span class="doc">ORBKIT References</span></a>.
+Finally, some additional applications of ORBKIT are presented in <a class="reference internal" href="adtutorials/index.html"><span class="doc">Advanced Tutorials</span></a>.</p>
+<p><strong>Refactoring</strong> : A major refactoring of the code has recently been undertaken. The most importand changes include:</p>
+<ul class="simple">
+<li>Reorganization of AO and MO data into dedicated classes (see  <a class="reference internal" href="refs/cvars.html"><span class="doc">Central Variables</span></a>).</li>
+<li>Refactoring of readers which amongst other remove sthe need to specify the <code class="docutils literal"><span class="pre">itype</span></code> of a file and allows to read data from compressed (.tar, .tar.gz, tar.bz2) files.</li>
+<li>The QCinfo class now has a save and read function which allows to save QCinfo instances to file restart from files directly.</li>
+</ul>
+<p><strong>NEW:</strong> <a class="reference internal" href="detci/index.html#detci-orbkit"><span class="std std-ref">detCI&#64;ORBKIT</span></a> extends ORBKIT&#8217;s functionality to multi-determinantal wave functions.</p>
+<div class="section" id="distribution">
+<h2>Distribution<a class="headerlink" href="#distribution" title="Permalink to this headline">¶</a></h2>
+<p>The source code and multiple example files of ORBKIT can be freely downloaded from the web page</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Website:</th><td class="field-body"><a class="reference external" href="https://github.com/orbkit/orbkit">https://github.com/orbkit/orbkit</a></td>
+</tr>
+</tbody>
+</table>
+<p>For installation instructions, please check <a class="reference internal" href="install.html"><span class="doc">Installation Instructions</span></a>.</p>
+</div>
+<div class="section" id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>The ORBKIT support team, Axel, Lukas, Gunter, and Vincent, welcomes every new
+user and will be available to answer your questions. For any change
+requests, do not hesitate to contact the ORBKIT support team via</p>
+<p><a class="reference external" href="https://github.com/orbkit/orbkit/issues">https://github.com/orbkit/orbkit/issues</a></p>
+</div>
+<div class="section" id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
+<p>If you use ORBKIT in your work, please cite:</p>
+<blockquote>
+<div>Gunter Hermann, Vincent Pohl, Jean Christophe Tremblay, Beate Paulus, Hans-Christian Hege, and Axel Schild,
+<a class="reference external" href="http://dx.doi.org/10.1002/jcc.24358">&#8220;ORBKIT: A Modular Python Toolbox for Cross-Platform Postprocessing of Quantum Chemical Wavefunction Data&#8221;</a>,
+<em>J. Comput. Chem.</em> <strong>2016</strong>, <em>37</em>, 1511-1520.</div></blockquote>
+<p>If you use detCI&#64;ORBKIT in your work, please additionally cite:</p>
+<blockquote>
+<div><p>Vincent Pohl, Gunter Hermann, and Jean Christophe Tremblay,
+<a class="reference external" href="http://dx.doi.org/10.1002/jcc.24792">&#8220;An Open-Source Framework for Analyzing N-Electron Dynamics. I. Multideterminantal Wave Functions&#8221;</a>,
+<em>J. Comput. Chem.</em> <strong>2017</strong>, <em>38</em>, 1515-1527.</p>
+<p>Vincent Pohl, Gunter Hermann, and Jean Christophe Tremblay,
+<a class="reference external" href="http://dx.doi.org/10.1002/jcc.24896">&#8220;An Open-Source Framework for Analyzing N-Electron Dynamics. II. Hybrid Density Functional Theory/Configuration Interaction Methodology&#8221;</a>,
+<em>J. Comput. Chem.</em> <strong>2017</strong>, <a class="reference external" href="http://dx.doi.org/10.1002/jcc.24896">DOI:10.1002/jcc.24896</a>.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The paper is also freely available on arXiv:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li><a class="reference external" href="https://arxiv.org/abs/1601.03069">ORBKIT</a></li>
+<li><a class="reference external" href="https://arxiv.org/abs/1701.06885">detCI&#64;ORBKIT_I</a></li>
+<li><a class="reference external" href="https://arxiv.org/abs/1704.08137">detCI&#64;ORBKIT_II</a></li>
+</ul>
+</div></blockquote>
+</div>
+<p>BibTex (<a class="reference download internal" href="_downloads/orbkit.bib" download=""><code class="xref download docutils literal"><span class="pre">orbkit.bib</span></code></a>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>@article {orbkit,
+  author = {Hermann, Gunter and Pohl, Vincent and Tremblay, Jean Christophe and Paulus, Beate and Hege, Hans-Christian and Schild, Axel},
+  title = {ORBKIT: A modular python toolbox for cross-platform postprocessing of quantum chemical wavefunction data},
+  journal = {J. Comput. Chem.},
+  journalfull = {Journal of Computational Chemistry},
+  volume = {37},
+  number = {16},
+  issn = {1096-987X},
+  url = {http://dx.doi.org/10.1002/jcc.24358},
+  doi = {10.1002/jcc.24358},
+  pages = {1511--1520},
+  keywords = {quantum chemical calculation, electronic structure, molecular visualization, electron density, grid representation of one-electron quantities, molecular orbital ordering},
+  year = {2016}
+}
+
+@article{detCIorbkit_I,
+  author = {Vincent Pohl and Gunter Hermann and Jean Christophe Tremblay},
+  title = {An open-source framework for analyzing $N$-electron dynamics. I. Multideterminantal wave functions}
+  journal = {J. Comput. Chem.},
+  journalfull = {Journal of Computational Chemistry},
+  volume = {38},
+  number = {17},
+  issn = {1096-987X},
+  url = {https://doi.org/10.1002/jcc.24792},
+  doi = {10.1002/jcc.24792},
+  pages = {1515--1527},
+  keywords = {correlated electron dynamics, Slater-Condon rules, multideterminantal wave function, electronic flux density, electron density, electronic difference density, electronic current density},
+  year = {2017}
+}
+
+@article{detCIorbkit_II,
+  author = {Hermann, Gunter and Pohl, Vincent and Tremblay, Jean Christophe},
+  title = {An open-source framework for analyzing $N$-electron dynamics. II. Hybrid density functional theory/configuration interaction methodology},
+  journal = {J. Comput. Chem.},
+  journalfull = {Journal of Computational Chemistry},
+  issn = {1096-987X},
+  url = {http://dx.doi.org/10.1002/jcc.24896},
+  doi = {10.1002/jcc.24896},
+  keywords = {correlated electron dynamics, time-dependent density functional theory, electronic flux density, electron density, electronic current density},
+  year = {2017}
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="contents">
+<h2>Contents:<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="general.html">General Aspects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="general.html#supported-input-file-formats">Supported Input File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html#capabilities-of-orbkit">Capabilities of ORBKIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html#notes-on-gaussian-basis-sets">Notes on Gaussian Basis Sets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick.html#within-the-terminal">Within the Terminal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick.html#within-a-python-shell">Within a Python Shell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gridbased/index.html">Grid-Based Calculation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gridbased/terminal.html">Usage via the Terminal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gridbased/highlevel.html">ORBKIT&#8217;s High-Level Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gridbased/lowlevel.html">ORBKIT&#8217;s Low-Level Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nongridbased/index.html">Non Grid-Based Calculation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nongridbased/analytical.html">Analytical Integrals with ORBKIT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adtutorials/index.html">Advanced Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adtutorials/atomic_populations.html">Tutorial for Atomic Population and Charge Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adtutorials/cubature.html">Tutorial for the Integration with Cubature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adtutorials/multiple_files.html">Tutorial for Processing Multiple Input Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adtutorials/cclib.html">Tutorial for Input Processing with cclib</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="detci/index.html">detCI&#64;ORBKIT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html#how-to-read-the-qc-output">How to Read the QC Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html#how-to-prepare-all-subsequent-calculations">How to Prepare All Subsequent Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html#how-to-compare-ci-states">How to Compare CI States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html#electron-density">Electron Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html#electronic-flux-density-and-its-divergence">Electronic Flux Density and Its Divergence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci/detci.html#electronic-dipole-moment">Electronic Dipole Moment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refs/index.html">ORBKIT References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refs/options.html">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refs/cvars.html">Central Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refs/funcref.html">Function Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impressum.html">Impressum - Legal Notice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="impressum.html#impressum">Impressum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impressum.html#haftungsausschluss-disclaimer">Haftungsausschluss - Disclaimer</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation Instructions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

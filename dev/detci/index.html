@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>detCI@ORBKIT &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
+        <link rel="next" title="Introduction" href="detci.html"/>
+        <link rel="prev" title="Tutorial for Input Processing with cclib" href="../adtutorials/cclib.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">detCI&#64;ORBKIT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="detci.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci.html#how-to-read-the-qc-output">How to Read the QC Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci.html#how-to-prepare-all-subsequent-calculations">How to Prepare All Subsequent Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci.html#how-to-compare-ci-states">How to Compare CI States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci.html#electron-density">Electron Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci.html#electronic-flux-density-and-its-divergence">Electronic Flux Density and Its Divergence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detci.html#electronic-dipole-moment">Electronic Dipole Moment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>detCI&#64;ORBKIT</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/detci/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference internal image-reference" href="../_images/detci_orbkit.png"><img alt="detCI&#64;ORBKIT Logo" class="align-right" src="../_images/detci_orbkit.png" style="width: 200px; height: 200px;" /></a>
+<div class="section" id="detci-orbkit">
+<span id="id1"></span><h1>detCI&#64;ORBKIT<a class="headerlink" href="#detci-orbkit" title="Permalink to this headline">¶</a></h1>
+<p>detCI&#64;ORBKIT is an extension of ORBKIT for post-processing <strong>multi-determinantal</strong>
+wave function data from the output of quantum chemical calculations.
+Our procedure, allows to apply different one-electron operators to Configuration Interaction (CI) wave functions.
+The main scope of this procedure is to analyze and visualize correlated electron dynamics
+by interpreting several fundamental one-electron quantities, such as the <a class="reference internal" href="detci.html#detci-electron-density"><span class="std std-ref">Electron Density</span></a>,
+the transient <a class="reference internal" href="detci.html#detci-electronic-flux-density"><span class="std std-ref">Electronic Flux Density and Its Divergence</span></a> (also called Current Density), and the <a class="reference internal" href="detci.html#detci-electronic-dipole-moment"><span class="std std-ref">Electronic Dipole Moment</span></a>.</p>
+<p>For the theoretical background, details on the implementation, and the robustness of these quantities, see</p>
+<blockquote>
+<div>Vincent Pohl, Gunter Hermann, and Jean Christophe Tremblay,
+&#8220;An Open-Source Framework of Analyzing <em>N</em>-electron Dynamics: I. Multi-Determinantal Wave Functions&#8221;,
+<a class="reference external" href="http://arxiv.org/abs/1701.06885">arXiv:1701.06885</a> (2017).</div></blockquote>
+<p>Please cite this publication, if you use detCI&#64;ORBKIT in your work.</p>
+<p>We provide well documented example files for both model systems described in this publication in the <a class="reference external" href="https://github.com/orbkit/orbkit/tree/cython/examples/detci">examples folder</a>.
+The procedure of how to operate detCI&#64;ORBKIT is described in detail in the following chapters.</p>
+<p><strong>Table of Contents:</strong></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="detci.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci.html#how-to-read-the-qc-output">How to Read the QC Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci.html#how-to-prepare-all-subsequent-calculations">How to Prepare All Subsequent Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci.html#how-to-compare-ci-states">How to Compare CI States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci.html#electron-density">Electron Density</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci.html#electronic-flux-density-and-its-divergence">Electronic Flux Density and Its Divergence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detci.html#electronic-dipole-moment">Electronic Dipole Moment</a></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section is under construction. If you have any questions,
+do not hesitate to contact us.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="detci.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../adtutorials/cclib.html" class="btn btn-neutral" title="Tutorial for Input Processing with cclib" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

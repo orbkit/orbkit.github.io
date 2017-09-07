@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage via the Terminal &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
+        <link rel="up" title="Grid-Based Calculation" href="index.html"/>
+        <link rel="next" title="ORBKIT’s High-Level Interface" href="highlevel.html"/>
+        <link rel="prev" title="Grid-Based Calculation" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Grid-Based Calculation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Usage via the Terminal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-output">Input/Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grid-related-options">Grid Related Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#molecular-orbital-selection">Molecular Orbital Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#derivative-calculation">Derivative Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spin-density">Spin-Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-options">Additional Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="highlevel.html">ORBKIT&#8217;s High-Level Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lowlevel.html">ORBKIT&#8217;s Low-Level Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Grid-Based Calculation</a> &raquo;</li>
+      
+    <li>Usage via the Terminal</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/gridbased/terminal.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage-via-the-terminal">
+<span id="terminal-interface"></span><h1>Usage via the Terminal<a class="headerlink" href="#usage-via-the-terminal" title="Permalink to this headline">¶</a></h1>
+<p>For an overview of all available features, a general help text can be
+called in the terminal by using the command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -h
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ORBKIT creates a logfile (<code class="docutils literal"><span class="pre">.oklog</span></code>) containing all information printed
+during the calculation.</p>
+</div>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#input-output" id="id1">Input/Output</a></li>
+<li><a class="reference internal" href="#grid-related-options" id="id2">Grid Related Options</a></li>
+<li><a class="reference internal" href="#molecular-orbital-selection" id="id3">Molecular Orbital Selection</a></li>
+<li><a class="reference internal" href="#derivative-calculation" id="id4">Derivative Calculation</a></li>
+<li><a class="reference internal" href="#spin-density" id="id5">Spin-Density</a></li>
+<li><a class="reference internal" href="#additional-options" id="id6">Additional Options</a></li>
+</ul>
+</div>
+<div class="section" id="input-output">
+<span id="io"></span><h2><a class="toc-backref" href="#id1">Input/Output</a><a class="headerlink" href="#input-output" title="Permalink to this headline">¶</a></h2>
+<p>For the standard density calculation including all occupied molecular
+orbitals on the default grid, the following command must be entered in the
+console:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT
+</pre></div>
+</div>
+<p>The only option required by ORBKIT is the definition of the input file with
+<code class="docutils literal"><span class="pre">-i</span> <span class="pre">INPUT</span></code>. Unless otherwise stated, ORBKIT will attempt to automatically
+determine the filetype of the input file and use HDF5 file as output type (<code class="docutils literal"><span class="pre">--otype=h5</span></code>).
+As output name (<code class="docutils literal"><span class="pre">-o</span> <span class="pre">OUTPUTNAME</span></code>) it assumes
+the base name of <code class="docutils literal"><span class="pre">INPUT</span></code>. The file extension of the output is
+automatically added by the program. In order to produce different output types
+within one run, multiple calls of the option <code class="docutils literal"><span class="pre">--otype=OTYPE</span></code> are possible.</p>
+<p>The available input file types (<code class="docutils literal"><span class="pre">--itype=ITYPE</span></code>) are: <strong>auto</strong> (default), <strong>molden</strong> (Molden file),
+<strong>aomix</strong> (AOMix file), <strong>gamess</strong> (GAMESS-US output file), <strong>gaussian.log</strong>
+(GAUSSIAN output file), <strong>gaussian.fchk</strong> (GAUSSIAN formatted checkpoint file),
+<strong>wfn</strong> and <strong>wfx</strong> files.</p>
+<p>You can choose between standard <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> cube files (<code class="docutils literal"><span class="pre">--otype=cb</span></code>),
+<a class="reference external" href="http://www.hdfgroup.org/HDF5/">HDF5</a> files (<code class="docutils literal"><span class="pre">--otype=h5</span></code>), or <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> Mesh files (<code class="docutils literal"><span class="pre">--otype=am</span></code>).
+Additionally, ORBKIT can directly create ready to use <a class="reference external" href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a> scripts
+(<code class="docutils literal"><span class="pre">--otype=vmd</span></code>) and <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> (<code class="docutils literal"><span class="pre">--otype=hx</span></code>) networks for the
+easy depiction in <a class="reference external" href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a> and <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a>, respectively.
+While a <a class="reference external" href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a> script is a plain text script based on <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> cube files, the
+<a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> network uses <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> Mesh files and a simple <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> colormap file
+as input data.</p>
+<p>The <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> cube file (file extension: .cb) is a plain text file containing
+the important informations of the calculation. For large systems,
+the cube file requires a lot of space on the hard drive and is very
+time-consuming.</p>
+<p>In contrast, the <a class="reference external" href="http://www.hdfgroup.org/HDF5/">HDF5</a> file format (file extension: .h5) which is a hierarchical
+data format can store and organize large amounts of numerical data. More
+informations about this file format can be found at:</p>
+<blockquote>
+<div><a class="reference external" href="http://en.wikipedia.org/wiki/Hierarchical_Data_Format">http://en.wikipedia.org/wiki/Hierarchical_Data_Format</a></div></blockquote>
+<p>Another advantage of this file format is the easy readability with <a class="reference external" href="http://www.mathworks.de/products/matlab/">Matlab</a>, Python
+and many other languages.
+Example files for loading <a class="reference external" href="http://www.hdfgroup.org/HDF5/">HDF5</a> files with <a class="reference external" href="http://www.mathworks.de/products/matlab/">Matlab</a> or Python are available in our
+program package (<code class="docutils literal"><span class="pre">examples/HDF5_Examples</span></code>). With the JAVA program, <a class="reference external" href="http://www.hdfgroup.org/products/java/hdf-java-html/hdfview/">HDFVIEW</a>,
+the user can easily load and read the <a class="reference external" href="http://www.hdfgroup.org/HDF5/">HDF5</a> files.</p>
+<p>The last available plain text data format are the <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a> Mesh files. Those
+can be directly opened in <a class="reference external" href="http://amira.zib.de/">ZIBAmira</a>.</p>
+<p>If you want to simply visualize the data created by ORBKIT, you can also use
+a simple <a class="reference external" href="http://docs.enthought.com/mayavi/mayavi/index.html">Mayavi</a> interface (<code class="docutils literal"><span class="pre">--otype=mayavi</span></code>). Here, no data will be
+saved to disc, if no other output type is specified.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If you want to use ORBKIT for visualization, you may want to read the
+<a class="reference internal" href="../quick.html"><span class="doc">Quick Start Guide</span></a>.</p>
+</div>
+</div>
+<div class="section" id="grid-related-options">
+<span id="grid"></span><h2><a class="toc-backref" href="#id2">Grid Related Options</a><a class="headerlink" href="#grid-related-options" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to specify the grid when calling ORBKIT via the Terminal.
+You can adapt the grid to the molecular geometry:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --adjust_grid<span class="o">=</span>D X
+</pre></div>
+</div>
+<p>Here, ORBKIT creates a grid with a grid spacing of <code class="docutils literal"><span class="pre">X</span></code> a<sub>0</sub> and the size
+of the molecule plus <code class="docutils literal"><span class="pre">D</span></code> a<sub>0</sub> in each direction.</p>
+<p>Alternatively you can also modify the grid via an external plain text file
+(<code class="docutils literal"><span class="pre">GRID_FILE</span></code>):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --grid<span class="o">=</span>GRID_FILE
+</pre></div>
+</div>
+<p>This file can have two possible formats. It can be represented either by the boundary
+conditions of an equidistant rectangular grid (<strong>regular grid</strong>) or by a list of
+data points (<strong>vector grid</strong>):</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>regular grid</strong></td>
+<td><strong>vector grid</strong></td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># Regular Grid Example File</span>
+<span class="c1"># Format:</span>
+<span class="c1"># x xmin xmax Nx</span>
+<span class="c1"># y ymin ymax Ny</span>
+<span class="c1"># z zmin zmax Nz</span>
+
+x -5 <span class="m">5</span> 101
+y -2 <span class="m">2</span>  51
+z  <span class="m">0</span> <span class="m">0</span>   <span class="m">1</span> 
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># Vectorized Grid Example File</span>
+<span class="c1"># The header &#39;x y z&#39; is mandatory!</span>
+
+x	y	z
+-5	-5	0
+-4	-5	0
+-3	-5	0
+0	0	0
+2	-1e-1	9.78
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A <code class="docutils literal"><span class="pre">#</span></code> at the beginning of a line implicates a comment line.</p>
+</div>
+<p>ORBKIT performs all computations internally on a <strong>vector grid</strong>.
+For this purpose it converts a <strong>regular grid</strong> beforehand to a <strong>vector grid</strong>.
+After the computation the original grid is recreated.</p>
+<p>By default, ORBKIT the 1-dimensional <strong>vector grids</strong> into 1-dimensional slices of equal length.
+The atomic orbitals, the molecular orbitals, and the density are calculated for
+each slice separately. At the end of the calculation, the data
+is reassembled and stored in an output file.
+This enables an easy parallelization and requires a smaller amount of RAM.</p>
+<p>The length of the 1-dimensional slices can be set with</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --slice_length<span class="o">=</span>1e4
+</pre></div>
+</div>
+<p>In the default setting, ORBKIT performs the density calculation by starting
+only one subprocess. The number of subprocesses, which are distributed over
+the existing CPUs, can be modified with the subsequent command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --numproc<span class="o">=</span>4
+</pre></div>
+</div>
+</div>
+<div class="section" id="molecular-orbital-selection">
+<span id="mo"></span><h2><a class="toc-backref" href="#id3">Molecular Orbital Selection</a><a class="headerlink" href="#molecular-orbital-selection" title="Permalink to this headline">¶</a></h2>
+<p>ORBKIT is capable of calculating a selected set of molecular orbitals. This set
+can be specified either <strong>inline</strong> or by using an <strong>external file</strong>.</p>
+<p>You can use the <strong>MOLPRO-like nomenclature</strong>, e.g., <code class="docutils literal"><span class="pre">3.1</span></code> for the third orbital
+in symmetry one, or you choose it by the
+<strong>index within the input file</strong> (counting from <strong>one</strong>!).</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">For <a class="reference external" href="http://www.gaussian.com/">Gaussian</a> and <a class="reference external" href="http://www.msg.chem.iastate.edu/gamess/">Gamess-US</a>, the symmetry labels used are different,
+e.g., <code class="docutils literal"><span class="pre">3.A1</span></code> for the third orbital in symmetry A1.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For unrestricted calculations, the symmetry labels are extended by <code class="docutils literal"><span class="pre">_a</span></code>
+for alpha and by <code class="docutils literal"><span class="pre">_b</span></code> for beta molecular orbitals, e.g., <code class="docutils literal"><span class="pre">3.A1_b</span></code>.</p>
+</div>
+<p>In the latter case, you can additionally use the keywords <code class="docutils literal"><span class="pre">homo</span></code> (highest occupied
+molecular orbital), <code class="docutils literal"><span class="pre">lumo</span></code> (lowest unoccupied molecular orbital),
+as well as <code class="docutils literal"><span class="pre">last_bound</span></code> (highest-lying orbital with negative orbital energy)
+You can further select a range of orbitals, e.g., <code class="docutils literal"><span class="pre">--calc_mo=1:homo-1</span></code>, which evokes the
+computation of the molecular orbitals 1, 2, 3, ..., and homo-2.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="42%" />
+<col width="45%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&nbsp;</td>
+<td><strong>MOLPRO-like Nomenclature</strong></td>
+<td><strong>Index within the Input File</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Inline</strong></td>
+<td><div class="first highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INP --calc_mo<span class="o">=</span>1.1,1.3
+</pre></div>
+</div>
+<p class="last">Hint: Multiple calls are possible.</p>
+</td>
+<td><div class="first highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INP --calc_mo<span class="o">=</span>3:lumo+3,1
+</pre></div>
+</div>
+<p class="last">Hint: Multiple calls are possible.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Ext. File</strong></td>
+<td><div class="first highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INP --calc_mo<span class="o">=</span>MO_LIST
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">MO_LIST</span></code>:</p>
+<div class="last highlight-bash"><div class="highlight"><pre><span></span>1.1	2.1	1.3
+1.1	4.1
+4.1	2.3	2.1
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INP --calc_mo<span class="o">=</span>MO_LIST
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">MO_LIST</span></code>:</p>
+<div class="last highlight-bash"><div class="highlight"><pre><span></span>1	2	3
+5	4
+homo    lumo+2:lumo+4
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The computation and storage of all molecular orbitals can be called by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --calc_mo<span class="o">=</span>all_mo
+</pre></div>
+</div>
+<p>One special capability of ORBKIT is the computation of the density with a selected
+set of molecular orbitals.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --mo_set<span class="o">=</span>MO_SET
+</pre></div>
+</div>
+<p>The selection of molecular orbitals can be accomplished in the same manner as
+described above for <code class="docutils literal"><span class="pre">--calc_mo</span></code>. Although for <code class="docutils literal"><span class="pre">--mo_set</span></code>, each line in the
+external file or each call of <code class="docutils literal"><span class="pre">--mo_set</span></code> corresponds to one density calculation.</p>
+</div>
+<div class="section" id="derivative-calculation">
+<h2><a class="toc-backref" href="#id4">Derivative Calculation</a><a class="headerlink" href="#derivative-calculation" title="Permalink to this headline">¶</a></h2>
+<p>ORBKIT can compute analytical spatial derivatives up to second order
+with respect to <span class="math">\(x\)</span>, <span class="math">\(y\)</span>, or <span class="math">\(z\)</span> for the atomic and
+molecular orbitals, as well as for the electron density.
+For instance, a derivative of the density with
+respect to <span class="math">\(x\)</span> can be invoked as follows:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --drv<span class="o">=</span>x
+</pre></div>
+</div>
+<p>Multiple calls of the option <code class="docutils literal"><span class="pre">--drv=DRV</span></code> are possible.</p>
+<p>For second derivatives, you can specify the respective combinations,
+e.g., &#8216;xx&#8217; or &#8216;yz&#8217;.</p>
+<p>The computation of the laplacian, i.e.,
+<span class="math">\(\nabla^2 \rho = \nabla^2_x \rho + \nabla^2_y \rho + \nabla^2_z \rho\)</span>,
+can be invoked by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --laplacian
+</pre></div>
+</div>
+</div>
+<div class="section" id="spin-density">
+<h2><a class="toc-backref" href="#id5">Spin-Density</a><a class="headerlink" href="#spin-density" title="Permalink to this headline">¶</a></h2>
+<p>For unrestricted calculations, the spin density and related quantities
+(e.g. derivatives) may be calculated by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --spin<span class="o">=</span>alpha
+</pre></div>
+</div>
+<p>for alpha spin density and by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --spin<span class="o">=</span>beta
+</pre></div>
+</div>
+<p>for beta spin density.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The usage of the <code class="docutils literal"><span class="pre">--spin=</span></code> keyword omits the reading
+of the molecular orbitals of the other spin.</p>
+</div>
+</div>
+<div class="section" id="additional-options">
+<h2><a class="toc-backref" href="#id6">Additional Options</a><a class="headerlink" href="#additional-options" title="Permalink to this headline">¶</a></h2>
+<p>In the following, two additional features are highlighted.</p>
+<p>Firstly, the atom-projected electron density can be computed by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --atom_projected_density<span class="o">=</span>INDEX
+</pre></div>
+</div>
+<p>which is the integrand of the Mulliken charges, and secondly, ORBKIT
+is capable of calculating the molecular orbital transition electronic flux density
+(components <code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, and <code class="docutils literal"><span class="pre">z</span></code>) between the orbitals
+<code class="docutils literal"><span class="pre">I</span></code> and <code class="docutils literal"><span class="pre">J</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --mo_tefd<span class="o">=</span>I J --drv<span class="o">=</span>x --drv<span class="o">=</span>y --drv<span class="o">=</span>z
+</pre></div>
+</div>
+<p>In order to compute and store <strong>all</strong> atomic orbitals or a derivative thereof,
+you can call</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --calc_ao
+</pre></div>
+</div>
+<p>Here, it is only possible to compute one derivative at a time.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="highlevel.html" class="btn btn-neutral float-right" title="ORBKIT’s High-Level Interface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Grid-Based Calculation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

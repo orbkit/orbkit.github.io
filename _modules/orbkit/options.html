@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>orbkit.options &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.0 (stable)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>orbkit.options</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for orbkit.options</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: iso-8859-1 -*-</span>
+<span class="sd">&#39;&#39;&#39;Module containing and processing all orbkit options.&#39;&#39;&#39;</span>
+
+<span class="n">lgpl</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;ORBKIT</span>
+<span class="s1">Gunter Hermann, Vincent Pohl, and Axel Schild</span>
+
+<span class="s1">Institut fuer Chemie und Biochemie, Freie Universitaet Berlin, 14195 Berlin, Germany</span>
+
+<span class="s1">This file is part of ORBKIT.</span>
+
+<span class="s1">ORBKIT is free software: you can redistribute it and/or modify</span>
+<span class="s1">it under the terms of the GNU Lesser General Public License as </span>
+<span class="s1">published by the Free Software Foundation, either version 3 of </span>
+<span class="s1">the License, or any later version.</span>
+
+<span class="s1">ORBKIT is distributed in the hope that it will be useful,</span>
+<span class="s1">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s1">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s1">GNU Lesser General Public License for more details.</span>
+
+<span class="s1">You should have received a copy of the GNU Lesser General Public </span>
+<span class="s1">License along with ORBKIT.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">lgpl_short</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;This is ORBKIT.</span>
+<span class="s1">Copyright (C) 2017 Gunter Hermann, Vincent Pohl, and Axel Schild. </span>
+<span class="s1">This program comes with ABSOLUTELY NO WARRANTY. </span>
+<span class="s1">This is free software, and you are welcome to redistribute it </span>
+<span class="s1">under certain conditions. Type &#39;-l&#39; for details.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="n">thismodule</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">__name__</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">grid</span>
+
+<span class="n">available</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s1">&#39;filename&#39;</span><span class="p">,</span><span class="s1">&#39;itype&#39;</span><span class="p">,</span><span class="s1">&#39;cclib_parser&#39;</span><span class="p">,</span><span class="s1">&#39;outputname&#39;</span><span class="p">,</span><span class="s1">&#39;otype&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;numproc&#39;</span><span class="p">,</span><span class="s1">&#39;mo_set&#39;</span><span class="p">,</span><span class="s1">&#39;calc_ao&#39;</span><span class="p">,</span><span class="s1">&#39;all_mo&#39;</span><span class="p">,</span><span class="s1">&#39;calc_mo&#39;</span><span class="p">,</span><span class="s1">&#39;spin&#39;</span><span class="p">,</span><span class="s1">&#39;drv&#39;</span><span class="p">,</span><span class="s1">&#39;laplacian&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;slice_length&#39;</span><span class="p">,</span><span class="s1">&#39;is_vector&#39;</span><span class="p">,</span><span class="s1">&#39;grid_file&#39;</span><span class="p">,</span><span class="s1">&#39;adjust_grid&#39;</span><span class="p">,</span><span class="s1">&#39;center_grid&#39;</span><span class="p">,</span><span class="s1">&#39;random_grid&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;z_reduced_density&#39;</span><span class="p">,</span><span class="s1">&#39;gross_atomic_density&#39;</span><span class="p">,</span><span class="s1">&#39;mo_tefd&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;quiet&#39;</span><span class="p">,</span><span class="s1">&#39;no_log&#39;</span><span class="p">,</span><span class="s1">&#39;no_output&#39;</span><span class="p">,</span><span class="s1">&#39;no_slice&#39;</span><span class="p">,</span><span class="s1">&#39;interactive&#39;</span>
+  <span class="p">]</span>
+
+<span class="n">itypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;aomix&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;gamess&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;gaussian.log&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;gaussian.fchk&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;wfn&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;wfx&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;cclib&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;orbkit.dump&#39;</span><span class="p">]</span>                        <span class="c1">#: Specifies possible input types.</span>
+
+<span class="n">otypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span> <span class="s1">&#39;cb&#39;</span><span class="p">,</span> <span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;hx&#39;</span><span class="p">,</span> <span class="s1">&#39;vmd&#39;</span><span class="p">,</span> <span class="s1">&#39;mayavi&#39;</span><span class="p">]</span> <span class="c1">#: Specifies possible output types.</span>
+
+<span class="n">drv_options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;xx&#39;</span><span class="p">,</span><span class="s1">&#39;yy&#39;</span><span class="p">,</span><span class="s1">&#39;zz&#39;</span><span class="p">,</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span><span class="s1">&#39;z2&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;xy&#39;</span><span class="p">,</span><span class="s1">&#39;yx&#39;</span><span class="p">,</span><span class="s1">&#39;xz&#39;</span><span class="p">,</span><span class="s1">&#39;zx&#39;</span><span class="p">,</span><span class="s1">&#39;yz&#39;</span><span class="p">,</span><span class="s1">&#39;zy&#39;</span><span class="p">]</span>     <span class="c1">#: Specifies possible derivative variables.</span>
+
+<div class="viewcode-block" id="get_options"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.options.get_options">[docs]</a><span class="k">def</span> <span class="nf">get_options</span><span class="p">():</span>
+  <span class="sd">&#39;&#39;&#39;Returns all possible options and their value.&#39;&#39;&#39;</span>
+  <span class="n">opts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="nb">globals</span><span class="p">()[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">available</span><span class="p">]</span>
+  <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">init_parser</span><span class="p">():</span>
+  <span class="sd">&#39;&#39;&#39;Initializes parser and processes the options.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">import</span> <span class="nn">optparse</span>
+  <span class="k">global</span> <span class="n">parser</span>
+  
+  <span class="k">def</span> <span class="nf">default_if_called</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1e4</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">arg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">rargs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="k">if</span> <span class="p">((</span><span class="n">arg</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;--&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span>
+        <span class="p">(</span><span class="n">arg</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">arg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;-&quot;</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+    
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">option</span><span class="o">.</span><span class="n">dest</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+  
+  <span class="c1">#optparse.Option.STORE_ACTIONS += (&#39;call_back&#39;,)</span>
+  <span class="n">usage</span> <span class="o">=</span> <span class="s1">&#39;Usage: %prog [options] -i INPUT&#39;</span>
+  <span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="n">lgpl_short</span><span class="p">)</span> 
+  
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-l&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;show_lgpl&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;show license information and exit&quot;</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--quiet&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;suppress terminal output&quot;</span><span class="p">)</span>  
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--no_log&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;no_log&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;suppress output of a INPUT.oklog logfile&quot;</span><span class="p">)</span>
+  <span class="n">group</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionGroup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="s2">&quot;Input/Output Options&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;filename&quot;</span><span class="p">,</span><span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;input file&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--itype&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;itype&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;choice&quot;</span><span class="p">,</span><span class="n">choices</span><span class="o">=</span><span class="n">itypes</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;input type: &#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">itypes</span><span class="p">)</span> <span class="o">+</span> 
+                      <span class="s2">&quot;&#39; [default: &#39;</span><span class="si">%d</span><span class="s2">efault&#39;]&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--cclib_parser&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;cclib_parser&quot;</span><span class="p">,</span>
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;if &#39;--itype=cclib&#39;, this argument determines what</span>
+<span class="s1">                      cclib.parser will be used, e.g., &#39;Gaussian&#39; or &#39;GAMESS&#39;.&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;outputname&quot;</span><span class="p">,</span>
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;name of the output file </span>
+<span class="s1">                      [default: base name of INPUT]&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;--otype&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;otype&quot;</span><span class="p">,</span>
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;choice&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">otypes</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;output formats (multiple calls possible):  </span>
+<span class="s1">                      &#39;{0}&#39; (HDF5 file),                             </span>
+<span class="s1">                      &#39;{1}&#39; (Gaussian cube file),                     </span>
+<span class="s1">                      &#39;{4}&#39; (VMD network),                           </span>
+<span class="s1">                      &#39;{2}&#39; (ZIBAmiraMesh file),                     </span>
+<span class="s1">                      &#39;{3}&#39; (ZIBAmira network),                      </span>
+<span class="s1">                      &#39;{5}&#39; (simple interactive Mayavi interface) </span>
+<span class="s1">                      [default: &#39;{0}&#39;]&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">otypes</span><span class="p">))</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  
+  <span class="n">group</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionGroup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="s2">&quot;Computational Options&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--numproc&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;numproc&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;number of subprocesses to be started </span>
+<span class="s1">                      during the execution [default: </span><span class="si">%d</span><span class="s1">efault]&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--mo_set&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;mo_set&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;read the plain text file MO_SET containing row </span>
+<span class="s1">                      vectors of molecular orbital indeces (delimiter=&#39; &#39;, </span>
+<span class="s1">                      Integer numbering or MOLPRO&#39;s symmetry numbering) </span>
+<span class="s1">                      and compute the electron density </span>
+<span class="s1">                      using exclusively those orbitals&#39;&#39;&#39;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>  
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--calc_ao&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;calc_ao&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;calculate and save all AOs.&quot;</span><span class="p">)</span>  
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--calc_mo&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;calc_mo&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;calculate and save the MOs specified in the </span>
+<span class="s1">                      plain text file CALC_MO by the indices (delimiter=&#39; &#39;) </span>
+<span class="s1">                      (Type &#39;all_mo&#39; to store all occupied and virtual</span>
+<span class="s1">                      orbitals)&#39;&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span> 
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--all_mo&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;all_mo&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;take into account all (occupied and virtual) MOs </span>
+<span class="s1">                      for all computations&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--spin&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;spin&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">spin</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span><span class="s1">&#39;beta&#39;</span><span class="p">],</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;consider only `alpha` or `beta` molecular orbitals</span>
+<span class="s1">                      for the computations. Only available for unrestricted</span>
+<span class="s1">                      calculations.&#39;&#39;&#39;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--drv&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;drv&quot;</span><span class="p">,</span><span class="n">choices</span><span class="o">=</span><span class="n">drv_options</span><span class="p">,</span>
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;choice&quot;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;compute the analytical derivative of the requested</span>
+<span class="s1">                      quantities with respect to DRV, i.e., &#39;x&#39;, &#39;y&#39;, and/or &#39;z&#39;. </span>
+<span class="s1">                      For 2nd derivatives, specify the respective combinations</span>
+<span class="s1">                      , e.g., &#39;xx&#39; or &#39;yz&#39;. (multiple calls possible)&#39;&#39;&#39;</span>
+                      <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--laplacian&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;laplacian&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;compute the analytical laplacian of the density</span>
+<span class="s1">                      or the specified mo_set, respectively.</span>
+<span class="s1">                      &#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  
+  <span class="n">group</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionGroup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="s2">&quot;Grid-Related Options&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--slice_length&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;slice_length&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;specify how many grid points are computed at once </span>
+<span class="s1">                      (per subprocess).&#39;&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--vector&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;is_vector&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;store the output in a vector format.&#39;&#39;&#39;</span><span class="p">)</span>
+                      <span class="c1">#help=(&#39;&#39;&#39;perform the computations for a vector grid, </span>
+                      <span class="c1">#i.e., with x, y, and z as vectors. Compute successively </span>
+                      <span class="c1">#VECTOR points at once per subprocess</span>
+                      <span class="c1">#[default: -v %0.0e]&#39;&#39;&#39; % dvec</span>
+                      <span class="c1">#).replace(&#39;  &#39;,&#39;&#39;).replace(&#39;\n&#39;,&#39;&#39;)</span>
+                      <span class="p">)</span>   
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--grid&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;grid_file&quot;</span><span class="p">,</span>
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;read the grid from the plain text file GRID_FILE&#39;&#39;&#39;</span><span class="p">)</span>    
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--adjust_grid&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;adjust_grid&quot;</span><span class="p">,</span> 
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;create a grid using a spacing of X a_0 and having </span>
+<span class="s1">                      the size of the molecule plus D a_0 in each direction, </span>
+<span class="s1">                      e.g., --adjust_grid=D X&#39;&#39;&#39;</span>
+                      <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--random_grid&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;random_grid&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>  
+                      <span class="n">help</span><span class="o">=</span><span class="n">optparse</span><span class="o">.</span><span class="n">SUPPRESS_HELP</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--center&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;center_grid&quot;</span><span class="p">,</span>
+                      <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ATOM&quot;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;center with respect to the origin and the </span>
+<span class="s1">                      atom number ATOM (input order)&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  <span class="n">group</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionGroup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="s2">&quot;Additional Options&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--z_reduced_density&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;z_reduced_density&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> 
+                      <span class="n">help</span><span class="o">=</span><span class="s2">&quot;reduce the density with respect to the z-axis&quot;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--gross_atomic_density&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;gross_atomic_density&quot;</span><span class="p">,</span>
+                      <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;INDEX&quot;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;compute the atom-projected electron density with</span>
+<span class="s1">                      respect to atom INDEX (multiple calls possible)&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--mo_tefd&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;mo_tefd&quot;</span><span class="p">,</span> 
+                      <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;compute the molecular orbital transition electronic </span>
+<span class="s1">                      flux density between the orbitals I and J specify the </span>
+<span class="s1">                      requested component with &quot;--drv&quot;, e.g., </span>
+<span class="s1">                      --mo_tefd=I J --drv=x (multiple calls possible)&#39;&#39;&#39;</span>
+                      <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+                      
+  <span class="c1"># The following parser options are hidden </span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--no_slice&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;no_slice&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="n">optparse</span><span class="o">.</span><span class="n">SUPPRESS_HELP</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--no_output&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;no_output&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="n">optparse</span><span class="o">.</span><span class="n">SUPPRESS_HELP</span><span class="p">)</span>
+  <span class="n">group</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--not_interactive&quot;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;interactive&quot;</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_false&quot;</span><span class="p">,</span>
+                      <span class="n">help</span><span class="o">=</span><span class="n">optparse</span><span class="o">.</span><span class="n">SUPPRESS_HELP</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add_option_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+  <span class="c1"># Print the licence, if requested</span>
+  <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">show_lgpl</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">lgpl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">This file is part of orbkit.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  
+  <span class="c1"># Print help if no input file has been set</span>
+  <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">filename</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">otype</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">otype</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+  
+  <span class="c1"># Check the options for compatibility and correctness</span>
+  <span class="n">check_options</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">,</span>
+                        <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
+                        <span class="n">info</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+  
+  <span class="k">return</span>
+  <span class="c1"># init_parser </span>
+
+<span class="k">def</span> <span class="nf">raise_error</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="n">error</span><span class="o">=</span><span class="ne">IOError</span><span class="p">):</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;parser&#39;</span><span class="p">):</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">error</span>
+  <span class="k">raise</span> <span class="n">error</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_message</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+<div class="viewcode-block" id="check_options"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.options.check_options">[docs]</a><span class="k">def</span> <span class="nf">check_options</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">raise_error</span><span class="p">,</span><span class="n">display</span><span class="o">=</span><span class="n">print_message</span><span class="p">,</span>
+                  <span class="n">interactive</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">info</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">check_io</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Checks options for errors.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    error : function, optional</span>
+<span class="sd">      Handles the errors.</span>
+<span class="sd">    display :  function, optional</span>
+<span class="sd">      Handles the print commands.</span>
+<span class="sd">    interactive : bool, optional</span>
+<span class="sd">      If True and a file does not exist, asks the user to insert name of </span>
+<span class="sd">      existing file.</span>
+<span class="sd">    info : bool, optional</span>
+<span class="sd">      If True, some additional information is printed.</span>
+
+<span class="sd">    </span>
+<span class="sd">  :Default Error and Exception Handling: </span>
+<span class="sd">    Prints the errors and continues.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="c1">#--- Input/Output Options ---#</span>
+  <span class="k">if</span> <span class="n">check_io</span><span class="p">:</span>
+    <span class="c1"># Look for the input file</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span><span class="n">check_if_exists</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> 
+                          <span class="n">what</span><span class="o">=</span><span class="s1">&#39;filename for the input file&#39;</span><span class="p">,</span> 
+                          <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
+                          <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">))</span>
+    
+    <span class="c1"># Check the input type for correctness</span>
+    <span class="k">if</span> <span class="n">itype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">itypes</span><span class="p">:</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid input file format (choose from &quot;</span><span class="si">%s</span><span class="s1">&quot;)</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> 
+          <span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">itypes</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">itype</span> <span class="o">==</span> <span class="s1">&#39;cclib&#39;</span> <span class="ow">and</span> <span class="n">cclib_parser</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The input type cclib requires the specification of parser, &#39;</span> <span class="o">+</span> 
+            <span class="s1">&#39;e.g., --cclib_parser=Gaussian&#39;</span><span class="p">)</span>
+    
+    <span class="n">fid_base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">outputname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;outputname&#39;</span><span class="p">,</span><span class="n">fid_base</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">outputname</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> 
+              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">outputname</span><span class="p">))):</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Output path &quot;</span><span class="si">%s</span><span class="s1">&quot; does not exist!&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">outputname</span><span class="p">))</span>
+      
+  
+  <span class="c1"># Check the output types for correctness</span>
+  <span class="k">if</span> <span class="n">otype</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;otype&#39;</span><span class="p">,[])</span>
+  <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">otype</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;otype&#39;</span><span class="p">,[</span><span class="n">otype</span><span class="p">])</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">otypes</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">):</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid output file formats (choose from &quot;</span><span class="si">%s</span><span class="s1">&quot;)</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> 
+        <span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">otypes</span><span class="p">))</span>
+  
+  <span class="c1"># Check if h5py is installed</span>
+  <span class="k">if</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span> 
+      <span class="kn">import</span> <span class="nn">h5py</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;ImportError: The module h5py is not installed!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  
+
+  <span class="c1">#--- Grid-Related Options ---#  </span>
+  
+  <span class="c1"># Look for the grid input file</span>
+  <span class="k">if</span> <span class="n">grid_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> 
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;grid_file&#39;</span><span class="p">,</span><span class="n">check_if_exists</span><span class="p">(</span><span class="n">grid_file</span><span class="p">,</span> 
+                        <span class="n">what</span><span class="o">=</span><span class="s1">&#39;filename for the grid input file&#39;</span><span class="p">,</span> 
+                        <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
+                        <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">))</span>
+  
+  <span class="k">if</span> <span class="n">adjust_grid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adjust_grid</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">))</span> <span class="ow">or</span> 
+       <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adjust_grid</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> 
+       <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adjust_grid</span><span class="p">[</span><span class="mi">0</span><span class="p">],(</span><span class="nb">int</span><span class="p">,</span><span class="nb">float</span><span class="p">)))</span> <span class="ow">or</span> 
+       <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adjust_grid</span><span class="p">[</span><span class="mi">1</span><span class="p">],(</span><span class="nb">int</span><span class="p">,</span><span class="nb">float</span><span class="p">)))</span>
+       <span class="p">):</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The grid parameter (--adjust_grid), has to be a list containing &#39;</span>
+            <span class="s1">&#39;containing two floats.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">adjust_grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The grid spacing (second value in --adjust_grid) cannot be zero.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="c1">#--- Computational Options ---#</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">numproc</span><span class="p">,</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The number of processes (--numproc) has to be an integer value.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Check the files specified by --calc_mo or --mo_set for existance</span>
+  <span class="k">def</span> <span class="nf">check_mo</span><span class="p">(</span><span class="n">attr</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="n">attr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+      <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="n">attr</span><span class="p">,</span><span class="bp">False</span><span class="p">)</span>
+      <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="nb">int</span><span class="p">):</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span>  <span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>        
+          <span class="n">i</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+          <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="s1">&#39;homo&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="s1">&#39;lumo&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;homo&#39;</span><span class="p">,</span><span class="s1">&#39;lumo&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">]:</span>
+              <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span> 
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;all_mo&#39;</span><span class="p">:</span>   
+          <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="n">attr</span><span class="p">,</span>
+                  <span class="n">check_if_exists</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
+                  <span class="n">what</span><span class="o">=</span><span class="s1">&#39;filename for the MO list&#39;</span><span class="p">,</span>
+                  <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="n">attr</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;You have called `</span><span class="si">%s</span><span class="s1">` multiple times. So, you have</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">attr</span> <span class="o">+</span> 
+                <span class="s1">&#39;to give the molecular orbital labels explicitly, i.e.,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> 
+                <span class="s1">&#39;no filenames and no usage of the keyword `all_mo`.</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Entry `</span><span class="si">%s</span><span class="s1">` is not valid!&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">True</span>
+  
+  <span class="n">i</span> <span class="o">=</span> <span class="n">check_mo</span><span class="p">(</span><span class="s1">&#39;calc_mo&#39;</span><span class="p">)</span>
+  <span class="n">j</span> <span class="o">=</span> <span class="n">check_mo</span><span class="p">(</span><span class="s1">&#39;mo_set&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">i</span> <span class="ow">and</span> <span class="n">j</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Please choose --calc_mo OR --mo_set, not both. </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+        <span class="s1">&#39;--calc_mo will be done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">all_mo</span><span class="p">,</span><span class="nb">bool</span><span class="p">):</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The option --all_mo has to be a boolean.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">spin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">spin</span> <span class="o">==</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">or</span> <span class="n">spin</span> <span class="o">==</span> <span class="s1">&#39;beta&#39;</span><span class="p">):</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The option --spin has to be `alpha` or `beta`.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="p">(</span><span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">drv_options</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">drv</span><span class="p">):</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid derivative option (choose from &quot;</span><span class="si">%s</span><span class="s1">&quot;)</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> 
+        <span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">drv_options</span><span class="p">))</span>
+  
+  <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">drv</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;xx&#39;</span><span class="p">,</span><span class="s1">&#39;yy&#39;</span><span class="p">,</span><span class="s1">&#39;zz&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">drv</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span><span class="s1">&#39;z2&#39;</span><span class="p">]):</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Note: You have set the option --laplacian and specified values</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;for --drv. Both options are not compatible.</span><span class="se">\n\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;The options have been changed to -dxx -dyy -dzz.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;drv&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;xx&#39;</span><span class="p">,</span><span class="s1">&#39;yy&#39;</span><span class="p">,</span><span class="s1">&#39;zz&#39;</span><span class="p">])</span>
+  
+  <span class="c1">#--- Additional Options ---#</span>
+  <span class="k">if</span> <span class="n">gross_atomic_density</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The derivative of the gross atomic density is not implemented.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+  <span class="k">if</span> <span class="n">mo_tefd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">thismodule</span><span class="p">,</span><span class="s1">&#39;all_mo&#39;</span><span class="p">,</span><span class="bp">True</span><span class="p">)</span>  
+  
+  <span class="k">if</span> <span class="n">mo_tefd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The computation of molecular orbital transition electronic </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> 
+        <span class="s1">&#39;flux density between two orbitals requires the selection of </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;the component (e.g. --drv=x)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># The following options cannot be checked before running the main program</span>
+  <span class="k">if</span> <span class="n">info</span><span class="p">:</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;The option </span><span class="si">%s</span><span class="s1">--center cannot be checked before </span><span class="si">%s</span><span class="s1">...</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">center_grid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="n">string</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;--center&#39;</span><span class="p">,</span><span class="s1">&#39;reading</span><span class="se">\n</span><span class="s1">the input file&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">gross_atomic_density</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="n">string</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;--gross_atomic_density&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;reading</span><span class="se">\n</span><span class="s1">the input file&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">mo_tefd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="n">string</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;--mo_tefd&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;reading</span><span class="se">\n</span><span class="s1">the input file&#39;</span><span class="p">))</span>  
+  <span class="k">return</span> <span class="bp">True</span></div>
+
+<div class="viewcode-block" id="check_if_exists"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.options.check_if_exists">[docs]</a><span class="k">def</span> <span class="nf">check_if_exists</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">error</span><span class="o">=</span><span class="ne">IOError</span><span class="p">,</span><span class="n">display</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">,</span>
+                <span class="n">interactive</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Checks the existence of a file.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    fid : string</span>
+<span class="sd">      Specifies filename of the requested file.</span>
+<span class="sd">    what : string, optional</span>
+<span class="sd">      Describes the file.</span>
+<span class="sd">    error : function, optional</span>
+<span class="sd">      Handles the errors.</span>
+<span class="sd">    display :  function, optional</span>
+<span class="sd">      Handles the print commands.</span>
+<span class="sd">    interactive : bool, optional</span>
+<span class="sd">      If True and a file does not exist, asks the user to insert name of </span>
+<span class="sd">      existing file.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">    fid : string</span>
+<span class="sd">      Specifies filename of the requested file.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fid</span><span class="p">)):</span> 
+    <span class="k">if</span> <span class="n">fid</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> does not exist!</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
+      <span class="n">fid</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;Please insert a correct </span><span class="si">%s</span><span class="s1">: &#39;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Insert a correct </span><span class="si">%s</span><span class="s1">!</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
+      <span class="k">break</span> 
+  <span class="k">return</span> <span class="n">fid</span></div>
+
+<span class="k">def</span> <span class="nf">check_grid_output_compatibilty</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">raise_error</span><span class="p">):</span> 
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">grid</span><span class="o">.</span><span class="n">is_regular</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;cb&#39;</span>     <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span> 
+                              <span class="s1">&#39;vmd&#39;</span>    <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span>
+                              <span class="s1">&#39;am&#39;</span>     <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span> 
+                              <span class="s1">&#39;hx&#39;</span>     <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span> 
+                              <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">):</span>
+    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;For a non-regular vector grid, only HDF5 &#39;</span> <span class="o">+</span>
+    <span class="s1">&#39;is available as output format. Choose: --otype=h5</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># initiating the parser variables</span>
+<span class="c1"># the names are chosen according to core.init_parser()</span>
+
+<span class="c1">#--- Input/Output Options ---</span>
+<span class="n">filename</span>        <span class="o">=</span> <span class="s1">&#39;&#39;</span>            <span class="c1">#: Specifies input file name. (str)</span>
+<span class="n">itype</span>           <span class="o">=</span> <span class="s1">&#39;molden&#39;</span>      <span class="c1">#: Specifies input file type. See :data:`itypes` for details. (str) </span>
+<span class="n">cclib_parser</span>    <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: If itype is &#39;cclib&#39;, specifies the cclib.parser. (str)</span>
+<span class="n">outputname</span>      <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: Specifies output file (base) name. (str)</span>
+<span class="n">otype</span>           <span class="o">=</span> <span class="s1">&#39;h5&#39;</span>          <span class="c1">#: Specifies output file type. See :data:`otypes` for details. (str or list of str or None)</span>
+<span class="c1">#--- Computational Options ---</span>
+<span class="n">numproc</span>         <span class="o">=</span> <span class="mi">1</span>             <span class="c1">#: Specifies number of subprocesses for multiprocessing. (int)</span>
+<span class="n">mo_set</span>          <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: Specifies molecular orbitals used for density calculation. (filename or list of indices)</span>
+<span class="n">calc_ao</span>         <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, all atomic orbitals will be computed and saved.</span>
+<span class="n">calc_mo</span>         <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: Specifies which molecular orbitals will be calculated. (filename or list of indices)</span>
+<span class="n">all_mo</span>          <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, all molecular orbitals will be computed. (bool)</span>
+<span class="n">spin</span>            <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: If not None, exclusively &#39;alpha&#39; or &#39;beta&#39; molecular orbitals are taken into account. (None,&#39;alpha&#39;, or &#39;beta&#39;)</span>
+<span class="n">drv</span>             <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: Specifies derivative variables. (list of str)</span>
+<span class="n">laplacian</span>       <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, computes the laplacian of the density or of the mo_set. (bool)</span>
+<span class="c1">#--- Grid-Related Options ---</span>
+<span class="n">slice_length</span>    <span class="o">=</span> <span class="mf">1e4</span>           <span class="c1">#: Specifies the number of points per subprocess. (int)</span>
+<span class="n">vector</span>          <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#  This option is only present because of backward compatibility</span>
+<span class="n">is_vector</span>       <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, vector grid is used for the output. (bool)</span>
+<span class="n">grid_file</span>       <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: Specifies file to read grid from. (filename)</span>
+<span class="n">adjust_grid</span>     <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: If not None, create a grid using a spacing of X a_0 and having the size of the molecule plus D a_0 in each direction. (list: [D, x])</span>
+<span class="n">center_grid</span>     <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: If not None, grid is centered to specified atom and origin. (int) </span>
+<span class="n">random_grid</span>     <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, creates random grid around atom positions. (bool)</span>
+<span class="c1">#--- Additional Options ---</span>
+<span class="n">z_reduced_density</span> <span class="o">=</span> <span class="bp">False</span>       <span class="c1">#: If True, reduces the density with respect to the z-axis. (bool)</span>
+<span class="n">gross_atomic_density</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c1">#: Computes the gross atomic electron density with respect to specified atom. (int or list of int)</span>
+<span class="n">mo_tefd</span>         <span class="o">=</span> <span class="bp">None</span>          <span class="c1">#: Computes the molecular orbital transition electronic flux density between the orbitals I and J specify the requested component with :data:`orbkit.options.drv`. (list of [I, J])</span>
+<span class="c1">#--- Options for Advanced Users ---</span>
+<span class="n">quiet</span>           <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, omits terminal output. (bool)</span>
+<span class="n">no_log</span>          <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, omits logfile output. (bool)</span>
+<span class="n">no_output</span>       <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, omits creation of output. (bool)</span>
+<span class="n">no_slice</span>        <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, omits slicing of the grid. (bool)</span>
+<span class="n">interactive</span>     <span class="o">=</span> <span class="bp">False</span>         <span class="c1">#: If True, asks user to select unclarified options. (bool)</span>
+<span class="c1">#--- Default values for the grid parameters ---</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">reset_grid</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.0 (stable)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

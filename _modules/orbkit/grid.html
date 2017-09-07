@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>orbkit.grid &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.0 (stable)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>orbkit.grid</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for orbkit.grid</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: iso-8859-1 -*-</span>
+<span class="sd">&#39;&#39;&#39;Module for creating and manipulating the grid on which all computations </span>
+<span class="sd">are performed.&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">orbkit</span>
+<span class="sd">Gunter Hermann, Vincent Pohl, and Axel Schild</span>
+
+<span class="sd">This file is part of orbkit.</span>
+
+<span class="sd">orbkit is free software: you can redistribute it and/or modify</span>
+<span class="sd">it under the terms of the GNU Lesser General Public License as </span>
+<span class="sd">published by the Free Software Foundation, either version 3 of </span>
+<span class="sd">the License, or any later version.</span>
+
+<span class="sd">orbkit is distributed in the hope that it will be useful,</span>
+<span class="sd">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="sd">GNU Lesser General Public License for more details.</span>
+
+<span class="sd">You should have received a copy of the GNU Lesser General Public </span>
+<span class="sd">License along with orbkit.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1"># Import general modules</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># Import orbkit modules</span>
+<span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">cy_grid</span>
+
+<div class="viewcode-block" id="grid_init"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.grid_init">[docs]</a><span class="k">def</span> <span class="nf">grid_init</span><span class="p">(</span><span class="n">is_vector</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Sets up the regular x-, y-, z-grid </span>
+<span class="sd">  specified by the global lists: </span>
+
+<span class="sd">    :min\_: List of minimum grid values</span>
+<span class="sd">    :max\_: List of maximum grid values</span>
+<span class="sd">    :N\_: List of number of grid points</span>
+
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    is_vector : bool, optional</span>
+<span class="sd">      If True, converts the regular grid to a vector grid.</span>
+
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">d3r</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">,</span> <span class="n">N_</span><span class="p">,</span> <span class="n">delta_</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">is_initialized</span><span class="p">,</span> <span class="n">is_regular</span>
+  
+  <span class="k">if</span> <span class="n">is_initialized</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">0</span>
+  
+  <span class="c1"># Initialize a list for the grid </span>
+  <span class="n">grid</span> <span class="o">=</span> <span class="p">[[],[],[]]</span>
+    
+  <span class="c1"># Loop over the three dimensions </span>
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">max_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="n">min_</span><span class="p">[</span><span class="n">ii</span><span class="p">]:</span>
+      <span class="c1"># If min-value is equal to max-value, write only min-value to grid  </span>
+      <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>   <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">min_</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+      <span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">N_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>     <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="c1"># Calculate the grid using the input parameters </span>
+      <span class="k">if</span> <span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]:</span>
+        <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">min_</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">max_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">+</span><span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">N_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">max_</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">N_</span><span class="p">[</span><span class="n">ii</span><span class="p">]),</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="c1"># backward compatibility</span>
+        <span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+  
+  <span class="c1"># Write grid </span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+  <span class="n">y</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
+  <span class="n">z</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  <span class="n">d3r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">delta_</span><span class="p">)</span>
+  
+  <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">True</span>
+  
+  <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+    <span class="n">grid2vector</span><span class="p">()</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">__name__</span><span class="p">],</span><span class="s1">&#39;is_vector&#39;</span><span class="p">,</span><span class="bp">False</span><span class="p">)</span>  </div>
+  <span class="c1"># grid_init </span>
+
+<span class="c1"># Synonyms</span>
+<span class="n">init</span> <span class="o">=</span> <span class="n">grid_init</span>
+<span class="n">init_grid</span> <span class="o">=</span> <span class="n">grid_init</span>
+
+<div class="viewcode-block" id="get_grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.get_grid">[docs]</a><span class="k">def</span> <span class="nf">get_grid</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Returns a string describing the current x-, y-, z-grid.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+  <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+  <span class="n">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">display</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(s)s%(c)s</span><span class="s1">[0] = </span><span class="si">%(min).2f</span><span class="s1"> </span><span class="si">%(c)s</span><span class="s1">[-1] = </span><span class="si">%(max).2f</span><span class="s1"> N</span><span class="si">%(c)s</span><span class="s1"> = </span><span class="si">%(N)d</span><span class="s1"> &#39;</span> <span class="o">%</span> 
+      <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">coord</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+       <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">])})</span>
+    <span class="k">if</span> <span class="n">max_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">!=</span> <span class="n">min_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="ow">and</span> <span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">:</span>
+      <span class="c1"># Print the delta values only if min-value is not equal to max-value </span>
+      <span class="n">display</span> <span class="o">+=</span> <span class="s1">&#39;d</span><span class="si">%(c)s</span><span class="s1"> = </span><span class="si">%(d).3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">coord</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]}</span>
+    <span class="n">display</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+  
+  <span class="k">return</span> <span class="n">display</span></div>
+  <span class="c1"># get_grid </span>
+
+<div class="viewcode-block" id="tolist"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.tolist">[docs]</a><span class="k">def</span> <span class="nf">tolist</span><span class="p">():</span>
+  <span class="sd">&#39;&#39;&#39;Returns a list containing the current x-, y-, z-grid.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span></div>
+  
+<div class="viewcode-block" id="todict"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.todict">[docs]</a><span class="k">def</span> <span class="nf">todict</span><span class="p">():</span>
+  <span class="sd">&#39;&#39;&#39;Returns a dictionary containing the current x-, y-, z-grid.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="get_shape"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.get_shape">[docs]</a><span class="k">def</span> <span class="nf">get_shape</span><span class="p">():</span>
+ <span class="sd">&#39;&#39;&#39;Returns the shape of the grid.</span>
+<span class="sd"> &#39;&#39;&#39;</span>
+ <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initialized</span><span class="p">:</span>
+   <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`grid.get_shape` requires the grid to be initialized.&#39;</span><span class="p">)</span>
+ 
+ <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),)</span> <span class="k">if</span> <span class="n">is_vector</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">N_</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="set_grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.set_grid">[docs]</a><span class="k">def</span> <span class="nf">set_grid</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">znew</span><span class="p">,</span><span class="n">is_vector</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Sets the x-, y-, z-grid.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_initialized</span>
+  <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>  
+  <span class="n">NumberTypes</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1">#: Contains the supported types.</span>
+  
+  <span class="n">length</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">znew</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="c1"># Check the type of the grid</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">NumberTypes</span><span class="p">):</span>
+      <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>      
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span> 
+      <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>    
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+      <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> (dimension </span><span class="si">%d</span><span class="s1">) is of inappropriate type. (</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">i</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span>
+    <span class="c1"># Reshape if necessary</span>
+    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,))</span>
+    <span class="c1"># Save new grid</span>
+    <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="n">length</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+  
+  <span class="c1"># Produce some information about the grid.</span>
+  <span class="n">info_string</span> <span class="o">=</span> <span class="s1">&#39;Grid has been set up...&#39;</span>
+  <span class="n">info_string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">If the input coordinates will be used for a regular grid,&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">it will contain </span><span class="si">%d</span><span class="s1">x</span><span class="si">%d</span><span class="s1">x</span><span class="si">%d</span><span class="s1">=</span><span class="si">%d</span><span class="s1"> data points.&#39;</span> <span class="o">%</span> 
+                  <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">length</span><span class="p">),))</span> 
+                  <span class="p">)</span>
+  <span class="k">if</span> <span class="n">length</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">length</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">length</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">info_string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n\t</span><span class="s1">If the input coordinates will be used for a vector grid,&#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">it will contain </span><span class="si">%d</span><span class="s1"> data points.&#39;</span> <span class="o">%</span> <span class="n">length</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">info_string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n\t</span><span class="s1">Attention: Due to their different length, the grid variables&#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">cannot be used for a computation using a vector grid!&#39;</span>
+                    <span class="p">)</span>
+  
+  <span class="c1"># Write grid </span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+  <span class="n">y</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
+  <span class="n">z</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  
+  <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">is_vector</span><span class="p">,</span><span class="nb">bool</span><span class="p">):</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">__name__</span><span class="p">],</span><span class="s1">&#39;is_vector&#39;</span><span class="p">,</span><span class="n">is_vector</span><span class="p">)</span>
+    <span class="n">info_string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">The variable `grid.is_vector` has been set to </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> 
+                    <span class="n">is_vector</span><span class="p">)</span>
+  <span class="c1">#set_boundaries(is_regular=(is_vector==False))</span>
+  <span class="k">return</span> <span class="n">info_string</span></div>
+  <span class="c1"># set_grid </span>
+
+<span class="k">def</span> <span class="nf">set_boundaries</span><span class="p">(</span><span class="n">is_regular</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">Nx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">Ny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">Nz</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">global</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">,</span> <span class="n">delta_</span><span class="p">,</span> <span class="n">N_</span>
+  <span class="n">min_</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">()]</span>
+  <span class="n">max_</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+  <span class="k">if</span> <span class="n">is_regular</span><span class="p">:</span>
+    <span class="n">N_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span>
+    <span class="n">delta_</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+  <span class="k">elif</span> <span class="nb">all</span><span class="p">([</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="n">Nz</span><span class="p">]):</span>
+    <span class="n">N_</span> <span class="o">=</span> <span class="p">[</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="n">Nz</span><span class="p">]</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="n">Nz</span><span class="p">)</span>
+    <span class="n">delta_</span> <span class="o">=</span> <span class="p">[</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+
+<span class="k">def</span> <span class="nf">get_bbox</span><span class="p">():</span>
+  <span class="n">bbox</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+  <span class="n">bbox</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_</span>
+  <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_</span>
+  <span class="k">return</span> <span class="n">bbox</span>
+
+<div class="viewcode-block" id="grid2vector"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.grid2vector">[docs]</a><span class="k">def</span> <span class="nf">grid2vector</span><span class="p">():</span>
+  <span class="sd">&#39;&#39;&#39;Converts the regular grid characterized by x-, y-, z-vectors</span>
+<span class="sd">  to a (3, (Nx*Ny*Nz)) grid matrix (vector grid). </span>
+<span class="sd">  Reverse operation: :mod:`orbkit.grid.vector2grid` </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">is_regular</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initialized</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have to initialize a grid before calling &#39;</span><span class="o">+</span>
+                 <span class="s1">&#39; `grid.grid2vector`, i.e., `grid.is_initialized=True`.&#39;</span><span class="p">)</span>
+  
+  <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">cy_grid</span><span class="o">.</span><span class="n">grid2vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>    
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">True</span></div>
+  
+<div class="viewcode-block" id="vector2grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.vector2grid">[docs]</a><span class="k">def</span> <span class="nf">vector2grid</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="n">Nz</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Converts the (3, (Nx*Ny*Nz)) grid matrix (vector grid) back to the regular grid </span>
+<span class="sd">  characterized by the x-, y-, z-vectors.</span>
+<span class="sd">  Reverse operation: :mod:`orbkit.grid.grid2vector`</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_vector</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initialized</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have to initialize a grid before calling &#39;</span><span class="o">+</span>
+                     <span class="s1">&#39; `grid.vector2grid`. &#39;</span><span class="o">+</span>
+                     <span class="s1">&#39;(`grid.is_initialized == True`)&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">is_regular</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The grid has to regular. &#39;</span><span class="o">+</span>
+                     <span class="s1">&#39;(`grid.is_regular == True`)&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Not a valid vector grid, i.e., dimensions of &#39;</span><span class="o">+</span>
+                     <span class="s1">&#39;x-, y-, and z- coordinate differ.&#39;</span><span class="p">)</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;It has to hold that `len(x) = (N_x * N_y * N_z)`&#39;</span><span class="p">)</span>
+  
+  <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">cy_grid</span><span class="o">.</span><span class="n">vector2grid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="n">Nz</span><span class="p">)</span>  
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">False</span></div>
+  
+<div class="viewcode-block" id="matrix_grid2vector"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.matrix_grid2vector">[docs]</a><span class="k">def</span> <span class="nf">matrix_grid2vector</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span> 
+  <span class="sd">&#39;&#39;&#39;Converts the (Nx,Ny,Nz) data matrix back to the regular grid (Nx,Nz,Ny)</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`matrix` has to be 3d matrix.&#39;</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">matrix</span><span class="p">,(</span><span class="o">-</span><span class="mi">1</span><span class="p">,))</span></div>
+  
+<div class="viewcode-block" id="matrix_vector2grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.matrix_vector2grid">[docs]</a><span class="k">def</span> <span class="nf">matrix_vector2grid</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">Nx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">Ny</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">Nz</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> 
+  <span class="sd">&#39;&#39;&#39;Converts the (Nx*Ny*Nz) data matrix back to the (Nx,Nz,Ny)</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="n">matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`matrix` has to be one dimensional with the length &#39;</span><span class="o">+</span>
+                     <span class="s1">&#39;`len(matrix) = N_x * N_y * N_z`.&#39;</span><span class="o">+</span>
+                     <span class="s1">&#39;For Nd matrices use the function `grid.mv2g`.&#39;</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">matrix</span><span class="p">,(</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="n">Nz</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="mv2g"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.mv2g">[docs]</a><span class="k">def</span> <span class="nf">mv2g</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Converts all `numpy.ndarrays` given as the keyword arguments </span>
+<span class="sd">  (`**kwargs`) from a vector grid of `shape=(..., Nx*Ny*Nz, ...,)` to a regular </span>
+<span class="sd">  grid of `shape=(..., Nx, Ny, Nz, ...,)`, and, if more than one `**kwargs` is </span>
+<span class="sd">  given, returns it as a dictionary.</span>
+<span class="sd">  </span>
+<span class="sd">  Hint: The global values for the grid dimensionality, i.e., :mod:`grid.N_`,</span>
+<span class="sd">  are used for reshaping.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">import</span> <span class="nn">itertools</span>
+  <span class="n">return_val</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+    <span class="n">where</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">shape</span><span class="o">==</span><span class="n">numpy</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">N_</span><span class="p">))</span>
+    <span class="n">return_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">[:</span><span class="n">where</span><span class="p">]</span><span class="o">+</span><span class="nb">tuple</span><span class="p">(</span><span class="n">N_</span><span class="p">)</span><span class="o">+</span><span class="n">shape</span><span class="p">[</span><span class="n">where</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">shape</span><span class="p">[:</span><span class="n">where</span><span class="p">]</span> <span class="o">+</span> <span class="n">shape</span><span class="p">[</span><span class="n">where</span><span class="o">+</span><span class="mi">1</span><span class="p">:])]):</span>
+      <span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]</span>
+      <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">where</span><span class="p">,</span><span class="nb">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">))</span>
+      <span class="n">return_val</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">obj</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix_vector2grid</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="n">obj</span><span class="p">[:</span><span class="n">where</span><span class="p">]</span><span class="o">+</span><span class="n">obj</span><span class="p">[</span><span class="n">where</span><span class="o">+</span><span class="mi">2</span><span class="p">:]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,)),</span> 
+                                          <span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;Nx&#39;</span><span class="p">,</span><span class="s1">&#39;Ny&#39;</span><span class="p">,</span><span class="s1">&#39;Nz&#39;</span><span class="p">],</span><span class="n">N_</span><span class="p">)))</span>
+  
+  <span class="k">return</span> <span class="n">return_val</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">return_val</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">return_val</span></div>
+
+<div class="viewcode-block" id="grid_sym_op"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.grid_sym_op">[docs]</a><span class="k">def</span> <span class="nf">grid_sym_op</span><span class="p">(</span><span class="n">symop</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Executes given symmetry operation on vector grid </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">is_regular</span>
+  
+  <span class="n">symop</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">symop</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
+  <span class="k">if</span> <span class="n">symop</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`symop` needs to be a numpy array with shape=(3,3)&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initialized</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have to initialize a grid before executing a &#39;</span><span class="o">+</span>
+                 <span class="s1">&#39; symmetry operation on it. (`grid.is_initialized == True`)&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">is_vector</span><span class="p">:</span>
+    <span class="n">grid2vector</span><span class="p">()</span>
+  
+  <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">symop</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]))</span>
+  
+  <span class="c1"># The grid is not regular anymore.</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span></div>
+  
+
+<div class="viewcode-block" id="grid_translate"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.grid_translate">[docs]</a><span class="k">def</span> <span class="nf">grid_translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">,</span><span class="n">dz</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Translates the grid by (dx,dy,dz).</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span>
+  <span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
+  <span class="n">y</span> <span class="o">+=</span> <span class="n">dy</span>
+  <span class="n">z</span> <span class="o">+=</span> <span class="n">dz</span></div>
+
+<div class="viewcode-block" id="rot"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.rot">[docs]</a><span class="k">def</span> <span class="nf">rot</span><span class="p">(</span><span class="n">ang</span><span class="p">,</span><span class="n">axis</span><span class="p">):</span>
+ <span class="sd">&#39;&#39;&#39;Creates matrix representation for arbitrary rotations</span>
+<span class="sd"> Angle has to be defined in radians, e.g., numpy.pi/2.0</span>
+<span class="sd"> Axis has to be specified as follows: </span>
+<span class="sd"> x-axis -&gt; axis=0,</span>
+<span class="sd"> y-axis -&gt; axis=1,</span>
+<span class="sd"> z-axis -&gt; axis=2,</span>
+<span class="sd"> &#39;&#39;&#39;</span>
+ <span class="c1"># Initialize cosine, sinus, and additional numpy functions</span>
+ <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
+ <span class="n">sin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span>
+ <span class="n">array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span>
+ <span class="n">insert</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">insert</span>
+ 
+ <span class="c1"># Create rotation matrix around defined rotations axis</span>
+ <span class="n">rotmatrix</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span> <span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">)],</span>
+                 <span class="p">[</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">)]])</span>
+ <span class="n">rotmatrix</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">insert</span><span class="p">(</span><span class="n">rotmatrix</span><span class="p">,</span><span class="n">axis</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="n">axis</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+ <span class="n">rotmatrix</span><span class="p">[</span><span class="n">axis</span><span class="p">,</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+ 
+ <span class="k">return</span> <span class="n">rotmatrix</span></div>
+ <span class="c1"># rot</span>
+
+<div class="viewcode-block" id="reflect"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.reflect">[docs]</a><span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span><span class="n">plane</span><span class="p">):</span>
+ <span class="sd">&#39;&#39;&#39;Creates matrix representation for reflection</span>
+<span class="sd"> Plane has to be specified as follows:</span>
+<span class="sd"> xy-plane -&gt; plane= numpy.array([0,1])</span>
+<span class="sd"> xz-plane -&gt; plane= numpy.array([0,2])</span>
+<span class="sd"> yz-plane -&gt; plane= numpy.array([1,2])</span>
+<span class="sd"> &#39;&#39;&#39;</span>
+ 
+ <span class="c1"># Create reflection matrix for defined plane</span>
+ <span class="n">sigma</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+ <span class="n">axis</span> <span class="o">=</span> <span class="mi">3</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+ <span class="n">sigma</span><span class="p">[</span><span class="n">axis</span><span class="p">,</span><span class="n">axis</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+
+ <span class="k">return</span> <span class="n">sigma</span></div>
+ <span class="c1"># reflect</span>
+
+<div class="viewcode-block" id="inversion"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.inversion">[docs]</a><span class="k">def</span> <span class="nf">inversion</span><span class="p">():</span>
+ <span class="sd">&#39;&#39;&#39;Transfer matrix representation for inversion</span>
+<span class="sd"> &#39;&#39;&#39;</span>
+
+ <span class="c1"># Inversion matrix</span>
+ <span class="n">inv</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c1"># inversion</span>
+
+ <span class="k">return</span> <span class="n">inv</span></div>
+ <span class="c1"># inversion</span>
+
+<div class="viewcode-block" id="sph2cart_vector"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.sph2cart_vector">[docs]</a><span class="k">def</span> <span class="nf">sph2cart_vector</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">phi</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Converts a spherical regular grid matrix (r, theta, phi)</span>
+<span class="sd">  to a Cartesian grid matrix (vector grid) with the shape (3, (Nr*Ntheta*Nphi)).</span>
+
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    r : numpy.ndarray, shape=(Nr,)</span>
+<span class="sd">      Specifies radial distance.</span>
+<span class="sd">    theta : numpy.ndarray, shape=(Ntheta,)</span>
+<span class="sd">      Specifies polar angle. </span>
+<span class="sd">    phi : numpy.ndarray, shape=(Nphi,)</span>
+<span class="sd">      Specifies azimuth angle. </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_initialized</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">is_regular</span>
+  <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">cy_grid</span><span class="o">.</span><span class="n">sph2cart</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+                      <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+                      <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+  
+  <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span></div>
+  <span class="c1"># sph2cart_vector </span>
+
+<div class="viewcode-block" id="cyl2cart_vector"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.cyl2cart_vector">[docs]</a><span class="k">def</span> <span class="nf">cyl2cart_vector</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">phi</span><span class="p">,</span><span class="n">zed</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Converts a cylindrical regular grid matrix (r, phi, zed)</span>
+<span class="sd">  to a Cartesian grid matrix (vector grid) with the shape (3, (Nr*Nphi*Nzed)).</span>
+
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    r : numpy.ndarray, shape=(Nr,)</span>
+<span class="sd">      Specifies radial distance.</span>
+<span class="sd">    phi : numpy.ndarray, shape=(Nphi,)</span>
+<span class="sd">      Specifies azimuth angle. </span>
+<span class="sd">    zed : numpy.ndarray, shape=(Nz,)</span>
+<span class="sd">      Specifies z distance.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_initialized</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">is_regular</span>
+  
+  <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">cy_grid</span><span class="o">.</span><span class="n">cyl2cart</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+                      <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+                      <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">zed</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+  
+  <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span></div>
+  <span class="c1"># cyl2cart_vector </span>
+
+<div class="viewcode-block" id="random_grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.random_grid">[docs]</a><span class="k">def</span> <span class="nf">random_grid</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">N</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a normally distributed grid around the atom postions (geo_spec).</span>
+
+<span class="sd">  **Parameters:**</span>
+
+<span class="sd">    geo_spec : </span>
+<span class="sd">        See :ref:`Central Variables` for details.</span>
+<span class="sd">    N : int</span>
+<span class="sd">        Number of points distributed around each atom</span>
+<span class="sd">    scale : float</span>
+<span class="sd">        Width of normal distribution</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">is_initialized</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">is_regular</span>
+  <span class="n">geo_spec</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">)</span>
+  <span class="n">at_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">)</span>
+  <span class="c1"># Initialize a list for the grid </span>
+  <span class="n">grid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="n">at_num</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+  
+  <span class="c1"># Loop over the three dimensions </span>
+  <span class="k">for</span> <span class="n">ii_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ii_a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">at_num</span><span class="p">):</span>
+      <span class="n">grid</span><span class="p">[</span><span class="n">ii_d</span><span class="p">,</span><span class="n">ii_a</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">geo_spec</span><span class="p">[</span><span class="n">ii_a</span><span class="p">,</span><span class="n">ii_d</span><span class="p">],</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+  
+  <span class="n">grid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">grid</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="n">N</span><span class="o">*</span><span class="n">at_num</span><span class="p">))</span>
+
+  <span class="c1"># Write grid </span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+  <span class="n">y</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
+  <span class="n">z</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  
+  <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span>  </div>
+  <span class="c1"># random_grid </span>
+
+<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Reads a grid from a plain text file.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    fid : str</span>
+<span class="sd">      Specifies the filename of the grid file. </span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">    is_vector : bool</span>
+<span class="sd">      If True, a vector grid is used for the computations.</span>
+
+<span class="sd">  **Supported Formats:**</span>
+<span class="sd">  </span>
+<span class="sd">    Regular Grid::</span>
+<span class="sd">    </span>
+<span class="sd">      # Regular Grid Example File</span>
+<span class="sd">      # Format:</span>
+<span class="sd">      # x xmin xmax Nx</span>
+<span class="sd">      # y ymin ymax Ny</span>
+<span class="sd">      # z zmin zmax Nz</span>
+<span class="sd">      </span>
+<span class="sd">      x -5 5 101</span>
+<span class="sd">      y -2 2  51</span>
+<span class="sd">      z  0 0   1 </span>
+<span class="sd">    </span>
+<span class="sd">    Vector Grid::</span>
+<span class="sd">    </span>
+<span class="sd">      # Vectorized Grid Example File</span>
+<span class="sd">      # The header &#39;x y z&#39; is mandatory!</span>
+
+<span class="sd">      x       y       z</span>
+<span class="sd">      -5      -5      0</span>
+<span class="sd">      -4      -5      0</span>
+<span class="sd">      -3      -5      0</span>
+<span class="sd">      0       0       0</span>
+<span class="sd">      2       -1e-1   9.78</span>
+<span class="sd">  </span>
+<span class="sd">  **Hint:** If a line starts with &#39;#&#39;, it will be skipped. Please, do not use &#39;#&#39; at the end of a line!</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">,</span> <span class="n">N_</span><span class="p">,</span> <span class="n">delta_</span><span class="p">,</span> <span class="n">is_initialized</span><span class="p">,</span> <span class="n">is_regular</span><span class="p">,</span> <span class="n">is_vector</span>
+  
+  <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">is_vector</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">is_vector</span> <span class="o">==</span> <span class="bp">True</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">is_vector</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">is_vector</span> <span class="o">==</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;Inconsistency in Grid File in &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> 
+
+  <span class="c1"># Go through the file line by line </span>
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="n">is_dx</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="c1"># Last column grid spacing not number of points</span>
+
+  <span class="n">grid</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+  <span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;xyz&#39;</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">fileobject</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fileobject</span><span class="p">):</span>
+      <span class="n">cl</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>                 <span class="c1"># The Current Line split into segments</span>
+      
+      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">cl</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">cl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">comment</span><span class="p">):</span> 
+        <span class="n">is_vector</span> <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cl</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="p">[]:</span> 
+              <span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>              
+              <span class="n">grid</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>                  
+          <span class="n">grid</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">cl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())]</span> <span class="o">=</span> <span class="n">cl</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+          <span class="n">is_dx</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">cl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())]</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">cl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="c1"># Convert the variables </span>
+  <span class="n">grid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">is_vector</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">,:]</span>
+    <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># The grid will be seen as initialized</span>
+    <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1"># The grid is assumed to be non-regular</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">min_</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">max_</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">is_dx</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="n">delta_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">N_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+  
+  <span class="k">return</span> <span class="n">is_vector</span>   </div>
+
+<div class="viewcode-block" id="adjust_to_geo"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.adjust_to_geo">[docs]</a><span class="k">def</span> <span class="nf">adjust_to_geo</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Adjusts the grid boundaries to the molecular geometry.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  qc : QCinfo class</span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">  extend : float</span>
+<span class="sd">    Specifies the value by which the grid boundaries are extended in each </span>
+<span class="sd">    direction.</span>
+<span class="sd">  step : float</span>
+<span class="sd">    Specifies the grid spacing.</span>
+<span class="sd">  </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">global</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">,</span> <span class="n">N_</span><span class="p">,</span><span class="n">delta_</span>
+  
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">min_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">extend</span><span class="p">)</span>
+    <span class="n">max_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">extend</span><span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">N_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">step</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">rest</span> <span class="o">=</span> <span class="p">(</span><span class="n">N_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">step</span> <span class="o">-</span> <span class="n">dist</span>
+    <span class="c1"># Correct minimum and maximum value, if necessary</span>
+    <span class="n">min_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">rest</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">max_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rest</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">delta_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span></div>
+
+<span class="k">def</span> <span class="nf">check_atom_select</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">interactive</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                      <span class="n">display</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">):</span>
+  <span class="k">if</span> <span class="ow">not</span><span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">atom</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">))):</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Not a Valid atom number for centering the grid&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Coose a valid index:&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">geo_info</span><span class="p">):</span> 
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%d</span><span class="se">\t</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">geo_spec</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
+      <span class="k">while</span> <span class="ow">not</span><span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">atom</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">))):</span>
+        <span class="k">try</span><span class="p">:</span>
+          <span class="n">atom</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;Please insert a correct index: &#39;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+          <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span> 
+      <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;Insert a correct filename for the MO list!&#39;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">atom</span>
+
+<div class="viewcode-block" id="center_grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.center_grid">[docs]</a><span class="k">def</span> <span class="nf">center_grid</span><span class="p">(</span><span class="n">ac</span><span class="p">,</span><span class="n">display</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Centers the grid to the point ac and to the origin (0,0,0).</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># All grid related variables should be globals </span>
+  <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">d3r</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">,</span> <span class="n">N_</span><span class="p">,</span> <span class="n">delta_</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">is_regular</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Center grid is only supported for regular grids.&#39;</span><span class="p">)</span>
+  
+  <span class="n">was_vector</span> <span class="o">=</span> <span class="n">is_vector</span>
+  <span class="k">if</span> <span class="n">was_vector</span><span class="p">:</span>
+    <span class="n">vector2grid</span><span class="p">(</span><span class="o">*</span><span class="n">N_</span><span class="p">)</span>
+  
+  <span class="n">P</span><span class="o">=</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ac</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))]</span>
+  
+  <span class="n">d_tilde</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">N_tilde</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d_tilde</span> <span class="o">/</span> <span class="n">delta_</span><span class="p">))</span>
+  
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span> 
+    <span class="k">if</span> <span class="n">N_tilde</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_tilde</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">/</span> <span class="n">N_tilde</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+  
+  <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+  
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="n">position</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">ac</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+      <span class="n">g</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">position</span><span class="p">]</span> <span class="o">-</span> <span class="n">ac</span><span class="p">[</span><span class="n">ii</span><span class="p">]);</span>
+      <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">-</span> <span class="n">g</span><span class="p">;</span>
+      <span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span><span class="p">;</span>
+  
+  <span class="n">x</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+  <span class="n">y</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
+  <span class="n">z</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  <span class="n">d3r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">delta_</span><span class="p">)</span>
+  
+  <span class="n">min_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">min</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">min</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+  <span class="n">max_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+  <span class="n">N_</span>   <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+  
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Centered Grid to (</span><span class="si">%.2f</span><span class="s1"> </span><span class="si">%.2f</span><span class="s1"> </span><span class="si">%.2f</span><span class="s1">): </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ac</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ac</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+  <span class="n">display</span><span class="p">(</span><span class="n">get_grid</span><span class="p">())</span>
+  
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="mf">0.</span> <span class="o">==</span> <span class="n">numpy</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">*</span><span class="mi">10000</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span><span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> 
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Warning!</span><span class="se">\n\t</span><span class="s1">At least one grid point is equal to zero.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">was_vector</span><span class="p">:</span>
+    <span class="n">grid2vector</span><span class="p">()</span></div>
+  <span class="c1"># center_grid </span>
+
+<div class="viewcode-block" id="reset_grid"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.grid.reset_grid">[docs]</a><span class="k">def</span> <span class="nf">reset_grid</span><span class="p">():</span>
+  <span class="sd">&#39;&#39;&#39;Resets the grid parameters.&#39;&#39;&#39;</span>
+  <span class="k">global</span> <span class="n">is_initialized</span><span class="p">,</span> <span class="n">is_vector</span><span class="p">,</span> <span class="n">is_regular</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">,</span> <span class="n">N_</span>
+  <span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="n">is_vector</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="n">min_</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">]</span>
+  <span class="n">max_</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">8.0</span><span class="p">,</span>  <span class="mf">8.0</span><span class="p">,</span>  <span class="mf">8.0</span><span class="p">]</span>
+  <span class="n">N_</span>   <span class="o">=</span> <span class="p">[</span> <span class="mi">101</span><span class="p">,</span>  <span class="mi">101</span><span class="p">,</span>  <span class="mi">101</span><span class="p">]</span>
+  <span class="n">delta_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span></div>
+  <span class="c1"># reset_grid </span>
+
+<span class="c1"># Default values for the grid parameters </span>
+<span class="n">min_</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">]</span>   <span class="c1">#: Specifies minimum grid values (regular grid).</span>
+<span class="n">max_</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">8.0</span><span class="p">,</span>  <span class="mf">8.0</span><span class="p">,</span>  <span class="mf">8.0</span><span class="p">]</span>   <span class="c1">#: Specifies maximum grid values (regular grid).</span>
+<span class="n">N_</span>   <span class="o">=</span> <span class="p">[</span> <span class="mi">101</span><span class="p">,</span>  <span class="mi">101</span><span class="p">,</span>  <span class="mi">101</span><span class="p">]</span>   <span class="c1">#: Specifies the number of grid points (regular grid).</span>
+
+<span class="c1"># Initialize some lists </span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">])</span>        <span class="c1">#: Contains the x-coordinates. </span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">])</span>        <span class="c1">#: Contains the y-coordinates. </span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">])</span>        <span class="c1">#: Contains the z-coordinates. </span>
+<span class="n">delta_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>   <span class="c1">#: Contains the grid spacing.</span>
+<span class="n">d3r</span> <span class="o">=</span> <span class="mf">0.0</span>                     <span class="c1">#: A volume element</span>
+
+<span class="n">is_initialized</span> <span class="o">=</span> <span class="bp">False</span>        <span class="c1">#: If True, the grid is assumed to be initialized.</span>
+<span class="n">is_vector</span> <span class="o">=</span> <span class="bp">True</span>              <span class="c1">#: If True, the grid is assumed to be vector grid.</span>
+<span class="n">is_regular</span> <span class="o">=</span> <span class="bp">False</span>            <span class="c1">#: If True, the grid is assumed to be regular, i.e., a conversion of a vector grid to a regular grid is possible, if ``N_`` is set.</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.0 (stable)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,1270 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>orbkit.orbitals &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>orbkit.orbitals</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for orbkit.orbitals</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">UserList</span> <span class="kn">import</span> <span class="n">UserList</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">UserList</span>
+
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<div class="viewcode-block" id="AOClass"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass">[docs]</a><span class="k">class</span> <span class="nc">AOClass</span><span class="p">(</span><span class="n">UserList</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;AO base class which contains all information on atomic orbitals.</span>
+<span class="sd">  Two types of dataformats are available:</span>
+
+<span class="sd">  1. Numpy-style data:</span>
+
+<span class="sd">      cont2atoms : numpy.ndarray, dtype=numpy.intc, shape = (NAO) </span>
+<span class="sd">        Transformation matrix between contracted GTO&#39;s and atoms.</span>
+<span class="sd">      prim2cont : numpy.ndarray, dtype=numpy.intc, shape = (NPAO)</span>
+<span class="sd">        Transformation matrix between contracted GTO&#39;s and primitive GTO&#39;s.</span>
+<span class="sd">      pg_expcont : numpy.ndarray, dtype=float64, shape = (NPAO, 2) </span>
+<span class="sd">        Information on primitive GTO&#39;s:</span>
+<span class="sd">          1st element exponent and 2nd element contraction </span>
+<span class="sd">      contspher : numpy.ndarray, dtype=numpy.intc, shape = (NAO, 2)</span>
+<span class="sd">        Same information as ao_spherical as numpy.ndarray</span>
+<span class="sd">      lxlylz : numpy.ndarray, dtype=numpy.intc, shape = (NAO, 3)</span>
+<span class="sd">        Contains the expontents lx, ly, lz for the Cartesian Gaussians.</span>
+
+<span class="sd">  2. Lists of dictionaries / list of tuples:</span>
+
+<span class="sd">    ao_spec, ao_spherical</span>
+
+<span class="sd">    See :ref:`Central Variables` in the manual for details.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">restart</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">spherical</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pao</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">restart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">spherical</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;spherical&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;cont2atoms&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;prim2cont&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;contspher&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pao</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;pao&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;lxlylz&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;assign_lxlylz&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">todict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cont2atoms&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">,</span>
+            <span class="s1">&#39;prim2cont&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="p">,</span>
+            <span class="s1">&#39;pao&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="p">,</span>
+            <span class="s1">&#39;spherical&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">spherical</span><span class="p">,</span>
+            <span class="s1">&#39;contspher&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">,</span>
+            <span class="s1">&#39;lxlylz&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">,</span>
+            <span class="s1">&#39;assign_lxlylz&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">data</span>
+  <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">UserList</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="n">cases</span> <span class="o">=</span> <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">AOClass</span><span class="p">),</span> <span class="n">other</span> <span class="o">==</span> <span class="p">[],</span> <span class="n">other</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">cases</span><span class="p">):</span>
+      <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Comaring of AOClass to non AOClass object not defined&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cases</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+      <span class="n">same</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">spherical</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">spherical</span><span class="p">,</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">),</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">prim2cont</span><span class="p">),</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">contspher</span><span class="p">),</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">pao</span><span class="p">),</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">)]</span>
+      <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">same</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_contspher</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_cont2atoms</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_pao</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_lmpao</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_prim2cont</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_lmprim2cont</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">is_normlized</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">return</span>
+  <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;ao_spherical&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+      <span class="n">item</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;ao_spherical&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+      <span class="n">item</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">ao_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;atom&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;pnum&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;coeffs&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;exp_list&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;ao_spherical&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">template</span>
+<div class="viewcode-block" id="AOClass.new2old"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.new2old">[docs]</a>  <span class="k">def</span> <span class="nf">new2old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Transforms Numpy-style data to lists of dictionary style data</span>
+<span class="sd">      for compatability.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">ao_spec</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">ispher</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">cont2prim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cont2prim</span><span class="p">()</span>
+      <span class="k">for</span> <span class="n">ic</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">)):</span>
+        <span class="n">ao_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ao_template</span><span class="p">())</span>
+        <span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">[</span><span class="n">ic</span><span class="p">]</span>
+        <span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;coeffs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="p">[</span><span class="n">cont2prim</span><span class="p">[</span><span class="n">ic</span><span class="p">]]</span>
+        <span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;pnum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])</span>
+        <span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">[</span><span class="n">ic</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">lic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">[</span><span class="n">ic</span><span class="p">][</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+          <span class="n">sphericals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">cont</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">cont</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">[</span><span class="n">ispher</span><span class="p">:</span><span class="n">ispher</span><span class="o">+</span><span class="n">lic</span><span class="p">]]</span>
+          <span class="k">for</span> <span class="n">lm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">[</span><span class="n">ic</span><span class="p">][</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]:</span>
+            <span class="n">sphericals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">lm</span><span class="p">))</span>
+          <span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">[</span><span class="n">ic</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ao_spec</span></div>
+
+<div class="viewcode-block" id="AOClass.set_contspher"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.set_contspher">[docs]</a>  <span class="k">def</span> <span class="nf">set_contspher</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set function for numpy array version of ao_spherical.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        contspher: numpy.ndarray, dtype=numpy.intc</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AOClass.set_cont2atoms"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.set_cont2atoms">[docs]</a>  <span class="k">def</span> <span class="nf">set_cont2atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set mapping between contracted GTO&#39;s and atoms.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        cont2atoms: numpy.ndarray, dtype=numpy.intc, shape = (NAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AOClass.set_prim2cont"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.set_prim2cont">[docs]</a>  <span class="k">def</span> <span class="nf">set_prim2cont</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set mapping between primitive and contracted GTO&#39;s.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        prim2cont: numpy.ndarray, dtype=numpy.intc, shape = (NPAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AOClass.set_lxlylz"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.set_lxlylz">[docs]</a>  <span class="k">def</span> <span class="nf">set_lxlylz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set function for the exponents lx, ly, lz for the Cartesian Gaussians.</span>
+
+<span class="sd">    **Parameters:**</span>
+
+<span class="sd">    lxlylz : numpy.ndarray, dtype=numpy.intc, shape = (NAO,3)</span>
+<span class="sd">      Contains the expontents lx, ly, lz for the Cartesian Gaussians.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AOClass.set_pao"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.set_pao">[docs]</a>  <span class="k">def</span> <span class="nf">set_pao</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set exponents and contraction coefficients for primitive GTO&#39;s.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        pao: numpy.ndarray, dtype=numpy.float64, shape = (NPAO, 2)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AOClass.is_normlized"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.is_normlized">[docs]</a>  <span class="k">def</span> <span class="nf">is_normlized</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Check if orbitals in AOClass are normalized.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="n">conts_are_norm</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">cont</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">conts_are_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cont</span><span class="p">[</span><span class="s1">&#39;pnum&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">conts_are_norm</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">any</span><span class="p">(</span><span class="n">conts_are_norm</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either all or none of the atomic orbitals have to be normalized!&#39;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">conts_are_norm</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normalized</span><span class="p">)</span></div>
+
+<span class="c1">#This should really die sooner or later...</span>
+<span class="c1">#For now there are still a few calls to it</span>
+<span class="c1">#and I don&#39;t know how to solve those easily</span>
+<div class="viewcode-block" id="AOClass.get_old_ao_spherical"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_old_ao_spherical">[docs]</a>  <span class="k">def</span> <span class="nf">get_old_ao_spherical</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Compatability funtction to allow access to old-style ao_spherical.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">old_ao_spherical</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">li</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">cont</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">cont</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">lm1</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cont</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]:</span>
+          <span class="k">if</span> <span class="n">lm1</span> <span class="o">!=</span> <span class="n">l</span><span class="p">:</span>
+            <span class="n">lm1</span> <span class="o">=</span> <span class="n">l</span>
+            <span class="n">li</span> <span class="o">+=</span> <span class="mi">1</span>
+          <span class="n">spher</span> <span class="o">=</span> <span class="p">[</span><span class="n">li</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">)]</span>
+          <span class="n">old_ao_spherical</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spher</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">old_ao_spherical</span></div>
+
+<div class="viewcode-block" id="AOClass.get_contspher"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_contspher">[docs]</a>  <span class="k">def</span> <span class="nf">get_contspher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get function for numpy array version of ao_spherical.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        contspher: numpy.ndarray, dtype=numpy.intc, shape = (NSPH)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">cont</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cont</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">lm</span> <span class="ow">in</span> <span class="n">cont</span><span class="p">[</span><span class="s1">&#39;ao_spherical&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lm</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">contspher</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contspher</span><span class="p">)</span></div>
+<div class="viewcode-block" id="AOClass.get_cont2atoms"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_cont2atoms">[docs]</a>  <span class="k">def</span> <span class="nf">get_cont2atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get mapping between contracted GTO&#39;s and atoms.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        cont2atoms: numpy.ndarray, dtype=numpy.intc, shape = (NAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">ic</span><span class="p">,</span> <span class="n">contracted</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">[</span><span class="n">ic</span><span class="p">]</span> <span class="o">=</span> <span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="p">)</span></div>
+<div class="viewcode-block" id="AOClass.get_pao"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_pao">[docs]</a>  <span class="k">def</span> <span class="nf">get_pao</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get exponents and contraction coefficients for primitive GTO&#39;s.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        pao: numpy.ndarray, dtype=numpy.float64, shape = (NPAO, 2)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pao</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">ic</span><span class="p">,</span> <span class="n">contracted</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ip</span><span class="p">,</span> <span class="n">prim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">]):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prim</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pao</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pao</span><span class="p">)</span></div>
+  <span class="k">def</span> <span class="nf">get_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contracted</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="n">contracted</span><span class="p">:</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;exp_list&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="n">exp</span><span class="p">[</span><span class="n">lquant</span><span class="p">[</span><span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]]]</span>
+    <span class="k">return</span> <span class="n">l</span>
+<div class="viewcode-block" id="AOClass.get_lmpao"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_lmpao">[docs]</a>  <span class="k">def</span> <span class="nf">get_lmpao</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get exponents and contraction coefficients for each spherical harmonic basis function.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        lmpao: numpy.ndarray, dtype=numpy.float64, shape = (NSPH)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">ic</span><span class="p">,</span> <span class="n">contracted</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_l</span><span class="p">(</span><span class="n">contracted</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lmpao</span><span class="p">)</span></div>
+<div class="viewcode-block" id="AOClass.get_prim2cont"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_prim2cont">[docs]</a>  <span class="k">def</span> <span class="nf">get_prim2cont</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get mapping between primitive and contracted GTO&#39;s.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        prim2cont: numpy.ndarray, dtype=numpy.intc, shape = (NPAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">ic</span><span class="p">,</span> <span class="n">contracted</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ipc</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ic</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="p">)</span></div>
+  <span class="c1">#This array is nice to have becaus it allows for efficient indexing of pao&#39;s</span>
+  <span class="c1">#We do not set it as an attribute though as it might bocome very large e.g.</span>
+  <span class="c1">#in the case of CI/TD-DFT calculations</span>
+<div class="viewcode-block" id="AOClass.get_cont2prim"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_cont2prim">[docs]</a>  <span class="k">def</span> <span class="nf">get_cont2prim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get 2D-matrix mapping between primitive and contracted GTO&#39;s.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        cont2prim: numpy.ndarray, dtype=bool, shape = (NAO, NPAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">get_prim2cont</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">get_cont2atoms</span><span class="p">()</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cont2atoms</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">np</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cont2prim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">nc</span><span class="p">,</span> <span class="n">np</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ic</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nc</span><span class="p">):</span>
+      <span class="n">cont2prim</span><span class="p">[</span><span class="n">ic</span><span class="p">,</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prim2cont</span> <span class="o">==</span> <span class="n">ic</span><span class="p">)]]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="n">cont2prim</span></div>
+<div class="viewcode-block" id="AOClass.get_lmprim2cont"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_lmprim2cont">[docs]</a>  <span class="k">def</span> <span class="nf">get_lmprim2cont</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_l</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get mapping between spherical harmonic basis functions and contracted GTO&#39;s.</span>
+
+<span class="sd">      **Parameters:**</span>
+<span class="sd">     </span>
+<span class="sd">        return_l : bool, optional</span>
+<span class="sd">          Return also l-index of spherical harmonic basis functions.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        return_l = False:</span>
+<span class="sd">          lmprim2cont: numpy.ndarray, dtype=numpy.intc, shape = (NSPH)</span>
+<span class="sd">        return_l = True:</span>
+<span class="sd">          lmprim2cont: numpy.ndarray, dtype=numpy.intc, shape = (NSPH, NSPH)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="ow">or</span> <span class="n">return_l</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">if</span> <span class="n">return_l</span><span class="p">:</span>
+        <span class="n">ipl</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">il</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="n">ic</span><span class="p">,</span> <span class="n">contracted</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_l</span><span class="p">(</span><span class="n">contracted</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">ic</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])][</span><span class="mi">0</span><span class="p">])</span>
+          <span class="k">if</span> <span class="n">return_l</span><span class="p">:</span>
+            <span class="n">ipl</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">il</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">contracted</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">il</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">return_l</span><span class="p">:</span>
+        <span class="n">ipl</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ipl</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span><span class="p">,</span> <span class="n">ipl</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lmprim2cont</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AOClass.get_lxlylz"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.AOClass.get_lxlylz">[docs]</a>  <span class="k">def</span> <span class="nf">get_lxlylz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_assign</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">bincount</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">get_label</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Extracts the exponents lx, ly, lz for the Cartesian Gaussians.</span>
+
+<span class="sd">    **Parameters:**</span>
+
+<span class="sd">    get_assign : bool, optional</span>
+<span class="sd">      Specifies, if the index of the atomic orbital shall be returned as well.</span>
+
+<span class="sd">    **Returns:**</span>
+
+<span class="sd">    lxlylz : numpy.ndarray, dtype=numpy.intc, shape = (NAO,3)</span>
+<span class="sd">      Contains the expontents lx, ly, lz for the Cartesian Gaussians.</span>
+<span class="sd">    assign_lxlylz : list of int, optional</span>
+<span class="sd">      Contains the index of the atomic orbital in ao_spec.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">get_label</span><span class="p">:</span>
+      <span class="n">get_assign</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">sel_ao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+          <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">l</span> <span class="o">=</span> <span class="n">exp</span><span class="p">[</span><span class="n">lquant</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_assign</span> <span class="ow">and</span> <span class="n">get_label</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">get_assign</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">get_label</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">bincount</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">),</span> <span class="n">copy</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span><span class="p">)))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">),</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assign_lxlylz</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lxlylz</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MOClass"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass">[docs]</a><span class="k">class</span> <span class="nc">MOClass</span><span class="p">(</span><span class="n">UserList</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;MO base class which contains all information on atomic orbitals.</span>
+<span class="sd">  Two types of dataformats are available:</span>
+
+<span class="sd">  1. Numpy-style data:</span>
+
+<span class="sd">      coeff : numpy.ndarray, dtype=float64, shape = (NMO, NAO) </span>
+<span class="sd">        Molecular orbital coefficients.</span>
+<span class="sd">      occ : numpy.ndarray, dtype=float64, shape = (NMO)</span>
+<span class="sd">        Occupation numbers for molecular orbitals.</span>
+<span class="sd">      eig : numpy.ndarray, dtype=float64, shape = (NMO)</span>
+<span class="sd">        Eigenvalues for molecular orbitals.</span>
+<span class="sd">      sym : numpy.ndarray, dtype=str, shape = (NMO)</span>
+<span class="sd">        MOLPRO-like symmetry label of molecular orbitals.</span>
+
+<span class="sd">  2. Lists of dictionaries:</span>
+
+<span class="sd">    mo_spec</span>
+
+<span class="sd">    See :ref:`Central Variables` in the manual for details.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">restart</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sym</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">eig</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">selection_string</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">selected_mo</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">restart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;coeff&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;occ&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sym</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;sym&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">eig</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;eig&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;spinpolarized&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">selection_string</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;selection_string&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">selected_mo</span> <span class="o">=</span> <span class="n">restart</span><span class="p">[</span><span class="s1">&#39;selected_mo&#39;</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">todict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coeff&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span><span class="p">,</span>
+            <span class="s1">&#39;selection_string&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection_string</span><span class="p">,</span>
+            <span class="s1">&#39;selected_mo&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_mo</span><span class="p">,</span>
+            <span class="s1">&#39;spinpolarized&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span><span class="p">,</span>
+            <span class="s1">&#39;occ&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">,</span>
+            <span class="s1">&#39;eig&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eig</span><span class="p">,</span>
+            <span class="s1">&#39;sym&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">data</span>
+  <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">UserList</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="n">cases</span> <span class="o">=</span> <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">MOClass</span><span class="p">),</span> <span class="n">other</span> <span class="o">==</span> <span class="p">[],</span> <span class="n">other</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">cases</span><span class="p">):</span>
+      <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Comaring of MOClass to non MOClass object not defined&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cases</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+      <span class="n">same</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coeff</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">coeff</span><span class="p">),</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eig</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">eig</span><span class="p">),</span>
+      <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">occ</span><span class="p">),</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">compare_sym</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">sym</span><span class="p">)]</span>
+      <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">same</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+  <span class="k">def</span> <span class="nf">compare_sym</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym2</span><span class="p">):</span>
+    <span class="n">same</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">for</span> <span class="n">atom1</span><span class="p">,</span> <span class="n">atom2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">,</span> <span class="n">sym2</span><span class="p">):</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom2</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;sym object are of different length!&#39;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">sym2</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+          <span class="n">same</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="n">same</span>
+  <span class="k">def</span> <span class="nf">splinsplit_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+    <span class="n">array_alpha</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">array_beta</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">array_alpha</span><span class="p">,</span> <span class="n">array_beta</span>
+<div class="viewcode-block" id="MOClass.get_homo"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_homo">[docs]</a>  <span class="k">def</span> <span class="nf">get_homo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Returns index of highest occupied MO.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_occ</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">occ_alpha</span><span class="p">,</span> <span class="n">occ_beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splinsplit_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_occ</span><span class="p">())</span>
+      <span class="k">return</span> <span class="nb">min</span><span class="p">([(</span><span class="n">occ_alpha</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                  <span class="p">(</span><span class="n">occ_beta</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span></div>
+<div class="viewcode-block" id="MOClass.get_lumo"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_lumo">[docs]</a>  <span class="k">def</span> <span class="nf">get_lumo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Returns index of lowest unoccupied MO.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span><span class="p">:</span>
+      <span class="n">ilumo</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_occ</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+      <span class="k">if</span> <span class="n">ilumo</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No unoccupied orbitals present!&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ilumo</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">occ_alpha</span><span class="p">,</span> <span class="n">occ_beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splinsplit_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_occ</span><span class="p">())</span>
+      <span class="n">ilumo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([(</span><span class="n">occ_alpha</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="p">(</span><span class="n">occ_beta</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">ilumo</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No unoccupied orbitals present!&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ilumo</span></div>
+<div class="viewcode-block" id="MOClass.get_lastbound"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_lastbound">[docs]</a>  <span class="k">def</span> <span class="nf">get_lastbound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Returns index of highest bound MO.</span>
+<span class="sd">    &#39;&#39;&#39;</span> 
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span><span class="p">:</span>
+      <span class="n">imaxbound</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">imaxbound</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No unoccupied orbitals present!&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">imaxbound</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">eigen_alpha</span><span class="p">,</span> <span class="n">eigen_beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splinsplit_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_eig</span><span class="p">())</span>
+      <span class="n">imaxbound</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([(</span><span class="n">eigen_alpha</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                       <span class="p">(</span><span class="n">eigen_beta</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+      <span class="k">if</span> <span class="n">imaxbound</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No unoccupied orbitals present!&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">imaxbound</span>   </div>
+
+<div class="viewcode-block" id="MOClass.sort_by_sym"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.sort_by_sym">[docs]</a>  <span class="k">def</span> <span class="nf">sort_by_sym</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Sorts mo_spec by symmetry.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+  <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+
+  <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="n">UserList</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">False</span>
+
+  <span class="k">def</span> <span class="nf">mo_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coeffs&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;energy&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;occ_num&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s1">&#39;sym&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">template</span>
+
+  <span class="k">def</span> <span class="nf">new2old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">imo</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">)):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mo_template</span><span class="p">())</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;coeffs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;energy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eig</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;occ_num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;sym&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span>
+    <span class="k">return</span>
+
+  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_occ</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_sym</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_spinstate</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">return</span>
+
+<div class="viewcode-block" id="MOClass.get_spinstate"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_spinstate">[docs]</a>  <span class="k">def</span> <span class="nf">get_spinstate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Determines whether the MOClass has alpha and beta spins.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">get_sym</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span> <span class="o">=</span> <span class="bp">True</span></div>
+
+  <span class="k">def</span> <span class="nf">get_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;MO </span><span class="si">%(sym)s</span><span class="s1">, Occ=</span><span class="si">%(occ_num).2f</span><span class="s1">, E=</span><span class="si">%(energy)+.4f</span><span class="s1"> E_h&#39;</span> <span class="o">%</span> 
+                  <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+
+<div class="viewcode-block" id="MOClass.set_coeff"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.set_coeff">[docs]</a>  <span class="k">def</span> <span class="nf">set_coeff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set function for numpy array version of molecular orbital coefficients.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        coeff: numpy.ndarray, dtype=numpy.float64, shape = (NMO, NAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MOClass.set_occ"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.set_occ">[docs]</a>  <span class="k">def</span> <span class="nf">set_occ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set function for numpy array version of molecular orbital occupancies.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        occ: numpy.ndarray, dtype=numpy.float64, shape = (NMO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MOClass.set_eig"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.set_eig">[docs]</a>  <span class="k">def</span> <span class="nf">set_eig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set function for numpy array version of molecular orbital energies.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        eig: numpy.ndarray, dtype=numpy.float64, shape = (NMO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">eig</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">eig</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MOClass.set_sym"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.set_sym">[docs]</a>  <span class="k">def</span> <span class="nf">set_sym</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Set function for numpy array version of molecular orbital symmetries.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        sym: numpy.ndarray, dtype=numpy.str, shape = (NMO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">require</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Old and new arrays need to be of the same size!&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sym</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">new2old</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MOClass.get_coeff"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_coeff">[docs]</a>  <span class="k">def</span> <span class="nf">get_coeff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get function for numpy array version of molecular orbital coefficients.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        coeff: numpy.ndarray, dtype=numpy.float64, shape = (NMO, NAO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">imo</span><span class="p">,</span> <span class="n">mo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coeff</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span> <span class="o">=</span> <span class="n">mo</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coeff</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MOClass.get_eig"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_eig">[docs]</a>  <span class="k">def</span> <span class="nf">get_eig</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get function for numpy array version of molecular orbital energies.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        eig: numpy.ndarray, dtype=numpy.float64, shape = (NMO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">eig</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">imo</span><span class="p">,</span> <span class="n">mo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eig</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span> <span class="o">=</span> <span class="n">mo</span><span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eig</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MOClass.get_occ"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_occ">[docs]</a>  <span class="k">def</span> <span class="nf">get_occ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_alpha_beta</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">return_int</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">tol_int</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">sum_occ</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get function for numpy array version of molecular orbital occupancies.</span>
+
+<span class="sd">       **Parameters:**</span>
+
+<span class="sd">        return_alpha_beta: bool, optional, determines whether occupancies should be</span>
+<span class="sd">        returned as a shape = (NMO) array (False) or a shape = (2,NMO/2) array (True)</span>
+<span class="sd">        return_int: bool, optional, determines whether occupancies should be</span>
+<span class="sd">        returned as a numpy.intc array. Raises an error if there are partially occupied orbitals.</span>
+<span class="sd">        tol_int: float, optional, defines the tolerance for when an occupation number is considered an integer</span>
+<span class="sd">        sum_occ: bool, optional, determines whether occupancies should be summed over</span>
+
+<span class="sd">       **Note:**</span>
+
+<span class="sd">        return_alpha_beta=True is only supported for spin-polarized calculations.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        occ: numpy.ndarray, dtype=numpy.float64, shape = (NMO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">imo</span><span class="p">,</span> <span class="n">mo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">[</span><span class="n">imo</span><span class="p">]</span> <span class="o">=</span> <span class="n">mo</span><span class="p">[</span><span class="s1">&#39;occ_num&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">return_int</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_spinstate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span> <span class="ow">and</span> <span class="mf">0.</span> <span class="o">&gt;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="mf">1.</span><span class="o">-</span><span class="n">tol_int</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Occupation numbers are not integers&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span> <span class="ow">and</span> <span class="mf">0.</span> <span class="o">&gt;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="mf">2.</span><span class="o">-</span><span class="n">tol_int</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Occupation numbers are not integers&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sum_occ</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_occ</span><span class="p">(</span><span class="n">return_int</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">return_alpha_beta</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_int</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_int</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">rashape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">rashape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MOClass.get_sym"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_sym">[docs]</a>  <span class="k">def</span> <span class="nf">get_sym</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get function for numpy array version of molecular orbital symmetries.</span>
+
+<span class="sd">       **Returns:**</span>
+
+<span class="sd">        sym: numpy.ndarray, dtype=numpy.str, shape = (NMO)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up2date</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sym</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">imo</span><span class="p">,</span> <span class="n">mo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mo</span><span class="p">[</span><span class="s1">&#39;sym&#39;</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sym</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sym</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MOClass.get_spin_index"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.get_spin_index">[docs]</a>  <span class="k">def</span> <span class="nf">get_spin_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spin</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Function used to select MO&#39;s by spin. A numpy.ndarray is returned</span>
+<span class="sd">       which contains the indexes of MO&#39;s of the selected spin.</span>
+<span class="sd">    </span>
+<span class="sd">      **Parameters:**</span>
+<span class="sd">     </span>
+<span class="sd">      spin : &#39;str&#39;, can be either &#39;alpha&#39; or &#39;beta&#39;</span>
+<span class="sd">      </span>
+<span class="sd">      **Returns:**</span>
+
+<span class="sd">      alpha : numpy.ndarray, dtype=numpy.intc</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinpolarized</span><span class="p">:</span>
+      <span class="n">spindic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+      <span class="n">indexes</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">imo</span><span class="p">,</span> <span class="n">mo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">mo_spin</span> <span class="o">=</span> <span class="n">mo</span><span class="p">[</span><span class="s1">&#39;sym&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">mo_spin</span> <span class="o">==</span> <span class="n">spindic</span><span class="p">[</span><span class="n">spin</span><span class="p">]:</span>
+          <span class="n">indexes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">imo</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indexes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">spin</span> <span class="o">==</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MOClass.select"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.orbitals.MOClass.select">[docs]</a>  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fid_mo_list</span><span class="p">,</span> <span class="n">flatten_input</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Selects molecular orbitals from an external file or a list of molecular </span>
+<span class="sd">       orbital labels.</span>
+
+<span class="sd">    **Parameters:**</span>
+<span class="sd">     </span>
+<span class="sd">      mo_spec :        </span>
+<span class="sd">        See :ref:`Central Variables` for details.</span>
+<span class="sd">      fid_mo_list : str, `&#39;all_mo&#39;`, or list</span>
+<span class="sd">        | If fid_mo_list is a str, specifies the filename of the molecular orbitals list.</span>
+<span class="sd">        | If fid_mo_list is &#39;all_mo&#39;, creates a list containing all molecular orbitals.</span>
+<span class="sd">        | If fid_mo_list is a list, provides a list (or a list of lists) of molecular </span>
+<span class="sd">          orbital labels.</span>
+
+<span class="sd">      flatten_input : boolean, optional</span>
+<span class="sd">        Specifies wheter lists of lists should be flattened so a single MOClass instance can be returned rather than a list of MOClass instances</span>
+<span class="sd">        </span>
+
+<span class="sd">    **Supported Formats:**</span>
+<span class="sd">    </span>
+<span class="sd">      Integer List (Counting from **ONE**!)::</span>
+<span class="sd">      </span>
+<span class="sd">        1       2       3</span>
+<span class="sd">        5       4</span>
+<span class="sd">        homo    lumo+2:lumo+4</span>
+<span class="sd">      </span>
+<span class="sd">      List with Symmetry Labels::</span>
+<span class="sd">      </span>
+<span class="sd">        1.1     2.1     1.3</span>
+<span class="sd">        1.1     4.1</span>
+<span class="sd">        4.1     2.3     2.1</span>
+<span class="sd">    </span>
+<span class="sd">    **Returns:**</span>
+<span class="sd">    </span>
+<span class="sd">      List of MOClass instances containing the selected orbitals as well as further information on the selection criteria used</span>
+<span class="sd">      If a sinlge list is used as in input and/or flatten_input=True, an MOClass instance is returned instead</span>
+<span class="sd">    </span>
+<span class="sd">    ..attention:</span>
+<span class="sd">      </span>
+<span class="sd">      For **unrestricted** calculations, orbkit adds `_a` (alpha) or `_b` (beta) to</span>
+<span class="sd">      the symmetry labels, e.g., `1.1_a`. </span>
+<span class="sd">      If you have specified the option `alpha` or `beta`, only the </span>
+<span class="sd">      alpha or the beta orbitals are taken into account for the counting </span>
+<span class="sd">      within the Integer List.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Processing molecular orbital list...&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">flatten_input</span><span class="p">:</span>
+       <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Warning! Flattening of input lists requested!&#39;</span><span class="p">)</span>
+    
+    <span class="n">mo_in_file</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">selected_mo</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sym_select</span> <span class="o">=</span> <span class="bp">False</span>
+    
+    <span class="k">def</span> <span class="nf">ordered_set</span><span class="p">(</span><span class="n">inlist</span><span class="p">):</span>
+      <span class="n">outlist</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inlist</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">outlist</span><span class="p">:</span>
+          <span class="n">outlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">outlist</span>
+
+    <span class="k">def</span> <span class="nf">eval_mp</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">i</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+          <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">:</span>
+          <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">ArithmeticError</span><span class="p">(</span><span class="s1">&#39;Unknown Operation in input string.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">remove_empty</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
+          <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">range_separators</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+      <span class="n">pos_range</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span>
+          <span class="n">pos_range</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="n">pos_range</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos_range</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">pos_range</span>
+
+    <span class="k">def</span> <span class="nf">parse_nosym</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+      <span class="n">keys</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;homo&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_homo</span><span class="p">()),</span> 
+              <span class="s1">&#39;lumo&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lumo</span><span class="p">()),</span>
+              <span class="s1">&#39;last_bound&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lastbound</span><span class="p">()),</span>
+              <span class="s1">&#39;lastbound&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lastbound</span><span class="p">())}</span>
+
+      <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">keys</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+      
+      <span class="c1">#This seems quite insane to me... I don&#39;t really know what else to do though...</span>
+      <span class="n">pos_range</span> <span class="o">=</span> <span class="n">range_separators</span><span class="p">(</span><span class="n">remove_empty</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="s1">&#39;:#:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)))</span>
+      <span class="n">item</span> <span class="o">=</span> <span class="n">remove_empty</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">))</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)):</span>
+          <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">]:</span>
+            <span class="n">item</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eval_mp</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">operation</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">]:</span>
+          <span class="n">item</span> <span class="o">=</span> <span class="n">eval_mp</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">operation</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_range</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">pos_range</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">#Stuff like :b</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">pos_range</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">#Stuff like a:</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+          <span class="n">b</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">pos_range</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1">#Stuff like a:b</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+          <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">pos_range</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="c1">#Stuff like a:b:s</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+          <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+          <span class="n">s</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">numpy</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">pos_range</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">#Stuff like ::s</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">b</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+          <span class="n">s</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Format not recognized&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Lower index or range out of bounds&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Upper index or range out of bounds&#39;</span><span class="p">)</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">)]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">item</span><span class="p">]</span>
+      <span class="k">return</span> <span class="n">item</span>
+
+    <span class="k">def</span> <span class="nf">parse_sym</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+      <span class="n">error</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">operation</span> <span class="ow">in</span> <span class="n">item</span> <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">]])</span> \
+         <span class="ow">or</span> <span class="s1">&#39;.&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;{0} is not a valid label according &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">+</span>
+                      <span class="s1">&#39;to the MOLPRO nomenclature, e.g., `5.1` or `5.A1`.&#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">Hint: You cannot mix integer numbering and MOLPRO</span><span class="se">\&#39;</span><span class="s1">s &#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;symmetry labels&#39;</span><span class="p">)</span>
+      <span class="n">tmp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sym</span><span class="p">()</span> <span class="o">==</span> <span class="n">item</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+      <span class="k">return</span> <span class="n">tmp</span>
+
+    <span class="k">def</span> <span class="nf">parse_spin</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_index</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;beta&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_index</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">item</span><span class="p">,</span> <span class="bp">None</span>
+      <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">remove_from_list</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_index</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;beta&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">remove_from_list</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_index</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">item</span><span class="p">,</span> <span class="bp">None</span>
+
+    <span class="n">regsplit</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">r&quot;[\s,;]&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;all_mo&#39;</span> <span class="ow">in</span> <span class="n">fid_mo_list</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+      <span class="n">fid_mo_list</span><span class="p">,</span> <span class="n">srec</span> <span class="o">=</span> <span class="n">parse_spin</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">)</span>
+      <span class="n">spinrestructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">srec</span><span class="p">]</span>
+      <span class="n">mo_in_file_new</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))]]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">fid_mo_list</span><span class="p">:</span>
+          <span class="n">fid_mo_list</span> <span class="o">=</span> <span class="n">fid_mo_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">fid_mo_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">fid_mo_list</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fid_mo_list</span><span class="p">:</span>
+          <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39; +&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">regsplit</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+          <span class="n">mo_in_file</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="n">i</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+          <span class="n">fid</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+          <span class="n">flines</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+          <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+          <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">flines</span><span class="p">:</span>
+            <span class="n">integer</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">mo_in_file</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;The selected mo-list (</span><span class="si">%(m)s</span><span class="s1">) is not valid!&#39;</span> <span class="o">%</span> 
+                        <span class="p">{</span><span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="n">fid_mo_list</span><span class="p">}</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">e.g.</span><span class="se">\n\t</span><span class="s1">1</span><span class="se">\t</span><span class="s1">3</span><span class="se">\n\t</span><span class="s1">2</span><span class="se">\t</span><span class="s1">7</span><span class="se">\t</span><span class="s1">9</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">fid_mo_list</span> <span class="o">=</span> <span class="n">mo_in_file</span>
+
+      <span class="c1"># Print some information</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mo_in_file</span><span class="p">):</span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Line </span><span class="si">%d</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">j</span><span class="p">)))</span>
+      
+      <span class="c1"># Check if the molecular orbitals are specified by symmetry </span>
+      <span class="c1"># (e.g. 1.1 in MOLPRO nomenclature) or </span>
+      <span class="c1"># by the number in the input file (e.g. 1)</span>
+      <span class="n">mo_in_file_new</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">spinrestructions</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">mo_in_file</span><span class="p">:</span>
+        <span class="n">sublist</span><span class="p">,</span> <span class="n">srec</span> <span class="o">=</span> <span class="n">parse_spin</span><span class="p">(</span><span class="n">sublist</span><span class="p">)</span>
+        <span class="n">spinrestructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">srec</span><span class="p">)</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">:</span>
+          <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+              <span class="n">tmp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">parse_nosym</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="n">tmp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">parse_sym</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+        <span class="n">mo_in_file_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+
+    <span class="n">mo_in_file</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">isub</span><span class="p">,</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mo_in_file_new</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">spinrestructions</span><span class="p">[</span><span class="n">isub</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">isel</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sublist</span><span class="p">)):</span>
+          <span class="k">if</span> <span class="n">sublist</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span> <span class="ow">in</span> <span class="n">spinrestructions</span><span class="p">[</span><span class="n">isub</span><span class="p">]:</span>
+            <span class="n">selected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">isel</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sublist</span><span class="p">))</span>
+      <span class="n">mo_in_file</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">sublist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">flatten_input</span><span class="p">:</span>
+      <span class="n">mo_in_file</span> <span class="o">=</span> <span class="p">[[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">mo_in_file</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mo_in_file</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="n">mo_spec</span> <span class="o">=</span> <span class="n">MOClass</span><span class="p">([])</span>
+      <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">mo_in_file</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">mo_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+      <span class="n">mo_spec</span><span class="o">.</span><span class="n">selected_mo</span> <span class="o">=</span> <span class="n">mo_in_file</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="n">mo_spec</span><span class="o">.</span><span class="n">selection_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">mo_spec</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mo_in_file</span><span class="p">):</span>
+        <span class="n">mo_sub</span> <span class="o">=</span> <span class="n">MOClass</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">:</span>
+          <span class="n">mo_sub</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="n">mo_sub</span><span class="o">.</span><span class="n">selected_mo</span> <span class="o">=</span> <span class="n">sublist</span>
+        <span class="n">mo_sub</span><span class="o">.</span><span class="n">selection_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">mo_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mo_sub</span><span class="p">)</span>
+
+    <span class="c1"># Print some information</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">The following orbitals will be considered...&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mo_in_file</span><span class="p">):</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Line </span><span class="si">%d</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sublist</span><span class="p">)))</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mo_spec</span></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

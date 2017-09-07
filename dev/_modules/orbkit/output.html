@@ -1,0 +1,1238 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>orbkit.output &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>orbkit.output</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for orbkit.output</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: iso-8859-1 -*-</span>
+<span class="sd">&#39;&#39;&#39;Module for creating the requested output files.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">orbkit</span>
+<span class="sd">Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay</span>
+
+<span class="sd">Institut fuer Chemie und Biochemie, Freie Universitaet Berlin, 14195 Berlin, Germany</span>
+
+<span class="sd">This file is part of orbkit.</span>
+
+<span class="sd">orbkit is free software: you can redistribute it and/or modify</span>
+<span class="sd">it under the terms of the GNU Lesser General Public License as </span>
+<span class="sd">published by the Free Software Foundation, either version 3 of </span>
+<span class="sd">the License, or any later version.</span>
+
+<span class="sd">orbkit is distributed in the hope that it will be useful,</span>
+<span class="sd">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="sd">GNU Lesser General Public License for more details.</span>
+
+<span class="sd">You should have received a copy of the GNU Lesser General Public </span>
+<span class="sd">License along with orbkit.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1"># Import general modules</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="c1"># Import orbkit modules</span>
+<span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">grid</span><span class="p">,</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">orbkit.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">orbkit.units</span> <span class="kn">import</span> <span class="n">a02aa</span>
+
+<div class="viewcode-block" id="main_output"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.output.main_output">[docs]</a><span class="k">def</span> <span class="nf">main_output</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">outputname</span><span class="o">=</span><span class="s1">&#39;new&#39;</span><span class="p">,</span><span class="n">otype</span><span class="o">=</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span>
+                <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">omit</span><span class="o">=</span><span class="p">[],</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates the requested output.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  data : numpy.ndarray, shape=N or shape=((NDRV,) + N)</span>
+<span class="sd">    Contains the output data. The shape (N) depends on the grid and the data, i.e.,</span>
+<span class="sd">    3d for regular grid, 1d for vector grid. </span>
+<span class="sd">  geo_info, geo_spec : </span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">  outputname : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  otype : str or list of str</span>
+<span class="sd">    Contains the output file type. Possible options:</span>
+<span class="sd">    &#39;h5&#39;, &#39;cb&#39;, &#39;am&#39;, &#39;hx&#39;, &#39;vmd&#39;, &#39;mayavi&#39;</span>
+<span class="sd">  drv : None or list of str, optional</span>
+<span class="sd">    If not None, a 4d(regular)/2d(vector) input data array will be expected</span>
+<span class="sd">    with NDRV = len(drv).</span>
+<span class="sd">  omit : list of str, optional</span>
+<span class="sd">    If not empty, the input file types specified here are omitted.</span>
+<span class="sd">  </span>
+<span class="sd">  **Note:**</span>
+<span class="sd">  </span>
+<span class="sd">    All additional keyword arguments are forwarded to the output functions.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">print_waring</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="n">output_written</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">otype</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">otype</span> <span class="o">=</span> <span class="p">[</span><span class="n">otype</span><span class="p">]</span>
+  
+  <span class="k">if</span> <span class="s1">&#39;vmd&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s1">&#39;cb&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+    <span class="n">otype</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;cb&#39;</span><span class="p">)</span>
+  
+  <span class="n">otype</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">otype</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">omit</span><span class="p">]</span>
+  
+  <span class="k">if</span> <span class="n">otype</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">otype</span> <span class="o">==</span> <span class="p">[]:</span>
+    <span class="k">return</span> <span class="n">output_written</span> 
+
+  <span class="c1"># Convert the data to a regular grid, if possible</span>
+  <span class="n">output_not_possible</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">is_vector</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">grid</span><span class="o">.</span><span class="n">is_regular</span><span class="p">)</span>
+  <span class="n">is_regular_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">is_vector</span> <span class="ow">and</span> <span class="n">grid</span><span class="o">.</span><span class="n">is_regular</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">is_regular_vector</span><span class="p">:</span>  
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Converting the regular 1d vector grid to a 3d regular grid.&#39;</span><span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">vector2grid</span><span class="p">(</span><span class="o">*</span><span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">mv2g</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">output_not_possible</span><span class="p">:</span> <span class="n">print_waring</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">view_with_mayavi</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">geo_spec</span><span class="o">=</span><span class="n">geo_spec</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">_d</span><span class="si">%(d)s</span><span class="s1">&#39;</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drv</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">&#39;</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="bp">None</span><span class="p">)]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
+  <span class="n">f</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">outputname</span><span class="p">}</span>
+
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Saving to Hierarchical Data Format file (HDF5)...&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.h5&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">})</span>
+      <span class="n">HDF5_creator</span><span class="p">(</span><span class="n">d</span><span class="p">,(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">),</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+      <span class="n">output_written</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.h5&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s1">&#39;am&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span> <span class="s1">&#39;hx&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">print_waring</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">output_not_possible</span><span class="p">:</span> <span class="n">print_waring</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span> 
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Saving to ZIBAmiraMesh file...&#39;</span> <span class="o">+</span>
+                     <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.am&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">})</span>
+        <span class="n">amira_creator</span><span class="p">(</span><span class="n">d</span><span class="p">,(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+        <span class="n">output_written</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.am&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s1">&#39;hx&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">print_waring</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">output_not_possible</span><span class="p">:</span> <span class="n">print_waring</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span> 
+        <span class="c1"># Create Amira network incl. Alphamap</span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating ZIBAmira network file...&#39;</span><span class="p">)</span>
+        <span class="n">hx_network_creator</span><span class="p">(</span><span class="n">d</span><span class="p">,(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+        <span class="n">output_written</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.hx&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s1">&#39;cb&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span> <span class="s1">&#39;vmd&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">print_waring</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">output_not_possible</span><span class="p">:</span> <span class="n">print_waring</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span> 
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Saving to .cb file...&#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">})</span>
+        <span class="n">cube_creator</span><span class="p">(</span><span class="n">d</span><span class="p">,(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">),</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">output_written</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+       <span class="c1">#else: output_creator(d,(fid % f),geo_info,geo_spec)  # Axel&#39;s cube files</span>
+    <span class="k">if</span> <span class="s1">&#39;vmd&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">print_waring</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">output_not_possible</span><span class="p">:</span> <span class="n">print_waring</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span> 
+        <span class="c1"># Create VMD network </span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating VMD network file...&#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.vmd&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">})</span>        
+        <span class="n">vmd_network_creator</span><span class="p">((</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">),</span><span class="n">cube_files</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">)],</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">output_written</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vmd&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span> <span class="o">%</span> <span class="n">f</span><span class="p">))</span>
+      
+  <span class="k">if</span> <span class="n">print_waring</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;For a non-regular vector grid (`if grid.is_vector and not grid.is_regular`)&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;only HDF5 is available as output format...&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Skipping all other formats...&#39;</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">is_regular_vector</span><span class="p">:</span>
+    <span class="c1"># Convert the data back to a regular vector grid</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">grid2vector</span><span class="p">()</span>
+  
+  <span class="k">return</span> <span class="n">output_written</span></div>
+
+<div class="viewcode-block" id="cube_creator"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.output.cube_creator">[docs]</a><span class="k">def</span> <span class="nf">cube_creator</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a plain text Gaussian cube file. </span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  rho : numpy.ndarray, shape=N</span>
+<span class="sd">    Contains the output data.</span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  geo_info, geo_spec : </span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">  comments : str, optional</span>
+<span class="sd">    Specifies the second (comment) line of the cube file.  </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="ne">AssertionError</span> <span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">)),</span> <span class="s1">&#39;The grid does not fit the data.&#39;</span>
+  <span class="c1"># Open an empty file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Write the type and the position of the atoms in the header </span>
+  <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;orbkit calculation</span><span class="se">\n</span><span class="s1">&#39;</span>
+  <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">%(f)s</span><span class="se">\n</span><span class="s1">&#39;</span>  <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">comments</span><span class="p">}</span>
+  <span class="c1"># How many atoms </span>
+  <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(at)d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;at&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_info</span><span class="p">)})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="c1"># Minima</span>
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(min)0.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="n">ii</span><span class="p">]})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(N)d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="n">ii</span><span class="p">]})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">jj</span> <span class="o">==</span> <span class="n">ii</span><span class="p">:</span> 
+        <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(dr)0.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;dr&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">delta_</span><span class="p">[</span><span class="n">ii</span><span class="p">]})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(dr)0.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;dr&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">geo_info</span><span class="p">)):</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(N)d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">geo_info</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">2</span><span class="p">]))})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(ch)0.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;ch&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo_info</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">1</span><span class="p">])})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+      <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(r)0.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="n">geo_spec</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">]})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+  <span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">ss</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">)):</span>
+      <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">)):</span>
+        <span class="n">string</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%(rho).5E</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;rho&#39;</span><span class="p">:</span> <span class="n">rho</span><span class="p">[</span><span class="n">rr</span><span class="p">,</span><span class="n">ss</span><span class="p">,</span><span class="n">tt</span><span class="p">]})</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tt</span> <span class="o">%</span> <span class="mi">6</span> <span class="o">==</span> <span class="mi">5</span><span class="p">):</span> 
+          <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+      <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+  
+  
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+  
+  <span class="c1"># Close the file </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<span class="k">def</span> <span class="nf">vmd_network_creator</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">cube_files</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">render</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">iso</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">),</span>
+                        <span class="n">abspath</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a VMD script file from a list of cube files provided.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  cube_files : None or list of str</span>
+<span class="sd">    Specifies the cube files which serve as input for the VMD script.</span>
+<span class="sd">    If None, searches the directory for &#39;.cb&#39; and &#39;.cube&#39; files.</span>
+<span class="sd">  render : bool</span>
+<span class="sd">    If True, the VMD script will automatically create &#39;.tga&#39; files for each </span>
+<span class="sd">    cube file.</span>
+<span class="sd">  iso : tuple</span>
+<span class="sd">    Specifies the isovalue for the blue and the red isosurface, respectively.</span>
+<span class="sd">  abspath : bool</span>
+<span class="sd">    If True, the paths of the cube files will be expanded to absolute file paths.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span><span class="n">listdir</span>
+  <span class="kn">import</span> <span class="nn">linecache</span>
+  <span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">vmd_network_draft</span>
+  <span class="k">if</span> <span class="n">cube_files</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;No list of cube (.cb or .cube) filenames provided. Checking the directory&#39;</span> <span class="o">+</span> 
+            <span class="s1">&#39; of the outputfile...&#39;</span><span class="p">)</span>
+    <span class="n">cube_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">fid</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.cb&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fid</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.cube&#39;</span><span class="p">):</span>
+        <span class="n">cube_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cube_files</span> <span class="o">==</span> <span class="p">[]:</span>
+      <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;Could not find valid cube files in </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+  <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube_files</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">cube_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">cube_files</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube_files</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;`cube_files` has to be a list of strings.&#39;</span><span class="p">)</span>
+  
+  <span class="n">title</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">mo</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cube_files</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="o">==</span> <span class="p">[]:</span>
+      <span class="n">title</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">linecache</span><span class="o">.</span><span class="n">clearcache</span><span class="p">()</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">if</span> <span class="n">abspath</span> <span class="k">else</span> <span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    <span class="n">mo</span> <span class="o">+=</span> <span class="n">vmd_network_draft</span><span class="o">.</span><span class="n">mo_string</span> <span class="o">%</span> <span class="p">{</span>
+                                  <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> 
+                                  <span class="s1">&#39;n1&#39;</span><span class="p">:</span> <span class="n">pid</span><span class="p">,</span>
+                                  <span class="s1">&#39;n2&#39;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> 
+                                  <span class="s1">&#39;isored&#39;</span><span class="p">:</span> <span class="n">iso</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+                                  <span class="s1">&#39;isoblue&#39;</span><span class="p">:</span> <span class="n">iso</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                                  <span class="s1">&#39;render&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">render</span> <span class="k">else</span> <span class="s1">&#39;#&#39;</span>
+                                  <span class="p">}</span>
+  
+  <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.vmd&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vmd_network_draft</span><span class="o">.</span><span class="n">vmd_string</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;mo&#39;</span><span class="p">:</span><span class="n">mo</span><span class="p">})</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">hdf5_open</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Open an HDF5 file.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  fid : str</span>
+<span class="sd">    Contains the filename of the HDF5 file.</span>
+<span class="sd">  mode : str, optional</span>
+<span class="sd">    Specifies the mode used to open the file. (&#39;r&#39;, &#39;w&#39;, &#39;a&#39;)</span>
+<span class="sd">  </span>
+<span class="sd">  **Usage:**</span>
+<span class="sd">  </span>
+<span class="sd">  for HDF5_file in hdf5_open(fid,mode=&#39;w&#39;):</span>
+<span class="sd">    # Do something with HDF5_file...</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">import</span> <span class="nn">h5py</span>
+  <span class="n">HDF5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="k">yield</span> <span class="n">HDF5_file</span>
+  <span class="k">finally</span><span class="p">:</span>
+    <span class="n">HDF5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">hdf5_append</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">group</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Automatically append data to an open HDF5 file/group.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  group : h5py.File or h5py.Group</span>
+<span class="sd">    The HDF5 file/group where the data will be appended.</span>
+<span class="sd">  name : string, optional</span>
+<span class="sd">    Specifies the group/dataset name in the HDF5 file/group. If empty,</span>
+<span class="sd">    root directory of HDF5 file/group is chosen.  </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">orbkit.orbitals</span> <span class="kn">import</span> <span class="n">MOClass</span><span class="p">,</span> <span class="n">AOClass</span>
+
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">MOClass</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">AOClass</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">todict</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unicode_</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">string_</span><span class="p">)</span>
+    <span class="n">h5_dset</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+      <span class="n">subgroup</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">subgroup</span> <span class="o">=</span> <span class="n">group</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">subgroup</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+      <span class="n">hdf5_append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">subgroup</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">)</span>
+  <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+      <span class="n">subgroup</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">subgroup</span> <span class="o">=</span> <span class="n">group</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+      <span class="n">hdf5_append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">subgroup</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">ii</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+  
+
+<span class="k">def</span> <span class="nf">hdf52dict</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="n">HDF5_file</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Automatically convert the data stored in an HDF5 file/group </span>
+<span class="sd">  to a python dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  group : str</span>
+<span class="sd">    Specifies the group/dataset name in the HDF5 file/group.</span>
+<span class="sd">  HDF5_file : h5py.File or h5py.Group</span>
+<span class="sd">    The source HDF5 file/group.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="c1"># The selected group is a dataset </span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">HDF5_file</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">group</span><span class="p">][()]</span>
+  <span class="k">except</span><span class="p">:</span>
+    <span class="c1"># Read all members </span>
+    <span class="n">members</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">HDF5_file</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%(g)s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;g&#39;</span><span class="p">:</span><span class="n">group</span><span class="p">}])</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">members</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">members</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">members</span><span class="p">):</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hdf52dict</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(g)s</span><span class="s1">/</span><span class="si">%(m)s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;g&#39;</span><span class="p">:</span><span class="n">group</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="n">mm</span><span class="p">},</span><span class="n">HDF5_file</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span><span class="ne">OverflowError</span><span class="p">):</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">for</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">mm</span><span class="p">]</span> <span class="o">=</span> <span class="n">hdf52dict</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(g)s</span><span class="s1">/</span><span class="si">%(m)s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;g&#39;</span><span class="p">:</span><span class="n">group</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="n">mm</span><span class="p">},</span><span class="n">HDF5_file</span><span class="p">)</span>
+      <span class="n">attrs</span> <span class="o">=</span> <span class="n">HDF5_file</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%(g)s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;g&#39;</span><span class="p">:</span><span class="n">group</span><span class="p">}]</span><span class="o">.</span><span class="n">attrs</span>
+      <span class="k">for</span> <span class="n">ii_a</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">ii_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">ii_a</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">hdf5_write</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">gname</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Writes all keyword arguments to an HDF5 file.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  fid : str</span>
+<span class="sd">    Contains the filename of the HDF5 file.</span>
+<span class="sd">  mode : str, optional</span>
+<span class="sd">    Specifies the mode used to open the file. (&#39;r&#39;, &#39;w&#39;, &#39;a&#39;)</span>
+<span class="sd">  gname : str</span>
+<span class="sd">    Specifies the group name in the HDF5 file, where the kwargs will be appended</span>
+<span class="sd">    to.</span>
+<span class="sd">  </span>
+<span class="sd">  **Note:**</span>
+<span class="sd">  </span>
+<span class="sd">    All additional keyword arguments specify the input data.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">hdf5_open</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">gname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+      <span class="n">group</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">gname</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> 
+        <span class="n">group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">j</span><span class="p">),</span><span class="n">data</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> 
+        <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">j</span><span class="p">),</span><span class="n">data</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HDF5_creator"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.output.HDF5_creator">[docs]</a><span class="k">def</span> <span class="nf">HDF5_creator</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">data_id</span><span class="o">=</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">data_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">ao_spec</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">mo_spec</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">is_mo_output</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates an HDF5 file (Hierarchical Data Format) output.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  data : numpy.ndarray</span>
+<span class="sd">    Contains the output data.</span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  geo_info, geo_spec : </span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">  data_id : str, optional</span>
+<span class="sd">    Specifies name of the dataset in the HDF5 file.</span>
+<span class="sd">  group : None of str</span>
+<span class="sd">    If not None, output data will be stored in this group.</span>
+<span class="sd">  data_only : bool</span>
+<span class="sd">    Specifies if only the dataset `data` should be saved.</span>
+<span class="sd">  ao_spec, mo_spec : optional</span>
+<span class="sd">    If not None, these data sets will be saved additionally.</span>
+<span class="sd">    (cf. :ref:`Central Variables` for details)</span>
+<span class="sd">    If mo_spec is not None, some information about the molecular orbitals </span>
+<span class="sd">    will be saved additionally. </span>
+<span class="sd">  is_mo_output : bool</span>
+<span class="sd">    If True, information about the dataset will be saved to &#39;MO:Content&#39;.</span>
+<span class="sd">  x,y,z : numpy.ndarray, optional</span>
+<span class="sd">    If not None, these variables will replace grid.x, grid.y, and/or grid.z,</span>
+<span class="sd">    respectively.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">import</span> <span class="nn">h5py</span>
+  <span class="n">HDF5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.h5&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">HDF5_file</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">HDF5_file</span><span class="o">.</span><span class="n">require_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">HDF5_file</span><span class="p">[</span><span class="n">group</span><span class="p">]</span>
+    
+  <span class="k">if</span> <span class="n">is_mo_output</span><span class="p">:</span>    
+    <span class="n">mo_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">mo_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;sym&#39;</span><span class="p">])</span>
+      <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">mo_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+      
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;MO:Content&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mo_name</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;S&#39;</span><span class="p">))</span>
+  
+  <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">z_reduced_density</span><span class="p">:</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">data_id</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">data_id</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">data_only</span><span class="p">:</span>
+    <span class="n">HDF5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span>
+  
+  <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">x</span>
+  <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">y</span>
+  <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="n">z</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">z</span>
+  
+  <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">z_reduced_density</span><span class="p">:</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)),</span><span class="n">data</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span><span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)),</span><span class="n">data</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">ao_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">hdf5_append</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ao_spec&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mo_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">hdf5_append</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mo_spec&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">mo_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">MO_info</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s1">&#39;MO_info&#39;</span><span class="p">)</span>
+    <span class="n">occ_num</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">energy</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">sym</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">)):</span>
+      <span class="n">occ_num</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="s1">&#39;occ_num&#39;</span><span class="p">])</span>
+      <span class="n">energy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="s1">&#39;energy&#39;</span><span class="p">])</span>
+      <span class="n">sym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">string_</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="s1">&#39;sym&#39;</span><span class="p">]))</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">MO_info</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;occ_num&#39;</span><span class="p">,((</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">))),</span><span class="n">data</span><span class="o">=</span><span class="n">occ_num</span><span class="p">)</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">MO_info</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;energy&#39;</span><span class="p">,((</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">))),</span><span class="n">data</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="n">MO_info</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;sym&#39;</span><span class="p">,((</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">mo_spec</span><span class="p">))),</span><span class="n">data</span><span class="o">=</span><span class="n">sym</span><span class="p">)</span>
+  
+  <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;geo_info&#39;</span><span class="p">,(</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">geo_info</span><span class="p">)),</span><span class="n">data</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">geo_info</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;S&#39;</span><span class="p">))</span>
+  <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;geo_spec&#39;</span><span class="p">,(</span><span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">)),</span><span class="n">data</span><span class="o">=</span><span class="n">geo_spec</span><span class="p">)</span>
+  
+  <span class="n">HDF5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="hx_network_creator"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.output.hx_network_creator">[docs]</a><span class="k">def</span> <span class="nf">hx_network_creator</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a ZIBAmira hx-network file including a colormap file (.cmap)</span>
+<span class="sd">  adjusted to the density for the easy depiction of the density.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">orbkit.hx_network_draft</span> <span class="kn">import</span> <span class="n">hx_network</span>
+  <span class="c1"># Create a .cmap colormap file using the default values </span>
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Creating ZIBAmira colormap file...</span><span class="se">\n\t\t</span><span class="si">%(f)s</span><span class="s1">.cmap&#39;</span> <span class="o">%</span> 
+                <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">})</span>
+  
+  <span class="ne">AssertionError</span> <span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">)),</span> <span class="s1">&#39;The grid does not fit the data.&#39;</span>
+  
+  <span class="n">colormap_creator</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+  
+  <span class="c1"># Create a .hx network file based on the file orbkit.hx_network_draft.py </span>
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Creating ZIBAmira network file...</span><span class="se">\n\t\t</span><span class="si">%(f)s</span><span class="s1">.hx&#39;</span> <span class="o">%</span> 
+                <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">})</span>
+  <span class="c1"># Open an empty file</span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.hx&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  
+  <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+  <span class="c1"># Copy the content of the draft file and replace the keywords </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">hx_network</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;FILENAME&quot;</span><span class="p">,</span><span class="n">filename</span><span class="p">))</span> 
+  
+  <span class="c1"># Close the file </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  </div>
+
+<div class="viewcode-block" id="amira_creator"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.output.amira_creator">[docs]</a><span class="k">def</span> <span class="nf">amira_creator</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a ZIBAmira mesh file. (plain text)</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  data : numpy.ndarray, shape=N or (3,)+N</span>
+<span class="sd">    Contains the output data.</span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s1">&#39;double&#39;</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="s1">&#39;{0:.15e}</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c1">#ravel(order=&#39;F&#39;)[:,numpy.newaxis]</span>
+  <span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s1">&#39;double[3]&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">j</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="s1">&#39;{0:.15e} {1:.15e} {2:.15e}</span><span class="se">\n</span><span class="s1">&#39;</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;amira_creator only supports 3D or 4D data.&quot;</span><span class="p">)</span>
+  
+  <span class="n">N</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">)</span>
+  
+  <span class="c1"># Open an empty file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.am&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  <span class="c1"># Write Header </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# AmiraMesh 3D ASCII 2.0</span><span class="se">\n\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;define Lattice </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">N</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Parameters {</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    Content &quot;</span><span class="si">%d</span><span class="s1">x</span><span class="si">%d</span><span class="s1">x</span><span class="si">%d</span><span class="s1"> </span><span class="si">%s</span><span class="s1">, uniform coordinates&quot;,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> 
+            <span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="p">(</span><span class="n">typename</span><span class="p">,)))</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    BoundingBox </span><span class="si">%(xmin)f</span><span class="s1"> </span><span class="si">%(xmax)f</span><span class="s1"> </span><span class="si">%(ymin)f</span><span class="s1"> </span><span class="si">%(ymax)f</span><span class="s1"> </span><span class="si">%(zmin)f</span><span class="s1"> </span><span class="si">%(zmax)f</span><span class="s1">,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span>
+            <span class="p">{</span><span class="s1">&#39;xmin&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;xmax&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+             <span class="s1">&#39;ymin&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;ymax&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+             <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;zmax&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    CoordType &quot;uniform&quot;</span><span class="se">\n</span><span class="s1">}</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Lattice { </span><span class="si">%s</span><span class="s1"> Data } @1</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">typename</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Data section follows</span><span class="se">\n</span><span class="s1">@1</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">))</span>
+  <span class="c1">#for tt in range(len(grid.z)):</span>
+    <span class="c1">#for ss in range(len(grid.y)):</span>
+      <span class="c1">#for rr in range(len(grid.x)): </span>
+        <span class="c1">#string += &#39;%g\n&#39; % rho[rr,ss,tt]</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+  
+  
+<span class="k">def</span> <span class="nf">amira_creator_old</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a ZIBAmira mesh file. (plain text)</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  rho : numpy.ndarray, shape=N</span>
+<span class="sd">    Contains the output data.</span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="c1"># Open an empty file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.am&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+  <span class="c1"># usage:</span>
+  <span class="c1">#     - open Amira</span>
+  <span class="c1">#     - left-click File -&gt; Open Data</span>
+  <span class="c1">#     - choose the sfilename.am</span>
+  <span class="c1">#     - Press OK</span>
+  <span class="c1">#     - right-click on the new Data Object -&gt; Compute -&gt; Arithmetic</span>
+  <span class="c1">#     - choose the Arithmetic object</span>
+  <span class="c1">#     - select  Expr -&gt; A and Result type -&gt; regular and Apply</span>
+  <span class="c1">#     - use the new data object to display your density as usual,</span>
+  
+  <span class="c1"># Write Header </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# AmiraMesh 3D ASCII 2.0</span><span class="se">\n\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;define Lattice </span><span class="si">%(Nx)d</span><span class="s1"> </span><span class="si">%(Ny)d</span><span class="s1"> </span><span class="si">%(Nz)d</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> 
+                    <span class="p">{</span><span class="s1">&#39;Nx&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;Ny&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;Nz&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;define Coordinates </span><span class="si">%(N)d</span><span class="se">\n\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">)})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Parameters {</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    Content &quot;</span><span class="si">%(Nx)d</span><span class="s1">x</span><span class="si">%(Ny)d</span><span class="s1">x</span><span class="si">%(Nz)d</span><span class="s1"> float, uniform coordinates&quot;,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span>
+                    <span class="p">{</span><span class="s1">&#39;Nx&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;Ny&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;Nz&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    BoundingBox </span><span class="si">%(xmin)f</span><span class="s1"> </span><span class="si">%(xmax)f</span><span class="s1"> </span><span class="si">%(ymin)f</span><span class="s1"> </span><span class="si">%(ymax)f</span><span class="s1"> </span><span class="si">%(zmin)f</span><span class="s1"> </span><span class="si">%(zmax)f</span><span class="s1">,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span>
+            <span class="p">{</span><span class="s1">&#39;xmin&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;xmax&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+             <span class="s1">&#39;ymin&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;ymax&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+             <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;zmax&#39;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    CoordType &quot;uniform&quot;</span><span class="se">\n</span><span class="s1">}</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Lattice { float Data } @1</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Data section follows</span><span class="se">\n</span><span class="s1">@1</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Write density information to .am file</span>
+  <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">ss</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">)):</span>
+      <span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span> 
+        <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">rho</span><span class="p">[</span><span class="n">rr</span><span class="p">,</span><span class="n">ss</span><span class="p">,</span><span class="n">tt</span><span class="p">]</span>
+  
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+  
+  <span class="c1"># Close the file </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">colormap_creator</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">n_peaks</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span><span class="n">stop</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span><span class="n">peak_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a .cmap colormap for ZIBAmira adjusted to the density.</span>
+
+<span class="sd">  **Default:** Isosurface values between 1% and 99.9% of the total density.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="c1"># Where do we have the start and stop percentage? </span>
+  <span class="n">rho_min</span><span class="p">,</span> <span class="n">rho_max</span> <span class="o">=</span> <span class="n">determine_rho_range</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">)</span>
+  
+  <span class="c1"># Compute the distance between two isosurface values </span>
+  <span class="n">delta_peak</span> <span class="o">=</span><span class="p">(</span><span class="n">rho_max</span><span class="o">-</span><span class="n">rho_min</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n_peaks</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+  
+  <span class="c1"># Open a cmap file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.cmap&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Write the header </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;!DOCTYPE Colormap&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;ColormapVisage2.0 Name=&quot;</span><span class="si">%(f)s</span><span class="s1">&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;  &lt;Graph Active=&quot;1&quot; Type=&quot;0&quot; Name=&quot;&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Initialize a counter for the contour values </span>
+  <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+  
+  <span class="c1"># Initialize a string for the contours </span>
+  <span class="n">c_str</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;    &lt;Control Opacity=&quot;</span><span class="si">%(o)f</span><span class="s1">&quot; Number=&quot;</span><span class="si">%(c)d</span><span class="s1">&quot; Blue=&quot;</span><span class="si">%(v)f</span><span class="s1">&quot;&#39;</span> <span class="o">+</span> 
+            <span class="s1">&#39; Red=&quot;</span><span class="si">%(v)f</span><span class="s1">&quot; Green=&quot;</span><span class="si">%(v)f</span><span class="s1">&quot; Value=&quot;</span><span class="si">%(p)f</span><span class="s1">&quot;/&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="p">)</span>
+  
+  <span class="c1"># Write the initial value at zero with zero opacity </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+  <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+  
+  <span class="c1"># Loop over the contour values </span>
+  <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_peaks</span><span class="p">):</span>
+    <span class="c1"># Calculate the value for the isosurface peak and two values </span>
+    <span class="c1"># next to the peak with zero opacity </span>
+    <span class="n">peak</span> <span class="o">=</span> <span class="n">rho_min</span><span class="o">+</span><span class="n">delta_peak</span><span class="o">*</span><span class="p">(</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">peak_minus</span> <span class="o">=</span> <span class="n">peak</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">peak_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+    <span class="n">peak_plus</span> <span class="o">=</span> <span class="n">peak</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">peak_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate a value for the opacity and the color</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n_peaks</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)</span>
+    
+    <span class="c1"># Write the peak </span>
+    <span class="c1"># Left edge of the peak </span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">peak_minus</span><span class="p">})</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># The peak </span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">peak</span><span class="p">})</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># Right edge of the peak </span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">peak_plus</span><span class="p">})</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+  
+  <span class="c1"># Write a final value at 1.5 * (final peak value) with zero opacity </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">peak_plus</span><span class="o">*</span><span class="mf">1.5</span><span class="p">})</span>
+  
+  <span class="c1"># Finalize the file </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;  &lt;/Graph&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;/ColormapVisage2.0&gt;&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Close the file</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">determine_rho_range</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span><span class="n">stop</span><span class="o">=</span><span class="mf">0.999</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Get a range for the isosurface values for the colormap_creator.&#39;&#39;&#39;</span>
+  <span class="c1"># Sort the density values </span>
+  <span class="n">a</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span>
+  
+  <span class="c1"># Where do we have the start and stop percentage? </span>
+  <span class="n">n1</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+  <span class="n">n2</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stop</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+  <span class="n">rho_min</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
+  <span class="n">rho_max</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>  
+  <span class="k">return</span> <span class="n">rho_min</span><span class="p">,</span> <span class="n">rho_max</span>
+
+<span class="k">def</span> <span class="nf">colormap_creator_peaks</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">peaks</span><span class="p">,</span><span class="n">peak_width</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span><span class="n">peak_minus</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+  <span class="n">peak_plus</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">rgb</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>  
+  <span class="sd">&#39;&#39;&#39;Creates a ZIBAmira colomap for selected data values.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Specifies the filename of the colormap.</span>
+<span class="sd">  peaks : list</span>
+<span class="sd">    Determines the values for peaks in the colormap.</span>
+<span class="sd">  peak_width : float</span>
+<span class="sd">    Specifies the width of of the peaks in the colormap.</span>
+<span class="sd">  peak_min : None or float, optional</span>
+<span class="sd">    Specifies the lower boundary of the colomap. (Peak with no hight.)</span>
+<span class="sd">    If None, is set to the smallest data value minus 2*peak_width.</span>
+<span class="sd">  peak_min : None or float, optional</span>
+<span class="sd">    Specifies the upper boundary of the colomap. (Peak with no hight.)</span>
+<span class="sd">    If None, is set to the larges data value plus 2*peak_width.</span>
+<span class="sd">  alpha : float, data_range={0..1}</span>
+<span class="sd">    Determines the opacity of the peak. (alpha = 1 - opacity)</span>
+<span class="sd">  rgb : float or list or numpy.ndarray, data_range={0..1}</span>
+<span class="sd">    If float or shape=(len(peaks),), specifies a the grey tone.</span>
+<span class="sd">    Else, specifies the color in [red,green,blue].</span>
+<span class="sd">  </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">peaks</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">peak_minus</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">peak_minus</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">peak_width</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">peak_plus</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">peak_plus</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">peak_width</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rgb</span><span class="p">,(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">)):</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="n">rgb</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rgb</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="n">rgb</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:]</span>
+      <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">):</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="n">rgb</span><span class="p">[:,</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong shape of &#39;rgb&#39;&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="n">rgb</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">rgb</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span><span class="mi">3</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong shape of &#39;rgb&#39;&quot;</span><span class="p">)</span>
+  
+  <span class="c1"># Open a cmap file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.cmap&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Write the header </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;!DOCTYPE Colormap&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;ColormapVisage2.0 Name=&quot;</span><span class="si">%(f)s</span><span class="s1">&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">})</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;  &lt;Graph Active=&quot;1&quot; Type=&quot;0&quot; Name=&quot;&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Initialize a counter for the contour values </span>
+  <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+  
+  <span class="c1"># Initialize a string for the contours </span>
+  <span class="n">c_str</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;    &lt;Control Opacity=&quot;</span><span class="si">%(o)f</span><span class="s1">&quot; Number=&quot;</span><span class="si">%(c)d</span><span class="s1">&quot; Blue=&quot;</span><span class="si">%(b)f</span><span class="s1">&quot;&#39;</span> <span class="o">+</span> 
+            <span class="s1">&#39; Red=&quot;</span><span class="si">%(r)f</span><span class="s1">&quot; Green=&quot;</span><span class="si">%(g)f</span><span class="s1">&quot; Value=&quot;</span><span class="si">%(p)f</span><span class="s1">&quot;/&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="p">)</span>
+  
+  <span class="c1"># Write the initial value at zero with zero opacity </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 
+                     <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">peak_minus</span><span class="p">})</span>
+  <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+  
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">peaks</span><span class="p">):</span>
+    <span class="c1"># Write the peak </span>
+    <span class="c1"># Left edge of the peak</span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">-</span><span class="n">peak_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> 
+                       <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]})</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># The peak </span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> 
+                       <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]})</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># Right edge of the peak</span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">p</span><span class="o">+</span><span class="n">peak_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> 
+                       <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]})</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+  
+  <span class="c1"># Write a final value at 1.5 * (final peak value) with zero opacity </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">c_str</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 
+                     <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">peak_plus</span><span class="p">})</span>
+  
+  <span class="c1"># Finalize the file </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;  &lt;/Graph&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;/ColormapVisage2.0&gt;&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Close the file</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">meshgrid2</span><span class="p">(</span><span class="o">*</span><span class="n">arrs</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;adapted from:</span>
+<span class="sd">  http://stackoverflow.com/a/1830192</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">arrs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">arrs</span><span class="p">))</span> 
+  <span class="n">lens</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">arrs</span><span class="p">)</span>
+  <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrs</span><span class="p">)</span>
+  
+  <span class="n">sz</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">lens</span><span class="p">:</span>
+      <span class="n">sz</span><span class="o">*=</span><span class="n">s</span>
+  
+  <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>    
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrs</span><span class="p">):</span>
+    <span class="n">slc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dim</span>
+    <span class="n">slc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">arr2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">slc</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">sz</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lens</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">j</span><span class="o">!=</span><span class="n">i</span><span class="p">:</span>
+        <span class="n">arr2</span> <span class="o">=</span> <span class="n">arr2</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">j</span><span class="p">)</span> 
+    <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr2</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ans</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">view_with_mayavi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">is_vectorfield</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">geo_spec</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">datalabels</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                     <span class="n">iso_min</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span><span class="n">iso_val</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span><span class="n">iso_max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39; Creates an interactive mayavi dialog showing isosurface plots of the input</span>
+<span class="sd">  data. </span>
+<span class="sd">  </span>
+<span class="sd">  Components adapted from:</span>
+<span class="sd">  http://stackoverflow.com/a/1830192</span>
+<span class="sd">  http://docs.enthought.com/mayavi/mayavi/auto/example_mlab_interactive_dialog.html</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  x,y,z : numpy.ndarray, 1-dim</span>
+<span class="sd">    Contains the grid.</span>
+<span class="sd">  data : numpy.ndarray, shape=(len(x), len(y),len(z)) or shape=(N, len(x), len(y),len(z))</span>
+<span class="sd">    Contains the output data.</span>
+<span class="sd">  geo_spec : </span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">    If not None, the atom positions will be drawn additionally.</span>
+<span class="sd">  datalabels : None or list of str</span>
+<span class="sd">    Contains information about the plotted data with len(datalabels) == len(data).</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Str</span><span class="p">,</span><span class="n">List</span><span class="p">,</span><span class="n">Button</span>
+    <span class="kn">from</span> <span class="nn">enthought.traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">ListStrEditor</span><span class="p">,</span><span class="n">HSplit</span><span class="p">,</span><span class="n">VSplit</span>
+  <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Str</span><span class="p">,</span><span class="n">List</span><span class="p">,</span><span class="n">Button</span>
+    <span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">ListStrEditor</span><span class="p">,</span><span class="n">HSplit</span><span class="p">,</span><span class="n">VSplit</span>
+  
+  <span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi.core.api</span> <span class="kn">import</span> <span class="n">PipelineBase</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">SceneEditor</span><span class="p">,</span> <span class="n">MlabSceneModel</span>
+  <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+    <span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">PipelineBase</span>
+    <span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">SceneEditor</span><span class="p">,</span> <span class="n">MlabSceneModel</span>
+  
+  <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">is_vectorfield</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+  <span class="k">if</span> <span class="n">datalabels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">datalabels</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`datalabels` has to be a list of strings with the same&#39;</span> <span class="o">+</span>
+                     <span class="s1">&#39;length as `data`.&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">datalabels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">datalabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%03d</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datalabels</span><span class="p">)]</span>
+  
+  <span class="n">Z</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">X</span> <span class="o">=</span> <span class="n">meshgrid2</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+  
+  <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>  
+      <span class="n">select</span>  <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="n">last_select</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">select</span><span class="p">)</span>
+      <span class="n">iso_value</span>  <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="n">iso_min</span><span class="p">,</span> <span class="n">iso_max</span><span class="p">,</span> <span class="n">iso_val</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logslider&#39;</span><span class="p">)</span>
+      <span class="n">opacity</span>    <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+      <span class="n">show_atoms</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+      <span class="n">label</span> <span class="o">=</span> <span class="n">Str</span><span class="p">()</span>
+      <span class="n">available</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Str</span><span class="p">)</span>
+      <span class="n">available</span> <span class="o">=</span> <span class="n">datalabels</span>
+      
+      <span class="n">prev_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Previous&#39;</span><span class="p">)</span>
+      <span class="n">next_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Next&#39;</span><span class="p">)</span>
+      
+      <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
+      <span class="n">plot_atoms</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
+      <span class="n">plot0</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
+      
+      <span class="c1"># When the scene is activated, or when the parameters are changed, we</span>
+      <span class="c1"># update the plot.</span>
+      <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;select,iso_value,show_atoms,opacity,label,scene.activated&#39;</span><span class="p">)</span>
+      <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>    
+          <span class="k">if</span> <span class="ow">not</span> <span class="n">is_vectorfield</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span>
+                        <span class="n">src</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">iso_value</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">iso_value</span><span class="p">],</span> 
+                        <span class="n">opacity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span><span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;blue-red&#39;</span><span class="p">,</span>
+                        <span class="n">vmin</span><span class="o">=-</span><span class="mf">1e-8</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">])</span> <span class="c1">#flow</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_select</span><span class="p">:</span>
+          <span class="k">if</span> <span class="ow">not</span> <span class="n">is_vectorfield</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">scalars</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">])</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_vectorfield</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">iso_value</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">iso_value</span><span class="p">]</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">plot0</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>          
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_select</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">datalabels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">datalabels</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">geo_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> 
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_atoms</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>            
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span>
+                                      <span class="n">geo_spec</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">geo_spec</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">geo_spec</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span>
+                                      <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">plot_atoms</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_atoms</span>
+      
+      <span class="k">def</span> <span class="nf">_prev_button_fired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">select</span> <span class="o">-=</span> <span class="mi">1</span>
+      <span class="k">def</span> <span class="nf">_next_button_fired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">select</span> <span class="o">+=</span> <span class="mi">1</span>
+      
+      
+      <span class="c1"># The layout of the dialog created</span>
+      <span class="n">items</span> <span class="o">=</span> <span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                      <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> 
+                      <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),)</span>
+      <span class="n">items0</span> <span class="o">=</span> <span class="p">()</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">items0</span> <span class="o">+=</span> <span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span>
+                        <span class="n">HSplit</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;prev_button&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                               <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;next_button&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                              <span class="p">)),)</span>               
+      <span class="n">items0</span> <span class="o">+=</span> <span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="s1">&#39;iso_value&#39;</span><span class="p">,</span> <span class="s1">&#39;opacity&#39;</span><span class="p">,</span><span class="s1">&#39;show_atoms&#39;</span>
+                      <span class="p">),)</span>
+              
+      <span class="k">if</span> <span class="n">datalabels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">datalabels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>        
+            <span class="n">items1</span> <span class="o">=</span> <span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;available&#39;</span><span class="p">,</span> 
+                       <span class="n">editor</span><span class="o">=</span><span class="n">ListStrEditor</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Available Data&#39;</span><span class="p">,</span><span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                       <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;readonly&#39;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">300</span>
+                       <span class="p">),)</span>
+            <span class="n">items0</span> <span class="o">=</span> <span class="n">HSplit</span><span class="p">(</span><span class="n">items0</span><span class="p">,</span><span class="n">items1</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">+=</span> <span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Selected Data&#39;</span><span class="p">,</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;readonly&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span><span class="s1">&#39;_&#39;</span><span class="p">),</span>
+               <span class="n">items0</span><span class="p">,)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">items</span> <span class="o">+=</span> <span class="n">items0</span>
+      <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">VSplit</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+                  <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span>
+                  <span class="p">)</span>
+  
+  <span class="n">my_model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+  <span class="n">my_model</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">pdb_creator</span><span class="p">(</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;new&#39;</span><span class="p">,</span><span class="n">charges</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">angstrom</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a plain text file with information concerning the molecular </span>
+<span class="sd">  structure in Protein Data Bank (PDB) format. </span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  geo_info, geo_spec : </span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  charges : numpy.ndarray, shape=(Natoms,), optional</span>
+<span class="sd">    Contains a partial charge for each atom.</span>
+<span class="sd">  comments : str, optional</span>
+<span class="sd">    Specifies the second (comment) line of the pdb file.</span>
+<span class="sd">  angstrom : bool, optional</span>
+<span class="sd">    If True, conversion of molecular coordinates from Bohr radii to Angstrom.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="c1"># Check for charges</span>
+  <span class="k">if</span> <span class="n">charges</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">charges</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">))</span>
+    
+  <span class="c1"># Open an empty file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(f)s</span><span class="s1">.pdb&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">filename</span><span class="p">},</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  
+  <span class="c1"># Write HEADER, TITLE and AUTHOR</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;HEADER</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;TITLE    </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">comments</span><span class="p">)</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;AUTHOR    orbkit</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> 
+  
+  <span class="c1"># Write ATOM records</span>
+  <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="n">il</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">)):</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;ATOM    </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">il</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">13</span><span class="p">:</span>
+      <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">geo_info</span><span class="p">[</span><span class="n">il</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
+      <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">geo_spec</span><span class="p">[</span><span class="n">il</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">angstrom</span><span class="p">:</span>
+      <span class="n">xyz</span> <span class="o">*=</span> <span class="n">a02aa</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;             </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">        &#39;</span> <span class="o">%</span> <span class="p">((</span><span class="s1">&#39;</span><span class="si">%.9f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">])[:</span><span class="mi">7</span><span class="p">],</span>
+                                                 <span class="p">(</span><span class="s1">&#39;</span><span class="si">%.9f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">7</span><span class="p">],</span>
+                                                 <span class="p">(</span><span class="s1">&#39;</span><span class="si">%.9f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">])[:</span><span class="mi">7</span><span class="p">])</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">        &#39;</span> <span class="o">%</span> <span class="p">((</span><span class="s1">&#39;</span><span class="si">%.9f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">charges</span><span class="p">[</span><span class="n">il</span><span class="p">])[:</span><span class="mi">6</span><span class="p">])</span>
+    <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+      
+  <span class="c1"># Write MASTER and END line</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;MASTER        0    0    0    0    0    0    0    0 &#39;</span> <span class="o">+</span> 
+            <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">    0    0    0</span><span class="se">\n</span><span class="s1">END&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">)))</span>
+  
+  <span class="c1"># Close the file </span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">xyz_creator</span><span class="p">(</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;new&#39;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">charges</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">angstrom</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Creates a xyz file containing the molecular coordinates. </span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  geo_info, geo_spec : </span>
+<span class="sd">    See :ref:`Central Variables` for details.</span>
+<span class="sd">  filename : str</span>
+<span class="sd">    Contains the base name of the output file.</span>
+<span class="sd">  charges : numpy.ndarray, shape=(Natoms,), optional</span>
+<span class="sd">    Contains a partial charge for each atom.</span>
+<span class="sd">  comments : str, optional</span>
+<span class="sd">    Specifies the second (comment) line of the xyz file.</span>
+<span class="sd">  angstrom : bool, optional</span>
+<span class="sd">    If True, conversion of molecular coordinates from Bohr radii to Angstrom.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="c1"># Open an empty file </span>
+  <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.xyz&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">,</span><span class="n">mode</span><span class="p">)</span>
+  
+  <span class="c1"># Write number of atoms and a comment line</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">),</span><span class="n">comments</span><span class="p">))</span>
+  
+  <span class="c1"># Write Cartesian coordinates of molecular structure</span>
+  <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="n">il</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">geo_spec</span><span class="p">)):</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%-2s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">geo_info</span><span class="p">[</span><span class="n">il</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+      <span class="n">xyz</span> <span class="o">=</span> <span class="n">geo_spec</span><span class="p">[</span><span class="n">il</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">angstrom</span><span class="p">:</span>
+        <span class="n">xyz</span> <span class="o">*=</span> <span class="n">a02aa</span>
+      <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">%22.15f</span><span class="s1">&#39;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">charges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">%22.15f</span><span class="s1">&#39;</span>  <span class="o">%</span> <span class="n">charges</span><span class="p">[</span><span class="n">il</span><span class="p">]</span>
+    <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+  
+  <span class="c1"># Close the file</span>
+  <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -232,7 +232,7 @@ you may set this parameters by:</p>
 </pre></div>
 </div>
 <p>To invoke the creation of a <strong>vector</strong> grid, i.e.,
-<img class="math" src="../_images/math/c75a1350b05f477e38f5fe7b7b13a1b607bef12e.png" alt="N_{\sf data points} = N_{\sf x} = N_{\sf y} = N_{\sf z}"/>
+<span class="math">\(N_{\sf data points} = N_{\sf x} = N_{\sf y} = N_{\sf z}\)</span>
 (see <a class="reference internal" href="terminal.html#grid"><span class="std std-ref">Grid Related Options</span></a> (Usage via the Terminal)), the variable <code class="docutils literal"><span class="pre">is_vector</span></code> has to
 set to <code class="docutils literal"><span class="pre">True</span></code>. If you want to change the grid, e.g., for a subsequent
 calculation, you have either to set:</p>
@@ -336,8 +336,8 @@ returned. The variable <code class="docutils literal"><span class="pre">slice_le
 grid points per subprocess.</p>
 <p>Derivatives can be computed by changing the variable <code class="docutils literal"><span class="pre">drv</span></code>, e.g.,
 <code class="docutils literal"><span class="pre">drv=['x','zz','xy']</span></code> will invoke the computation of the first derivative
-with respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/>, the second derivative with respect to <img class="math" src="../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/>, and the mixed
-derivative <img class="math" src="../_images/math/fa6e138b022ee026f2511136dc7ae1aa592471be.png" alt="xy"/>.</p>
+with respect to <span class="math">\(x\)</span>, the second derivative with respect to <span class="math">\(z\)</span>, and the mixed
+derivative <span class="math">\(xy\)</span>.</p>
 <p>If the number of processes (<code class="docutils literal"><span class="pre">numproc</span></code>) is smaller or equal one, no subprocesses will be
 started, i.e., ORBKIT uses only a single CPU. If you even want to omit the
 slicing of the grid, you can use:</p>
@@ -407,7 +407,7 @@ are managed by:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
 
     </p>
   </div>
@@ -421,8 +421,23 @@ are managed by:</p>
     </section>
 
   </div>
-  
-
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.0 (stable)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
 
   
 
@@ -438,6 +453,7 @@ are managed by:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

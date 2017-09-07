@@ -391,10 +391,10 @@ external file or each call of <code class="docutils literal"><span class="pre">-
 <div class="section" id="derivative-calculation">
 <h2><a class="toc-backref" href="#id4">Derivative Calculation</a><a class="headerlink" href="#derivative-calculation" title="Permalink to this headline">¶</a></h2>
 <p>ORBKIT can compute analytical spatial derivatives up to second order
-with respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/>, <img class="math" src="../_images/math/276f7e256cbddeb81eee42e1efc348f3cb4ab5f8.png" alt="y"/>, or <img class="math" src="../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/> for the atomic and
+with respect to <span class="math">\(x\)</span>, <span class="math">\(y\)</span>, or <span class="math">\(z\)</span> for the atomic and
 molecular orbitals, as well as for the electron density.
 For instance, a derivative of the density with
-respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> can be invoked as follows:</p>
+respect to <span class="math">\(x\)</span> can be invoked as follows:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --drv<span class="o">=</span>x
 </pre></div>
 </div>
@@ -402,7 +402,7 @@ respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316b
 <p>For second derivatives, you can specify the respective combinations,
 e.g., &#8216;xx&#8217; or &#8216;yz&#8217;.</p>
 <p>The computation of the laplacian, i.e.,
-<img class="math" src="../_images/math/f601f42382632bcd87f9ad812fca9f250b685a75.png" alt="\nabla^2 \rho = \nabla^2_x \rho + \nabla^2_y \rho + \nabla^2_z \rho"/>,
+<span class="math">\(\nabla^2 \rho = \nabla^2_x \rho + \nabla^2_y \rho + \nabla^2_z \rho\)</span>,
 can be invoked by</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -i INPUT --laplacian
 </pre></div>
@@ -468,7 +468,7 @@ you can call</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
 
     </p>
   </div>
@@ -482,8 +482,23 @@ you can call</p>
     </section>
 
   </div>
-  
-
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.0 (stable)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
 
   
 
@@ -499,6 +514,7 @@ you can call</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -1,0 +1,859 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>orbkit.extras &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>orbkit.extras</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for orbkit.extras</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: iso-8859-1 -*-</span>
+<span class="sd">&#39;&#39;&#39;Module for all additional features of ORBKIT.&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">ORBKIT</span>
+<span class="sd">Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay</span>
+
+<span class="sd">Institut fuer Chemie und Biochemie, Freie Universitaet Berlin, 14195 Berlin, </span>
+<span class="sd">Germany</span>
+
+<span class="sd">This file is part of ORBKIT.</span>
+
+<span class="sd">ORBKIT is free software: you can redistribute it and/or modify</span>
+<span class="sd">it under the terms of the GNU Lesser General Public License as </span>
+<span class="sd">published by the Free Software Foundation, either version 3 of </span>
+<span class="sd">the License, or any later version.</span>
+
+<span class="sd">ORBKIT is distributed in the hope that it will be useful,</span>
+<span class="sd">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="sd">GNU Lesser General Public License for more details.</span>
+
+<span class="sd">You should have received a copy of the GNU Lesser General Public </span>
+<span class="sd">License along with ORBKIT.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1"># Import general modules</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+
+<span class="c1"># Import orbkit modules</span>
+<span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span><span class="n">grid</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">orbkit.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">orbkit.orbitals</span> <span class="kn">import</span> <span class="n">MOClass</span>
+
+
+<div class="viewcode-block" id="calc_mo"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.calc_mo">[docs]</a><span class="k">def</span> <span class="nf">calc_mo</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">fid_mo_list</span><span class="p">,</span> <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">otype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ofid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">numproc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">slice_length</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Calculates and saves the selected molecular orbitals or the derivatives thereof.</span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">   </span>
+<span class="sd">    qc.geo_spec, qc.geo_info, qc.ao_spec, qc.mo_spec :</span>
+<span class="sd">      See :ref:`Central Variables` for details.</span>
+<span class="sd">    fid_mo_list : str</span>
+<span class="sd">      Specifies the filename of the molecular orbitals list or list of molecular</span>
+<span class="sd">      orbital labels (cf. :mod:`orbkit.read.mo_select` for details). </span>
+<span class="sd">      If fid_mo_list is &#39;all_mo&#39;, creates a list containing all molecular orbitals.</span>
+<span class="sd">    drv : int or string, {None, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;, 0, 1, 2}, optional</span>
+<span class="sd">      If not None, a derivative calculation of the atomic orbitals </span>
+<span class="sd">      is requested.</span>
+<span class="sd">    otype : str or list of str, optional</span>
+<span class="sd">      Specifies output file type. See :data:`otypes` for details.</span>
+<span class="sd">    ofid : str, optional</span>
+<span class="sd">      Specifies output file name. If None, the filename will be based on</span>
+<span class="sd">      :mod:`orbkit.options.outputname`.</span>
+<span class="sd">    numproc : int, optional</span>
+<span class="sd">      Specifies number of subprocesses for multiprocessing. </span>
+<span class="sd">      If None, uses the value from :mod:`options.numproc`.</span>
+<span class="sd">    slice_length : int, optional</span>
+<span class="sd">      Specifies the number of points per subprocess.</span>
+<span class="sd">      If None, uses the value from :mod:`options.slice_length`.</span>
+<span class="sd">    </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">    mo_list : numpy.ndarray, shape=((NMO,) + N)</span>
+<span class="sd">      Contains the NMO=len(qc.mo_spec) molecular orbitals on a grid.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">mo_spec</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">,</span> <span class="n">flatten_input</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">qc_select</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span> <span class="o">=</span> <span class="n">mo_spec</span>
+
+  <span class="n">slice_length</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">slice_length</span> <span class="k">if</span> <span class="n">slice_length</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">slice_length</span>
+  <span class="n">numproc</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">numproc</span> <span class="k">if</span> <span class="n">numproc</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">numproc</span>
+
+  <span class="c1"># Calculate the AOs and MOs </span>
+  <span class="n">mo_list</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">rho_compute</span><span class="p">(</span><span class="n">qc_select</span><span class="p">,</span>
+                             <span class="n">calc_mo</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                             <span class="n">drv</span><span class="o">=</span><span class="n">drv</span><span class="p">,</span>
+                             <span class="n">slice_length</span><span class="o">=</span><span class="n">slice_length</span><span class="p">,</span>
+                             <span class="n">numproc</span><span class="o">=</span><span class="n">numproc</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">otype</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">mo_list</span>
+  
+  <span class="k">if</span> <span class="n">ofid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">ofid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_MO&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">outputname</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">no_output</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>    
+      <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">mo_list</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">data_id</span><span class="o">=</span><span class="s1">&#39;MO&#39;</span><span class="p">,</span>
+                    <span class="n">outputname</span><span class="o">=</span><span class="n">ofid</span><span class="p">,</span>
+                    <span class="n">mo_spec</span><span class="o">=</span><span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">,</span><span class="n">drv</span><span class="o">=</span><span class="n">drv</span><span class="p">,</span><span class="n">is_mo_output</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># Create Output     </span>
+    <span class="n">cube_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">)):</span>
+      <span class="n">outputname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span><span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">selected_mo</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="n">comments</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">,Occ=</span><span class="si">%.1f</span><span class="s1">,E=</span><span class="si">%+.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">selected_mo</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                           <span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_occ</span><span class="p">()[</span><span class="n">i</span><span class="p">],</span>
+                                           <span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()[</span><span class="n">i</span><span class="p">]))</span>
+      <span class="n">index</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">index_exp</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">i</span>
+      <span class="n">output_written</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">mo_list</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                                      <span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                                      <span class="n">outputname</span><span class="o">=</span><span class="n">outputname</span><span class="p">,</span>
+                                      <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+                                      <span class="n">otype</span><span class="o">=</span><span class="n">otype</span><span class="p">,</span><span class="n">omit</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span><span class="s1">&#39;vmd&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">],</span>
+                                      <span class="n">drv</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
+      
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output_written</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.cb&#39;</span><span class="p">):</span>
+          <span class="n">cube_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s1">&#39;vmd&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="n">cube_files</span> <span class="o">!=</span> <span class="p">[]:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating VMD network file...&#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.vmd&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">ofid</span><span class="p">})</span>
+      <span class="n">output</span><span class="o">.</span><span class="n">vmd_network_creator</span><span class="p">(</span><span class="n">ofid</span><span class="p">,</span><span class="n">cube_files</span><span class="o">=</span><span class="n">cube_files</span><span class="p">)</span>
+  <span class="k">if</span> <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+    <span class="n">datalabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MO </span><span class="si">%(sym)s</span><span class="s1">, Occ=</span><span class="si">%(occ_num).2f</span><span class="s1">, E=</span><span class="si">%(energy)+.4f</span><span class="s1"> E_h&#39;</span> <span class="o">%</span> 
+                  <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">drv</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">datalabels</span><span class="p">:</span>
+          <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;d/d</span><span class="si">%s</span><span class="s1"> of </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+      <span class="n">datalabels</span> <span class="o">=</span> <span class="n">tmp</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">mo_list</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_shape</span><span class="p">())</span>
+    
+    <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                       <span class="n">otype</span><span class="o">=</span><span class="s1">&#39;mayavi&#39;</span><span class="p">,</span><span class="n">datalabels</span><span class="o">=</span><span class="n">datalabels</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">mo_list</span></div>
+  
+<div class="viewcode-block" id="mo_set"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.mo_set">[docs]</a><span class="k">def</span> <span class="nf">mo_set</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">fid_mo_list</span><span class="p">,</span> <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">laplacian</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+           <span class="n">otype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ofid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_all</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+           <span class="n">numproc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">slice_length</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Calculates and saves the density or the derivative thereof </span>
+<span class="sd">  using selected molecular orbitals.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">   </span>
+<span class="sd">    qc.geo_spec, qc.geo_info, qc.ao_spec, qc.mo_spec :</span>
+<span class="sd">      See :ref:`Central Variables` for details.</span>
+<span class="sd">    fid_mo_list : str</span>
+<span class="sd">      Specifies the filename of the molecular orbitals list or list of molecular</span>
+<span class="sd">      orbital labels (cf. :mod:`orbkit.orbitals.MOClass.select` for details). </span>
+<span class="sd">    otype : str or list of str, optional</span>
+<span class="sd">      Specifies output file type. See :data:`otypes` for details.</span>
+<span class="sd">    ofid : str, optional</span>
+<span class="sd">      Specifies output file name. If None, the filename will be based on</span>
+<span class="sd">      :mod:`orbkit.options.outputname`.</span>
+<span class="sd">    drv : int or string, {None, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;, 0, 1, 2}, optional</span>
+<span class="sd">      If not None, a derivative calculation of the atomic orbitals </span>
+<span class="sd">      is requested.</span>
+<span class="sd">    return_all : bool</span>
+<span class="sd">      If False, no data will be returned.</span>
+<span class="sd">    numproc : int, optional</span>
+<span class="sd">      Specifies number of subprocesses for multiprocessing. </span>
+<span class="sd">      If None, uses the value from :mod:`options.numproc`.</span>
+<span class="sd">    slice_length : int, optional</span>
+<span class="sd">      Specifies the number of points per subprocess.</span>
+<span class="sd">      If None, uses the value from :mod:`options.slice_length`.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">    datasets : numpy.ndarray, shape=((NSET,) + N)</span>
+<span class="sd">      Contains the NSET molecular orbital sets on a grid.</span>
+<span class="sd">    delta_datasets : numpy.ndarray, shape=((NSET,NDRV) + N)</span>
+<span class="sd">      Contains the NDRV NSET molecular orbital set on a grid. This is only </span>
+<span class="sd">      present if derivatives are requested.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+
+  <span class="c1">#Can be an mo_spec or a list of mo_spec</span>
+  <span class="c1"># For later itteration we&#39;ll make it into a list here if it is not</span>
+  <span class="n">mo_info_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">fid_mo_list</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_info_list</span><span class="p">,</span> <span class="n">MOClass</span><span class="p">):</span>
+    <span class="n">mo_info_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">mo_info_list</span><span class="p">]</span>
+    
+  <span class="n">drv</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">drv</span> <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">drv</span>
+  <span class="n">laplacian</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">laplacian</span> <span class="k">if</span> <span class="n">laplacian</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">laplacian</span>
+  <span class="n">slice_length</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">slice_length</span> <span class="k">if</span> <span class="n">slice_length</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">slice_length</span>
+  <span class="n">numproc</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">numproc</span> <span class="k">if</span> <span class="n">numproc</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">numproc</span>
+  
+  <span class="k">if</span> <span class="n">ofid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">ofid</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span>
+  <span class="k">if</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.h5&#39;</span> <span class="o">%</span> <span class="n">ofid</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.h5 already exists!&#39;</span> <span class="o">%</span> <span class="n">ofid</span><span class="p">)</span>
+  
+  <span class="n">datasets</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">delta_datasets</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">cube_files</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">for</span> <span class="n">i_file</span><span class="p">,</span> <span class="n">mo_info</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mo_info_list</span><span class="p">):</span>
+    <span class="n">qc_select</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">qc_select</span><span class="o">.</span><span class="n">mo_spec</span> <span class="o">=</span> <span class="n">mo_info</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Starting with the molecular orbital list&#39;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mo_info</span><span class="o">.</span><span class="n">selection_string</span><span class="p">)</span> <span class="o">+</span>
+            <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">(Only regarding existing and occupied mos.)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+      
+    <span class="n">data</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">rho_compute</span><span class="p">(</span><span class="n">qc_select</span><span class="p">,</span>
+                            <span class="n">drv</span><span class="o">=</span><span class="n">drv</span><span class="p">,</span>
+                            <span class="n">laplacian</span><span class="o">=</span><span class="n">laplacian</span><span class="p">,</span>
+                            <span class="n">slice_length</span><span class="o">=</span><span class="n">slice_length</span><span class="p">,</span>
+                            <span class="n">numproc</span><span class="o">=</span><span class="n">numproc</span><span class="p">)</span>
+
+    <span class="n">datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">rho</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">elif</span> <span class="n">laplacian</span><span class="p">:</span>
+      <span class="n">rho</span><span class="p">,</span> <span class="n">delta_rho</span><span class="p">,</span> <span class="n">laplacian_rho</span> <span class="o">=</span> <span class="n">data</span> 
+      <span class="n">delta_datasets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">delta_rho</span><span class="p">)</span>
+      <span class="n">delta_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">laplacian_rho</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">rho</span><span class="p">,</span> <span class="n">delta_rho</span> <span class="o">=</span> <span class="n">data</span>
+      <span class="n">delta_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta_rho</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">z_reduced_density</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">is_vector</span><span class="p">:</span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">So far, reducing the density is not supported for vector grids.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">So far, reducing the density is not supported for the derivative of the density.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">rho</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simps</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">delta_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">even</span><span class="o">=</span><span class="s1">&#39;avg&#39;</span><span class="p">)</span>
+        <span class="n">rho</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simps</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">delta_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">even</span><span class="o">=</span><span class="s1">&#39;avg&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">no_output</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Saving to Hierarchical Data Format file (HDF5)...&#39;</span><span class="p">)</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;/mo_set:</span><span class="si">%03d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i_file</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>	
+        <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%s</span><span class="s1">.h5 in the group &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span><span class="n">group</span><span class="p">))</span>	
+        <span class="n">output</span><span class="o">.</span><span class="n">HDF5_creator</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">ofid</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">data_id</span><span class="o">=</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span>
+                            <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span><span class="n">mo_spec</span><span class="o">=</span><span class="n">qc_select</span><span class="p">[</span><span class="s1">&#39;mo_spec&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span>
+            <span class="n">data_id</span> <span class="o">=</span> <span class="s1">&#39;rho_d</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">j</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">HDF5_creator</span><span class="p">(</span><span class="n">delta_rho</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">ofid</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                                <span class="n">data_id</span><span class="o">=</span><span class="n">data_id</span><span class="p">,</span><span class="n">data_only</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                                <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span><span class="n">mo_spec</span><span class="o">=</span><span class="n">qc_select</span><span class="p">[</span><span class="s1">&#39;mo_spec&#39;</span><span class="p">])</span>
+          <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
+            <span class="n">data_id</span> <span class="o">=</span> <span class="s1">&#39;rho_laplacian&#39;</span> 
+            <span class="n">output</span><span class="o">.</span><span class="n">HDF5_creator</span><span class="p">(</span><span class="n">laplacian_rho</span><span class="p">,</span><span class="n">ofid</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                                <span class="n">data_id</span><span class="o">=</span><span class="n">data_id</span><span class="p">,</span><span class="n">data_only</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                                <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span><span class="n">mo_spec</span><span class="o">=</span><span class="n">qc_select</span><span class="p">[</span><span class="s1">&#39;mo_spec&#39;</span><span class="p">])</span>
+            
+      <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%03d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span> <span class="n">i_file</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+      <span class="n">cube_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
+      <span class="n">comments</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;mo_set:&#39;</span><span class="o">+</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mo_info</span><span class="o">.</span><span class="n">selection_string</span><span class="p">))</span>
+
+      <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">outputname</span><span class="o">=</span><span class="n">fid</span><span class="p">,</span>
+                         <span class="n">otype</span><span class="o">=</span><span class="n">otype</span><span class="p">,</span><span class="n">omit</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span><span class="s1">&#39;vmd&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">],</span>
+                         <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drv</span><span class="p">):</span>
+          <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%03d</span><span class="s1">_d</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span> <span class="n">i_file</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> 
+          <span class="n">cube_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
+          <span class="n">comments</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;d</span><span class="si">%s</span><span class="s1">_of_mo_set:&#39;</span> <span class="o">%</span> <span class="n">j</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mo_info</span><span class="o">.</span><span class="n">selection_string</span><span class="p">))</span>
+          <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">delta_rho</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">outputname</span><span class="o">=</span><span class="n">fid</span><span class="p">,</span>
+                             <span class="n">otype</span><span class="o">=</span><span class="n">otype</span><span class="p">,</span><span class="n">omit</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span><span class="s1">&#39;vmd&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">],</span>
+                             <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
+          <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%03d</span><span class="s1">_laplacian&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span> <span class="n">i_file</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+          <span class="n">cube_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
+          <span class="n">comments</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;laplacian_of_mo_set:&#39;</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mo_info</span><span class="o">.</span><span class="n">selection_string</span><span class="p">))</span>
+          <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">laplacian_rho</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">outputname</span><span class="o">=</span><span class="n">fid</span><span class="p">,</span>
+                             <span class="n">otype</span><span class="o">=</span><span class="n">otype</span><span class="p">,</span><span class="n">omit</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span><span class="s1">&#39;vmd&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">],</span>
+                             <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">)</span>  
+          
+  <span class="k">if</span> <span class="s1">&#39;vmd&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="n">cube_files</span> <span class="o">!=</span> <span class="p">[]:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating VMD network file...&#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.vmd&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">ofid</span><span class="p">})</span>
+      <span class="n">output</span><span class="o">.</span><span class="n">vmd_network_creator</span><span class="p">(</span><span class="n">ofid</span><span class="p">,</span><span class="n">cube_files</span><span class="o">=</span><span class="n">cube_files</span><span class="p">)</span>
+   
+  <span class="n">datasets</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+      <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                       <span class="n">otype</span><span class="o">=</span><span class="s1">&#39;mayavi&#39;</span><span class="p">,</span><span class="n">datalabels</span><span class="o">=</span><span class="n">mo_info</span><span class="o">.</span><span class="n">selected_mo</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">datasets</span><span class="c1">#, mo_info</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">delta_datasets</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">delta_datasets</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+      <span class="n">datalabels</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mo_info</span><span class="o">.</span><span class="n">selected_mo</span><span class="p">:</span>
+        <span class="n">datalabels</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;d/d</span><span class="si">%s</span><span class="s1"> of </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">drv</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
+          <span class="n">datalabels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;laplacian of </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+      <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">delta_datasets</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_shape</span><span class="p">()),</span>
+                         <span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">otype</span><span class="o">=</span><span class="s1">&#39;mayavi&#39;</span><span class="p">,</span><span class="n">datalabels</span><span class="o">=</span><span class="n">datalabels</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">delta_datasets</span></div>
+  <span class="c1"># mo_set </span>
+
+<div class="viewcode-block" id="calc_ao"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.calc_ao">[docs]</a><span class="k">def</span> <span class="nf">calc_ao</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">otype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ofid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>  
+  <span class="sd">&#39;&#39;&#39;Computes and saves all atomic orbital or a derivative thereof.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">   </span>
+<span class="sd">    qc.geo_spec, qc.geo_info, qc.ao_spec :</span>
+<span class="sd">      See :ref:`Central Variables` for details.</span>
+<span class="sd">    otype : str or list of str, optional</span>
+<span class="sd">      Specifies output file type. See :data:`otypes` for details.</span>
+<span class="sd">    ofid : str, optional</span>
+<span class="sd">      Specifies output file name. If None, the filename will be based on</span>
+<span class="sd">      :mod:`orbkit.options.outputname`.</span>
+<span class="sd">    drv : int or string, {None, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;, &#39;xx&#39;, &#39;xy&#39;, ...}, optional</span>
+<span class="sd">      If not None, a derivative calculation of the atomic orbitals </span>
+<span class="sd">      is requested.</span>
+<span class="sd">    </span>
+<span class="sd">  **Returns:**    </span>
+<span class="sd">  </span>
+<span class="sd">    ao_list : numpy.ndarray, shape=((NAO,) + N)</span>
+<span class="sd">      Contains the computed NAO atomic orbitals on a grid. Is only returned, if</span>
+<span class="sd">      otype is None.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">omp_functions</span> <span class="kn">import</span> <span class="n">run</span>
+  
+  <span class="k">if</span> <span class="n">ofid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">ofid</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span>
+  <span class="n">dstr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="s1">&#39;_d</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">drv</span>
+  
+  <span class="n">ao_spec</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">lxlylz</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">datalabels</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">sel_ao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">exp</span><span class="p">[</span><span class="n">core</span><span class="o">.</span><span class="n">lquant</span><span class="p">[</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]]]</span>
+    <span class="n">lxlylz</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+      <span class="n">ao_spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+      <span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">datalabels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;lxlylz=</span><span class="si">%s</span><span class="s1">,atom=</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">]))</span>
+  
+  <span class="n">global_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;geo_spec&#39;</span><span class="p">:</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                 <span class="s1">&#39;geo_info&#39;</span><span class="p">:</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span>
+                 <span class="s1">&#39;ao_spec&#39;</span><span class="p">:</span><span class="n">ao_spec</span><span class="p">,</span>
+                 <span class="s1">&#39;drv&#39;</span><span class="p">:</span><span class="n">drv</span><span class="p">,</span>
+                 <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                 <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                 <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">,</span>
+                 <span class="s1">&#39;is_vector&#39;</span><span class="p">:</span><span class="n">grid</span><span class="o">.</span><span class="n">is_vector</span><span class="p">,</span>
+                 <span class="s1">&#39;otype&#39;</span><span class="p">:</span><span class="n">otype</span><span class="p">,</span>
+                 <span class="s1">&#39;ofid&#39;</span><span class="p">:</span><span class="n">ofid</span><span class="p">}</span>
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Starting the computation of the </span><span class="si">%d</span><span class="s1"> atomic orbitals&#39;</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">)</span><span class="o">+</span>
+         <span class="p">(</span><span class="s1">&#39; using </span><span class="si">%d</span><span class="s1"> subprocesses.&#39;</span> <span class="o">%</span> <span class="n">options</span><span class="o">.</span><span class="n">numproc</span> <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">numproc</span> <span class="o">&gt;</span> <span class="mi">1</span> 
+          <span class="k">else</span> <span class="s1">&#39;.&#39;</span> <span class="p">)</span>
+          <span class="p">)</span>
+  <span class="n">ao</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">get_ao</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span>
+           <span class="n">numproc</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">numproc</span><span class="p">,</span><span class="n">display</span><span class="o">=</span><span class="n">display</span><span class="p">,</span>
+           <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span><span class="n">global_args</span><span class="o">=</span><span class="n">global_args</span><span class="p">)</span>
+    
+  <span class="k">if</span> <span class="n">otype</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">or</span> <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>   
+    <span class="n">ao_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ao</span><span class="p">:</span>
+      <span class="n">ao_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>      
+    <span class="n">ao_list</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ao_list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">otype</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">options</span><span class="o">.</span><span class="n">no_output</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">ao_list</span>
+    
+    <span class="k">if</span> <span class="s1">&#39;h5&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+      <span class="kn">import</span> <span class="nn">h5py</span>
+      <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_AO</span><span class="si">%s</span><span class="s1">.h5&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span><span class="n">dstr</span><span class="p">)</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Saving to Hierarchical Data Format file (HDF5)...</span><span class="se">\n\t</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
+      <span class="n">output</span><span class="o">.</span><span class="n">hdf5_write</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">gname</span><span class="o">=</span><span class="s1">&#39;general_info&#39;</span><span class="p">,</span>
+                        <span class="n">x</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">,</span>
+                        <span class="n">geo_info</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">geo_spec</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                        <span class="n">lxlylz</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span>
+                        <span class="n">aolabels</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">datalabels</span><span class="p">),</span>
+                        <span class="n">grid_info</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">is_vector</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>      
+      <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">hdf5_open</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">):</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">hdf5_append</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ao_spec&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">hdf5_append</span><span class="p">(</span><span class="n">ao_list</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ao_list&#39;</span><span class="p">)</span>
+      
+    <span class="k">if</span> <span class="s1">&#39;mayavi&#39;</span> <span class="ow">in</span> <span class="n">otype</span><span class="p">:</span>
+      <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">ao_list</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span>
+                         <span class="n">otype</span><span class="o">=</span><span class="s1">&#39;mayavi&#39;</span><span class="p">,</span><span class="n">datalabels</span><span class="o">=</span><span class="n">datalabels</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="s1">&#39;vmd&#39;</span> <span class="ow">in</span> <span class="n">otype</span> <span class="ow">and</span> <span class="n">options</span><span class="o">.</span><span class="n">vector</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_AO</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span><span class="n">dstr</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating VMD network file...&#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">%(o)s</span><span class="s1">.vmd&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="n">fid</span><span class="p">})</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">vmd_network_creator</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span>
+                            <span class="n">cube_files</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_AO</span><span class="si">%s</span><span class="s1">_</span><span class="si">%03d</span><span class="s1">.cb&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ofid</span><span class="p">,</span>
+                                        <span class="n">dstr</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">))])</span></div>
+  <span class="c1"># calc_ao</span>
+
+<span class="k">def</span> <span class="nf">initializer</span><span class="p">(</span><span class="n">gargs</span><span class="p">):</span>
+  <span class="k">global</span> <span class="n">global_args</span>
+  <span class="n">global_args</span> <span class="o">=</span> <span class="n">gargs</span>
+  <span class="n">grid</span><span class="o">.</span><span class="n">set_grid</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span>
+                <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span>
+                <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span>
+                <span class="n">is_vector</span><span class="o">=</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;is_vector&#39;</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">get_ao</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="n">ao_list</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ao_creator</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;geo_spec&#39;</span><span class="p">],</span>
+                            <span class="p">[</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;ao_spec&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)]],</span>
+                            <span class="n">drv</span><span class="o">=</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;drv&#39;</span><span class="p">])</span>
+  
+  <span class="k">if</span> <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;otype&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">drv</span> <span class="o">=</span> <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;drv&#39;</span><span class="p">]</span>
+    <span class="n">comments</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%03d</span><span class="s1">.lxlylz=</span><span class="si">%s</span><span class="s1">,at=</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+                                         <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;ao_spec&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                         <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;ao_spec&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">])</span>
+    
+    <span class="n">output</span><span class="o">.</span><span class="n">main_output</span><span class="p">(</span><span class="n">ao_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">ao_list</span><span class="p">,</span>
+                       <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;geo_info&#39;</span><span class="p">],</span>
+                       <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;geo_spec&#39;</span><span class="p">],</span>
+                       <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+                       <span class="n">outputname</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_AO_</span><span class="si">%03d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;ofid&#39;</span><span class="p">],</span><span class="n">x</span><span class="p">),</span>
+                       <span class="n">otype</span><span class="o">=</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;otype&#39;</span><span class="p">],</span>
+                       <span class="n">omit</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h5&#39;</span><span class="p">,</span><span class="s1">&#39;vmd&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">],</span>
+                       <span class="n">drv</span> <span class="o">=</span> <span class="bp">None</span> <span class="k">if</span> <span class="n">drv</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">[</span><span class="n">drv</span><span class="p">])</span>
+  <span class="k">return</span> <span class="n">ao_list</span>
+
+<div class="viewcode-block" id="atom2index"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.atom2index">[docs]</a><span class="k">def</span> <span class="nf">atom2index</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">geo_info</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Converts a list of atom numbers to indices of :data:`geo_info`.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    atom : int or list of int</span>
+<span class="sd">      Specifies the indices of the atoms (counting from one).  </span>
+<span class="sd">    geo_info : optional</span>
+<span class="sd">      See :ref:`Central Variables` for details.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">    atom : list of int</span>
+<span class="sd">      Contains the indices of the atoms (counting from one). </span>
+<span class="sd">    index : numpy.ndarray, dtype=int</span>
+<span class="sd">      Contains the indices of the atoms as occuring in qc.geo_info </span>
+<span class="sd">      (counting from zero). </span>
+<span class="sd">    </span>
+<span class="sd">  &#39;&#39;&#39;</span>
+   
+  <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="p">]</span>
+    
+  <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
+  
+  <span class="k">if</span> <span class="n">geo_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">geo_info</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">geo_info</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">atom</span><span class="p">:</span>
+      <span class="n">i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">geo_info</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">a</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No or multiple occurence &#39;</span> <span class="o">+</span> 
+                         <span class="s1">&#39;of the atom number </span><span class="si">%d</span><span class="s1"> in geo_info!&#39;</span> <span class="o">%</span> <span class="n">a</span><span class="p">)</span>
+      <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    
+    <span class="n">index</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+  
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">index</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot convert atom to integer array!&#39;</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">atom</span><span class="p">,</span> <span class="n">index</span></div>
+
+<div class="viewcode-block" id="gross_atomic_density"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.gross_atomic_density">[docs]</a><span class="k">def</span> <span class="nf">gross_atomic_density</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">qc</span><span class="p">,</span>
+                    <span class="n">bReturnmo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">ao_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">mo_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">r&#39;&#39;&#39;Computes the gross atomic density with respect to the selected atoms.</span>
+<span class="sd">  </span>
+<span class="sd">  .. math::</span>
+<span class="sd">  </span>
+<span class="sd">    \rho^a = \sum_i^{N_{\rm MO}} {\rm occ}_i \cdot \varphi_i^a \cdot \varphi_i</span>
+<span class="sd">  </span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    atom : &#39;all&#39; or int or list of int</span>
+<span class="sd">      Specifies the atoms (counting from one) for which the gross atomic density</span>
+<span class="sd">      will be computed.  </span>
+<span class="sd">      If (atom == &#39;all&#39;) or (atom == -1), computes the gross atomic density  </span>
+<span class="sd">      for all atoms.</span>
+<span class="sd">    qc.geo_spec, qc.geo_info, qc.ao_spec, qc.mo_spec :</span>
+<span class="sd">      See :ref:`Central Variables` for details.</span>
+<span class="sd">    bReturnmo : bool, optional</span>
+<span class="sd">      If True, the gross atomic molecular orbitals are additionally returned.</span>
+
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">    rho_atom : list of numpy.ndarrays, shape=(len(atoms,) + N)</span>
+<span class="sd">      Contains the atom gross atomic density on a grid.</span>
+<span class="sd">    mo_atom : list of numpy.ndarrays, shape=(len(atoms,NMO) + N)</span>
+<span class="sd">      Contains the NMO=len(mo_spec) gross atomic molecular orbitals on a grid. </span>
+<span class="sd">  &#39;&#39;&#39;</span>  
+    
+  <span class="k">if</span> <span class="p">(</span><span class="n">atom</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span> <span class="ow">or</span> <span class="n">atom</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  
+  
+  <span class="n">atom</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">atom2index</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">geo_info</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">)</span>
+  
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Computing the gross atomic density with respect to &#39;</span><span class="o">+</span> 
+          <span class="s1">&#39;the atom(s) (internal numbering)&#39;</span><span class="p">)</span>
+  <span class="n">outp</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">[&#39;</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">outp</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">&#39;</span>
+    <span class="n">outp</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">,</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">a</span>
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">outp</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+  
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Calculating ao_list &amp; mo_list&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">ao_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">ao_list</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ao_creator</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">drv</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">mo_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">mo_list</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">mo_creator</span><span class="p">(</span><span class="n">ao_list</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">)</span>
+  
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Calculating the gross atomic density&#39;</span><span class="p">)</span>
+  <span class="n">N</span> <span class="o">=</span> <span class="n">mo_list</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+  <span class="k">if</span> <span class="n">bReturnmo</span><span class="p">:</span> <span class="n">mo_atom</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">index</span><span class="p">]</span>
+  <span class="n">rho_atom</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">index</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">Finished </span><span class="si">%d</span><span class="s1"> of </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)))</span>
+    <span class="n">ao_index</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ao</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ll</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">ii</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])):</span>
+        <span class="k">if</span> <span class="n">ii</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span><span class="p">:</span>
+          <span class="n">ao_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+          <span class="n">ao</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ao_list</span><span class="p">[</span><span class="n">ll</span><span class="p">])</span>
+        <span class="n">ll</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">for</span> <span class="n">ii_mo</span><span class="p">,</span><span class="n">spec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">):</span>
+      <span class="n">mo_info</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_index</span><span class="p">)):</span>
+        <span class="n">mo_info</span> <span class="o">+=</span> <span class="n">spec</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">][</span><span class="n">ao_index</span><span class="p">[</span><span class="n">jj</span><span class="p">]]</span> <span class="o">*</span> <span class="n">ao</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span>
+      <span class="n">rho_atom</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spec</span><span class="p">[</span><span class="s1">&#39;occ_num&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">mo_list</span><span class="p">[</span><span class="n">ii_mo</span><span class="p">]</span> <span class="o">*</span> <span class="n">mo_info</span>
+      <span class="k">if</span> <span class="n">bReturnmo</span><span class="p">:</span> <span class="n">mo_atom</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mo_info</span><span class="p">)</span>
+  
+  <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;Returning the gross atomic density&#39;</span>
+  <span class="k">if</span> <span class="n">bReturnmo</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">string</span> <span class="o">+</span> <span class="s1">&#39; and</span><span class="se">\n\t</span><span class="s1">the gross atomic molecular orbitals&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rho_atom</span><span class="p">,</span> <span class="n">mo_atom</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rho_atom</span></div>
+  <span class="c1"># gross_atomic_density </span>
+
+<div class="viewcode-block" id="numerical_mulliken_charges"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.numerical_mulliken_charges">[docs]</a><span class="k">def</span> <span class="nf">numerical_mulliken_charges</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">qc</span><span class="p">,</span>
+            <span class="n">ao_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">mo_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">rho_atom</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">r&#39;&#39;&#39;Compute the Mulliken charges and gross atomic populations of the selected </span>
+<span class="sd">  atoms *numerically* using the respective gross atomic densities.</span>
+<span class="sd">  </span>
+<span class="sd">  .. math::</span>
+<span class="sd">  </span>
+<span class="sd">    P^a = \int \rho^a(x,y,z) {\rm d}^3r</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">    atom : &#39;all&#39; or int or list of int</span>
+<span class="sd">      Specifies the atom (numbering starting from one) to which the numerical </span>
+<span class="sd">      Mulliken charges and gross populations will be computed. </span>
+<span class="sd">      If (atom == &#39;all&#39;) or (atom == -1), computes the charges and populations </span>
+<span class="sd">      for all atoms.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">    rho_atom : list of numpy.ndarrays, shape=(len(atoms,) + N)</span>
+<span class="sd">      Contains the atom gross atomic density on a grid.</span>
+<span class="sd">    mulliken_num : dict, (present if not is_vector)</span>
+<span class="sd">      Contains information of Mulliken charge analysis and has following members:</span>
+<span class="sd">        :population: - Mulliken population for each atom.</span>
+<span class="sd">        :charges: - Mulliken charges for each atom.</span>
+<span class="sd">  &#39;&#39;&#39;</span>  
+  
+  <span class="k">if</span> <span class="p">(</span><span class="n">atom</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span> <span class="ow">or</span> <span class="n">atom</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">atom</span> <span class="o">==</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> 
+  
+  <span class="n">atom</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">atom2index</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">geo_info</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">)</span>
+  
+  <span class="n">rho_atom</span> <span class="o">=</span> <span class="n">gross_atomic_density</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span><span class="n">qc</span><span class="p">,</span>
+                    <span class="n">ao_list</span><span class="o">=</span><span class="n">ao_list</span><span class="p">,</span><span class="n">mo_list</span><span class="o">=</span><span class="n">mo_list</span><span class="p">)</span>
+  
+  <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">is_vector</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;Warning: You have applied a vector grid.</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> 
+    <span class="s1">&#39;The integration is not implemented for such a grid!</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+    <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Returning only the gross atomic densities...&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rho_atom</span>
+  
+  <span class="n">GP_A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">core</span><span class="o">.</span><span class="n">integration</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rho_atom</span><span class="p">])</span>
+  <span class="n">mulliken_num</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">GP_A</span><span class="p">,</span>
+                  <span class="s1">&#39;charge&#39;</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">-</span><span class="n">GP_A</span><span class="p">}</span>  
+  
+  <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Numerical Mulliken Charges Q and Gross Atomic Populations GP:&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Atom </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">):</span><span class="se">\t</span><span class="s1">Q = </span><span class="si">%+0.4f</span><span class="s1"> ( GP = </span><span class="si">%0.4f</span><span class="s1"> )&#39;</span> <span class="o">%</span> 
+            <span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">mulliken_num</span><span class="p">[</span><span class="s1">&#39;charge&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span><span class="n">mulliken_num</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span>     
+  <span class="k">return</span> <span class="n">rho_atom</span><span class="p">,</span> <span class="n">mulliken_num</span></div>
+
+
+<div class="viewcode-block" id="mo_transition_flux_density"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.extras.mo_transition_flux_density">[docs]</a><span class="k">def</span> <span class="nf">mo_transition_flux_density</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">qc</span><span class="p">,</span><span class="n">drv</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+                    <span class="n">ao_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">mo_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                    <span class="n">delta_ao_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">delta_mo_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Calculate one component (e.g. drv=&#39;x&#39;) of the </span>
+<span class="sd">  transition electoronic flux density between the </span>
+<span class="sd">  molecular orbitals i and j.</span>
+<span class="sd">  </span>
+<span class="sd">  .. math::</span>
+<span class="sd">  </span>
+<span class="sd">        moTEFD_{i,j}(r) = &lt;mo_i|\delta(r-r&#39;)\\nabla_x|mo_j&gt;</span>
+<span class="sd">    </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">     i: int</span>
+<span class="sd">        index of the first mo (Bra)</span>
+<span class="sd">     j: int</span>
+<span class="sd">        index of the second mo (Ket)</span>
+<span class="sd">     drv: {0,1,2,&#39;x&#39;,&#39;y&#39;,&#39;z&#39;}</span>
+<span class="sd">        The desired component of the vector field of the </span>
+<span class="sd">        transition electoronic flux density</span>
+
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">     mo_tefd : numpy.ndarray</span>
+<span class="sd">  &#39;&#39;&#39;</span>  
+  <span class="k">if</span> <span class="n">mo_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ao_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Computing ao_list and &#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;mo #</span><span class="si">%d</span><span class="s1">, since it is not given.&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+      <span class="n">ao_list</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ao_creator</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)</span>  
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Computing mo #</span><span class="si">%d</span><span class="s1">, since it is not given.&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">mo</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">mo_creator</span><span class="p">(</span><span class="n">ao_list</span><span class="p">,[</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">i</span><span class="p">]])[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">mo</span> <span class="o">=</span> <span class="n">mo_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+  <span class="k">if</span> <span class="n">delta_mo_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">delta_ao_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Computing delta_ao_list and the derivative of &#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;mo #</span><span class="si">%d</span><span class="s1">, since it is not given.&#39;</span> <span class="o">%</span> <span class="n">j</span><span class="p">)</span>
+      <span class="n">delta_ao_list</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ao_creator</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">drv</span><span class="o">=</span><span class="n">drv</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Computing mo #</span><span class="si">%d</span><span class="s1">, since it is not given.&#39;</span> <span class="o">%</span> <span class="n">j</span><span class="p">)</span>
+    <span class="n">delta_mo</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">mo_creator</span><span class="p">(</span><span class="n">delta_ao_list</span><span class="p">,[</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">j</span><span class="p">]])[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">delta_mo</span> <span class="o">=</span> <span class="n">delta_mo_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+  
+  <span class="k">return</span> <span class="n">mo</span><span class="o">*</span><span class="n">delta_mo</span></div>
+  <span class="c1"># mo_transition_flux_density </span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

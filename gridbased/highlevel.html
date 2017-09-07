@@ -259,9 +259,9 @@ be disabled with <code class="docutils literal"><span class="pre">ok.options.qui
 <div class="section" id="grid-related-options">
 <h2><a class="toc-backref" href="#id3">Grid Related Options</a><a class="headerlink" href="#grid-related-options" title="Permalink to this headline">¶</a></h2>
 <p>Although the default setting for a grid in ORBKIT is a regular grid, i.e.,
-<img class="math" src="../_images/math/69b7bb13a52add0dfb2b9f71a46d6b33b05d335f.png" alt="N_{\sf data points} = N_{\sf x} \times N_{\sf y} \times N_{\sf z}"/>,
+<span class="math">\(N_{\sf data points} = N_{\sf x} \times N_{\sf y} \times N_{\sf z}\)</span>,
 ORBKIT carries out all computations on a a vector grid, i.e.,
-<img class="math" src="../_images/math/c75a1350b05f477e38f5fe7b7b13a1b607bef12e.png" alt="N_{\sf data points} = N_{\sf x} = N_{\sf y} = N_{\sf z}"/>.
+<span class="math">\(N_{\sf data points} = N_{\sf x} = N_{\sf y} = N_{\sf z}\)</span>.
 Thus for the regular case, the grid and all output data is converted
 automatically back and forth within the computational procedures.</p>
 <p>To omit the back transformation to a regular grid, you may set:</p>
@@ -329,7 +329,7 @@ need to initialize the grid.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p>Please keep in mind that for a  <strong>vector grid</strong> the relation
-<img class="math" src="../_images/math/c75a1350b05f477e38f5fe7b7b13a1b607bef12e.png" alt="N_{\sf data points} = N_{\sf x} = N_{\sf y} = N_{\sf z}"/>
+<span class="math">\(N_{\sf data points} = N_{\sf x} = N_{\sf y} = N_{\sf z}\)</span>
 has to hold.</p>
 <p class="last">If you have initialized a <strong>vector grid</strong> manually, do not forget to
 also set the variable <code class="docutils literal"><span class="pre">grid.is_vector</span> <span class="pre">=</span> <span class="pre">True</span></code>. You can use this
@@ -359,14 +359,14 @@ for alpha and by <code class="docutils literal"><span class="pre">_b</span></cod
 </div>
 <div class="section" id="derivative-calculation">
 <h2><a class="toc-backref" href="#id5">Derivative Calculation</a><a class="headerlink" href="#derivative-calculation" title="Permalink to this headline">¶</a></h2>
-<p>ORBKIT can compute analytical spatial derivatives with respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/>,
-<img class="math" src="../_images/math/276f7e256cbddeb81eee42e1efc348f3cb4ab5f8.png" alt="y"/>, and <img class="math" src="../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/> for the atomic and molecular orbitals, as well
+<p>ORBKIT can compute analytical spatial derivatives with respect to <span class="math">\(x\)</span>,
+<span class="math">\(y\)</span>, and <span class="math">\(z\)</span> for the atomic and molecular orbitals, as well
 as for the electron density:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ok</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">drv</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>This invokes the computation of the derivatives with respect to <img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/>
-and the computation of the derivatives with respect to <img class="math" src="../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/>.
+<p>This invokes the computation of the derivatives with respect to <span class="math">\(x\)</span>
+and the computation of the derivatives with respect to <span class="math">\(z\)</span>.
 For second derivatives, specify the respective combinations,e.g., &#8216;xx&#8217; or &#8216;yz&#8217;.</p>
 </div>
 <div class="section" id="spin-density">
@@ -472,7 +472,7 @@ returns all data computed:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, and Axel Schild.
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
 
     </p>
   </div>
@@ -486,8 +486,23 @@ returns all data computed:</p>
     </section>
 
   </div>
-  
-
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.0 (stable)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
 
   
 
@@ -503,6 +518,7 @@ returns all data computed:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

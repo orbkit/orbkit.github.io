@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>orbkit.analytical_integrals &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ORBKIT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>orbkit.analytical_integrals</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for orbkit.analytical_integrals</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: iso-8859-1 -*-</span>
+<span class="sd">&#39;&#39;&#39;Module performing analytical integrals between atomic and molecular orbitals.</span>
+
+<span class="sd">Code for the computation of the overlap between primitive atomic basis functions</span>
+<span class="sd">adapted from </span>
+
+<span class="sd">  M. Hô, J. M. Hernandez-Perez: &quot;Evaluation of Gaussian Molecular Integrals&quot;, DOI:10.3888/tmj.14-3</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">orbkit</span>
+<span class="sd">Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay</span>
+
+<span class="sd">Institut fuer Chemie und Biochemie, Freie Universitaet Berlin, 14195 Berlin, Germany</span>
+
+<span class="sd">This file is part of orbkit.</span>
+
+<span class="sd">orbkit is free software: you can redistribute it and/or modify</span>
+<span class="sd">it under the terms of the GNU Lesser General Public License as </span>
+<span class="sd">published by the Free Software Foundation, either version 3 of </span>
+<span class="sd">the License, or any later version.</span>
+
+<span class="sd">orbkit is distributed in the hope that it will be useful,</span>
+<span class="sd">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="sd">GNU Lesser General Public License for more details.</span>
+
+<span class="sd">You should have received a copy of the GNU Lesser General Public </span>
+<span class="sd">License along with orbkit.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">cy_overlap</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.omp_functions</span> <span class="kn">import</span> <span class="n">slicer</span>
+<span class="kn">from</span> <span class="nn">.orbitals</span> <span class="kn">import</span> <span class="n">AOClass</span>
+
+<div class="viewcode-block" id="get_ao_overlap"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_ao_overlap">[docs]</a><span class="k">def</span> <span class="nf">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span> <span class="n">coord_b</span><span class="p">,</span> <span class="n">ao_spec</span><span class="p">,</span> <span class="n">lxlylz_b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                   <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the overlap matrix of a basis set, where `Bra` basis set</span>
+<span class="sd">  corresponds to the geometry :literal:`coord_a` and `Ket` basis set corresponds </span>
+<span class="sd">  to the geometry :literal:`coord_b`.</span>
+<span class="sd">  </span>
+<span class="sd">  In order to enable the computation of analytical expectation values, </span>
+<span class="sd">  the exponents lx, ly, lz for the primitive Cartesian Gaussians of the `Ket`</span>
+<span class="sd">  basis set can be set manually with :literal:`lxlylz_b`.</span>
+<span class="sd">  Please note that for the normalization of the primitive Cartesian Gaussians </span>
+<span class="sd">  the exponents from :literal:`ao_spec` are used.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  coord_a : geo_spec</span>
+<span class="sd">    Specifies the geometry of the `Bra` basis set. </span>
+<span class="sd">    See :ref:`Central Variables` in the manual for details.  </span>
+<span class="sd">  coord_b : geo_spec</span>
+<span class="sd">    Specifies the geometry of the `Ket` basis set. </span>
+<span class="sd">    See :ref:`Central Variables` in the manual for details.  </span>
+<span class="sd">  ao_spec : </span>
+<span class="sd">    See :ref:`Central Variables` in the manual for details.   </span>
+<span class="sd">  lxlylz_b : numpy.ndarray, dtype=numpy.int64, shape = (NAO,3), optional</span>
+<span class="sd">    Contains the expontents lx, ly, lz for the primitive Cartesian Gaussians of</span>
+<span class="sd">    the `Ket` basis set. </span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
+<span class="sd">    Contains the overlap matrix.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">,</span> <span class="n">AOClass</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;ao_spec must be an instance of the AOClass&#39;</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">drv</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="n">aoom</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii_d</span> <span class="ow">in</span> <span class="n">drv</span><span class="p">:</span>
+      <span class="n">aoom</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span><span class="n">coord_b</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">,</span>
+                                 <span class="n">lxlylz_b</span><span class="o">=</span><span class="n">lxlylz_b</span><span class="p">,</span>
+                                 <span class="n">drv</span><span class="o">=</span><span class="n">ii_d</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">aoom</span>
+  <span class="n">lxlylz_a</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">()</span>
+
+  <span class="k">if</span> <span class="n">lxlylz_b</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">lxlylz_b</span> <span class="o">=</span>  <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_a</span><span class="p">,</span><span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The keyword argument `lxlylz` has to be convertable &#39;</span> <span class="o">+</span> 
+                       <span class="s1">&#39;into a numpy integer array.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lxlylz_a</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">lxlylz_b</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The exponents lxlylz for basis set a and basis set b &#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39;have to have the same shape.&#39;</span><span class="p">)</span>
+
+  <span class="c1"># Derivative Calculation requested?  </span>
+  <span class="n">drv</span> <span class="o">=</span> <span class="n">validate_drv</span><span class="p">(</span><span class="n">drv</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">drv</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only first derivatives are currently supported for &#39;</span> <span class="o">+</span>
+                     <span class="s1">&#39;analytical integrals.&#39;</span><span class="p">)</span>
+  
+  <span class="n">ra</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+  <span class="n">rb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">cont</span> <span class="ow">in</span> <span class="n">ao_spec</span><span class="p">:</span>
+    <span class="n">ra</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="n">coord_a</span><span class="p">[</span><span class="n">cont</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">]][</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">rb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span><span class="n">coord_b</span><span class="p">[</span><span class="n">cont</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">]][</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+  <span class="n">coeff</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lmpao</span><span class="p">()</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lmprim2cont</span><span class="p">(</span><span class="n">return_l</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+  <span class="n">ra</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+  <span class="n">rb</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+
+  <span class="c1">#lxlylz_a comes from an AOClass instance so its type is checked there</span>
+  <span class="c1">#lxlylz_b might come from anywhere so we neet to make sure it has the right type</span>
+  <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">lxlylz_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+
+  <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">cy_overlap</span><span class="o">.</span><span class="n">aooverlap</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="n">rb</span><span class="p">,</span>
+                                           <span class="n">lxlylz_a</span><span class="p">,</span><span class="n">lxlylz_b</span><span class="p">,</span>
+                                           <span class="n">coeff</span><span class="p">,</span><span class="n">index</span><span class="p">,</span>
+                                           <span class="n">drv</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">normalized</span><span class="p">))</span>
+  <span class="k">if</span> <span class="s1">&#39;N&#39;</span> <span class="ow">in</span> <span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">)):</span>
+      <span class="n">ao_overlap_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">*=</span> <span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;N&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;N&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="k">if</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">spherical</span><span class="p">:</span>
+    <span class="c1"># Convert the overlap matrix to the real-valued spherical harmonic basis.</span>
+    <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">cartesian2spherical_aoom</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">ao_overlap_matrix</span></div>
+
+<div class="viewcode-block" id="cartesian2spherical_aoom"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.cartesian2spherical_aoom">[docs]</a><span class="k">def</span> <span class="nf">cartesian2spherical_aoom</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Transforms the atomic orbitals overlap matrix from a Cartesian Gaussian </span>
+<span class="sd">  basis set to a (real) pure spherical harmonic Gaussian basis set.</span>
+<span class="sd">  </span>
+<span class="sd">  Adapted from H.B. Schlegel and M.J. Frisch,</span>
+<span class="sd">  International Journal of Quantum Chemistry, Vol. 54, 83-87 (1995).</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
+<span class="sd">    Contains the overlap matrix of the Cartesian basis set. </span>
+<span class="sd">  ao_spec,ao_spherical :</span>
+<span class="sd">    See :ref:`Central Variables` in the manual for details.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  aoom_sph : numpy.ndarray, shape = (NAO,NAO)</span>
+<span class="sd">    Contains the overlap matrix of the spherical harmonic Gaussian basis set.</span>
+<span class="sd">  </span>
+<span class="sd">  ..hint: </span>
+<span class="sd">  </span>
+<span class="sd">    Only supported up to g atomic orbitals and only for contracted </span>
+<span class="sd">    atomic orbitals.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+
+  <span class="c1"># Get the exponents of the Cartesian basis functions</span>
+  <span class="n">exp_list</span><span class="p">,</span><span class="n">assign</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">(</span><span class="n">get_assign</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">ao_spherical</span>  <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_old_ao_spherical</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">ao_overlap_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">exp_list</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">exp_list</span><span class="p">)):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;No contraction is currently not supported for a &#39;</span><span class="o">+</span> 
+                  <span class="s1">&#39;spherical harmonics. Please come back&#39;</span><span class="o">+</span>
+                  <span class="s1">&#39; manually after calling `contract_ao_overlap_matrix()`.&#39;</span><span class="p">)</span>
+
+  <span class="n">l</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ao_spec</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">assign</span><span class="p">):</span>
+    <span class="n">l</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> 
+
+  <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">i0</span><span class="p">,(</span><span class="n">j0</span><span class="p">,</span><span class="n">k0</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">):</span>
+    <span class="n">sph0</span> <span class="o">=</span> <span class="n">get_cart2sph</span><span class="p">(</span><span class="o">*</span><span class="n">k0</span><span class="p">)</span>    
+    <span class="k">for</span> <span class="n">c0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sph0</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">j0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">exp_list</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="n">sph0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">c0</span><span class="p">]:</span>
+          <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">l</span><span class="p">[</span><span class="n">j0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+      <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Here</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">up2date</span><span class="p">)</span>
+    <span class="nb">exit</span><span class="p">()</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">aoom_sph</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">)))</span>
+  <span class="k">for</span> <span class="n">i0</span><span class="p">,(</span><span class="n">j0</span><span class="p">,</span><span class="n">k0</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">):</span>
+    <span class="n">sph0</span> <span class="o">=</span> <span class="n">get_cart2sph</span><span class="p">(</span><span class="o">*</span><span class="n">k0</span><span class="p">)</span>    
+    <span class="k">for</span> <span class="n">c0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sph0</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span> 
+      <span class="k">for</span> <span class="n">i1</span><span class="p">,(</span><span class="n">j1</span><span class="p">,</span><span class="n">k1</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">):</span>
+        <span class="n">sph1</span> <span class="o">=</span> <span class="n">get_cart2sph</span><span class="p">(</span><span class="o">*</span><span class="n">k1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sph1</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+          <span class="n">aoom_sph</span><span class="p">[</span><span class="n">i0</span><span class="p">,</span><span class="n">i1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">sph0</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">c0</span><span class="p">]</span><span class="o">*</span><span class="n">sph0</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sph1</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">c1</span><span class="p">]</span><span class="o">*</span><span class="n">sph1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                              <span class="o">*</span> <span class="n">ao_overlap_matrix</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">c</span><span class="p">],</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]])</span>
+          <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="n">c</span><span class="o">+=</span><span class="mi">1</span>
+
+  <span class="k">return</span> <span class="n">aoom_sph</span></div>
+
+<div class="viewcode-block" id="get_mo_overlap"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_mo_overlap">[docs]</a><span class="k">def</span> <span class="nf">get_mo_overlap</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span><span class="n">mo_b</span><span class="p">,</span><span class="n">ao_overlap_matrix</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the overlap of two molecular orbitals.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  mo_a : numpy.ndarray, shape = (NAO,)</span>
+<span class="sd">     Contains the molecular orbital coefficients of the `Bra` orbital.  </span>
+<span class="sd">  mo_b : numpy.ndarray, shape = (NAO,)</span>
+<span class="sd">     Contains the molecular orbital coefficients of the `Ket` orbital.  </span>
+<span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
+<span class="sd">    Contains the overlap matrix of the basis set.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  mo_overlap : float</span>
+<span class="sd">    Contains the overlap of the two input molecular orbitals.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">shape</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="n">mo_a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mo_a</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])</span>
+  <span class="k">if</span> <span class="n">mo_a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mo_a</span><span class="p">)</span> <span class="o">!=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The coefficients of mo_a have to be a vector of the &#39;</span> <span class="o">+</span> 
+                     <span class="s1">&#39;length of the ao_overlap_matrix.&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_b</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="n">mo_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mo_b</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])</span>
+  <span class="k">if</span> <span class="n">mo_b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">mo_b</span><span class="p">)</span> <span class="o">!=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The coefficients of mo_b have to be a vector of the &#39;</span> <span class="o">+</span> 
+                     <span class="s1">&#39;length of the ao_overlap_matrix.&#39;</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">cy_overlap</span><span class="o">.</span><span class="n">mooverlap</span><span class="p">(</span><span class="n">require</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">),</span><span class="n">require</span><span class="p">(</span><span class="n">mo_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">),</span>
+                              <span class="n">ao_overlap_matrix</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">initializer</span><span class="p">(</span><span class="n">gargs</span><span class="p">):</span>
+  <span class="k">global</span> <span class="n">global_args</span>
+  <span class="n">global_args</span> <span class="o">=</span> <span class="n">gargs</span>
+
+<span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
+  <span class="k">return</span> <span class="n">cy_overlap</span><span class="o">.</span><span class="n">mooverlapmatrix</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">],</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_b&#39;</span><span class="p">],</span>
+                             <span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;ao_overlap_matrix&#39;</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<div class="viewcode-block" id="get_mo_overlap_matrix"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_mo_overlap_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span><span class="n">mo_b</span><span class="p">,</span><span class="n">ao_overlap_matrix</span><span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the overlap of two sets of molecular orbitals.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  mo_a : numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. :ref:`Central Variables`)</span>
+<span class="sd">     Contains the molecular orbital coefficients of all `Bra` orbitals.</span>
+<span class="sd">  mo_b : numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. :ref:`Central Variables`)</span>
+<span class="sd">     Contains the molecular orbital coefficients of all `Ket` orbitals.</span>
+<span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
+<span class="sd">    Contains the overlap matrix of the basis set.</span>
+<span class="sd">  numproc : int</span>
+<span class="sd">    Specifies number of subprocesses for multiprocessing.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  mo_overlap_matrix : numpy.ndarray, shape = (NMO,NMO)</span>
+<span class="sd">    Contains the overlap matrix between the two sets of input molecular orbitals.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">global_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mo_a&#39;</span><span class="p">:</span> <span class="n">mo_a</span><span class="p">,</span>
+                 <span class="s1">&#39;mo_b&#39;</span><span class="p">:</span> <span class="n">mo_b</span><span class="p">,</span>
+                 <span class="s1">&#39;ao_overlap_matrix&#39;</span><span class="p">:</span> <span class="n">ao_overlap_matrix</span><span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">((</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ao_overlap_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span>
+      <span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ao_overlap_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;mo_a and mo_b have to correspond to the same basis set, &#39;</span><span class="o">+</span>
+                     <span class="s1">&#39;i.e., shape_a[1] != shape_b[1]&#39;</span><span class="p">)</span>
+  
+  <span class="n">numproc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">numproc</span><span class="p">))</span>
+  <span class="n">ij</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]),</span> 
+                      <span class="n">num</span><span class="o">=</span><span class="n">numproc</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>  <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+  <span class="n">ij</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ij</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ij</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+  
+  <span class="c1"># Start the worker processes</span>
+  <span class="k">if</span> <span class="n">numproc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">numproc</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">global_args</span><span class="p">,))</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="n">get_slice</span><span class="p">,</span> <span class="n">ij</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">initializer</span><span class="p">(</span><span class="n">global_args</span><span class="p">)</span>
+  
+  <span class="n">mo_overlap_matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">mo_a</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">mo_b</span><span class="p">)),</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+  
+  <span class="c1">#--- Send each task to single processor</span>
+  <span class="k">for</span> <span class="n">l</span><span class="p">,[</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ij</span><span class="p">):</span>
+    <span class="c1">#--- Call function to compute one-electron density</span>
+    <span class="n">mo_overlap_matrix</span><span class="p">[</span><span class="n">m</span><span class="p">:</span><span class="n">n</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">next</span><span class="p">()</span> <span class="k">if</span> <span class="n">numproc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">get_slice</span><span class="p">(</span><span class="n">ij</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+  
+  <span class="c1">#--- Close the worker processes</span>
+  <span class="k">if</span> <span class="n">numproc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  
+    <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+  
+  <span class="c1">#cy_overlap.mooverlapmatrix(moom,mo_a,mo_b,ao_overlap_matrix,0,len(moom))</span>
+  <span class="k">return</span> <span class="n">mo_overlap_matrix</span></div>
+
+<div class="viewcode-block" id="get_moom_atoms"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_moom_atoms">[docs]</a><span class="k">def</span> <span class="nf">get_moom_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">qc</span><span class="p">,</span><span class="n">mo_a</span><span class="p">,</span><span class="n">mo_b</span><span class="p">,</span><span class="n">ao_overlap_matrix</span><span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the molecular orbital overlap matrix for selected atoms.</span>
+<span class="sd">    </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  atoms : int or list of int</span>
+<span class="sd">    Contains the indices of the selected atoms.</span>
+<span class="sd">  mo_a : numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. :ref:`Central Variables`)</span>
+<span class="sd">     Contains the molecular orbital coefficients of all `Bra` orbitals.  </span>
+<span class="sd">  mo_b : numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. :ref:`Central Variables`)</span>
+<span class="sd">     Contains the molecular orbital coefficients of all `Ket` orbitals.  </span>
+<span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
+<span class="sd">    Contains the overlap matrix of the basis set.</span>
+<span class="sd">  numproc : int</span>
+<span class="sd">    Specifies number of subprocesses for multiprocessing.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  mo_overlap_matrix : numpy.ndarray, shape = (NMO,NMO)</span>
+<span class="sd">    Contains the overlap matrix between the two sets of input molecular orbitals.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">mo_a</span> <span class="o">=</span> <span class="n">mo_a</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
+  <span class="n">mo_b</span> <span class="o">=</span> <span class="n">mo_b</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
+  <span class="n">indices</span> <span class="o">=</span> <span class="n">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">get_atom2mo</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">[:,</span><span class="n">indices</span><span class="p">])</span>
+  <span class="k">return</span> <span class="n">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mo_a</span><span class="p">),</span>
+                               <span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mo_b</span><span class="p">[:,</span><span class="n">indices</span><span class="p">]),</span>
+                               <span class="n">ao_overlap_matrix</span><span class="p">,</span><span class="n">numproc</span><span class="o">=</span><span class="n">numproc</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_dipole_moment"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_dipole_moment">[docs]</a><span class="k">def</span> <span class="nf">get_dipole_moment</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">]):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the dipole moment analytically.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  qc : class</span>
+<span class="sd">    QCinfo class. (See :ref:`Central Variables` for details.)</span>
+<span class="sd">  component : string or list of strings, {&#39;x&#39;,&#39;y&#39;, or &#39;z&#39;}</span>
+<span class="sd">    Specifies the compontent(s) of the dipole moment which shall be computed.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  dipole_moment : 1D numpy.array, shape[0]=len(component)</span>
+<span class="sd">    Contains the dipole moment.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">component</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span> 
+    <span class="n">component</span> <span class="o">=</span> <span class="p">[</span><span class="n">component</span><span class="p">]</span>
+  
+  <span class="n">dipole_moment</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">component</span><span class="p">),))</span>
+  <span class="n">coeff</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
+  <span class="n">occ</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_occ</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">i_d</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">component</span><span class="p">):</span>
+    <span class="n">ao_dipole_matrix</span> <span class="o">=</span> <span class="n">get_ao_dipole_matrix</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i_mo</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">)):</span>
+      <span class="n">dipole_moment</span><span class="p">[</span><span class="n">i_d</span><span class="p">]</span> <span class="o">-=</span> <span class="n">occ</span><span class="p">[</span><span class="n">i_mo</span><span class="p">]</span> <span class="o">*</span> <span class="n">get_mo_overlap</span><span class="p">(</span><span class="n">coeff</span><span class="p">[</span><span class="n">i_mo</span><span class="p">,:],</span>
+                                                       <span class="n">coeff</span><span class="p">[</span><span class="n">i_mo</span><span class="p">,:],</span>
+                                                       <span class="n">ao_dipole_matrix</span><span class="p">)</span>
+
+    <span class="c1"># Add the nuclear part</span>
+    <span class="n">dipole_moment</span><span class="p">[</span><span class="n">i_d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">get_nuclear_dipole_moment</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">dipole_moment</span></div>
+
+<div class="viewcode-block" id="get_ao_dipole_matrix"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_ao_dipole_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_ao_dipole_matrix</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the expectation value of the dipole moment operator between </span>
+<span class="sd">  all atomic orbitals.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  qc : class</span>
+<span class="sd">    QCinfo class. (See :ref:`Central Variables` for details.)</span>
+<span class="sd">  component : int or string, {&#39;x&#39;,&#39;y&#39;, &#39;z&#39;}</span>
+<span class="sd">    Specifies the compontent of the dipole moment operator which shall be applied.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  ao_dipole_matrix : numpy.ndarray, shape=(NAO,NAO)</span>
+<span class="sd">    Contains the expectation value matrix.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="n">aoom</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii_d</span> <span class="ow">in</span> <span class="n">component</span><span class="p">:</span>
+      <span class="n">aoom</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_ao_dipole_matrix</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="n">ii_d</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">aoom</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">component</span> <span class="o">=</span> <span class="s1">&#39;xyz&#39;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">component</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># Was the selection valid?</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The selection of the component was not valid!&quot;</span> <span class="o">+</span>
+              <span class="s2">&quot; (component = &#39;x&#39; or &#39;y&#39; or &#39;z&#39;)&quot;</span><span class="p">)</span>
+
+  <span class="c1"># Get the the exponents lx, ly, lz for the primitive Cartesian Gaussians of</span>
+  <span class="c1"># the `Ket` basis set, and increase lz by one.</span>
+  <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">()</span>
+  <span class="n">lxlylz_b</span><span class="p">[:,</span><span class="n">component</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+  <span class="n">ao_part_1</span> <span class="o">=</span> <span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">,</span>
+                             <span class="n">lxlylz_b</span><span class="o">=</span><span class="n">lxlylz_b</span><span class="p">)</span>
+
+  <span class="c1"># Compute the second part of the expectation value:</span>
+  <span class="n">ao_part_2</span> <span class="o">=</span> <span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)</span>
+
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">sel_ao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+              <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">spherical</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+      <span class="n">ao_part_2</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">[</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">],</span><span class="n">component</span><span class="p">]</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+  <span class="c1"># the atomic orbital overlap matrix  </span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">ao_part_1</span><span class="o">+</span><span class="n">ao_part_2</span><span class="p">)</span> </div>
+
+<div class="viewcode-block" id="get_nuclear_dipole_moment"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_nuclear_dipole_moment">[docs]</a><span class="k">def</span> <span class="nf">get_nuclear_dipole_moment</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Computes the nuclear part of the dipole moment.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  qc : class</span>
+<span class="sd">    QCinfo class. (See :ref:`Central Variables` for details.)</span>
+<span class="sd">  component : string, {&#39;x&#39;,&#39;y&#39;, &#39;z&#39;}</span>
+<span class="sd">    Specifies the compontent of the dipole moment operator which shall be applied.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  nuclear_dipole_moment : float</span>
+<span class="sd">    Contains the nuclear dipole moment.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">component</span> <span class="o">=</span> <span class="s1">&#39;xyz&#39;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">component</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># Was the selection valid?</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The selection of the component was not valid!&quot;</span> <span class="o">+</span>
+              <span class="s2">&quot; (component = &#39;x&#39; or &#39;y&#39; or &#39;z&#39;)&quot;</span><span class="p">)</span>
+  
+  <span class="n">nuclear_dipole_moment</span> <span class="o">=</span> <span class="mf">0.</span>
+  <span class="k">for</span> <span class="n">i_nuc</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">)):</span>
+    <span class="n">nuclear_dipole_moment</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_info</span><span class="p">[</span><span class="n">i_nuc</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">[</span><span class="n">i_nuc</span><span class="p">,</span><span class="n">component</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">nuclear_dipole_moment</span></div>
+  
+<div class="viewcode-block" id="get_atom2mo"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_atom2mo">[docs]</a><span class="k">def</span> <span class="nf">get_atom2mo</span><span class="p">(</span><span class="n">qc</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Assigns atom indices to molecular orbital coefficients.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  qc.ao_spec :</span>
+<span class="sd">      See :ref:`Central Variables` for details.</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  atom2mo : numpy.ndarray, shape = (NAO,)</span>
+<span class="sd">    Contains indices of atoms assigned to the molecular orbital coefficients.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">atom2mo</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">a2mo_type</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>  
+  <span class="k">for</span> <span class="n">sel_ao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+              <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">spherical</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+      <span class="n">atom2mo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+      <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
+  
+  <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span></div>
+  
+<div class="viewcode-block" id="get_lc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_lc">[docs]</a><span class="k">def</span> <span class="nf">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Returns indices of molecular orbital coefficients corresponding </span>
+<span class="sd">  to the selected atoms.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  atoms : int or list of int</span>
+<span class="sd">    Contains the indices of the selected atoms.</span>
+<span class="sd">  atom2mo : numpy.ndarray, shape = (NAO,)</span>
+<span class="sd">    Contains indices of atoms assigned to the molecular orbital coefficients.</span>
+<span class="sd">    &gt;&gt; atom2mo = get_atom2mo(qc)</span>
+<span class="sd">  </span>
+<span class="sd">  **Returns:**</span>
+<span class="sd">  </span>
+<span class="sd">  lc : numpy.ndarray, shape = (NAO_atom,)</span>
+<span class="sd">    Contains the NAO_atom indices molecular orbital coefficients corresponding </span>
+<span class="sd">    to the selected atoms.</span>
+<span class="sd">  </span>
+<span class="sd">  **Example:**</span>
+<span class="sd">  </span>
+<span class="sd">    &gt;&gt; atom2mo = get_atom2mo(qc)</span>
+<span class="sd">    &gt;&gt; get_lc([0,3],atom2mo)</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">atoms</span><span class="p">]</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">strict</span><span class="p">:</span>
+    <span class="n">lc</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atom2mo</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+      <span class="n">lc</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">atom2mo</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="n">lc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">lc</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">lc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom2mo</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span> <span class="n">lc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lc</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="print2D"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.print2D">[docs]</a><span class="k">def</span> <span class="nf">print2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%+.2f</span><span class="s1"> &#39;</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Prints a 2D matrix.</span>
+<span class="sd">  </span>
+<span class="sd">  **Parameters:**</span>
+<span class="sd">  </span>
+<span class="sd">  x : numpy.ndarray, shape = (n,m)</span>
+<span class="sd">    Contains a 2D matrix.</span>
+<span class="sd">  </span>
+<span class="sd">  format : str</span>
+<span class="sd">    Specifies the output format.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">shape</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+      <span class="n">s</span> <span class="o">+=</span> <span class="n">format</span> <span class="o">%</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">end</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">pmat</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))):</span>
+  <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">complex</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;plotting real part of matrix&#39;</span><span class="p">)</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">real</span>
+  <span class="n">vm</span> <span class="o">=</span> <span class="n">vmax</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="k">else</span> <span class="n">vmax</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="n">vm</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;seismic_r&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
