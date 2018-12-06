@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,26 +26,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
-        <link rel="up" title="ORBKIT References" href="index.html"/>
-        <link rel="next" title="Function Reference" href="funcref.html"/>
-        <link rel="prev" title="Options" href="options.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Function Reference" href="funcref.html" />
+    <link rel="prev" title="Options" href="options.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +81,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
@@ -98,6 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="funcref.html">Function Reference</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/literature.html">Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -111,36 +112,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">ORBKIT References</a> &raquo;</li>
-      
-    <li>Central Variables</li>
+        
+      <li>Central Variables</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/refs/cvars.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/refs/cvars.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -149,9 +170,9 @@
   <div class="section" id="central-variables">
 <span id="id1"></span><h1>Central Variables<a class="headerlink" href="#central-variables" title="Permalink to this headline">¶</a></h1>
 <p>In ORBKIT, all central variables are extracted from quantum chemistry outputs
-(cf. <a class="reference internal" href="funcref.html#module-orbkit.read" title="orbkit.read"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.read</span></code></a>) and organized within the class
-<a class="reference internal" href="funcref.html#orbkit.qcinfo.QCinfo" title="orbkit.qcinfo.QCinfo"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.qcinfo.QCinfo</span></code></a>. The corresponding command reads:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">read</span>
+(cf. <a class="reference internal" href="funcref.html#module-orbkit.read" title="orbkit.read"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.read</span></code></a>) and organized within the class
+<a class="reference internal" href="funcref.html#orbkit.qcinfo.QCinfo" title="orbkit.qcinfo.QCinfo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.qcinfo.QCinfo</span></code></a>. The corresponding command reads:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">read</span>
 <span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.md&#39;</span><span class="p">,</span><span class="n">itype</span><span class="o">=</span><span class="s1">&#39;molden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -171,24 +192,24 @@ computations and is organized as follows:</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><a class="reference internal" href="#qc-geo-info">qc.geo_info</a></td>
-<td><code class="docutils literal"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal"><span class="pre">str</span></code>)</td>
+<td><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal notranslate"><span class="pre">str</span></code>)</td>
 <td>(N<sub>atoms</sub>, 3)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#qc-geo-spec">qc.geo_spec</a></td>
-<td><code class="docutils literal"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal"><span class="pre">str</span></code>)</td>
+<td><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal notranslate"><span class="pre">str</span></code>)</td>
 <td>(N<sub>atoms</sub>, 3)</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#qc-ao-spec">qc.ao_spec</a></td>
-<td><code class="docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">dict</span></code></td>
-<td>&#8220;pnum&#8221;, &#8220;atom&#8221;, &#8220;type&#8221;, &#8220;coeffs&#8221;, (&#8220;exp_list&#8221;)</td>
+<td><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">dict</span></code></td>
+<td>“pnum”, “atom”, “type”, “coeffs”, (“exp_list”)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#qc-ao-spherical">qc.ao_spherical</a></td>
-<td><code class="docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">tuple</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">tuple</span></code></td>
 <td>(N<sub>spherical AOs</sub>, 2)</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#qc-mo-spec">qc.mo_spec</a></td>
-<td><code class="docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">dict</span></code></td>
-<td>&#8220;energy&#8221;, &#8220;occ_num&#8221;, &#8220;sym&#8221;, &#8220;coeffs&#8221;</td>
+<td><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">dict</span></code></td>
+<td>“energy”, “occ_num”, “sym”, “coeffs”</td>
 </tr>
 </tbody>
 </table>
@@ -230,25 +251,25 @@ of the output file.</li>
 <li>Contains all information about the atomic orbitals</li>
 <li>The number of dictionaries corresponds to the number of contracted Gaussians</li>
 <li>Members of the dictionaries:<ul>
-<li>&#8220;atom&#8221;<ul>
-<li>Atom number (according to the input file, i.e., starting from 1) (<code class="docutils literal"><span class="pre">int</span></code>)</li>
+<li>“atom”<ul>
+<li>Atom number (according to the input file, i.e., starting from 1) (<code class="docutils literal notranslate"><span class="pre">int</span></code>)</li>
 </ul>
 </li>
-<li>&#8220;coeffs&#8221;<ul>
+<li>“coeffs”<ul>
 <li><strong>1st</strong> element exponent and <strong>2nd</strong> element contraction coefficients of
 the basis functions</li>
-<li><code class="docutils literal"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal"><span class="pre">float</span></code>) with the shape (N<sub>primitives</sub>, 2)</li>
+<li><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal notranslate"><span class="pre">float</span></code>) with the shape (N<sub>primitives</sub>, 2)</li>
 </ul>
 </li>
-<li>&#8220;pnum&#8221;<ul>
-<li>Number of number of primitives (<code class="docutils literal"><span class="pre">int</span></code>)</li>
+<li>“pnum”<ul>
+<li>Number of number of primitives (<code class="docutils literal notranslate"><span class="pre">int</span></code>)</li>
 </ul>
 </li>
-<li>&#8220;exp_list&#8221; (optional)<ul>
-<li>Exponents <span class="math">\((l_x,l_y,l_z)\)</span> of the basis functions</li>
+<li>“exp_list” (optional)<ul>
+<li>Exponents <span class="math notranslate nohighlight">\((l_x,l_y,l_z)\)</span> of the basis functions</li>
 <li>Only present if the order of the exponents deviate from the standard
 molden order</li>
-<li><code class="docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">tuple</span></code>, i.e., <code class="docutils literal"><span class="pre">[(l_x1,l_y1,l_z1),</span> <span class="pre">(l_x2,l_y2,l_z2),</span> <span class="pre">...]</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, i.e., <code class="docutils literal notranslate"><span class="pre">[(l_x1,l_y1,l_z1),</span> <span class="pre">(l_x2,l_y2,l_z2),</span> <span class="pre">...]</span></code></li>
 </ul>
 </li>
 </ul>
@@ -263,12 +284,12 @@ molden order</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">qc.ao_spherical:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
 <li>Contains the order of the spherical harmonic basis functions within the
 input file</li>
-<li><code class="docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">tuple</span></code>, i.e., <code class="docutils literal"><span class="pre">[(l_1,m_1),</span> <span class="pre">(l_2,m_2),</span> <span class="pre">...]</span></code> with
-the angular momentum quantum number <code class="docutils literal"><span class="pre">m</span></code> and the magnetic quantum number
-<code class="docutils literal"><span class="pre">l</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, i.e., <code class="docutils literal notranslate"><span class="pre">[(l_1,m_1),</span> <span class="pre">(l_2,m_2),</span> <span class="pre">...]</span></code> with
+the angular momentum quantum number <code class="docutils literal notranslate"><span class="pre">m</span></code> and the magnetic quantum number
+<code class="docutils literal notranslate"><span class="pre">l</span></code></li>
 </ul>
 </td>
 </tr>
@@ -282,22 +303,22 @@ the angular momentum quantum number <code class="docutils literal"><span class="
 <li>Contains all information about the molecular orbitals.</li>
 <li>The number of dictionaries corresponds to number of molecular orbitals</li>
 <li>Members of the dictionaries:<ul>
-<li>&#8220;coeffs&#8221;<ul>
+<li>“coeffs”<ul>
 <li>Molecular orbital coefficients</li>
-<li><code class="docutils literal"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal"><span class="pre">float</span></code>) with the shape (N<sub>AO</sub>, 1)</li>
+<li><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> (dtype= <code class="docutils literal notranslate"><span class="pre">float</span></code>) with the shape (N<sub>AO</sub>, 1)</li>
 </ul>
 </li>
-<li>&#8220;energy&#8221;<ul>
-<li>Energy of molecular orbital (<code class="docutils literal"><span class="pre">float</span></code>)</li>
+<li>“energy”<ul>
+<li>Energy of molecular orbital (<code class="docutils literal notranslate"><span class="pre">float</span></code>)</li>
 </ul>
 </li>
-<li>&#8220;occ_num&#8221;<ul>
-<li>Occupation of molecular orbital (<code class="docutils literal"><span class="pre">float</span></code>)</li>
+<li>“occ_num”<ul>
+<li>Occupation of molecular orbital (<code class="docutils literal notranslate"><span class="pre">float</span></code>)</li>
 </ul>
 </li>
-<li>&#8220;sym&#8221;<ul>
-<li>MOLPRO-like symmetry label of molecular orbital (<code class="docutils literal"><span class="pre">str</span></code>), e.g.,
-&#8220;12.1&#8221; or &#8220;12.A1&#8221;</li>
+<li>“sym”<ul>
+<li>MOLPRO-like symmetry label of molecular orbital (<code class="docutils literal notranslate"><span class="pre">str</span></code>), e.g.,
+“12.1” or “12.A1”</li>
 </ul>
 </li>
 </ul>
@@ -307,22 +328,23 @@ the angular momentum quantum number <code class="docutils literal"><span class="
 </tr>
 </tbody>
 </table>
-<p>Besides those central variables, the <a class="reference internal" href="funcref.html#orbkit.qcinfo.QCinfo" title="orbkit.qcinfo.QCinfo"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.qcinfo.QCinfo</span></code></a> class possess
+<p>Besides those central variables, the <a class="reference internal" href="funcref.html#orbkit.qcinfo.QCinfo" title="orbkit.qcinfo.QCinfo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.qcinfo.QCinfo</span></code></a> class possess
 additional members which are not of importance for the computations done by
 ORBKIT.</p>
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="funcref.html" class="btn btn-neutral float-right" title="Function Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="funcref.html" class="btn btn-neutral float-right" title="Function Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="options.html" class="btn btn-neutral" title="Options" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="options.html" class="btn btn-neutral" title="Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -331,11 +353,11 @@ ORBKIT.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -365,35 +387,24 @@ ORBKIT.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,26 +26,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
-        <link rel="up" title="ORBKIT References" href="index.html"/>
-        <link rel="next" title="Central Variables" href="cvars.html"/>
-        <link rel="prev" title="ORBKIT References" href="index.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Central Variables" href="cvars.html" />
+    <link rel="prev" title="ORBKIT References" href="index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +81,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrals/index.html">Analytical integrals with libcint</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ORBKIT References</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#input-output-options">Input/Output Options</a></li>
@@ -119,36 +120,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">ORBKIT References</a> &raquo;</li>
-      
-    <li>Options</li>
+        
+      <li>Options</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/refs/options.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/refs/options.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -156,12 +177,12 @@
             
   <div class="section" id="options">
 <span id="id1"></span><h1>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h1>
-<p>Whenever ORBKIT&#8217;s main function (<a class="reference internal" href="funcref.html#orbkit.main.run_orbkit" title="orbkit.main.run_orbkit"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.main.run_orbkit</span></code></a>) is used within a Python
-program, all actions are controlled via the ORBKIT module <a class="reference internal" href="funcref.html#module-orbkit.options" title="orbkit.options"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.options</span></code></a>.
+<p>Whenever ORBKIT’s main function (<a class="reference internal" href="funcref.html#orbkit.main.run_orbkit" title="orbkit.main.run_orbkit"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.main.run_orbkit</span></code></a>) is used within a Python
+program, all actions are controlled via the ORBKIT module <a class="reference internal" href="funcref.html#module-orbkit.options" title="orbkit.options"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.options</span></code></a>.
 This module also controls the parser, which is executed when ORBKIT is called
 via the Terminal.</p>
-<p>To reset all options, simply reload the module or call <a class="reference internal" href="funcref.html#orbkit.main.init" title="orbkit.main.init"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.main.init</span></code></a>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">main</span><span class="p">,</span> <span class="n">options</span>
+<p>To reset all options, simply reload the module or call <a class="reference internal" href="funcref.html#orbkit.main.init" title="orbkit.main.init"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.main.init</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">main</span><span class="p">,</span> <span class="n">options</span>
 <span class="c1"># Set an option</span>
 <span class="n">options</span><span class="o">.</span><span class="n">all_mo</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># Reset all options</span>
@@ -173,10 +194,10 @@ via the Terminal.</p>
 <span class="n">main</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The options itself are global variables within the <a class="reference internal" href="funcref.html#module-orbkit.options" title="orbkit.options"><code class="xref py py-mod docutils literal"><span class="pre">orbkit.options</span></code></a> module
+<p>The options itself are global variables within the <a class="reference internal" href="funcref.html#module-orbkit.options" title="orbkit.options"><code class="xref py py-mod docutils literal notranslate"><span class="pre">orbkit.options</span></code></a> module
 and are listed and explained below.
 A detailed description can also be found by calling:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ orbkit -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ orbkit -h
 </pre></div>
 </div>
 <div class="section" id="input-output-options">
@@ -190,19 +211,19 @@ A detailed description can also be found by calling:</p>
 <dl class="data">
 <dt id="orbkit.options.itype">
 <code class="descclassname">orbkit.options.</code><code class="descname">itype</code><em class="property"> = 'auto'</em><a class="headerlink" href="#orbkit.options.itype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifies input file type. See <code class="xref py py-data docutils literal"><span class="pre">itypes</span></code> for details. (str)</p>
+<dd><p>Specifies input file type. See <a class="reference internal" href="funcref.html#orbkit.options.itypes" title="orbkit.options.itypes"><code class="xref py py-data docutils literal notranslate"><span class="pre">itypes</span></code></a> for details. (str)</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="orbkit.options.outputname">
-<code class="descclassname">orbkit.options.</code><code class="descname">outputname</code><em class="property"> = None</em><a class="headerlink" href="#orbkit.options.outputname" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">orbkit.options.</code><code class="descname">outputname</code><em class="property"> = ''</em><a class="headerlink" href="#orbkit.options.outputname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies output file (base) name. (str)</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="orbkit.options.otype">
-<code class="descclassname">orbkit.options.</code><code class="descname">otype</code><em class="property"> = 'h5'</em><a class="headerlink" href="#orbkit.options.otype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifies output file type. See <code class="xref py py-data docutils literal"><span class="pre">otypes</span></code> for details. (str or list of str or None)</p>
+<code class="descclassname">orbkit.options.</code><code class="descname">otype</code><em class="property"> = 'auto'</em><a class="headerlink" href="#orbkit.options.otype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies output file type. See <a class="reference internal" href="funcref.html#orbkit.options.otypes" title="orbkit.options.otypes"><code class="xref py py-data docutils literal notranslate"><span class="pre">otypes</span></code></a> for details. (str or list of str or None)</p>
 </dd></dl>
 
 </div>
@@ -268,21 +289,9 @@ A detailed description can also be found by calling:</p>
 <div class="section" id="additional-options">
 <h2>Additional Options<a class="headerlink" href="#additional-options" title="Permalink to this headline">¶</a></h2>
 <dl class="data">
-<dt id="orbkit.options.z_reduced_density">
-<code class="descclassname">orbkit.options.</code><code class="descname">z_reduced_density</code><em class="property"> = False</em><a class="headerlink" href="#orbkit.options.z_reduced_density" title="Permalink to this definition">¶</a></dt>
-<dd><p>If True, reduces the density with respect to the z-axis. (bool)</p>
-</dd></dl>
-
-<dl class="data">
 <dt id="orbkit.options.gross_atomic_density">
 <code class="descclassname">orbkit.options.</code><code class="descname">gross_atomic_density</code><em class="property"> = None</em><a class="headerlink" href="#orbkit.options.gross_atomic_density" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the gross atomic electron density with respect to specified atom. (int or list of int)</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="orbkit.options.mo_tefd">
-<code class="descclassname">orbkit.options.</code><code class="descname">mo_tefd</code><em class="property"> = None</em><a class="headerlink" href="#orbkit.options.mo_tefd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the molecular orbital transition electronic flux density between the orbitals I and J specify the requested component with <a class="reference internal" href="#orbkit.options.drv" title="orbkit.options.drv"><code class="xref py py-data docutils literal"><span class="pre">orbkit.options.drv</span></code></a>. (list of [I, J])</p>
 </dd></dl>
 
 </div>
@@ -323,15 +332,16 @@ A detailed description can also be found by calling:</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cvars.html" class="btn btn-neutral float-right" title="Central Variables" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cvars.html" class="btn btn-neutral float-right" title="Central Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="ORBKIT References" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="ORBKIT References" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -340,11 +350,11 @@ A detailed description can also be found by calling:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -374,35 +384,24 @@ A detailed description can also be found by calling:</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

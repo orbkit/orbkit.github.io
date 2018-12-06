@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FCIDUMP Generator &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/orbkit.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ORBKIT References" href="../refs/index.html" />
+    <link rel="prev" title="Libcint Interface" href="libcint.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Analytical integrals with libcint</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation of libcint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libcint.html">Libcint Interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FCIDUMP Generator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-fcidump-file">Creating a FCIDUMP file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-integrals-from-the-fcidump">Accessing integrals from the FCIDUMP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ORBKIT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Analytical integrals with libcint</a> &raquo;</li>
+        
+      <li>FCIDUMP Generator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrals/fcidump_generator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fcidump-generator">
+<h1>FCIDUMP Generator<a class="headerlink" href="#fcidump-generator" title="Permalink to this headline">¶</a></h1>
+<p>The FCIDUMP is an ASCII file containing all one- and two-electron integrals in molecular orbital basis required to set up a CI Hamiltonian. The file format is adopted from <a class="reference external" href="http://www.molpro.net/info/current/doc/manual/node475.html">Molpro</a>.</p>
+<div class="section" id="creating-a-fcidump-file">
+<h2>Creating a FCIDUMP file<a class="headerlink" href="#creating-a-fcidump-file" title="Permalink to this headline">¶</a></h2>
+<p>The file can be generated from a QCinfo object. Assuming we start from some molden file, run in a Python Shell:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">libcint_interface</span>
+<span class="o">&gt;&gt;</span> <span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.molden&#39;</span><span class="p">,</span> <span class="n">all_mo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">libcint_interface</span><span class="o">.</span><span class="n">generate_fcidump</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will create a file named <code class="docutils literal notranslate"><span class="pre">FCIDUMP</span></code>. The filename can be controlled by passing the <code class="docutils literal notranslate"><span class="pre">filename</span></code> parameter, an empty string disables writing to file. The return value of the function is a <code class="docutils literal notranslate"><span class="pre">FCIDUMP</span></code> object (see below).</p>
+<p>Furthermore you can pass a point group to exploit symmetry, provided the molecular orbitals in the QCinfo object include an IRREP label.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">libcint_interface</span><span class="o">.</span><span class="n">generate_fcidump</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;FCIDUMP_H2O_C2v&#39;</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s1">&#39;c2v&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The active space can be controlled by the optional <code class="docutils literal notranslate"><span class="pre">occ</span></code> and <code class="docutils literal notranslate"><span class="pre">closed</span></code> parameters, which work similar to the corresponding cards in Molpro: They accept a list of integers, one for each IRREP. A given integer <span class="math notranslate nohighlight">\(n\)</span> then sets the first <span class="math notranslate nohighlight">\(n\)</span> orbitals in this IRREP to be <em>occupied</em> or <em>core</em> respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">libcint_interface</span><span class="o">.</span><span class="n">generate_fcidump</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;FCIDUMP_H2O_C2v&#39;</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s1">&#39;c2v&#39;</span><span class="p">,</span> <span class="n">core</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">occ</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-integrals-from-the-fcidump">
+<h2>Accessing integrals from the FCIDUMP<a class="headerlink" href="#accessing-integrals-from-the-fcidump" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">FCIDUMP</span></code> class may also be used to access the MO integrals. First, either calculate them or read them from some FCIDUMP file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">fcidump</span> <span class="o">=</span> <span class="n">libcint_interface</span><span class="o">.</span><span class="n">generate_fcidump</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">fcidump</span> <span class="o">=</span> <span class="n">libcint_interface</span><span class="o">.</span><span class="n">load_fcidump</span><span class="p">(</span><span class="s1">&#39;FCIDUMP&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fcidump</span></code> object then gives access to the different integrals. Integrals are internally stored in spatial orbital basis, and only unique integrals are kept. For example <code class="docutils literal notranslate"><span class="pre">fcidump.get_H()</span></code> returns a upper triangular matrix with the 1-electron integrals, while the lower triangular part contains only zeros. If the complete matrix is needed, pass <code class="docutils literal notranslate"><span class="pre">full=True</span></code>. For unrestricted orbitals the parameter <code class="docutils literal notranslate"><span class="pre">spin='alpha'</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">spin='beta'</span></code> controlls the required subset. Integrals in spin orbital basis are obtained by <code class="docutils literal notranslate"><span class="pre">fcidump.get_h()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">H</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_H</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>                          <span class="c1"># 1-electron integrals for spatial orbitals</span>
+                                                         <span class="c1"># equals fcidump.get_H(spin=&#39;alpha&#39;) for unrestricted case</span>
+<span class="o">&gt;&gt;</span> <span class="n">H_beta</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_H</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>        <span class="c1"># integrals for beta orbitals for unrestricted case</span>
+<span class="o">&gt;&gt;</span> <span class="n">H_spin</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_h</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>                     <span class="c1"># integrals over spin orbitals</span>
+</pre></div>
+</div>
+<p>In a very similar way 2-electron integrals can be accessed by calling <code class="docutils literal notranslate"><span class="pre">fcidump.get_G()</span></code> and <code class="docutils literal notranslate"><span class="pre">fcidump.get_g()</span></code>. The former one accepts for the optional <code class="docutils literal notranslate"><span class="pre">spin</span></code> parameter the values <code class="docutils literal notranslate"><span class="pre">alpha</span></code> (default), <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">alphabeta</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">G</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_G</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>                          <span class="c1"># 2-electron integrals for spatial orbitals</span>
+<span class="o">&gt;&gt;</span> <span class="n">G_beta</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_G</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>        <span class="c1"># integrals for beta orbitals for unrestricted case</span>
+<span class="o">&gt;&gt;</span> <span class="n">G_beta</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_G</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="s1">&#39;alphabeta&#39;</span><span class="p">)</span>   <span class="c1"># integrals for beta orbitals for unrestricted case</span>
+<span class="o">&gt;&gt;</span> <span class="n">G_spin</span> <span class="o">=</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">get_g</span><span class="p">(</span><span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>                     <span class="c1"># integrals over spin orbitals</span>
+</pre></div>
+</div>
+<p>The integral indices are ordered according to the chemists’ notation:</p>
+<p><strong>For spatial orbitals</strong>:</p>
+<blockquote>
+<div><span class="math notranslate nohighlight">\((ij|kl) = \int\int \mathrm{d}r_1 \mathrm{d}r_2 \phi_i^*(r_1) \phi_j(r_1) r_{12}^{-1} \phi_k^*(r_2) \phi_l(r_2)\)</span></div></blockquote>
+<p><strong>For spin orbitals</strong>:</p>
+<blockquote>
+<div><span class="math notranslate nohighlight">\([ij|kl] = \int\int \mathrm{d}x_1 \mathrm{d}x_2 \phi_i^*(x_1) \phi_j(x_1) r_{12}^{-1} \phi_k^*(x_2) \phi_l(x_2)\)</span></div></blockquote>
+<p>Furthermore the FCIDUMP holds some system parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">nuclear_repulsion</span>    <span class="c1"># Coulomb repulsion energy of the nuclei</span>
+<span class="o">&gt;&gt;</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">Nelec</span>                <span class="c1"># Number of electrons</span>
+<span class="o">&gt;&gt;</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">Norb</span>                 <span class="c1"># Number of orbitals</span>
+<span class="o">&gt;&gt;</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">spin</span>                 <span class="c1"># total spin of the electrons (=2S)</span>
+<span class="o">&gt;&gt;</span> <span class="n">fcidump</span><span class="o">.</span><span class="n">OrbSym</span>               <span class="c1"># IRREP of each orbital as a list of integers</span>
+</pre></div>
+</div>
+<p>It is possible to change the order of the orbitals with <code class="docutils literal notranslate"><span class="pre">fcidump.change_order(order)</span></code>, where <code class="docutils literal notranslate"><span class="pre">order</span></code> is a list of indices. The active space can be reduces with <code class="docutils literal notranslate"><span class="pre">fcidump.reduce_active_space(core,</span> <span class="pre">occ)</span></code>, where the parameters <code class="docutils literal notranslate"><span class="pre">core</span></code> and <code class="docutils literal notranslate"><span class="pre">occ</span></code> work as explained above.</p>
+<p>These changes can be save to a (new) file by <code class="docutils literal notranslate"><span class="pre">fcidump.store(filename)</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../refs/index.html" class="btn btn-neutral float-right" title="ORBKIT References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="libcint.html" class="btn btn-neutral" title="Libcint Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,24 +26,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,7 +79,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
@@ -105,34 +105,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>orbkit.analytical_integrals</li>
+        
+      <li>orbkit.analytical_integrals</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -169,15 +187,15 @@
 <span class="sd">License along with orbkit.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Pool</span>
 
-<span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">cy_overlap</span>
-<span class="kn">from</span> <span class="nn">orbkit.core</span> <span class="kn">import</span> <span class="n">exp</span><span class="p">,</span><span class="n">lquant</span><span class="p">,</span><span class="n">get_lxlylz</span><span class="p">,</span><span class="n">get_cart2sph</span><span class="p">,</span><span class="n">l_deg</span>
-<span class="kn">from</span> <span class="nn">orbkit.core</span> <span class="kn">import</span> <span class="n">create_mo_coeff</span><span class="p">,</span><span class="n">validate_drv</span><span class="p">,</span><span class="n">require</span>
-<span class="kn">from</span> <span class="nn">orbkit.omp_functions</span> <span class="kn">import</span> <span class="n">slicer</span>
+<span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">cy_overlap</span>
+<span class="kn">from</span> <span class="nn">orbkit.core</span> <span class="k">import</span> <span class="n">exp</span><span class="p">,</span><span class="n">lquant</span><span class="p">,</span><span class="n">get_lxlylz</span><span class="p">,</span><span class="n">get_cart2sph</span><span class="p">,</span><span class="n">l_deg</span>
+<span class="kn">from</span> <span class="nn">orbkit.core</span> <span class="k">import</span> <span class="n">create_mo_coeff</span><span class="p">,</span><span class="n">validate_drv</span><span class="p">,</span><span class="n">require</span>
+<span class="kn">from</span> <span class="nn">orbkit.omp_functions</span> <span class="k">import</span> <span class="n">slicer</span>
 
-<div class="viewcode-block" id="get_ao_overlap"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_ao_overlap">[docs]</a><span class="k">def</span> <span class="nf">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span><span class="n">coord_b</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">ao_spherical</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">lxlylz_b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                   <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_ao_overlap"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_ao_overlap">[docs]</a><span class="k">def</span> <span class="nf">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span><span class="n">coord_b</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">ao_spherical</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">lxlylz_b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">drv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Computes the overlap matrix of a basis set, where `Bra` basis set</span>
 <span class="sd">  corresponds to the geometry :literal:`coord_a` and `Ket` basis set corresponds </span>
 <span class="sd">  to the geometry :literal:`coord_b`.</span>
@@ -220,8 +238,8 @@
     <span class="k">return</span> <span class="n">aoom</span>
   <span class="n">lxlylz_a</span> <span class="o">=</span> <span class="n">get_lxlylz</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">)</span>
 
-  <span class="k">if</span> <span class="n">lxlylz_b</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">lxlylz_b</span> <span class="o">=</span>  <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_a</span><span class="p">,</span><span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">lxlylz_b</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">lxlylz_b</span> <span class="o">=</span>  <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_a</span><span class="p">,</span><span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
@@ -239,7 +257,7 @@
                      <span class="s1">&#39;analytical integrals.&#39;</span><span class="p">)</span>
   
   <span class="n">ra</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-  <span class="n">rb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">rb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
   <span class="n">coeff</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 
@@ -279,7 +297,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">)):</span>
       <span class="n">ao_overlap_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">*=</span> <span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;N&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;N&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
   
-  <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">ao_spherical</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">ao_spherical</span> <span class="o">==</span> <span class="p">[]):</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">ao_spherical</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ao_spherical</span> <span class="o">==</span> <span class="p">[]):</span>
     <span class="c1"># Convert the overlap matrix to the real-valued spherical harmonic basis.</span>
     <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">cartesian2spherical_aoom</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">ao_spherical</span><span class="p">)</span>
   
@@ -311,7 +329,7 @@
 <span class="sd">  &#39;&#39;&#39;</span>
   
   <span class="c1"># Get the exponents of the Cartesian basis functions</span>
-  <span class="n">exp_list</span><span class="p">,</span><span class="n">assign</span> <span class="o">=</span> <span class="n">get_lxlylz</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">get_assign</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">exp_list</span><span class="p">,</span><span class="n">assign</span> <span class="o">=</span> <span class="n">get_lxlylz</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">,</span><span class="n">get_assign</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
   
   <span class="k">if</span> <span class="n">ao_overlap_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">exp_list</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">exp_list</span><span class="p">)):</span>
     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;No contraction is currently not supported for a &#39;</span><span class="o">+</span> 
@@ -417,8 +435,8 @@
   
   <span class="n">numproc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">numproc</span><span class="p">))</span>
   <span class="n">ij</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]),</span> 
-                      <span class="n">num</span><span class="o">=</span><span class="n">numproc</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>  <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
-  <span class="n">ij</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ij</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ij</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                      <span class="n">num</span><span class="o">=</span><span class="n">numproc</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+  <span class="n">ij</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ij</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ij</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
   
   <span class="c1"># Start the worker processes</span>
   <span class="k">if</span> <span class="n">numproc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -465,7 +483,7 @@
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="n">mo_a</span> <span class="o">=</span> <span class="n">create_mo_coeff</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mo_a&#39;</span><span class="p">)</span>
   <span class="n">mo_b</span> <span class="o">=</span> <span class="n">create_mo_coeff</span><span class="p">(</span><span class="n">mo_b</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mo_b&#39;</span><span class="p">)</span>
-  <span class="n">indices</span> <span class="o">=</span> <span class="n">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">get_atom2mo</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">indices</span> <span class="o">=</span> <span class="n">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">get_atom2mo</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
   <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">[:,</span><span class="n">indices</span><span class="p">])</span>
   <span class="k">return</span> <span class="n">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mo_a</span><span class="p">),</span>
                                <span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mo_b</span><span class="p">[:,</span><span class="n">indices</span><span class="p">]),</span>
@@ -551,7 +569,7 @@
       <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">l</span> <span class="o">=</span> <span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
-              <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="o">==</span> <span class="p">[]))</span>
+              <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="o">==</span> <span class="p">[]))</span>
     <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
       <span class="n">ao_part_2</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">[</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">],</span><span class="n">component</span><span class="p">]</span>
       <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -607,14 +625,14 @@
       <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">l</span> <span class="o">=</span> <span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
-              <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="o">==</span> <span class="p">[]))</span>
+              <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="o">==</span> <span class="p">[]))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
       <span class="n">atom2mo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
       <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
   
   <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span></div>
   
-<div class="viewcode-block" id="get_lc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_lc">[docs]</a><span class="k">def</span> <span class="nf">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="get_lc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_lc">[docs]</a><span class="k">def</span> <span class="nf">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Returns indices of molecular orbital coefficients corresponding </span>
 <span class="sd">  to the selected atoms.</span>
 <span class="sd">  </span>
@@ -652,7 +670,7 @@
         <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span> <span class="n">lc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lc</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="print2D"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.print2D">[docs]</a><span class="k">def</span> <span class="nf">print2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%+.2f</span><span class="s1"> &#39;</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="print2D"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.print2D">[docs]</a><span class="k">def</span> <span class="nf">print2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%+.2f</span><span class="s1"> &#39;</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Prints a 2D matrix.</span>
 <span class="sd">  </span>
 <span class="sd">  **Parameters:**</span>
@@ -667,21 +685,22 @@
   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">start</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-      <span class="n">s</span> <span class="o">+=</span> <span class="n">format</span> <span class="o">%</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">end</span><span class="p">)</span></div>
+      <span class="n">s</span> <span class="o">+=</span> <span class="nb">format</span> <span class="o">%</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">end</span><span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">pmat</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))):</span>
-  <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+  <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
   <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
   <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">complex</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;plotting real part of matrix&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;plotting real part of matrix&#39;</span><span class="p">)</span>
     <span class="n">matrix</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">real</span>
-  <span class="n">vm</span> <span class="o">=</span> <span class="n">vmax</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="k">else</span> <span class="n">vmax</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="n">vm</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;seismic_r&#39;</span><span class="p">)</span>
+  <span class="n">vm</span> <span class="o">=</span> <span class="n">vmax</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span> <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="k">else</span> <span class="n">vmax</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="n">vm</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;seismic_r&#39;</span><span class="p">)</span>
   <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -690,11 +709,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -724,35 +743,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

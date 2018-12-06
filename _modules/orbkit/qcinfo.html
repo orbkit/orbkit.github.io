@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,24 +26,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,7 +79,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
@@ -105,34 +105,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>orbkit.qcinfo</li>
+        
+      <li>orbkit.qcinfo</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -165,13 +183,13 @@
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="c1">#from scipy.constants import value as physical_constants</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
 
 
 <span class="n">u_to_me</span> <span class="o">=</span> <span class="mf">1822.88839</span> <span class="c1"># Contains the mass conversion factor to atomic units</span>
-<span class="n">nist_mass</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">nist_mass</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="c1"># Standard atomic masses as &quot;Linearized ASCII Output&quot;, see http://physics.nist.gov</span>
-<span class="n">nist_file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span>
+<span class="n">nist_file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span>
                       <span class="s1">&#39;supporting_data/Atomic_Weights_NIST.html&#39;</span><span class="p">)</span>
 <span class="c1"># see http://physics.nist.gov/cgi-bin/Compositions/stand_alone.pl?ele=&amp;all=all&amp;ascii=ascii2&amp;isotype=some</span>
 
@@ -186,7 +204,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">geo_info</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">geo_spec</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">ao_spec</span>  <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ao_spherical</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mo_spec</span>  <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">etot</span>     <span class="o">=</span> <span class="mf">0.</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">com</span>      <span class="o">=</span> <span class="s1">&#39;Center of mass can be calculated with self.get_com().&#39;</span>
@@ -194,12 +212,12 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">bc</span>      <span class="o">=</span>  <span class="s1">&#39;Barycenter of scalar field can be calculated with self.get_bc().&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">pop_ana</span>  <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># transition dipole information</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">states</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;multiplicity&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                           <span class="s1">&#39;energy&#39;</span>       <span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">dipole_moments</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">states</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;multiplicity&#39;</span> <span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="s1">&#39;energy&#39;</span>       <span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dipole_moments</span> <span class="o">=</span> <span class="kc">None</span>
   
   <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
     <span class="n">qcinfo</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">qcinfo</span>
   
@@ -231,15 +249,15 @@
   <span class="k">def</span> <span class="nf">get_mo_occ</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;occ_num&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
   
-  <span class="k">def</span> <span class="nf">get_nmoocc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_mo_occ</span><span class="p">())</span>
-  
-<div class="viewcode-block" id="QCinfo.get_com"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.get_com">[docs]</a>  <span class="k">def</span> <span class="nf">get_com</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nuc_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">get_nmoocc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_mo_occ</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="QCinfo.get_com"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.get_com">[docs]</a>  <span class="k">def</span> <span class="nf">get_com</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nuc_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Computes the center of mass.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">com</span>   <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">total_mass</span> <span class="o">=</span> <span class="mf">0.</span>
-    <span class="k">if</span> <span class="n">nuc_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">nuc_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">nuc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">)))</span> <span class="c1"># iterate over all nuclei</span>
     <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">nuc_list</span><span class="p">:</span>
       <span class="n">nuc_mass</span>    <span class="o">=</span> <span class="n">standard_mass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geo_info</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
@@ -260,13 +278,13 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">coc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coc</span><span class="o">/</span><span class="n">total_charge</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coc</span></div>
     
-<div class="viewcode-block" id="QCinfo.get_bc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.get_bc">[docs]</a>  <span class="k">def</span> <span class="nf">get_bc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">is_vector</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="QCinfo.get_bc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.get_bc">[docs]</a>  <span class="k">def</span> <span class="nf">get_bc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">is_vector</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Calculates Barycenter for scalar field</span>
 <span class="sd">    &#39;&#39;&#39;</span>  
     <span class="c1"># Initialize variable</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">bc</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
     <span class="c1"># Calculation of barycenter</span>
-    <span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">grid</span>
+    <span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">grid</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_vector</span><span class="p">:</span>
       <span class="n">grid</span><span class="o">.</span><span class="n">grid2vector</span><span class="p">()</span>
     <span class="n">xyz</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -277,7 +295,7 @@
       <span class="n">grid</span><span class="o">.</span><span class="n">vector2grid</span><span class="p">(</span><span class="o">*</span><span class="n">grid</span><span class="o">.</span><span class="n">N_</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bc</span></div>
   
-<div class="viewcode-block" id="QCinfo.select_spin"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.select_spin">[docs]</a>  <span class="k">def</span> <span class="nf">select_spin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">restricted</span><span class="p">,</span><span class="n">spin</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="QCinfo.select_spin"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.select_spin">[docs]</a>  <span class="k">def</span> <span class="nf">select_spin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">restricted</span><span class="p">,</span><span class="n">spin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;For an unrestricted calculation, the name of the MO</span>
 <span class="sd">    (&#39;sym&#39; keyword in ``qc.mo_spec``) is modified, e.g., 3.1_b for MO 3.1 with</span>
 <span class="sd">    beta spin and 3.1_a for MO 3.1 with alpha spin.</span>
@@ -292,7 +310,7 @@
 <span class="sd">      If not None, returns exclusively &#39;alpha&#39; or &#39;beta&#39; molecular orbitals.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># Only molecular orbitals of one spin requested?</span>
-    <span class="k">if</span> <span class="n">spin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">spin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;spin&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">spin</span><span class="p">:</span>
           <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -319,7 +337,7 @@
       <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">key</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dct</span></div>
   
-<div class="viewcode-block" id="QCinfo.get_ase_atoms"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.get_ase_atoms">[docs]</a>  <span class="k">def</span> <span class="nf">get_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bbox</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="QCinfo.get_ase_atoms"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.get_ase_atoms">[docs]</a>  <span class="k">def</span> <span class="nf">get_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Create an ASE atoms object.</span>
 <span class="sd">    (cf. https://wiki.fysik.dtu.dk/ase/ase/atoms.html )</span>
 <span class="sd">    </span>
@@ -338,13 +356,13 @@
 <span class="sd">    </span>
 <span class="sd">      ASE has to be in the PYTHONPATH</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
-    <span class="kn">from</span> <span class="nn">ase.units</span> <span class="kn">import</span> <span class="n">Bohr</span>
+    <span class="kn">from</span> <span class="nn">ase</span> <span class="k">import</span> <span class="n">Atoms</span>
+    <span class="kn">from</span> <span class="nn">ase.units</span> <span class="k">import</span> <span class="n">Bohr</span>
     
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geo_info</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span> 
                   <span class="n">positions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">geo_spec</span><span class="o">*</span><span class="n">Bohr</span><span class="p">,</span>
                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">:</span> 
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;bbox has to have 6 elements&quot;</span><span class="p">)</span>
       <span class="n">bbox</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
@@ -354,7 +372,7 @@
     <span class="k">return</span> <span class="n">atoms</span></div>
   <span class="c1"># Synonym</span>
   <span class="n">atoms</span> <span class="o">=</span> <span class="n">get_ase_atoms</span>
-<div class="viewcode-block" id="QCinfo.view"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.view">[docs]</a>  <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">),</span><span class="n">bbox</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="QCinfo.view"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.QCinfo.view">[docs]</a>  <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">),</span><span class="n">bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Opens ase-gui with the atoms of the QCinfo class.</span>
 <span class="sd">    (cf. https://wiki.fysik.dtu.dk/ase/ase/visualize/visualize.html )</span>
 <span class="sd">    </span>
@@ -370,7 +388,7 @@
 <span class="sd">    </span>
 <span class="sd">      ASE has to be in the PYTHONPATH</span>
 <span class="sd">    &#39;&#39;&#39;</span>    
-    <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">visualize</span>    
+    <span class="kn">from</span> <span class="nn">ase</span> <span class="k">import</span> <span class="n">visualize</span>    
     <span class="n">visualize</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ase_atoms</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="n">select</span><span class="p">])</span></div></div>
     
 
@@ -382,14 +400,14 @@
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ci&#39;</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">info</span>   <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">info</span>   <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">occ</span>    <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span>  <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span>  <span class="o">=</span> <span class="kc">None</span>
 
   <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; State </span><span class="si">%(state)s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span>    
       <span class="k">if</span> <span class="s1">&#39;spin&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;spin&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">:</span>
          <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39; (</span><span class="si">%(spin)s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span>
@@ -399,14 +417,14 @@
     <span class="k">return</span>  <span class="n">string</span>
   <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> 
     <span class="k">try</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">__dict__</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">False</span>
+      <span class="k">return</span> <span class="kc">False</span>
   <span class="k">def</span> <span class="nf">get_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
   <span class="k">def</span> <span class="nf">renormalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_norm</span><span class="p">()</span>
-  <span class="k">def</span> <span class="nf">apply_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">threshold</span><span class="p">,</span><span class="n">keep_length</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>    
+  <span class="k">def</span> <span class="nf">apply_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">threshold</span><span class="p">,</span><span class="n">keep_length</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>    
     <span class="n">i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">threshold</span>
     <span class="k">if</span> <span class="n">keep_length</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -414,41 +432,41 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
   <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">ciinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">ciinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span> <span class="o">!=</span> <span class="p">[]:</span>
       <span class="n">ciinfo</span><span class="o">.</span><span class="n">coeffs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">occ</span> <span class="o">!=</span> <span class="p">[]:</span>
       <span class="n">ciinfo</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occ</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">ciinfo</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>    
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">ciinfo</span><span class="o">.</span><span class="n">moocc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>    
     <span class="k">return</span> <span class="n">ciinfo</span>
   <span class="k">def</span> <span class="nf">todict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
   <span class="k">def</span> <span class="nf">get_moocc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;ci.set_moocc(qc) has to be called first! (ci.moocc is not initialized)&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span>
   <span class="k">def</span> <span class="nf">set_moocc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">moocc</span><span class="p">):</span>
     <span class="k">assert</span> <span class="p">(</span><span class="n">moocc</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">),</span> <span class="s1">&#39;moocc has to be numpy.intc&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">moocc</span> <span class="o">=</span> <span class="n">moocc</span>
   <span class="k">def</span> <span class="nf">hdf5_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fid</span><span class="o">=</span><span class="s1">&#39;out.h5&#39;</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;/ci:0&#39;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">orbkit.output</span> <span class="kn">import</span> <span class="n">hdf5_open</span><span class="p">,</span><span class="n">hdf5_append</span>
-    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+    <span class="kn">from</span> <span class="nn">orbkit.output</span> <span class="k">import</span> <span class="n">hdf5_open</span><span class="p">,</span><span class="n">hdf5_append</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
     <span class="k">for</span> <span class="n">hdf5_file</span> <span class="ow">in</span> <span class="n">hdf5_open</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">):</span>
       <span class="n">dct</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">todict</span><span class="p">())</span>
       <span class="n">dct</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
       <span class="n">hdf5_append</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span><span class="n">hdf5_file</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
   <span class="k">def</span> <span class="nf">hdf5_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fid</span><span class="o">=</span><span class="s1">&#39;out.h5&#39;</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;/ci:0&#39;</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">orbkit.output</span> <span class="kn">import</span> <span class="n">hdf5_open</span><span class="p">,</span><span class="n">hdf52dict</span>
+    <span class="kn">from</span> <span class="nn">orbkit.output</span> <span class="k">import</span> <span class="n">hdf5_open</span><span class="p">,</span><span class="n">hdf52dict</span>
     <span class="k">for</span> <span class="n">hdf5_file</span> <span class="ow">in</span> <span class="n">hdf5_open</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">):</span>
-      <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+      <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">try</span><span class="p">:</span>
-          <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">hdf52dict</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="n">key</span><span class="p">),</span><span class="n">hdf5_file</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">hdf52dict</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="n">key</span><span class="p">),</span><span class="n">hdf5_file</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-          <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">hdf5_file</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">group</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">])</span></div>
+          <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">hdf5_file</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">group</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="read_nist"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.qcinfo.read_nist">[docs]</a><span class="k">def</span> <span class="nf">read_nist</span><span class="p">():</span>
   <span class="sd">&#39;&#39;&#39;Reads and converts the atomic masses from the &quot;Linearized ASCII Output&quot;, </span>
@@ -461,8 +479,8 @@
   <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
   
   <span class="n">nist_mass</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">index</span> <span class="o">=</span> <span class="bp">None</span>
-  <span class="n">new</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+  <span class="n">new</span> <span class="o">=</span> <span class="kc">True</span>
   
   <span class="k">def</span> <span class="nf">rm_brackets</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">rm</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39;[&#39;</span><span class="p">,</span><span class="s1">&#39;]&#39;</span><span class="p">]):</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rm</span><span class="p">:</span>
@@ -495,7 +513,7 @@
 <span class="sd">  mass : float</span>
 <span class="sd">    Contains the atomic mass in atomic units.</span>
 <span class="sd">  &#39;&#39;&#39;</span>
-  <span class="k">if</span> <span class="n">nist_mass</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">nist_mass</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">read_nist</span><span class="p">()</span>  
   <span class="k">try</span><span class="p">:</span>
     <span class="n">atom</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
@@ -516,7 +534,7 @@
 <span class="sd">  symbol : str</span>
 <span class="sd">    Contains the atomic symbol.</span>
 <span class="sd">  &#39;&#39;&#39;</span>
-  <span class="k">if</span> <span class="n">nist_mass</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">nist_mass</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">read_nist</span><span class="p">()</span>  
   <span class="k">try</span><span class="p">:</span>
     <span class="n">atom</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
@@ -537,6 +555,7 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -545,11 +564,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -579,35 +598,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

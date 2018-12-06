@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Libcint Interface &mdash; ORBKIT  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/orbkit.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FCIDUMP Generator" href="fcidump_generator.html" />
+    <link rel="prev" title="Installation of libcint" href="install.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ORBKIT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.1 (development)
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridbased/index.html">Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nongridbased/index.html">Non Grid-Based Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adtutorials/index.html">Advanced Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Analytical integrals with libcint</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation of libcint</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Libcint Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requesting-subsets-of-orbitals">Requesting subsets of orbitals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ao-slicing-when-calculating-mo-integrals">AO slicing when calculating MO integrals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fcidump_generator.html">FCIDUMP Generator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/literature.html">Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impressum.html">Impressum - Legal Notice</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ORBKIT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Analytical integrals with libcint</a> &raquo;</li>
+        
+      <li>Libcint Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrals/libcint.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="libcint-interface">
+<h1>Libcint Interface<a class="headerlink" href="#libcint-interface" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">libcint_interface</span></code> module provides a class <code class="docutils literal notranslate"><span class="pre">AOIntegrals</span></code>, that gives access to various integrals calculated from the information available in a QCinfo object. Make sure libcint is installed  and added to the PATH environment variable (see <a class="reference internal" href="install.html#install-libcint"><span class="std std-ref">Installation of libcint</span></a>). First create an instance of <code class="docutils literal notranslate"><span class="pre">AOIntegrals</span></code> from a QCinto object, e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">libcint_interface</span>
+<span class="o">&gt;&gt;</span> <span class="n">qc</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.molden&#39;</span><span class="p">,</span> <span class="n">all_mo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span> <span class="o">=</span> <span class="n">integrals</span><span class="o">.</span><span class="n">AOIntegrals</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, the Integrals are calculated by using cartesian Gaussians. Switching to real spherical Gaussians is possible by disabling the <code class="docutils literal notranslate"><span class="pre">cartesian</span></code> flag:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">ao</span> <span class="o">=</span> <span class="n">libcint_interface</span><span class="o">.</span><span class="n">AOIntegrals</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Integrals can then be calculated by calling <code class="docutils literal notranslate"><span class="pre">ao.int1e(operator)</span></code> or <code class="docutils literal notranslate"><span class="pre">ao.int2e(operator)</span></code> for 1- and 2-electron integrals respectively, and passing the desired <code class="docutils literal notranslate"><span class="pre">operator</span></code> base name. A list of available operators can be found in the <a class="reference external" href="https://github.com/sunqm/libcint/tree/master/doc">libcint documentation</a>.</p>
+<p>There is a small list of shortcuts available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">S</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">overlap</span><span class="p">()</span>     <span class="c1"># atomic orbital overlap;         = ao.int1e(&#39;ovlp&#39;)</span>
+<span class="o">&gt;&gt;</span> <span class="n">T</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">kinetic</span><span class="p">()</span>     <span class="c1"># electron kinetic energy;        = ao.int1e(&#39;kin&#39;)</span>
+<span class="o">&gt;&gt;</span> <span class="n">Vne</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">Vne</span><span class="p">()</span>       <span class="c1"># electron-nuclear interaction;   = ao.int1e(&#39;nuc&#39;)</span>
+<span class="o">&gt;&gt;</span> <span class="n">Hcore</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">Hcore</span><span class="p">()</span>   <span class="c1"># = T + Vne;                      = ao.int1e(&#39;kin&#39;) + ao.int1e(&#39;nuc&#39;)</span>
+<span class="o">&gt;&gt;</span> <span class="n">Vee</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">Vee</span><span class="p">()</span>       <span class="c1"># 2-electron repulsion integrals; = ao.int2e(&#39;&#39;)</span>
+</pre></div>
+</div>
+<p>By default, the integrals are calculated in the basis of atomic orbitals (AO). Transformation into the molecular orbital (MO) basis is requested by passing <code class="docutils literal notranslate"><span class="pre">asMO=True</span></code>, e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">S</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">overlap</span><span class="p">(</span><span class="n">asMO</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>     <span class="c1"># = numpy.eye(ao.Norb)</span>
+</pre></div>
+</div>
+<div class="section" id="requesting-subsets-of-orbitals">
+<h2>Requesting subsets of orbitals<a class="headerlink" href="#requesting-subsets-of-orbitals" title="Permalink to this headline">¶</a></h2>
+<p>If the basis set is large, calculating all integrals takes time and requires a lot of memory to store them. Especially when requesting integrals in the MO basis, which requires to calculate all integrals in the AO basis first.</p>
+<p>If not all integrals are required, it is possible to specify the subset needed. <em>Before</em> starting the integral calculation, you can define multiple blocks of orbitals:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_AO_block_1e</span><span class="p">(</span><span class="n">AOrangei</span><span class="o">=</span><span class="n">AOrangei</span><span class="p">,</span> <span class="n">AOrangej</span><span class="o">=</span><span class="n">AOrangej</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_AO_block_2e</span><span class="p">(</span><span class="n">AOrangei</span><span class="o">=</span><span class="n">AOrangei</span><span class="p">,</span> <span class="n">AOrangej</span><span class="o">=</span><span class="n">AOrangej</span><span class="p">,</span> <span class="n">AOrangek</span><span class="o">=</span><span class="n">AOrangek</span><span class="p">,</span> <span class="n">AOrangel</span><span class="o">=</span><span class="n">AOrangel</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_MO_block_1e</span><span class="p">(</span><span class="n">MOrangei</span><span class="o">=</span><span class="n">MOrangei</span><span class="p">,</span> <span class="n">MOrangej</span><span class="o">=</span><span class="n">MOrangej</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_MO_block_2e</span><span class="p">(</span><span class="n">MOrangei</span><span class="o">=</span><span class="n">MOrangei</span><span class="p">,</span> <span class="n">MOrangej</span><span class="o">=</span><span class="n">MOrangej</span><span class="p">,</span> <span class="n">MOrangek</span><span class="o">=</span><span class="n">MOrangek</span><span class="p">,</span> <span class="n">MOrangel</span><span class="o">=</span><span class="n">MOrangel</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where the different range parameters define the orbitals for each index. Those can be a Python range object (e.g. <code class="docutils literal notranslate"><span class="pre">range(3,</span> <span class="pre">6)</span></code>), a list of orbital indices (e.g. <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">3,</span> <span class="pre">7]</span></code>), or <code class="docutils literal notranslate"><span class="pre">None</span></code> (default) for all orbitals.
+The integral calculation will then return a list of matrices, if more than one block is requested.</p>
+<p>An example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_MO_block_1e</span><span class="p">(</span><span class="n">MOrangei</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">MOrangej</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_MO_block_1e</span><span class="p">(</span><span class="n">MOrangei</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">MOrangej</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="o">&gt;&gt;</span> <span class="n">S</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">overlap</span><span class="p">(</span><span class="n">asMO</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>For MO integrals, the code automatically selects only those AO integrals which will contribute to the requested MO integrals (based on the MO coefficients).
+In connection with symmetry this may save save some time and memory.</p>
+<p>To reset the blocks use one of the following methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">clear_all_blocks</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">clear_AO_blocks_1e</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">clear_AO_blocks_2e</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">clear_MO_blocks_1e</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">clear_MO_blocks_2e</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ao-slicing-when-calculating-mo-integrals">
+<h2>AO slicing when calculating MO integrals<a class="headerlink" href="#ao-slicing-when-calculating-mo-integrals" title="Permalink to this headline">¶</a></h2>
+<p>For calculating MO integrals all relevant AO integrals are required first. If the basis set is large, the amount of AO integrals to be stored may exceed memory limitations of the hardware. This can be bypassed by calculating the AO integrals in slices (of shells) along the first index (<span class="math notranslate nohighlight">\(i\)</span>). Each slice is calculated, transformed in MO basis and added to the final result separately, which means only one slice at a time needs to be kept in memory. However, matrix properties (hermitian and exchange of electronic coordinates) can only be exploited within a slice. This means a decent amount of integrals needs to be recalculated. Thus: <strong>Smaller slices require less memory, but take more time to calculate.</strong></p>
+<p>Slicing is controlled by the <code class="docutils literal notranslate"><span class="pre">max_dims</span></code> parameter, and primarily usefull for 2-electron integrals with large basis sets and limited memory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">Vee</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">Vee</span><span class="p">(</span><span class="n">asMO</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_dims</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The default value for <code class="docutils literal notranslate"><span class="pre">max_dims</span></code> is 0 and disables slicing. Values larger than that specify the maximum number of basis functions in a slice (along index <span class="math notranslate nohighlight">\(i\)</span>).</p>
+<p>For 2-electron integrals, you may also pass the parameter <code class="docutils literal notranslate"><span class="pre">max_mem</span></code>, which defines a rough memory limit (in MB) for the AO matrix and ao2mo transformation. The appropiate value for <code class="docutils literal notranslate"><span class="pre">max_dims</span></code> is then determined automatically.</p>
+<p>Alternatively, if you can exploit symmetry, consider setting only a limited number of MO blocks at a time, to reduce the number of AO integrals to be kept in memory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_MO_block_2e</span><span class="p">(</span><span class="n">AOMOrangei</span><span class="o">=</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">MOrangej</span><span class="o">=</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">MOrangek</span><span class="o">=</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">MOrangel</span><span class="o">=</span><span class="n">irrep1</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">Vee</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">irrep1</span><span class="p">,</span> <span class="n">irrep1</span><span class="p">,</span> <span class="n">irrep1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">Vee</span><span class="p">(</span><span class="n">asMO</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">clear_MO_blocks_2e</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">ao</span><span class="o">.</span><span class="n">add_MO_block_2e</span><span class="p">(</span><span class="n">AOMOrangei</span><span class="o">=</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">MOrangej</span><span class="o">=</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">MOrangek</span><span class="o">=</span><span class="n">irrep2</span><span class="p">,</span> <span class="n">MOrangel</span><span class="o">=</span><span class="n">irrep2</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">Vee</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">irrep1</span><span class="p">,</span> <span class="n">irrep1</span><span class="p">,</span> <span class="n">irrep2</span><span class="p">,</span> <span class="n">irrep2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">Vee</span><span class="p">(</span><span class="n">asMO</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="fcidump_generator.html" class="btn btn-neutral float-right" title="FCIDUMP Generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral" title="Installation of libcint" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Documentation</span>
+      v: 1.1 (development)
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://orbkit.github.io/dev">1.1 (development)</a></dd>
+        
+          <dd><a href="https://orbkit.github.io/">1.0 (stable)</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

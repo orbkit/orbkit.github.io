@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,24 +26,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,7 +79,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrals/index.html">Analytical integrals with libcint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
@@ -105,34 +106,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>orbkit.display</li>
+        
+      <li>orbkit.display</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -141,44 +160,44 @@
   <h1>Source code for orbkit.display</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: iso-8859-1 -*-</span>
 <span class="sd">&#39;&#39;&#39;Module for writing the .oklog files and printing the terminal output.&#39;&#39;&#39;</span>
-<span class="kn">from</span> <span class="nn">orbkit</span> <span class="kn">import</span> <span class="n">options</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">remove</span><span class="p">,</span><span class="n">path</span>
+<span class="kn">from</span> <span class="nn">orbkit</span> <span class="k">import</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">remove</span><span class="p">,</span><span class="n">path</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 
 <span class="n">is_linux</span> <span class="o">=</span> <span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Linux&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">is_linux</span><span class="p">:</span>
   <span class="kn">import</span> <span class="nn">resource</span>
 
-<span class="n">is_initiated</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1">#: If True, logfile is initialized.</span>
-<span class="n">log_fid</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1">#: Specifies the filename of the oklog file</span>
+<span class="n">is_initiated</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#: If True, logfile is initialized.</span>
+<span class="n">log_fid</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#: Specifies the filename of the oklog file</span>
 
-<div class="viewcode-block" id="init_display"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.display.init_display">[docs]</a><span class="k">def</span> <span class="nf">init_display</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="init_display"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.display.init_display">[docs]</a><span class="k">def</span> <span class="nf">init_display</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Sets the name of the .oklog file and removes the old .oklog file.&#39;&#39;&#39;</span>
   <span class="k">global</span> <span class="n">log_fid</span><span class="p">,</span><span class="n">is_initiated</span>
-  <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">log_fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.oklog&#39;</span> <span class="o">%</span> <span class="n">name</span>
-  <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">no_log</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+    <span class="n">log_fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.oklog&#39;</span> <span class="o">%</span> <span class="n">name</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.oklog&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">name</span>
+  <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">no_log</span><span class="p">)</span> <span class="ow">or</span> <span class="n">log_fid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="n">remove</span><span class="p">(</span><span class="n">log_fid</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
       <span class="k">pass</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
-      <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Writing log to </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">log_fid</span><span class="p">))</span>
-  <span class="n">is_initiated</span> <span class="o">=</span> <span class="bp">True</span></div>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing log to </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">log_fid</span><span class="p">))</span>
+  <span class="n">is_initiated</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="display"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.display.display">[docs]</a><span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Prints :literal:`string` to the terminal output and to the .oklog file.&#39;&#39;&#39;</span>
   <span class="k">global</span> <span class="n">log_fid</span>
   <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
   <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">no_log</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">log_fid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">log_fid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
         <span class="k">return</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">log_fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.oklog&#39;</span> <span class="o">%</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span>
+        <span class="n">log_fid</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.oklog&#39;</span> <span class="o">%</span> <span class="n">options</span><span class="o">.</span><span class="n">outputname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initiated</span><span class="p">:</span>
-      <span class="n">init_display</span><span class="p">()</span>
+      <span class="n">init_display</span><span class="p">(</span><span class="n">log_fid</span><span class="p">)</span>
     <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_fid</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">string</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
@@ -214,6 +233,7 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -222,11 +242,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -256,35 +276,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,24 +26,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,7 +79,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Start Guide</a></li>
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../nongridbased/index.html">Non Grid-Based Calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../adtutorials/index.html">Advanced Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrals/index.html">Analytical integrals with libcint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../literature/literature.html">Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../licence.html">Licence Note</a></li>
@@ -105,34 +106,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>orbkit.analytical_integrals</li>
+        
+      <li>orbkit.analytical_integrals</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -145,7 +164,7 @@
 <span class="sd">Code for the computation of the overlap between primitive atomic basis functions</span>
 <span class="sd">adapted from </span>
 
-<span class="sd">  M. Hô, J. M. Hernandez-Perez: &quot;Evaluation of Gaussian Molecular Integrals&quot;, DOI:10.3888/tmj.14-3</span>
+<span class="sd">  M. HÃ´, J. M. Hernandez-Perez: &quot;Evaluation of Gaussian Molecular Integrals&quot;, DOI:10.3888/tmj.14-3</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">orbkit</span>
@@ -169,15 +188,14 @@
 <span class="sd">License along with orbkit.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Pool</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">cy_overlap</span>
-<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.omp_functions</span> <span class="kn">import</span> <span class="n">slicer</span>
-<span class="kn">from</span> <span class="nn">.orbitals</span> <span class="kn">import</span> <span class="n">AOClass</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">cy_overlap</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.orbitals</span> <span class="k">import</span> <span class="n">AOClass</span><span class="p">,</span> <span class="n">MOClass</span>
 
-<div class="viewcode-block" id="get_ao_overlap"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_ao_overlap">[docs]</a><span class="k">def</span> <span class="nf">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span> <span class="n">coord_b</span><span class="p">,</span> <span class="n">ao_spec</span><span class="p">,</span> <span class="n">lxlylz_b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                   <span class="n">drv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_ao_overlap"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_ao_overlap">[docs]</a><span class="k">def</span> <span class="nf">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span> <span class="n">coord_b</span><span class="p">,</span> <span class="n">ao_spec</span><span class="p">,</span> <span class="n">lxlylz_b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">drv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Computes the overlap matrix of a basis set, where `Bra` basis set</span>
 <span class="sd">  corresponds to the geometry :literal:`coord_a` and `Ket` basis set corresponds </span>
 <span class="sd">  to the geometry :literal:`coord_b`.</span>
@@ -209,8 +227,8 @@
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ao_spec</span><span class="p">,</span> <span class="n">AOClass</span><span class="p">):</span>
     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;ao_spec must be an instance of the AOClass&#39;</span><span class="p">)</span>
-
-  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">drv</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">drv</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">drv</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">drv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
     <span class="n">aoom</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ii_d</span> <span class="ow">in</span> <span class="n">drv</span><span class="p">:</span>
       <span class="n">aoom</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span><span class="n">coord_b</span><span class="p">,</span><span class="n">ao_spec</span><span class="p">,</span>
@@ -219,11 +237,11 @@
     <span class="k">return</span> <span class="n">aoom</span>
   <span class="n">lxlylz_a</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">()</span>
 
-  <span class="k">if</span> <span class="n">lxlylz_b</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">lxlylz_b</span> <span class="o">=</span>  <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_a</span><span class="p">,</span><span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">lxlylz_b</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_a</span><span class="p">,</span><span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-      <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+      <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lxlylz_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The keyword argument `lxlylz` has to be convertable &#39;</span> <span class="o">+</span> 
                        <span class="s1">&#39;into a numpy integer array.&#39;</span><span class="p">)</span>
@@ -237,27 +255,18 @@
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only first derivatives are currently supported for &#39;</span> <span class="o">+</span>
                      <span class="s1">&#39;analytical integrals.&#39;</span><span class="p">)</span>
   
-  <span class="n">ra</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-  <span class="n">rb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-  <span class="k">for</span> <span class="n">cont</span> <span class="ow">in</span> <span class="n">ao_spec</span><span class="p">:</span>
-    <span class="n">ra</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="n">coord_a</span><span class="p">[</span><span class="n">cont</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">]][</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">rb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span><span class="n">coord_b</span><span class="p">[</span><span class="n">cont</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">]][</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+  
+  <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">cy_overlap</span><span class="o">.</span><span class="n">aooverlap</span><span class="p">(</span><span class="n">coord_a</span><span class="p">,</span>
+                                           <span class="n">coord_b</span><span class="p">,</span>
+                                           <span class="n">lxlylz_a</span><span class="p">,</span>
+                                           <span class="n">lxlylz_b</span><span class="p">,</span>
+                                           <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_nlxlylz_per_cont</span><span class="p">(),</span>
+                                           <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_prim_coeffs</span><span class="p">(),</span>
+                                           <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_nprim_per_cont</span><span class="p">(),</span>
+                                           <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_assign_cont_to_atoms</span><span class="p">(),</span>
+                                           <span class="n">drv</span><span class="p">,</span>
+                                           <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_normalized</span><span class="p">())</span>
 
-
-  <span class="n">coeff</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lmpao</span><span class="p">()</span>
-  <span class="n">index</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lmprim2cont</span><span class="p">(</span><span class="n">return_l</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-  <span class="n">ra</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
-  <span class="n">rb</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
-
-  <span class="c1">#lxlylz_a comes from an AOClass instance so its type is checked there</span>
-  <span class="c1">#lxlylz_b might come from anywhere so we neet to make sure it has the right type</span>
-  <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">lxlylz_b</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
-
-  <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">cy_overlap</span><span class="o">.</span><span class="n">aooverlap</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="n">rb</span><span class="p">,</span>
-                                           <span class="n">lxlylz_a</span><span class="p">,</span><span class="n">lxlylz_b</span><span class="p">,</span>
-                                           <span class="n">coeff</span><span class="p">,</span><span class="n">index</span><span class="p">,</span>
-                                           <span class="n">drv</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">normalized</span><span class="p">))</span>
   <span class="k">if</span> <span class="s1">&#39;N&#39;</span> <span class="ow">in</span> <span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">)):</span>
       <span class="n">ao_overlap_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">*=</span> <span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;N&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">ao_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;N&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
@@ -293,9 +302,10 @@
 <span class="sd">  &#39;&#39;&#39;</span>
 
   <span class="c1"># Get the exponents of the Cartesian basis functions</span>
-  <span class="n">exp_list</span><span class="p">,</span><span class="n">assign</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">(</span><span class="n">get_assign</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">lxlylz</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">()</span>
+  <span class="n">assign</span> <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_assign_lxlylz_to_cont</span><span class="p">()</span>
   <span class="n">ao_spherical</span>  <span class="o">=</span> <span class="n">ao_spec</span><span class="o">.</span><span class="n">get_old_ao_spherical</span><span class="p">()</span>
-  <span class="k">if</span> <span class="n">ao_overlap_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">exp_list</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">exp_list</span><span class="p">)):</span>
+  <span class="k">if</span> <span class="n">ao_overlap_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lxlylz</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">lxlylz</span><span class="p">)):</span>
     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;No contraction is currently not supported for a &#39;</span><span class="o">+</span> 
                   <span class="s1">&#39;spherical harmonics. Please come back&#39;</span><span class="o">+</span>
                   <span class="s1">&#39; manually after calling `contract_ao_overlap_matrix()`.&#39;</span><span class="p">)</span>
@@ -310,12 +320,12 @@
     <span class="n">sph0</span> <span class="o">=</span> <span class="n">get_cart2sph</span><span class="p">(</span><span class="o">*</span><span class="n">k0</span><span class="p">)</span>    
     <span class="k">for</span> <span class="n">c0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sph0</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
       <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">j0</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">exp_list</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="n">sph0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">c0</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">lxlylz</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="n">sph0</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">c0</span><span class="p">]:</span>
           <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">l</span><span class="p">[</span><span class="n">j0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
       <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Here</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">up2date</span><span class="p">)</span>
-    <span class="nb">exit</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Here</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">up2date</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
   <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">aoom_sph</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">)))</span>
   <span class="k">for</span> <span class="n">i0</span><span class="p">,(</span><span class="n">j0</span><span class="p">,</span><span class="n">k0</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ao_spherical</span><span class="p">):</span>
@@ -337,10 +347,10 @@
 <span class="sd">  </span>
 <span class="sd">  **Parameters:**</span>
 <span class="sd">  </span>
-<span class="sd">  mo_a : numpy.ndarray, shape = (NAO,)</span>
-<span class="sd">     Contains the molecular orbital coefficients of the `Bra` orbital.  </span>
-<span class="sd">  mo_b : numpy.ndarray, shape = (NAO,)</span>
-<span class="sd">     Contains the molecular orbital coefficients of the `Ket` orbital.  </span>
+<span class="sd">  mo_a : numpy.ndarray with shape = (,NAO)</span>
+<span class="sd">     Contains the molecular orbital coefficients of all `Bra` orbitals.</span>
+<span class="sd">  mo_b : numpy.ndarray with shape = (,NAO)</span>
+<span class="sd">     Contains the molecular orbital coefficients of all `Ket` orbitals.</span>
 <span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
 <span class="sd">    Contains the overlap matrix of the basis set.</span>
 <span class="sd">  </span>
@@ -377,9 +387,9 @@
 <span class="sd">  </span>
 <span class="sd">  **Parameters:**</span>
 <span class="sd">  </span>
-<span class="sd">  mo_a : numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. :ref:`Central Variables`)</span>
+<span class="sd">  mo_a : numpy.ndarray with shape = (NMO,NAO), dict, or MOClass instance</span>
 <span class="sd">     Contains the molecular orbital coefficients of all `Bra` orbitals.</span>
-<span class="sd">  mo_b : numpy.ndarray with shape = (NMO,NAO) or mo_spec (cf. :ref:`Central Variables`)</span>
+<span class="sd">  mo_b : numpy.ndarray with shape = (NMO,NAO), dict, or MOClass instance</span>
 <span class="sd">     Contains the molecular orbital coefficients of all `Ket` orbitals.</span>
 <span class="sd">  ao_overlap_matrix : numpy.ndarray, shape = (NAO,NAO)</span>
 <span class="sd">    Contains the overlap matrix of the basis set.</span>
@@ -391,6 +401,16 @@
 <span class="sd">  mo_overlap_matrix : numpy.ndarray, shape = (NMO,NMO)</span>
 <span class="sd">    Contains the overlap matrix between the two sets of input molecular orbitals.</span>
 <span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span> <span class="n">MOClass</span><span class="p">):</span>
+    <span class="n">mo_a</span> <span class="o">=</span> <span class="n">mo_a</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">()</span>
+  <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_a</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="n">mo_a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mo_a</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])</span>
+
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_b</span><span class="p">,</span> <span class="n">MOClass</span><span class="p">):</span>
+    <span class="n">mo_b</span> <span class="o">=</span> <span class="n">mo_b</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">()</span>
+  <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mo_b</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="n">mo_b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mo_b</span><span class="p">[</span><span class="s1">&#39;coeffs&#39;</span><span class="p">])</span>
+
   <span class="n">global_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mo_a&#39;</span><span class="p">:</span> <span class="n">mo_a</span><span class="p">,</span>
                  <span class="s1">&#39;mo_b&#39;</span><span class="p">:</span> <span class="n">mo_b</span><span class="p">,</span>
                  <span class="s1">&#39;ao_overlap_matrix&#39;</span><span class="p">:</span> <span class="n">ao_overlap_matrix</span><span class="p">}</span>
@@ -402,9 +422,9 @@
   
   <span class="n">numproc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">numproc</span><span class="p">))</span>
   <span class="n">ij</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_args</span><span class="p">[</span><span class="s1">&#39;mo_a&#39;</span><span class="p">]),</span> 
-                      <span class="n">num</span><span class="o">=</span><span class="n">numproc</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>  <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
-  <span class="n">ij</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ij</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ij</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-  
+                      <span class="n">num</span><span class="o">=</span><span class="n">numproc</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span>
+  <span class="n">ij</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ij</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ij</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+
   <span class="c1"># Start the worker processes</span>
   <span class="k">if</span> <span class="n">numproc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
     <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">numproc</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">global_args</span><span class="p">,))</span>
@@ -448,9 +468,9 @@
 <span class="sd">  mo_overlap_matrix : numpy.ndarray, shape = (NMO,NMO)</span>
 <span class="sd">    Contains the overlap matrix between the two sets of input molecular orbitals.</span>
 <span class="sd">  &#39;&#39;&#39;</span>
-  <span class="n">mo_a</span> <span class="o">=</span> <span class="n">mo_a</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
-  <span class="n">mo_b</span> <span class="o">=</span> <span class="n">mo_b</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
-  <span class="n">indices</span> <span class="o">=</span> <span class="n">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">get_atom2mo</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">mo_a</span> <span class="o">=</span> <span class="n">mo_a</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">()</span>
+  <span class="n">mo_b</span> <span class="o">=</span> <span class="n">mo_b</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">()</span>
+  <span class="n">indices</span> <span class="o">=</span> <span class="n">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">get_atom2mo</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
   <span class="n">ao_overlap_matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">ao_overlap_matrix</span><span class="p">[:,</span><span class="n">indices</span><span class="p">])</span>
   <span class="k">return</span> <span class="n">get_mo_overlap_matrix</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mo_a</span><span class="p">),</span>
                                <span class="n">numpy</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">mo_b</span><span class="p">[:,</span><span class="n">indices</span><span class="p">]),</span>
@@ -478,13 +498,13 @@
     <span class="n">component</span> <span class="o">=</span> <span class="p">[</span><span class="n">component</span><span class="p">]</span>
   
   <span class="n">dipole_moment</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">component</span><span class="p">),))</span>
-  <span class="n">coeff</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">()</span>
+  <span class="n">coeffs</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">()</span>
   <span class="n">occ</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="o">.</span><span class="n">get_occ</span><span class="p">()</span>
   <span class="k">for</span> <span class="n">i_d</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">component</span><span class="p">):</span>
     <span class="n">ao_dipole_matrix</span> <span class="o">=</span> <span class="n">get_ao_dipole_matrix</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i_mo</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">)):</span>
-      <span class="n">dipole_moment</span><span class="p">[</span><span class="n">i_d</span><span class="p">]</span> <span class="o">-=</span> <span class="n">occ</span><span class="p">[</span><span class="n">i_mo</span><span class="p">]</span> <span class="o">*</span> <span class="n">get_mo_overlap</span><span class="p">(</span><span class="n">coeff</span><span class="p">[</span><span class="n">i_mo</span><span class="p">,:],</span>
-                                                       <span class="n">coeff</span><span class="p">[</span><span class="n">i_mo</span><span class="p">,:],</span>
+      <span class="n">dipole_moment</span><span class="p">[</span><span class="n">i_d</span><span class="p">]</span> <span class="o">-=</span> <span class="n">occ</span><span class="p">[</span><span class="n">i_mo</span><span class="p">]</span> <span class="o">*</span> <span class="n">get_mo_overlap</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="n">i_mo</span><span class="p">,:],</span>
+                                                       <span class="n">coeffs</span><span class="p">[</span><span class="n">i_mo</span><span class="p">,:],</span>
                                                        <span class="n">ao_dipole_matrix</span><span class="p">)</span>
 
     <span class="c1"># Add the nuclear part</span>
@@ -523,17 +543,17 @@
   <span class="c1"># the `Ket` basis set, and increase lz by one.</span>
   <span class="n">lxlylz_b</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">get_lxlylz</span><span class="p">()</span>
   <span class="n">lxlylz_b</span><span class="p">[:,</span><span class="n">component</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
+  
   <span class="n">ao_part_1</span> <span class="o">=</span> <span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">,</span>
                              <span class="n">lxlylz_b</span><span class="o">=</span><span class="n">lxlylz_b</span><span class="p">)</span>
-
+  
   <span class="c1"># Compute the second part of the expectation value:</span>
   <span class="n">ao_part_2</span> <span class="o">=</span> <span class="n">get_ao_overlap</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">geo_spec</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)</span>
 
   <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="k">for</span> <span class="n">sel_ao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-      <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;lxlylz&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;lxlylz&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">l</span> <span class="o">=</span> <span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
               <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">spherical</span><span class="p">))</span>
@@ -588,8 +608,8 @@
   <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>  
   <span class="k">for</span> <span class="n">sel_ao</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">)):</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;atom&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="s1">&#39;exp_list&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-      <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;exp_list&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;lxlylz&#39;</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;lxlylz&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">l</span> <span class="o">=</span> <span class="n">l_deg</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="p">[</span><span class="n">sel_ao</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
               <span class="n">cartesian_basis</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">qc</span><span class="o">.</span><span class="n">ao_spec</span><span class="o">.</span><span class="n">spherical</span><span class="p">))</span>
@@ -599,7 +619,7 @@
   
   <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span></div>
   
-<div class="viewcode-block" id="get_lc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_lc">[docs]</a><span class="k">def</span> <span class="nf">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="get_lc"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.get_lc">[docs]</a><span class="k">def</span> <span class="nf">get_lc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">atom2mo</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Returns indices of molecular orbital coefficients corresponding </span>
 <span class="sd">  to the selected atoms.</span>
 <span class="sd">  </span>
@@ -637,36 +657,10 @@
         <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span> <span class="n">lc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lc</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">intc</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="print2D"><a class="viewcode-back" href="../../refs/funcref.html#orbkit.analytical_integrals.print2D">[docs]</a><span class="k">def</span> <span class="nf">print2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%+.2f</span><span class="s1"> &#39;</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-  <span class="sd">&#39;&#39;&#39;Prints a 2D matrix.</span>
-<span class="sd">  </span>
-<span class="sd">  **Parameters:**</span>
-<span class="sd">  </span>
-<span class="sd">  x : numpy.ndarray, shape = (n,m)</span>
-<span class="sd">    Contains a 2D matrix.</span>
-<span class="sd">  </span>
-<span class="sd">  format : str</span>
-<span class="sd">    Specifies the output format.</span>
-<span class="sd">  &#39;&#39;&#39;</span>
-  <span class="n">shape</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">start</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-      <span class="n">s</span> <span class="o">+=</span> <span class="n">format</span> <span class="o">%</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">end</span><span class="p">)</span></div>
-
-<span class="k">def</span> <span class="nf">pmat</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))):</span>
-  <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-  <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">complex</span><span class="p">:</span>
-    <span class="n">display</span><span class="p">(</span><span class="s1">&#39;plotting real part of matrix&#39;</span><span class="p">)</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">real</span>
-  <span class="n">vm</span> <span class="o">=</span> <span class="n">vmax</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="k">else</span> <span class="n">vmax</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="n">vm</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;seismic_r&#39;</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -675,11 +669,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -709,35 +703,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

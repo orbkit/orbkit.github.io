@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,26 +26,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="../index.html"/>
-        <link rel="up" title="Advanced Tutorials" href="index.html"/>
-        <link rel="next" title="Tutorial for Processing Multiple Input Files" href="multiple_files.html"/>
-        <link rel="prev" title="Tutorial for Atomic Population and Charge Analysis" href="atomic_populations.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial for Processing Multiple Input Files" href="multiple_files.html" />
+    <link rel="prev" title="Tutorial for Atomic Population and Charge Analysis" href="atomic_populations.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +81,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">General Aspects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
@@ -103,6 +103,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../detci/index.html">detCI&#64;ORBKIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrals/index.html">Analytical integrals with libcint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../refs/index.html">ORBKIT References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../literature/literature.html">Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence Note</a></li>
@@ -118,36 +119,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">Advanced Tutorials</a> &raquo;</li>
-      
-    <li>Tutorial for the Integration with Cubature</li>
+        
+      <li>Tutorial for the Integration with Cubature</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/adtutorials/cubature.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/adtutorials/cubature.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -170,19 +191,19 @@ molecular orbitals of the water molecule in a user-defined volume.</p>
 </tr>
 </tbody>
 </table>
-<p>For simplicity, we use the molden file <code class="docutils literal"><span class="pre">h2o.molden</span></code> as an example.
-This file can be found in <code class="docutils literal"><span class="pre">$ORBKITPATH/examples/basic_examples</span></code>. Moreover, we assume that
+<p>For simplicity, we use the molden file <code class="docutils literal notranslate"><span class="pre">h2o.molden</span></code> as an example.
+This file can be found in <code class="docutils literal notranslate"><span class="pre">$ORBKITPATH/examples/basic_examples</span></code>. Moreover, we assume that
 you have followed the <a class="reference internal" href="../install.html#installation-instructions"><span class="std std-ref">Installation Instructions</span></a> and that you have
 installed the Python interface to <a class="reference external" href="https://github.com/saullocastro/cubature">cubature</a>.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p class="last">This tutorial explains part of the example file
-<code class="docutils literal"><span class="pre">$ORBKITPATH/examples/basic_examples/interface_to_cubature.py</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">$ORBKITPATH/examples/basic_examples/interface_to_cubature.py</span></code>.</p>
 </div>
 <div class="section" id="initialization-of-the-program">
 <h2>Initialization of the Program<a class="headerlink" href="#initialization-of-the-program" title="Permalink to this headline">¶</a></h2>
 <p>First, we have to import some modules and set some of ORBKITs options:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">cubature</span> <span class="k">import</span> <span class="n">cubature</span>
 <span class="kn">import</span> <span class="nn">orbkit</span>
 
@@ -194,11 +215,11 @@ installed the Python interface to <a class="reference external" href="https://gi
 <span class="n">orbkit</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="n">numproc</span> <span class="o">=</span> <span class="mi">4</span>             <span class="c1">#: Specifies number of subprocesses.</span>
-<span class="n">slice_length</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e4</span>      <span class="c1">#: Specifies number of points per subprocess.</span>
+<span class="n">slice_length</span> <span class="o">=</span> <span class="mf">1e4</span>      <span class="c1">#: Specifies number of points per subprocess.</span>
 </pre></div>
 </div>
 <p>Then, we have to read the input file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Open molden file and read parameters</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open molden file and read parameters</span>
 <span class="n">qc</span> <span class="o">=</span> <span class="n">orbkit</span><span class="o">.</span><span class="n">main_read</span><span class="p">(</span><span class="s1">&#39;h2o.molden&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -206,11 +227,11 @@ installed the Python interface to <a class="reference external" href="https://gi
 <div class="section" id="setting-up-a-function-for-cubature">
 <h2>Setting up a Function for Cubature<a class="headerlink" href="#setting-up-a-function-for-cubature" title="Permalink to this headline">¶</a></h2>
 <p>Cubature requires a function with a special structure. It provides a 1d array
-for the grid which we have bring into ORBKIT&#8217;s shape. Then, we have to call
-ORBKIT&#8217;s main computational function <code class="docutils literal"><span class="pre">orbkit.rho_compute</span></code> with the respective
+for the grid which we have bring into ORBKIT’s shape. Then, we have to call
+ORBKIT’s main computational function <code class="docutils literal notranslate"><span class="pre">orbkit.rho_compute</span></code> with the respective
 options, i.e., in this example, computing the norm of all occupied
-molecular orbitals. Finally, we have to reshape ORBKIT&#8217;s output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+molecular orbitals. Finally, we have to reshape ORBKIT’s output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39;Calls orbkit.</span>
 
 <span class="sd">  **Parameters:**</span>
@@ -244,19 +265,19 @@ molecular orbitals. Finally, we have to reshape ORBKIT&#8217;s output:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We only consider the &#8220;vectorized&#8221; cubature which is much faster than the
+<p class="last">We only consider the “vectorized” cubature which is much faster than the
 single point cubature variant.</p>
 </div>
 </div>
 <div class="section" id="run-cubature">
 <h2>Run Cubature<a class="headerlink" href="#run-cubature" title="Permalink to this headline">¶</a></h2>
-<p>We integrate in each dimension from -5 to 5 <span class="math">\({\rm a}_0\)</span> until we reach a
+<p>We integrate in each dimension from -5 to 5 <span class="math notranslate nohighlight">\({\rm a}_0\)</span> until we reach a
 relative error of 1e-3 without considering the absolute error of the integral:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ndim</span> <span class="o">=</span> <span class="mi">3</span>                                      <span class="c1">#: Number of dimensions being integrated</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ndim</span> <span class="o">=</span> <span class="mi">3</span>                                      <span class="c1">#: Number of dimensions being integrated</span>
 <span class="n">xmin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span><span class="mf">5.</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c1">#: Minimum integration limit for each variable</span>
 <span class="n">xmax</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c1">#: Maximum integration limit for each variable</span>
 <span class="n">abserr</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1">#: Absolute error: |error| &lt; abserr (If zero, it will be ignored.)</span>
-<span class="n">relerr</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span> <span class="c1">#: Relative error: |error| &lt; relerr*|integral| (If zero, it will be ignored.)</span>
+<span class="n">relerr</span> <span class="o">=</span> <span class="mf">1e-3</span> <span class="c1">#: Relative error: |error| &lt; relerr*|integral| (If zero, it will be ignored.)</span>
 
 <span class="c1"># Call the cubature routine together with ORBKIT.</span>
 <span class="n">integral_mo</span><span class="p">,</span><span class="n">error_mo</span> <span class="o">=</span> <span class="n">cubature</span><span class="p">(</span><span class="n">ndim</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span>
@@ -266,7 +287,7 @@ relative error of 1e-3 without considering the absolute error of the integral:</
 </pre></div>
 </div>
 <p>Finally, we can print the output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integral of...&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integral of...&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">inte</span><span class="p">,</span><span class="n">err</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">integral_mo</span><span class="p">,</span><span class="n">error_mo</span><span class="p">)):</span>
   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">MO </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.14f</span><span class="s1">. (Error: </span><span class="si">%.4e</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">mo_spec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;sym&#39;</span><span class="p">],</span><span class="n">inte</span><span class="p">,</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
@@ -276,15 +297,16 @@ relative error of 1e-3 without considering the absolute error of the integral:</
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="multiple_files.html" class="btn btn-neutral float-right" title="Tutorial for Processing Multiple Input Files" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="multiple_files.html" class="btn btn-neutral float-right" title="Tutorial for Processing Multiple Input Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="atomic_populations.html" class="btn btn-neutral" title="Tutorial for Atomic Population and Charge Analysis" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="atomic_populations.html" class="btn btn-neutral" title="Tutorial for Atomic Population and Charge Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -293,11 +315,11 @@ relative error of 1e-3 without considering the absolute error of the integral:</
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -327,35 +349,24 @@ relative error of 1e-3 without considering the absolute error of the integral:</
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

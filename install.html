@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="_static/orbkit.ico"/>
   
+  
+  
 
   
 
@@ -24,25 +26,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="ORBKIT  documentation" href="index.html"/>
-        <link rel="next" title="General Aspects" href="general.html"/>
-        <link rel="prev" title="ORBKIT" href="index.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="General Aspects" href="general.html" />
+    <link rel="prev" title="ORBKIT" href="index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -83,7 +81,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#instructions">Instructions</a><ul>
@@ -100,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="adtutorials/index.html">Advanced Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="detci/index.html">detCI&#64;ORBKIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="refs/index.html">ORBKIT References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="literature/literature.html">Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence Note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impressum.html">Impressum - Legal Notice</a></li>
 </ul>
@@ -113,34 +115,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">ORBKIT</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ORBKIT</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Installation Instructions</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation Instructions</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/install.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -184,12 +206,12 @@ for the different platforms.</p>
 <div class="section" id="linux-and-mac-os-x">
 <h3><a class="toc-backref" href="#id4">Linux and Mac OS X</a><a class="headerlink" href="#linux-and-mac-os-x" title="Permalink to this headline">¶</a></h3>
 <p>The manual installation of ORBKIT is simple and can
-be carried out using <code class="docutils literal"><span class="pre">bash</span></code> as follows:</p>
+be carried out using <code class="docutils literal notranslate"><span class="pre">bash</span></code> as follows:</p>
 <p>Choose the directory, where you want to install ORBKIT. Open a terminal window,
-e.g. <code class="docutils literal"><span class="pre">gnome-terminal</span></code>, and navigate to this directory. In this example we
+e.g. <code class="docutils literal notranslate"><span class="pre">gnome-terminal</span></code>, and navigate to this directory. In this example we
 will use the home directory. If you use a different directory simply replace
-<code class="docutils literal"><span class="pre">$HOME</span></code> by your preferred folder throughout the whole section:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd $HOME
+<code class="docutils literal notranslate"><span class="pre">$HOME</span></code> by your preferred folder throughout the whole section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd $HOME
 </pre></div>
 </div>
 <p>Get a copy of ORBKIT, either with git or using a zip archive. It is strongly
@@ -199,14 +221,13 @@ bug fixes and features.</p>
 <div><ul>
 <li><p class="first">Using git:</p>
 <p>Clone the repository:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/orbkit/orbkit.git
-$ git checkout cython
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/orbkit/orbkit.git
 </pre></div>
 </div>
 </li>
 <li><p class="first"><strong>OR:</strong> Using a zip archive:</p>
 <p>Download the latest ORBKIT release and extract the file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ wget https://github.com/orbkit/orbkit/archive/cython.zip
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://github.com/orbkit/orbkit/archive/cython.zip
 $ unzip orbkit-cython.zip
 $ mv orbkit-cython orbkit
 </pre></div>
@@ -215,23 +236,23 @@ $ mv orbkit-cython orbkit
 </ul>
 </div></blockquote>
 <p>Set an environment variable to this directory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export ORBKITPATH=$HOME/orbkit
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export ORBKITPATH=$HOME/orbkit
 </pre></div>
 </div>
 <p>Now, you have to build to ORBKIT:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd $ORBKITPATH
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd $ORBKITPATH
 $ python setup.py build_ext --inplace clean
 </pre></div>
 </div>
-<p>In order to use ORBKIT, you have to add the ORBKIT directory to your <code class="docutils literal"><span class="pre">$PYTHONPATH</span></code>
+<p>In order to use ORBKIT, you have to add the ORBKIT directory to your <code class="docutils literal notranslate"><span class="pre">$PYTHONPATH</span></code>
 environment variable either temporarily by typing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PYTHONPATH=$PYHONPATH:$ORBKITPATH
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export PYTHONPATH=$PYHONPATH:$ORBKITPATH
 </pre></div>
 </div>
 <p>or permanently by adding these lines to your ~/.bashrc file.</p>
 <p>To use ORBKIT as a standalone program, you have to modify your
 $PATH variable in the same way:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PATH=$PATH:$ORBKITPATH/tools
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export PATH=$PATH:$ORBKITPATH/tools
 </pre></div>
 </div>
 <p>or permanently by adding these lines to your ~/.bashrc file.</p>
@@ -246,19 +267,19 @@ and the free version of the Python environment Entought Canopy
 from</p>
 <blockquote>
 <div><a class="reference external" href="https://github.com/orbkit/orbkit/archive/cython.zip">https://github.com/orbkit/orbkit/archive/cython.zip</a></div></blockquote>
-<p>In the following, we assume that ORBKIT can be found at <code class="docutils literal"><span class="pre">C:\orbkit</span></code></p>
+<p>In the following, we assume that ORBKIT can be found at <code class="docutils literal notranslate"><span class="pre">C:\orbkit</span></code></p>
 <p>Install Visual Studio 2015 including the Python-Tools for Visual Studio.
 After installing Canopy (and using it as your default Python environment),
 install the required Python packages using the graphical package manager.</p>
 <p>If you are using the 64-bit version of Canopy (Python), please start the
-<code class="docutils literal"><span class="pre">VS2013</span> <span class="pre">x64</span> <span class="pre">Native</span> <span class="pre">Tools</span> <span class="pre">Command</span> <span class="pre">Prompt</span></code>. For 32-bit, start the
-<code class="docutils literal"><span class="pre">VS2013</span> <span class="pre">x86</span> <span class="pre">Native</span> <span class="pre">Tools</span> <span class="pre">Command</span> <span class="pre">Prompt</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">VS2013</span> <span class="pre">x64</span> <span class="pre">Native</span> <span class="pre">Tools</span> <span class="pre">Command</span> <span class="pre">Prompt</span></code>. For 32-bit, start the
+<code class="docutils literal notranslate"><span class="pre">VS2013</span> <span class="pre">x86</span> <span class="pre">Native</span> <span class="pre">Tools</span> <span class="pre">Command</span> <span class="pre">Prompt</span></code>.</p>
 <p>Navigate to the ORBKIT folder:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">orbkit</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">orbkit</span>
 </pre></div>
 </div>
 <p>Set some environment variables and build ORBKIT:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">DISTUTILS_USE_SDK</span><span class="o">=</span><span class="mi">1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">DISTUTILS_USE_SDK</span><span class="o">=</span><span class="mi">1</span>
 <span class="o">&gt;</span> <span class="n">SET</span> <span class="n">MSSdk</span><span class="o">=</span><span class="mi">1</span>
 <span class="o">&gt;</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build_ext</span> <span class="o">--</span><span class="n">inplace</span> <span class="o">--</span><span class="n">compiler</span><span class="o">=</span><span class="n">msvc</span> <span class="n">clean</span>
 </pre></div>
@@ -270,15 +291,16 @@ install the required Python packages using the graphical package manager.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="general.html" class="btn btn-neutral float-right" title="General Aspects" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="general.html" class="btn btn-neutral float-right" title="General Aspects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="ORBKIT" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="ORBKIT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -287,11 +309,11 @@ install the required Python packages using the graphical package manager.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay.
+        &copy; Copyright 2018, Gunter Hermann, Vincent Pohl, Lukas Eugen Marsoner Steinkasserer, Axel Schild, and Jean Christophe Tremblay
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -321,35 +343,24 @@ install the required Python packages using the graphical package manager.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
